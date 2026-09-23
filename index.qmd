@@ -39,8 +39,9 @@ This app covers the eight lectures of STA520: from the biology (DNA, RNA, protei
 1. **Read a lecture.** Every topic section has a status control under its heading: **Not reviewed / Reviewed / Confident**. Click as you go.
 2. **Answer the quizzes** inside each lecture and the **why-questions** and **spaced review** at the bottom.
 3. **Start the [Exam practice](exam-practice.qmd) page with the instructor's 11 Lecture 7 example questions**, then practise calculations: drills that generate new numbers every time (Benjamini–Hochberg, Bonferroni, Hardy–Weinberg, OR from β, Wald ratio, IVW, log₂FC, quantile normalization, moderated t) plus 26 written exam-style questions with model answers.
-4. **Check the [dashboard](dashboard.qmd)** to see what is left, with the instructor-flagged topics listed first.
-5. Look up terms in the [glossary](glossary.qmd) or use **search** (top right). Searching "PCSK9" finds it in Lectures 1, 2, 3, 6 and 8.
+4. **Prepare for the computer exercises** with [Computer exercises: concepts](computer-exercises.qmd): QC, PLINK output, clumping, allele alignment and MR interpretation on made-up data.
+5. **Check the [dashboard](dashboard.qmd)** to see what is left, with the instructor-flagged topics listed first.
+6. Look up terms in the [glossary](glossary.qmd) or use **search** (top right). Searching "PCSK9" finds it in Lectures 1, 2, 3, 6 and 8.
 
 ## Exam flags
 

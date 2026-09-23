@@ -20,6 +20,8 @@ This page covers the data structures, the end-to-end pipeline, lead vs causal SN
 ## Sources and session
 **Slides:** "Lecture 5 GWAS and computer exercise 1.pdf".
 
+**Concepts behind the exercise:** see [Computer exercises: concepts](computer-exercises.qmd) for QC, reading PLINK output, clumping and allele alignment practised on made-up data.
+
 **Not covered here:** the exercise itself. `Computer exercise1.docx`, `jointGwasMc_LDL.txt` and `simulated_LDL.pheno` are lab materials not included in the source guide. Official PLINK 2.0 documentation: [cog-genomics.org/plink/2.0/resources](https://www.cog-genomics.org/plink/2.0/resources).
 
 **Rough plan:** Week 3, day 2. Computer exercise intro.
@@ -164,6 +166,8 @@ A "what could go wrong" checklist:
 | **Allele compatibility** | Is "A1" the same physical allele in both, or is the strand/labeling flipped? |
 | **Genome build** | Is everything on the same build: hg19/GRCh37 vs hg38/GRCh38? |
 | **Identifiers** | Working with **rsIDs** avoids many mismatches: they are stable across datasets |
+
+**Strands and palindromic SNPs** (from the computer exercises). DNA has two strands, and studies do not always report alleles on the same one: A/G in one file can appear as T/C (the complement) in another. For most SNPs this is easy to detect. For **palindromic** SNPs (A/T and C/G) the complement is the same pair, so a strand flip cannot be seen from the letters. They are resolved with allele frequencies when the frequency is clearly different from 0.5, and otherwise excluded. When the alleles are the same but swapped, the sign of β is flipped. Practise in the [computer exercise concepts](computer-exercises.qmd#allele-alignment) page.
 
 Two reminders: **statistical independence (low LD) ≠ biological causality**, and **the lead SNP is not necessarily causal**; one locus may represent several candidate variants or genes.
 

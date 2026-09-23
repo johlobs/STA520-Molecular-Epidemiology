@@ -32,6 +32,7 @@ website:
         contents:
           - dashboard.qmd
           - exam-practice.qmd
+          - computer-exercises.qmd
           - glossary.qmd
       - section: "Weeks 1–2: Biology and genetics"
         contents:

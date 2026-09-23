@@ -25,6 +25,8 @@ This page covers imputation and proxy SNPs, the Bradford Hill criteria, why gene
 ## Sources and session
 **Slides:** "Lecture 6 from GWAS to MR.pdf". No separate reading list.
 
+**Concepts behind computer exercise 2** (instrument selection, allele alignment, reading IVW/Egger/weighted median): see [Computer exercises: concepts](computer-exercises.qmd#part-c).
+
 **Computer exercise 2** (not in the source guide) used genotype data (`all_hg38_subset.pgen/.psam/.pvar/.snplist`) and a coronary artery disease summary file (`CAD_Summary_filtered.txt`).
 
 **Rough plan:** Week 3, day 1. From GWAS to Mendelian randomisation.

@@ -54,7 +54,7 @@ STA520 Molecular Epidemiology, 4 credits, Sahlgrenska Academy, University of Got
 These exist in the course but were **not available** when the study guide was written, so nothing here is built from them:
 
 - The full siNET article (Arvidsson et al., *Modern Pathology* 2018): more methodological detail for Lecture 7.
-- `Computer exercise1.docx` and `Computer exercise 2.docx`: the PLINK exercise instructions. Lectures 5–6 cover only the conceptual lecture content, not the hands-on steps.
+- Solutions to `Computer exercise1.docx` and `Computer exercise 2.docx`. These are deliberately **not** included: the [Computer exercises: concepts](computer-exercises.qmd) page teaches the ideas behind them on made-up and simulated data, without code or results for the course data.
 - Raw exercise data: `Lecture4_ex1.csv`, `jointGwasMc_LDL.txt`, `simulated_LDL.pheno`, `all_hg38_subset.*`, `CAD_Summary_filtered.txt`.
 - "STA520 Literature list.pdf" and "STA520 Syllabus.pdf" returned no extractable text (probably scanned), so only "STA520 Course Syllabus.docx" was used for the course context.
 - The assigned textbook was deliberately not reproduced (copyright).

@@ -1,0 +1,371 @@
+---
+title: "Computer exercises: concepts"
+subtitle: "The ideas behind computer exercises 1 and 2, practised on made-up and simulated data"
+engine: knitr
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+set.seed(520)
+```
+
+The two computer exercises turn Lectures 4–6 into a working pipeline. Exercise 1 goes from genotypes to a GWAS and then reduces many significant SNPs to a few independent signals, first with individual-level data and then with published summary statistics. Exercise 2 uses those independent signals as instruments in a Mendelian randomization of LDL-C on coronary artery disease.
+
+This page is **not a solution to the exercises**. It uses its own made-up tables and simulated data so you can practise the concepts and interpretations: what each QC filter does, how to read association output, how clumping works, how to align alleles between two files, and how to read IVW, MR-Egger and weighted median results. Then do the exercises yourself with the course data.
+
+::: {.callout-note collapse="true"}
+## What is and is not on this page
+**Included:** concepts, the logic of each step, interpretation, and practice on invented numbers (two drills generate new problems every time).
+
+**Not included:** code for the exercise tasks, results from the course data (chromosome 19, GLGC, CAD), or answers to the exercises' own questions. The theory behind the exercises' final questions is in the lecture sections linked below.
+:::
+
+## The workflow
+
+```
+Individual-level data (Exercise 1, part 1)
+  genotypes ─▶ QC ─▶ GWAS ─▶ significant SNPs ─▶ LD ─▶ independent signals
+
+Summary-level data (Exercise 1, part 2)
+  GWAS summary statistics + external genotype reference
+      ─▶ match variants and alleles ─▶ LD in the reference ─▶ independent signals
+
+Mendelian randomization (Exercise 2)
+  independent exposure SNPs ─▶ look up in outcome GWAS ─▶ align alleles
+      ─▶ Wald ratios ─▶ IVW + MR-Egger + weighted median ─▶ interpretation
+```
+
+| Step | Theory in the lectures |
+|---|---|
+| Allele frequency, MAF, per-allele β | [4.2](lecture4.qmd#t4-2), [4.4](lecture4.qmd#t4-4) |
+| Summary statistics columns | [4.6](lecture4.qmd#t4-6) |
+| Manhattan plot, 5×10⁻⁸ | [4.7](lecture4.qmd#t4-7) |
+| Lead SNP, locus, r² | [4.8](lecture4.qmd#t4-8), [5.3](lecture5.qmd#t5-3) |
+| LD clumping | [5.4b](lecture5.qmd#t5-4b) |
+| LD from summary statistics, reference panels | [5.5](lecture5.qmd#t5-5), [5.6](lecture5.qmd#t5-6) |
+| MR assumptions, IVW, Egger, weighted median | [6.5](lecture6.qmd#t6-5), [6.7](lecture6.qmd#t6-7), [6.8](lecture6.qmd#t6-8) |
+
+# Part A: from genotypes to independent signals
+
+## A1. PLINK 2 files and genotype QC
+
+PLINK 2 stores a genotype dataset as **three files with the same name**:
+
+| File | Contents |
+|---|---|
+| `.pgen` | The genotype matrix itself (every individual × every variant), in a compact binary format |
+| `.pvar` | One row per **variant**: chromosome, position, ID (rsID), reference and alternative allele. `.pvar.zst` is a compressed version (read with `vzs`) |
+| `.psam` | One row per **sample** (individual): IDs, sex and similar |
+
+**QC filters and why they are used**
+
+| PLINK flag | Keeps | Why |
+|---|---|---|
+| `--snps-only just-acgt` | Single-nucleotide variants with plain A/C/G/T alleles | Drops indels and odd allele codes that complicate matching between datasets |
+| `--min-alleles 2 --max-alleles 2` | **Biallelic** variants | The additive 0/1/2 model assumes exactly two alleles |
+| `--maf 0.01` | MAF ≥ 1% | Very rare variants give unstable estimates (A2 below) and are prone to genotyping error |
+| `--geno 0.02` | Variants with ≥ 98% of genotypes called | A variant that fails in many samples is technically unreliable (**per-variant** missingness) |
+| `--mind 0.02` | Individuals with ≥ 98% of genotypes called | A sample with many missing calls suggests poor DNA quality (**per-individual** missingness) |
+
+The same idea returns in proteomics QC ([8.6](lecture8.qmd#t8-6)): check both the **features** (variants, proteins) and the **samples** (people).
+
+:::: {.quiz}
+An invented QC log from a SNP-array study reads: 650,000 variants loaded; 4,000 removed as non-SNP or multiallelic; 21,000 removed by --maf 0.01; 900 removed by --geno; 240 of 3,000 people removed by --mind. What stands out?
+
+- The MAF filter removed most variants, so the panel is mostly rare
+- **An unusual share of people had many missing genotype calls**
+- Many variants failed to genotype in most of the samples
+- The array must be multiallelic, since many variants were removed
+
+::: {.exp}
+8% of the individuals (240 of 3,000) failed the per-individual call rate, far more than the few hundred variants removed by --geno would suggest. That points to sample problems (DNA quality, a bad plate or batch) worth investigating before the GWAS. Read your own exercise log the same way: which filter removed most, and does that make sense for this kind of data?
+:::
+::::
+
+## A2. Why rare variants are hard for single-SNP regression
+
+The standard error of the per-allele β shrinks with the number of carriers. For a continuous phenotype with residual SD $\sigma$ and $n$ people, approximately
+
+$$\text{SE}(\hat\beta) \approx \frac{\sigma}{\sqrt{2\,n\,\text{MAF}\,(1-\text{MAF})}}$$
+
+because the variance of the 0/1/2 dosage under HWE is $2\,\text{MAF}(1-\text{MAF})$. With MAF = 0.001 in 2,500 people you expect only about 5 carriers, so β rests on a handful of people: huge SE, low power, and sensitivity to a single genotyping error.
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 3.3
+#| fig-cap: "Approximate SE of β (phenotype SD = 1) against MAF, for 2,500 and 100,000 people. SE explodes as MAF approaches zero; the dashed line marks MAF = 0.01."
+maf <- 10^seq(-3.3, log10(0.5), length.out = 200)
+se <- rbind(
+  data.frame(maf = maf, se = 1 / sqrt(2 * 2500 * maf * (1 - maf)), n = "n = 2,500"),
+  data.frame(maf = maf, se = 1 / sqrt(2 * 1e5 * maf * (1 - maf)), n = "n = 100,000")
+)
+ggplot(se, aes(maf, se, colour = n)) +
+  geom_line(linewidth = 1.1) +
+  geom_vline(xintercept = 0.01, linetype = "dashed", colour = "grey40") +
+  scale_x_log10(breaks = c(0.001, 0.01, 0.1, 0.5), labels = c("0.001", "0.01", "0.1", "0.5")) +
+  scale_colour_manual(values = c("#d9480f", "#2f5d8a"), name = NULL) +
+  labs(x = "MAF (log scale)", y = "SE of β (SD units)") +
+  theme_minimal(base_size = 12) + theme(legend.position = "top")
+```
+
+## A3. Reading association output
+
+A PLINK `--glm` linear regression file has one row per variant and test. Invented example:
+
+```
+#CHROM  POS       ID          REF  ALT  A1  TEST  OBS_CT  BETA     SE       T_STAT   P
+19      11100000  rs1000001   G    A    A   ADD   2450    -0.312   0.041    -7.61    3.9e-14
+19      11100000  rs1000001   G    A    A   AGE   2450     0.021   0.004     5.25    1.6e-07
+19      44900000  rs1000002   C    T    T   ADD   2450     0.205   0.035     5.86    5.3e-09
+```
+
+| Column | Meaning |
+|---|---|
+| `A1` | The allele **β refers to** (counted 0/1/2) |
+| `TEST` | `ADD` = the additive genotype effect; other rows are covariates (hidden with `hide-covar`) |
+| `OBS_CT` | Number of people in the model |
+| `BETA`, `SE`, `T_STAT`, `P` | Per-A1-allele effect, its standard error, t = β/SE, p-value |
+
+:::: {.quiz}
+In the invented output above, how do you read the ADD row for rs1000001?
+
+- Each G allele lowers the phenotype by 0.312 units
+- **Each A allele lowers the phenotype by 0.312 units**
+- The A allele explains 31.2% of the phenotype variance
+- Age lowers the phenotype by 0.312 units per year
+
+::: {.exp}
+β is per copy of A1, here A. The AGE row is a covariate. β says nothing about variance explained.
+:::
+::::
+
+## A4. Significant SNP, lead SNP, independent signal
+
+| Term | What it is |
+|---|---|
+| **Significant SNP** | Any SNP with p below the threshold (e.g. 5×10⁻⁸). Many can come from one causal variant |
+| **Lead SNP** | The strongest (smallest p) SNP in a region; the representative of a peak |
+| **Independent signal** | What is left after clumping: lead SNPs with r² below the threshold (e.g. < 0.01) to each other |
+| **Causal SNP** | The variant that actually changes biology. It may be a lead SNP, a SNP in LD with it, or not genotyped at all |
+
+**Does distance predict LD?** Only roughly. LD tends to decay with distance, but recombination hotspots, allele frequencies and population history make the relationship very noisy. Always compute r².
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 3.3
+#| fig-cap: "Simulated r² with a lead SNP against distance. LD decays on average, but some nearby SNPs have r² ≈ 0 (different allele frequencies, a recombination hotspot) and some distant ones remain correlated."
+d <- runif(400, -500, 500)
+base <- 0.9 * exp(-abs(d) / 60)
+hot <- ifelse(d > 40 & d < 500, 0.15, 1)
+r2 <- pmin(1, pmax(0, base * hot * runif(400, 0, 1.2) + rexp(400, 60)))
+r2[sample(which(abs(d) < 50), 12)] <- runif(12, 0, 0.02)
+ggplot(data.frame(d, r2), aes(d, r2)) +
+  geom_point(alpha = 0.55, colour = "#2f5d8a") +
+  geom_hline(yintercept = c(0.01, 0.8), linetype = c("dashed", "dotted"), colour = c("#d9480f", "grey40")) +
+  annotate("label", x = -500, y = 0.12, label = "dashed: r² = 0.01", hjust = 0, colour = "#d9480f", size = 3.3, label.size = 0) +
+  labs(x = "Distance from lead SNP (kb)", y = "r² with lead SNP") +
+  theme_minimal(base_size = 12)
+```
+
+## A5. Manual LD clumping
+
+The algorithm used in the exercises:
+
+1. Among the remaining significant SNPs, pick the **smallest p-value** as a lead SNP.
+2. Compute r² between it and every other remaining significant SNP.
+3. **Remove** all SNPs with r² ≥ 0.01 (they are "the same signal").
+4. Keep the lead as one signal and repeat from step 1 until nothing is left.
+
+Practise on invented tables. The drill gives a new table each time.
+
+<div class="drill" data-drill="clump"></div>
+
+<div class="drill" data-drill="clump"></div>
+
+::: {.callout-tip collapse="true"}
+## Common mistakes in clumping
+- Starting from a SNP that is not the strongest remaining one.
+- Comparing with SNPs that have already been removed.
+- Using a threshold in the wrong direction (remove r² **≥** 0.01, keep r² < 0.01).
+- Concluding that the lead SNPs are causal. They are the strongest *statistical* signals. A simulated phenotype, where the causal SNPs are known, is exactly the situation where you can check this.
+:::
+
+# Part B: summary statistics and a reference panel
+
+## B1. Why an external reference is needed
+
+Summary statistics have one row per SNP and **no individual genotypes**, so the correlation between two SNPs (LD) cannot be computed from them. You need a **reference panel** with individual-level genotypes, e.g. 1000 Genomes, from a population with **matching ancestry**, because LD patterns differ between populations. [→ 5.5](lecture5.qmd#t5-5)
+
+Things that go wrong when matching the two:
+
+| Problem | Why it happens | Handling |
+|---|---|---|
+| SNP missing from the reference | Rare in that population, not in the panel, filtered by QC, or a different ID | Accept the loss, or use a proxy SNP ([6.1](lecture6.qmd#t6-1)) |
+| Different genome builds | Positions differ between hg19/GRCh37 and hg38/GRCh38 | Match on **rsID**, which does not depend on the build |
+| Different allele coding | Effect allele differs, or the other DNA strand is reported | Align alleles (B2) |
+
+## B2. Allele alignment {#allele-alignment}
+
+Before combining two files (GWAS + reference, or exposure + outcome in MR) every SNP must refer to the **same effect allele**.
+
+| Exposure alleles (effect/other) | Outcome alleles (effect/other) | Case | Action |
+|---|---|---|---|
+| A / G | A / G | Same | Keep β |
+| A / G | G / A | Swapped | **Flip the sign** of the outcome β (and use 1 − EAF) |
+| A / G | T / C | Other strand (complement) | Complement → A/G: keep β |
+| A / G | C / T | Other strand and swapped | Complement → G/A: flip the sign |
+| A / G | A / C | Incompatible | Exclude |
+| A / T or C / G | same letters | **Palindromic**: the complement is the same pair, so strand is invisible | Use EAF: if clearly far from 0.5, compare EAFs to decide; if close to 0.5, **exclude** |
+
+<div class="drill" data-drill="allele"></div>
+
+<div class="drill" data-drill="allele"></div>
+
+:::: {.quiz}
+Why are palindromic SNPs (A/T, C/G) a special problem when combining datasets?
+
+- They are always multiallelic and fail QC
+- **Their complement is the same allele pair, hiding strand flips**
+- They cannot be tested with the additive model
+- They never reach genome-wide significance
+
+::: {.exp}
+For A/G you can spot a strand flip because the other strand reads T/C. For A/T the other strand also reads A/T (T/A), so a flip is invisible from the letters. Allele frequencies can resolve it only when the EAF is clearly different from 0.5.
+:::
+::::
+
+# Part C: from independent signals to Mendelian randomization {#part-c}
+
+## C1. The MR pipeline in Exercise 2, as concepts
+
+| Step | Why | Theory |
+|---|---|---|
+| Keep exposure SNPs with p < 5×10⁻⁸ | **Relevance**: instruments must be strongly associated with the exposure | [6.5](lecture6.qmd#t6-5) |
+| Restrict to SNPs present in the reference panel | LD can only be computed for SNPs that exist there | [5.5](lecture5.qmd#t5-5) |
+| Keep IDs that start with "rs" | Stable identifiers for matching across files and builds | [3.3c](lecture3.qmd#t3-3c) |
+| LD clumping at r² < 0.01 | Instruments must be **independent**, or the same signal is counted several times | [5.4b](lecture5.qmd#t5-4b) |
+| Look up the lead SNPs in the outcome GWAS | Need β<sub>outcome</sub> for each instrument; missing SNPs are lost (or replaced by proxies) | [6.1](lecture6.qmd#t6-1) |
+| Align alleles | β<sub>exposure</sub> and β<sub>outcome</sub> must refer to the same allele | B2 above |
+| Wald ratio per SNP; IVW, MR-Egger, weighted median | Estimate and check robustness | [6.7](lecture6.qmd#t6-7), [6.8](lecture6.qmd#t6-8) |
+
+A common convention is to orient every SNP so that the effect allele **raises the exposure** (β<sub>exposure</sub> > 0), flipping both betas when needed. The MR scatter plot then lies in the right half.
+
+## C2. Reading an MR analysis: a simulated example
+
+Simulated data, not the course data: 30 independent instruments with a true causal effect of 0.5 (log-odds of the outcome per unit exposure). Four instruments also have a **direct** effect on the outcome (horizontal pleiotropy).
+
+```{r}
+#| echo: false
+n_snp <- 30
+bx <- runif(n_snp, 0.03, 0.20)
+se_y <- runif(n_snp, 0.008, 0.02)
+pleio <- seq_len(n_snp) %in% sample(n_snp, 4)
+by <- 0.5 * bx + ifelse(pleio, 0.05, 0) + rnorm(n_snp, 0, se_y)
+w <- 1 / se_y^2
+
+ivw_fit <- lm(by ~ 0 + bx, weights = w)
+egger_fit <- lm(by ~ bx, weights = w)
+
+ratio <- by / bx
+ratio_se <- se_y / abs(bx)
+wm_w <- 1 / ratio_se^2
+o <- order(ratio)
+cw <- (cumsum(wm_w[o]) - 0.5 * wm_w[o]) / sum(wm_w)
+wm <- approx(cw, ratio[o], xout = 0.5)$y
+
+eg <- summary(egger_fit)$coefficients
+res <- data.frame(
+  Method = c("IVW", "MR-Egger (slope)", "MR-Egger (intercept)", "Weighted median"),
+  Estimate = c(coef(ivw_fit)[1], eg[2, 1], eg[1, 1], wm),
+  p = c(summary(ivw_fit)$coefficients[1, 4], eg[2, 4], eg[1, 4], NA)
+)
+```
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 4.2
+#| fig-cap: "Simulated MR scatter. Orange points are the four pleiotropic instruments. IVW (green) is forced through the origin; MR-Egger (orange, dashed) has a free intercept; the dotted line shows the true effect 0.5."
+dd <- data.frame(bx, by, se_y, type = ifelse(pleio, "pleiotropic", "valid"))
+ggplot(dd, aes(bx, by)) +
+  geom_errorbar(aes(ymin = by - se_y, ymax = by + se_y), width = 0.002, colour = "grey60") +
+  geom_point(aes(colour = type), size = 2.6) +
+  geom_abline(intercept = 0, slope = 0.5, linetype = "dotted", colour = "grey30") +
+  geom_abline(intercept = 0, slope = coef(ivw_fit)[1], colour = "#2f9e44", linewidth = 1) +
+  geom_abline(intercept = eg[1, 1], slope = eg[2, 1], colour = "#d9480f", linewidth = 1, linetype = "dashed") +
+  scale_colour_manual(values = c(pleiotropic = "#d9480f", valid = "#2f5d8a"), name = NULL) +
+  expand_limits(x = 0, y = 0) +
+  labs(x = "β SNP → exposure", y = "β SNP → outcome (log-odds)") +
+  theme_minimal(base_size = 12) + theme(legend.position = "top")
+```
+
+```{r}
+#| echo: false
+knitr::kable(transform(res, Estimate = round(Estimate, 3),
+                       p = ifelse(is.na(p), "n/a", format.pval(p, digits = 2))),
+             col.names = c("Method", "Estimate", "p-value"),
+             caption = "MR estimates for the simulated data (true causal effect = 0.5)")
+```
+
+**How to read it**
+
+- **IVW** uses all instruments and assumes they are all valid. With positive pleiotropy in a few SNPs it is pulled **upward**.
+- **Weighted median** is robust as long as at least ~50% of the weight comes from valid instruments. Here it should be closer to 0.5.
+- **MR-Egger**'s intercept estimates the average pleiotropic effect. Here it is clearly non-zero, signalling **directional** pleiotropy. The Egger slope is meant to be the pleiotropy-adjusted estimate, but in this simulation it lands well *below* the truth: with only four pleiotropic SNPs among 30, the free intercept over-corrects. Egger is imprecise and relies on its own assumption (InSIDE), so treat its slope as a sensitivity check, not the answer.
+- **Agreement** in direction across the three methods supports a causal effect; the size of the estimates should be interpreted with the exposure unit in mind ([6.9](lecture6.qmd#t6-9)).
+
+:::: {.quiz}
+An MR analysis gives IVW β = 0.42 (p = 10⁻¹²), weighted median β = 0.39 (p = 10⁻⁶), MR-Egger slope 0.35 (p = 0.03) with intercept 0.002 (p = 0.61). How do you summarize it?
+
+- **Consistent evidence of a positive effect, no sign of directional pleiotropy**
+- The Egger intercept shows strong pleiotropy, so IVW is invalid
+- The methods disagree in direction, so no conclusion is possible
+- The effect is negative, since Egger's slope is smaller than IVW
+
+::: {.exp}
+All three estimates are positive and similar, and the Egger intercept is close to zero and non-significant. That is the triangulation pattern that strengthens a causal interpretation. The Egger p-value is larger simply because Egger is less precise.
+:::
+::::
+
+:::: {.quiz}
+IVW β = 0.60 (p = 10⁻⁸) but weighted median β = 0.05 (p = 0.7) and MR-Egger intercept = 0.03 (p = 0.002). What is the most plausible reading?
+
+- A strong and robust causal effect, since IVW is the main method
+- **IVW is probably driven by pleiotropic instruments; be cautious**
+- The weighted median is wrong because its p-value is not significant
+- Egger's intercept confirms that the instruments are all valid
+
+::: {.exp}
+The robust method (weighted median) finds almost nothing, and the Egger intercept indicates directional pleiotropy. IVW, which assumes all instruments are valid, is then likely biased. Look for outlying instruments and do not claim causality from IVW alone.
+:::
+::::
+
+:::: {.quiz}
+After aligning alleles you forget to flip β<sub>outcome</sub> for five instruments whose effect alleles were swapped. What happens to the MR scatter plot?
+
+- Nothing, because IVW only uses β<sub>exposure</sub>
+- **Those five points land on the wrong side of the line**
+- All points move closer to the origin by the same amount
+- The Wald ratios of those five SNPs become exactly zero
+
+::: {.exp}
+A swapped allele gives the outcome β the wrong sign, so those SNPs point in the opposite direction from the rest. They pull IVW toward zero and can create a spurious Egger intercept. This is why allele alignment comes before any MR estimate.
+:::
+::::
+
+# Concept questions to prepare with
+
+The exercises end with concept questions. The theory behind them is in these sections; try explaining each in your own words before you look:
+
+| Concept | Where |
+|---|---|
+| One signal gives many significant SNPs | [4.8](lecture4.qmd#t4-8), [5.3](lecture5.qmd#t5-3) |
+| Significant SNP vs lead SNP vs independent signal | A4 above, [4.10](lecture4.qmd#t4-10) |
+| Lead SNP vs causal SNP | [5.3](lecture5.qmd#t5-3), [5.4](lecture5.qmd#t5-4) |
+| LD cannot come from summary statistics alone | [5.5](lecture5.qmd#t5-5) |
+| Ancestry of the reference panel | [5.4b](lecture5.qmd#t5-4b), [5.5](lecture5.qmd#t5-5) |
+| Allele compatibility | B2 above, [5.6](lecture5.qmd#t5-6) |
+| Clumping before MR | [5.4b](lecture5.qmd#t5-4b), [6.5](lecture6.qmd#t6-5) |
