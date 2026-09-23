@@ -252,6 +252,9 @@ MR-Egger
 mRNA / rRNA / tRNA
 : Messenger RNA carries the code; ribosomal RNA builds ribosomes; transfer RNA brings amino acids. [L2 §2.1](lecture2.qmd#t2-1)
 
+Mutation
+: A change in the DNA sequence (L2's definition). Point mutations (silent, missense, nonsense), indels (frameshift, in-frame) and chromosomal alterations; germline or somatic; gain or loss of function. In practice largely interchangeable with *variant*, which is the more neutral term. [L2 §2.4](lecture2.qmd#t2-4) · [L2 §2.4b](lecture2.qmd#t2-4b) · [L3 §3.3](lecture3.qmd#t3-3) · [L3 §3.4](lecture3.qmd#t3-4)
+
 Multiple testing
 : Many tests at α = 0.05 give many false positives (955 × 0.05 ≈ 48; 1,000,000 × 0.05 = 50,000). [L7 §7.10](lecture7.qmd#t7-10) · [L4 §4.7](lecture4.qmd#t4-7)
 
@@ -369,6 +372,9 @@ Troponin
 
 VAF (variant allele frequency)
 : Fraction of reads/cells in one patient's sample carrying a mutation. [L3 §3.4](lecture3.qmd#t3-4)
+
+Variant (genetic variant)
+: Any place where a person's DNA sequence differs from the reference genome (or from other people). The neutral umbrella term: it covers SNVs/SNPs, small insertions and deletions (indels) and larger structural changes, whether common or rare, harmful or harmless. It is the word used in HGVS notation, dbSNP (rs numbers), GWAS and MR ("genetic variant as instrument"). *Mutation* usually stresses the change event or a rare, often disease-related change; *polymorphism* (the P in SNP) a variant that is common in the population. [L2 §2.4](lecture2.qmd#t2-4) · [L3 §3.3b](lecture3.qmd#t3-3b) · [L3 §3.3c](lecture3.qmd#t3-3c) · [L4 §4.2](lecture4.qmd#t4-2) · [L6 §6.3](lecture6.qmd#t6-3)
 
 Vertical pleiotropy
 : The variant affects the outcome through the exposure itself; not a problem for MR. [L6 §6.6](lecture6.qmd#t6-6)
