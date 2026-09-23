@@ -1,0 +1,21 @@
+---
+title: "Exam-prep dashboard"
+subtitle: "Your review status across all eight lectures"
+toc: false
+---
+
+Every topic section in the lectures has a status control under its heading: **Not reviewed**, **Reviewed** or **Confident**. This page adds them up. The status is stored in this browser (localStorage), so it stays when you close the tab but not if you switch device or clear site data. Use *Export progress* below to keep a backup.
+
+::: {.callout-note collapse="true"}
+## How the two exam flags differ
+<span class="flag-badge flag-instructor">🎯 Instructor-flagged EXAM</span> The slide carried the literal text "EXAM" from the instructor. This only happens in Lecture 7, and the course's reading guide confirms: *"The slides with information that we will be testing on the exam are marked with a small text 'EXAM.'"*
+
+<span class="flag-badge flag-inferred">📌 Likely exam-relevant (AI-inferred)</span> An inference from what the slides present as a definition, formula, worked numerical example or something repeated across lectures. **Not confirmed by the instructor.**
+:::
+
+::: {#sta520-dashboard}
+:::
+
+```{=html}
+<noscript>The dashboard needs JavaScript.</noscript>
+```

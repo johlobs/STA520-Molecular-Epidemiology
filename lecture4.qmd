@@ -1,0 +1,528 @@
+---
+title: "Lecture 4 — From SNP to GWAS"
+subtitle: "Allele frequency and MAF · additive model · β, SE, OR · covariates · summary statistics · 5×10⁻⁸ · Manhattan and QQ plots · population structure · loci and QTLs"
+engine: knitr
+---
+
+```{=html}
+<script>document.body.classList.add("block-gwas");</script>
+```
+
+```{r}
+#| include: false
+library(ggplot2)
+set.seed(520)
+```
+
+A genome-wide association study (GWAS) is one simple regression repeated about a million times. For each SNP you count how many copies of one allele each person carries (0, 1 or 2), regress the phenotype on that count, and record the effect size, its standard error and a p-value. That is the whole method; everything else in this lecture is about doing it carefully and reading the output correctly.
+
+For example, if each copy of an allele raises LDL cholesterol by 0.2 mmol/L on average, the regression slope is 0.2. For a disease outcome you use logistic regression instead, and the slope becomes a log odds ratio.
+
+The intuition to hold on to: genetic effects are usually **small** compared with everything else that varies between people, but with enough people you can still detect them. Testing a million SNPs at once also means you need a much stricter p-value threshold, and a significant SNP tells you *where* to look, not *what* is causal.
+
+This page covers allele and genotype frequencies, the additive model for continuous and binary outcomes, covariates, GWAS summary statistics, multiple testing, Manhattan and QQ plots, why hits come in clusters, population structure and the step from a hit to biology. **This lecture is calculation-heavy: be able to redo every worked example with new numbers.**
+
+::: {.callout-note collapse="true"}
+## Sources and session
+**Slides:** "Lecture 4 from SNP to GWAS.pdf". Remember that "Lecture 3_genetics.pdf" (Mendel, LD, SNP arrays, HWE) was presented at the start of this same session as a recap.
+
+**Assigned reading:** Uffelmann E, Huang QQ, Munung NS, et al. *Genome-wide association studies.* Nature Reviews Methods Primers 2021;1:59. The most directly relevant academic reading for Lectures 4–6.
+
+**Exercise data mentioned** (not needed here): `Lecture4_ex1.csv` and `jointGwasMc_LDL.txt`, a real LDL-C GWAS summary statistics file (~200 MB), reused in Lecture 5.
+
+**Rough plan:** Week 2, day 2. From SNP to GWAS.
+:::
+
+::: {.callout-important}
+## No instructor EXAM tags in this lecture
+None of the Lecture 4 slides carry the "EXAM" marker. The 📌 flags below are inferred: the lecture is built around worked calculations (MAF → genotype frequencies, log β → OR, allele frequency → genotype frequency for rs11591147), so being able to redo them with other numbers is high-priority prep.
+:::
+
+## 4.1 Genotype → phenotype, and why association is not causation {#t4-1 .topic}
+
+DNA variation can plausibly **cause** a phenotype (disease status, a biomarker level). The reverse is logically impossible: a phenotype or disease **cannot change your inherited DNA sequence**, which was fixed at conception, long before any adult disease.
+
+This directional certainty is exactly why genetic variants are useful for causal inference (Mendelian randomization, Lecture 6). But finding a variant *associated* with a phenotype is still only an association: **confounding, chance and linkage** can all produce a spurious-looking association, so causality still has to be investigated.
+
+## 4.2 SNPs, alleles, MAF and genotype frequencies {#t4-2 .topic flag="inferred"}
+
+At a given position, the nucleotide is sometimes A and sometimes C across people: a **SNP**. You can refer to it by base-pair position or by its rs number. The two possible nucleotides are its **alleles**.
+
+**MAF (minor allele frequency)** is the frequency of the *less common* allele. By convention the minor allele is often called "the mutant", but that is a labeling choice: the rarer allele is not necessarily the harmful one.
+
+With C as reference, each person carries 0, 1 or 2 copies of the non-reference allele A:
+
+| Genotype | Copies of A | |
+|---|---|---|
+| CC | 0 | homozygous reference |
+| CA | 1 | heterozygous |
+| AA | 2 | homozygous |
+
+::: {.callout-warning}
+## Always know which allele is the reference
+Flipping the reference allele flips the sign of every downstream effect estimate.
+:::
+
+::: {.worked}
+**Worked example: MAF → genotype frequencies** (the HWE calculation from Lecture 3 applied). MAF = 10%: $P(A) = 0.1$, $P(C) = 0.9$.
+
+| Genotype | Probability | Frequency | Out of 10,000 people |
+|---|---|---|---|
+| CC | $0.9 \times 0.9$ | **0.81** | ≈ 8,100 |
+| AC | $0.9 \times 0.1 + 0.1 \times 0.9$ | **0.18** | ≈ 1,800 |
+| AA | $0.1 \times 0.1$ | **0.01** | ≈ 100 |
+:::
+
+The homozygous-minor group is always the rarest when MAF is low, since its probability is MAF², which shrinks fast.
+
+::: {.worked}
+**Worked example: how a genetic effect shows up among cases.** Same population. The minor allele **doubles** the risk of disease Y per copy; baseline risk in CC is 5%.
+
+| Genotype | People | Risk | Diseased | Share of all diseased |
+|---|---|---|---|---|
+| CC | 8,100 | 5% | ≈ 405 | 67% |
+| AC | 1,800 | 10% (×2) | ≈ 180 | 30% |
+| AA | 100 | 20% (×4) | ≈ 20 | 3.3% |
+| **Total** | 10,000 | | ≈ 605 | 100% |
+
+Frequency of allele A among the diseased: $(180 + 2 \times 20)/(2 \times 605) \approx 18\%$, compared with 10% in the population.
+:::
+
+**Key takeaway:** among people with the disease, the risk allele is **enriched** relative to the general population. That case–control asymmetry is exactly the signal a GWAS detects.
+
+:::: {.quiz}
+A SNP has MAF = 0.2. Under Hardy–Weinberg, how many of 5,000 people do you expect to be homozygous for the minor allele?
+
+- 1,000
+- 800
+- **200**
+- 40
+
+::: {.exp}
+P(minor homozygote) = MAF² = 0.2² = 0.04, and 0.04 × 5,000 = 200. For comparison, heterozygotes are 2 × 0.2 × 0.8 = 0.32, i.e. 1,600 people, and 1,000 is MAF × 5,000, which is not a genotype count.
+:::
+::::
+
+## 4.3 Phenotype types and the per-allele effect {#t4-3 .topic flag="inferred"}
+
+| Phenotype | Examples | Model |
+|---|---|---|
+| **Continuous** | Blood pressure, protein concentration, cholesterol, liver fat | Linear regression |
+| **Binary** | MI yes/no, lung cancer yes/no, disease yes/no | Logistic regression |
+
+**Per-allele effect.** In a large population, group people by how many copies of an allele they carry (0/1/2) and compare the phenotype across groups. Background assumption: other factors that affect the phenotype (lifestyle, etc.) are **randomly distributed with respect to genotype**. If that fails, you have confounding.
+
+**Real example: PNPLA3 rs738409 (I148M) and liver fat.** Found in 2009, linked to increased liver fat, roughly **4–5% higher liver fat per copy** of the risk allele.
+
+**Continuous outcome, linear regression**
+
+$$y_i = \beta_0 + \beta_1 \times \text{allele}_i + \varepsilon_i$$
+
+For each extra copy of the effect allele, the phenotype changes by $\beta_1$ units on average.
+
+::: {.worked}
+**Worked example: log-scale β.** PNPLA3 rs738409, C→G, "per G allele" $\beta = 0.08$ in $\log_{10}$(liver fat).
+
+| Genotype | Log scale | Back-transformed | Interpretation |
+|---|---|---|---|
+| CG (1 copy) | $0.08$ | $10^{0.08} \approx 1.20$ | ≈ 20% higher liver fat |
+| GG (2 copies) | $0.16$ | $10^{0.16} = 1.2^2 \approx 1.45$ | ≈ 45% higher liver fat |
+:::
+
+On a log scale, effects **combine multiplicatively** on the original scale: two copies do not double the percentage, they square the factor.
+
+**Binary outcome, logistic regression**
+
+$$\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{allele}$$
+
+Same per-allele interpretation, on the log-odds scale.
+
+::: {.worked}
+**Worked example: log-odds β → OR.** rs7412, C→T, "per T allele" $\beta = -0.16$.
+
+| Genotype | Log-odds | Odds ratio |
+|---|---|---|
+| CT (1 copy) | $-0.16$ | $e^{-0.16} \approx \mathbf{0.85}$ |
+| TT (2 copies) | $-0.32$ | $e^{-0.32} \approx \mathbf{0.73}$ |
+:::
+
+::: {.callout-warning}
+## Still not causal
+Even with a precise OR, you have **not** shown causality, mechanism or function, only a statistical association.
+:::
+
+:::: {.quiz}
+A GWAS reports β = 0.10 (log-odds) per effect allele for a disease. What is the odds ratio for people carrying two copies compared with zero copies?
+
+- 1.10
+- **1.22**
+- 1.20
+- 0.20
+
+::: {.exp}
+Two copies → 2 × 0.10 = 0.20 on the log-odds scale → OR = e^0.20 ≈ 1.22 (= 1.105²). The per-allele OR is e^0.10 ≈ 1.105.
+:::
+::::
+
+## 4.4 The additive model: β, SE and p {#t4-4 .topic flag="inferred"}
+
+**The additive model** (used for both phenotype types): compare the phenotype across the 0/1/2 groups, with each extra copy one unit of **genotype dosage** (the X variable).
+
+::: {.worked}
+| | Continuous (linear) | Binary (logistic) |
+|---|---|---|
+| **β** | Mean phenotype difference per extra allele (e.g. +0.2 mmol/L LDL-C, −1.9 mmHg) | Log-odds per allele; **OR = exp(β)** (β = −0.16 → OR = 0.85) |
+| **SE** | Precision of β; depends on **sample size, allele frequency and phenotype variability** | Same dependencies |
+| **p-value** | Evidence against $H_0: \beta = 0$ | Evidence against $H_0: \beta = 0$, i.e. OR = 1.00 |
+:::
+
+**"Worth noting" 1: genetic effects are small.** The spread of phenotype values *within* each dosage group (from all the non-genetic factors) is usually much larger than the *difference between* group means. With a large enough sample you still detect the signal. GWAS is **not** about finding "the one cause"; hits are **clues** pointing to proteins involved in physiology or disease.
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 3.4
+#| fig-cap: "Simulated LDL-C by genotype dosage with a true effect of +0.2 mmol/L per allele. The group means (red) differ, but the spread within each group is far larger."
+n <- 3000
+dosage <- rbinom(n, 2, 0.3)
+ldl <- 3.2 + 0.2 * dosage + rnorm(n, 0, 0.9)
+d <- data.frame(dosage = factor(dosage), ldl = ldl)
+means <- aggregate(ldl ~ dosage, d, mean)
+ggplot(d, aes(dosage, ldl)) +
+  geom_jitter(width = 0.25, alpha = 0.15, size = 0.8) +
+  geom_boxplot(width = 0.35, outlier.shape = NA, fill = NA) +
+  geom_point(data = means, colour = "#d9480f", size = 3) +
+  geom_line(data = means, aes(group = 1), colour = "#d9480f", linewidth = 1) +
+  labs(x = "Copies of effect allele (dosage)", y = "LDL-C (mmol/L)") +
+  theme_minimal(base_size = 12)
+```
+
+**"Worth noting" 2: additive, dominant and recessive describe the genotype–phenotype relationship, not the allele.** The same allele can act dominant for one phenotype and recessive for another. Most GWAS use **additive** models because they test many SNPs at once and the additive model is the simplest, most tractable default that works reasonably across all of them. Dominant/recessive models are more useful when studying **one specific SNP or gene** in depth.
+
+## 4.5 Covariates {#t4-5 .topic flag="inferred"}
+
+$$y = \beta_0 + \beta_1 G + \beta_2 X_1 + \dots + \beta_n X_{n-1} + \varepsilon$$
+
+$G$ is genotype dosage; the $X$s are covariates such as **age, sex, BMI and genetic principal components (PC1, PC2, …)**.
+
+**Why covariates are needed**
+
+- **Population structure.** Allele frequency can differ between subpopulations, and the phenotype can also differ between them. Without adjustment you get a spurious SNP–phenotype association driven by structure, not biology (Section 4.9). The **genetic principal components** capture this.
+- **Age, sex (and BMI).** Often strong direct determinants of the phenotype. Adjusting removes their influence and reduces residual noise/confounding.
+- **Technical variables.** Genotyping batch, study center, or the batch/method used to measure the phenotype.
+
+::: {.callout-warning}
+## β is conditional on the covariates
+The same SNP can have a somewhat different β in two studies that adjusted for different covariates. When comparing effect estimates across papers, check what was adjusted for.
+:::
+
+## 4.6 The GWAS scan and summary statistics {#t4-6 .topic flag="inferred"}
+
+**GWAS** = repeat the single-SNP regression separately for about **1,000,000 SNPs**, one model per SNP, each adjusted, giving β, SE and p for every SNP. Conceptually simple but **computationally heavy**. Software: **PLINK** and **regenie**.
+
+Practical notes: **HG18 and HG19** are older reference genome versions (compare GRCh37/GRCh38 in Lecture 3). **rsIDs** refer to fixed variants but are *not* in genomic-position order, so sorting by rsID does not give positional order.
+
+**Standard columns in GWAS summary statistics**
+
+::: {.worked}
+| Column | Meaning |
+|---|---|
+| SNP / rsID | Variant identifier |
+| CHR | Chromosome |
+| BP / POS | Genomic position (base pair) |
+| A1 / EA | Allele 1 / **effect allele**, the allele β refers to |
+| A2 / OE | The other allele |
+| MAF / EAF | Minor allele frequency / effect allele frequency |
+| Beta / OR | Estimated genetic effect |
+| SE | Standard error |
+| P | p-value |
+| N | Sample size |
+| SNP_hg18 | (sometimes) chromosome:position in the hg18 build |
+| Freq.A1.1000G.EUR | (sometimes) frequency of A1 in the 1000 Genomes European reference panel, to cross-check allele frequencies |
+:::
+
+β in summary statistics is usually the **per-A1-allele effect**, often in **SD units** (the phenotype was inverse-normal transformed or standardized first).
+
+::: {.callout-important}
+## Summary statistics contain no individual-level data
+Only per-SNP aggregates, which is why they can be shared much more freely than genotype data. When using them, always know: **which allele is the effect allele**, whether **β is OR or log(OR)** for binary outcomes, **the scale** of the phenotype (log? SD units?) and **the genome build**.
+:::
+
+:::: {.quiz}
+A summary statistics file lists A1 = T, A2 = C, BETA = −0.05 for LDL-C in SD units. What does this mean?
+
+- Each C allele lowers LDL-C by 0.05 SD on average
+- **Each T allele lowers LDL-C by 0.05 SD on average**
+- People with the T allele have 5% lower LDL-C in total
+- The SNP explains 5% of the variance in LDL-C
+
+::: {.exp}
+β is the per-effect-allele (A1) difference. A1 = T, so each extra T is associated with 0.05 SD lower LDL-C. Relative to C the direction is reversed, which is why knowing the effect allele matters.
+:::
+::::
+
+## 4.7 Multiple testing, Manhattan and QQ plots {#t4-7 .topic flag="inferred"}
+
+Testing ~1,000,000 SNPs at $p < 0.05$ would give about $1{,}000{,}000 \times 0.05 = 50{,}000$ **false positives** by chance. The field's standard threshold is:
+
+$$p < 5 \times 10^{-8} \approx \frac{0.05}{1{,}000{,}000}$$
+
+a Bonferroni-style correction for ~1 million independent tests (Bonferroni is formalized in Lecture 7). Significance at this level means a SNP is **statistically** robust, not that it is **biologically** important or has a large effect.
+
+**Manhattan plot.** x-axis: genomic position ordered by chromosome; y-axis: $-\log_{10}(p)$, so stronger associations are taller ("skyscrapers"). Each dot is one SNP. Horizontal lines usually mark a suggestive threshold (~5×10⁻⁵ or similar) and genome-wide significance (5×10⁻⁸).
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3.4
+#| fig-cap: "Simulated Manhattan plot. Three loci contain a true signal; LD makes each one a tower of neighbouring SNPs rather than a single point."
+n_chr <- 22
+per_chr <- 400
+man <- do.call(rbind, lapply(1:n_chr, function(ch) {
+  data.frame(chr = ch, pos = sort(runif(per_chr, 0, 1)))
+}))
+man$p <- runif(nrow(man))
+add_peak <- function(df, ch, centre, height) {
+  idx <- which(df$chr == ch)
+  dist <- abs(df$pos[idx] - centre)
+  boost <- height * exp(-(dist / 0.015)^2)
+  df$p[idx] <- pmin(df$p[idx], 10^(-boost * runif(length(idx), 0.7, 1)))
+  df
+}
+man <- add_peak(man, 1, 0.55, 14)
+man <- add_peak(man, 2, 0.3, 10)
+man <- add_peak(man, 19, 0.5, 18)
+man$x <- man$chr + man$pos * 0.9
+ggplot(man, aes(x, -log10(p), colour = factor(chr %% 2))) +
+  geom_point(size = 0.7) +
+  geom_hline(yintercept = -log10(5e-8), colour = "#d9480f", linetype = "dashed") +
+  geom_hline(yintercept = -log10(5e-5), colour = "grey50", linetype = "dotted") +
+  scale_colour_manual(values = c("#2f5d8a", "#8aa9c8"), guide = "none") +
+  scale_x_continuous(breaks = 1:n_chr + 0.45, labels = 1:n_chr) +
+  labs(x = "Chromosome", y = expression(-log[10](p))) +
+  theme_minimal(base_size = 11) +
+  theme(panel.grid.minor = element_blank(), panel.grid.major.x = element_blank())
+```
+
+::: {.callout-warning}
+## Two interpretive caveats (stated explicitly in the slides)
+1. A Manhattan plot shows **where** the strongest associations are. It does not tell you **which variant or gene** is causal.
+2. A low p-value does **not** mean a large effect. With a huge sample, even a tiny effect reaches genome-wide significance.
+:::
+
+**QQ plot.** Observed p-values plotted against those expected under the null (no association anywhere). Points bending away from the diagonal more than chance predicts can signal a **systematic problem** (uncontrolled population structure, technical/batch artifacts). But it can also mean the trait is **highly polygenic**: very many small effects spread across the genome. That is the lecture's explanation for LDL-C's QQ plot looking "a bit off": benign and expected for a polygenic trait.
+
+```{r}
+#| echo: false
+#| fig-width: 7.5
+#| fig-height: 3.3
+#| fig-cap: "Left: null SNPs follow the diagonal. Right: a polygenic trait (many small true effects) lifts the whole upper tail. Uncontrolled population structure can produce a similar lift, so the plot alone does not tell you which."
+m <- 20000
+p_null <- runif(m)
+z_poly <- rnorm(m, mean = ifelse(runif(m) < 0.15, rnorm(m, 0, 1.3), 0))
+p_poly <- 2 * pnorm(-abs(z_poly))
+qq <- rbind(
+  data.frame(panel = "Null: no associations", obs = sort(-log10(p_null), decreasing = TRUE)),
+  data.frame(panel = "Polygenic trait", obs = sort(-log10(p_poly), decreasing = TRUE))
+)
+qq$exp <- rep(-log10(ppoints(m)), 2)
+ggplot(qq, aes(exp, obs)) +
+  geom_abline(colour = "grey50", linetype = "dashed") +
+  geom_point(size = 0.6, colour = "#2f5d8a") +
+  facet_wrap(~ panel) +
+  labs(x = expression(Expected ~ -log[10](p)), y = expression(Observed ~ -log[10](p))) +
+  theme_minimal(base_size = 11)
+```
+
+:::: {.quiz}
+A SNP reaches p = 1×10⁻¹⁵ in a GWAS of 1 million people. What can you conclude?
+
+- The SNP must have a large effect on the phenotype
+- The SNP is the causal variant at this locus
+- **The association is statistically robust, nothing more**
+- The SNP explains a large share of phenotype variance
+
+::: {.exp}
+A tiny p-value in a huge sample only says the association is unlikely to be chance. Effect size, causality and variance explained are separate questions (see rs11591147 in Section 4.10).
+:::
+::::
+
+## 4.8 Why one signal gives a cluster: lead SNP and r² {#t4-8 .topic flag="inferred"}
+
+Nearby SNPs are correlated (in LD) because they are inherited together. So **one** true causal variant appears as **many** associated SNPs: every SNP in LD with it shows an association, not because it is independently causal but because it is correlated. If two SNPs are in LD, knowing one tells you about the other. The result is one peak in the Manhattan plot.
+
+From the cluster you pick a representative, the **lead SNP**: usually the one with the smallest p-value. **The lead SNP is not guaranteed to be the causal variant**; it may just be a good proxy.
+
+**Quantifying LD: $r^2$**, the squared correlation between two SNPs' genotypes (0 to 1).
+
+| $r^2$ | LD strength |
+|---|---|
+| > 0.8 | Very strong LD; close proxy |
+| > 0.5 | Moderate to strong |
+| < 0.1 | Weak |
+| ≈ 0 | Essentially independent |
+
+Downstream analyses usually need **independent** variables, which raises the questions of how to find independent signals and the causal variant in a correlated cluster (Lecture 5), and the complication that the causal variant might not even be measured on the array.
+
+## 4.9 Population structure and confounding {#t4-9 .topic flag="inferred"}
+
+**The problem.** If ancestry-related differences in allele frequency coincide with differences in the phenotype across subpopulations (different countries, or distinct communities such as the Amish), a SNP can look associated with the phenotype **even with no biological effect at all**.
+
+::: {.worked}
+| | Frequency of allele G | Mean LDL-C |
+|---|---|---|
+| Population A | Higher | Higher |
+| Population B | Lower | Lower |
+| **Pooled analysis** | G looks associated with higher LDL-C, purely through the confounding, whatever G's real effect ||
+:::
+
+**Standard mitigation strategies** (likely asked as "how do you address population stratification in a GWAS?"):
+
+1. Restrict the analysis to **genetically homogeneous ancestry groups**.
+2. Adjust for **genetic principal components** (PC1, PC2, …).
+3. Account for **relatedness** with mixed models (e.g. **regenie**).
+4. Check the **QQ plot and genomic inflation** as a diagnostic.
+
+:::: {.quiz}
+Which of these is NOT a standard way to handle population stratification in a GWAS?
+
+- Adjusting for genetic principal components
+- Restricting to one homogeneous ancestry group
+- Using mixed models that account for relatedness
+- **Lowering the significance threshold to p < 0.05**
+
+::: {.exp}
+Stratification is confounding; a different p-value threshold does not remove it. The standard tools are homogeneous samples, PC adjustment, mixed models (e.g. regenie) and QQ/inflation checks.
+:::
+::::
+
+## 4.10 From hit to biology: locus, lead SNP, QTLs {#t4-10 .topic flag="inferred"}
+
+| Term | Definition |
+|---|---|
+| **SNP** | One specific variant |
+| **Locus** | A genomic region containing one or more associated variants (often one Manhattan peak) |
+| **Lead SNP** | The SNP with the smallest p-value within that locus |
+
+::: {.worked}
+**Worked example: rs11591147.** β = **−0.5 mmol/L LDL-C per T allele**, a very strong effect. Allele frequency of T is only **1.5%**.
+
+| Genotype | Mean LDL-C | Frequency (HWE) |
+|---|---|---|
+| GG | 3.0 mmol/L | $0.985^2 \approx 0.970$ |
+| GT | ≈ 2.5 mmol/L | $2 \times 0.985 \times 0.015 \approx 0.03$ (3%) |
+| TT | ≈ 2.0 mmol/L | $0.015^2 = 0.000225$ (0.023%) |
+:::
+
+**Lesson:** a variant can have a **large per-allele effect** yet explain **very little population-level variance** because it is rare. Effect size and population relevance are different things; consider both.
+
+**Quantitative trait locus (QTL):** a genomic region where genetic variation is associated with variation in a quantitative trait. More broadly, QTL analysis asks whether a variant can be linked to *any* measurable molecular trait: gene expression, protein level, metabolite level.
+
+**Protein QTL (pQTL):** is the SNP near the gene encoding the protein (**cis-pQTL**) or elsewhere in the genome (**trans-pQTL**)? Developed in Lecture 8 (Section 8.9).
+
+::: {.callout-important}
+## GWAS gives associations, not yet causality
+**GWAS gives you:** a variant–phenotype association, an effect size, a p-value and a locus.
+
+**GWAS does not tell you:** which SNP in the locus is causal, which gene is causal, which pathway is involved, or whether changing the molecular trait would change disease risk.
+
+GWAS is a **discovery tool**. Causal inference needs extra assumptions and methods: Mendelian randomization (Lecture 6).
+:::
+
+# Practice
+
+::: {.callout-note}
+## Redo the worked calculations with your own numbers
+Runs in your browser. Change the inputs and rerun.
+:::
+
+```{webr-r}
+#| label: gwas-calcs
+# 1. MAF -> genotype frequencies and counts (HWE)
+maf <- 0.10
+n   <- 10000
+freq <- c(ref_hom = (1 - maf)^2, het = 2 * maf * (1 - maf), alt_hom = maf^2)
+round(cbind(freq, count = n * freq), 3)
+
+# 2. Per-allele risk multiplier -> share of cases by genotype
+baseline_risk <- 0.05
+risk_ratio    <- 2
+risk  <- baseline_risk * risk_ratio^(0:2)
+cases <- n * freq * risk
+round(cbind(risk, cases, share_of_cases = cases / sum(cases)), 3)
+
+# 3. Log-odds beta -> OR for 1 and 2 copies
+beta <- -0.16
+exp(beta * c(one_copy = 1, two_copies = 2))
+
+# 4. Log10-scale beta -> fold change in the original units
+beta_log10 <- 0.08
+10^(beta_log10 * c(one_copy = 1, two_copies = 2))
+```
+
+**Tasks**
+
+1. Set `maf <- 0.015` (rs11591147). What share of the population are heterozygotes and minor homozygotes?
+2. Keep `maf <- 0.10` but set `risk_ratio <- 1.2`. How much of the case enrichment is left?
+3. A GWAS reports OR = 1.30 per allele. What is β? What OR do you expect for two copies?
+
+::: {.callout-tip collapse="true"}
+## Model answer
+1. het ≈ 0.0296 (3%), alt_hom = 0.000225 (0.023%).
+2. The risks become 5%, 6% and 7.2%, and the shares of cases become about 78%, 21% and 1.4%, barely different from the population shares (81%, 18%, 1%). Smaller effects give smaller case–control differences, so you need larger samples to detect them.
+3. `log(1.30)` ≈ 0.262. Two copies: `exp(2 * log(1.30))` = 1.30² = 1.69.
+:::
+
+# Why-questions
+
+::: {.callout-tip collapse="true"}
+## Why is 5×10⁻⁸ the genome-wide threshold?
+It is roughly 0.05 / 1,000,000: a Bonferroni correction for about a million independent common-variant tests across the genome. With p < 0.05 you would expect ~50,000 false positives.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why do GWAS use the additive model?
+It is the simplest, most tractable model that works reasonably across a million tests. Dominant or recessive models make sense when you study one gene in depth. "Dominant" is a property of the genotype–phenotype relationship, not of the allele.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why can a highly significant SNP matter little for public health?
+Significance depends on sample size. A rare variant (like rs11591147, 1.5%) can have a big per-allele effect but affect few people; a common variant with a tiny effect can be extremely significant in a million-person GWAS yet barely change anyone's risk.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why does a QQ plot that lifts off the diagonal not always mean a problem?
+Both confounding (population structure, batch effects) and genuine polygenicity inflate many test statistics. For a highly polygenic trait like LDL-C, the lift is expected.
+:::
+
+# Spaced review
+
+:::: {.quiz}
+From Lecture 3: what does linkage disequilibrium describe?
+
+- The physical distance between two genes in base pairs
+- **Non-random association of alleles at different loci**
+- The chance that a gamete carries a dominant allele
+- The frequency of recombination during mitosis
+
+::: {.exp}
+LD is the non-random association of alleles at different loci in a population, detected by comparing observed with expected haplotype frequencies.
+:::
+::::
+
+:::: {.quiz}
+From Lecture 3: what does the rs number (e.g. rs137852912) identify?
+
+- A position that depends on the genome build used
+- A reference transcript version in NCBI RefSeq
+- **A stable variant identifier in the dbSNP database**
+- A protein sequence in the NP_ reference series
+
+::: {.exp}
+rs numbers are dbSNP identifiers and do not change between builds, unlike genomic coordinates (GRCh37 vs GRCh38).
+:::
+::::
+
+# Further reading
+
+- **Uffelmann E, Huang QQ, Munung NS, et al.** Genome-wide association studies. *Nature Reviews Methods Primers* 2021;1:59. [nature.com/articles/s43586-021-00056-9](https://www.nature.com/articles/s43586-021-00056-9). Worth reading in full for more depth than the slides.

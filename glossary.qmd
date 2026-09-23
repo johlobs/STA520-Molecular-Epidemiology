@@ -1,0 +1,385 @@
+---
+title: "Glossary"
+subtitle: "Every defined term in the course, with links to where it is taught"
+toc: false
+---
+
+Type in the box to filter. Each entry links back to the lecture section(s) where the term is defined or used. Quarto's search (top right) also searches the full text of every lecture.
+
+```{=html}
+<input id="gl-filter" type="search" class="form-control" placeholder="Filter terms, e.g. LD, pQTL, FDR …" style="max-width:420px;margin:0.5rem 0 1.5rem;">
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var input = document.getElementById('gl-filter');
+  input.addEventListener('input', function () {
+    var q = input.value.toLowerCase().trim();
+    document.querySelectorAll('.glossary dt').forEach(function (dt) {
+      var dd = dt.nextElementSibling;
+      var text = (dt.textContent + ' ' + (dd ? dd.textContent : '')).toLowerCase();
+      var show = !q || text.indexOf(q) !== -1;
+      dt.style.display = show ? '' : 'none';
+      if (dd) dd.style.display = show ? '' : 'none';
+    });
+    document.querySelectorAll('.glossary h2').forEach(function (h) {
+      var dl = h.parentNode.querySelector('dl');
+      if (!dl) return;
+      var any = Array.from(dl.querySelectorAll('dt')).some(function (dt) { return dt.style.display !== 'none'; });
+      h.style.display = any ? '' : 'none';
+    });
+  });
+});
+</script>
+```
+
+::: {.glossary}
+
+## A–C
+
+Additive model
+: The standard GWAS model: phenotype regressed on allele dosage (0/1/2), so each extra copy adds the same effect β. Additive/dominant/recessive describe the genotype–phenotype relationship, not the allele. [L4 §4.4](lecture4.qmd#t4-4)
+
+Allele
+: An alternative version (DNA sequence) at a particular locus. [L3 §3.6](lecture3.qmd#t3-6) · [L4 §4.2](lecture4.qmd#t4-2)
+
+Allele frequency / MAF
+: How common an allele is in a population. MAF (minor allele frequency) is the frequency of the less common allele. [L4 §4.2](lecture4.qmd#t4-2)
+
+Alternative splicing
+: One gene's transcript spliced into several different mRNA/protein variants; one reason proteins are not 1-to-1 with genes. [L8 §8.1](lecture8.qmd#t8-1)
+
+AML (acute myeloid leukemia)
+: A non-solid blood cancer driven by somatic mutations in bone marrow stem cells; the course's example of somatic mutation diagnostics with NGS and VAF. [L3 §3.4](lecture3.qmd#t3-4)
+
+Antibody-based assay
+: ELISA, clinical immunoassays, Western blot: an antibody binds its target protein; targeted and quantitative with calibration standards. [L8 §8.4](lecture8.qmd#t8-4)
+
+Assay binding artifact
+: A coding variant changes the protein's structure so the antibody/aptamer binds worse, giving a falsely low measured level. A protein-MR pitfall. [L8 §8.11](lecture8.qmd#t8-11)
+
+Assortative mating
+: Non-random mate choice related to a trait; a threat to the MR independence assumption. [L6 §6.5](lecture6.qmd#t6-5)
+
+Background correction (normexp)
+: Within-array correction modelling observed intensity as exponential signal + normal background noise; gives positive values and better low-intensity estimates. [L7 §7.5](lecture7.qmd#t7-5)
+
+Batch effect
+: A shared technical artifact among samples processed together (plate, reagent lot, run, day, instrument, operator). Prevent by randomizing/balancing; correct by normalization or batch covariates. [L7 §7.4](lecture7.qmd#t7-4) · [L8 §8.6](lecture8.qmd#t8-6)
+
+Benjamini–Hochberg (BH)
+: FDR-controlling procedure: sort p-values, find the largest k with p₍ₖ₎ ≤ (k/m)Q, call ranks 1…k significant. Adjusted p = running minimum of p₍ᵢ₎·m/i from the bottom. [L7 §7.13](lecture7.qmd#t7-13) · [L7 §7.13b](lecture7.qmd#t7-13b)
+
+Biomarker
+: Any measurable biological characteristic informative about a process, exposure, disease or treatment response. Five roles: exposure, process, disease/injury, future risk, treatment response. Not necessarily causal. [L1 §1.3b](lecture1.qmd#t1-3b)
+
+Bonferroni correction
+: FWER control: reject if p ≤ α/m (p_adj = p × m). Valid under any dependence but very strict for large m. [L7 §7.12](lecture7.qmd#t7-12) · [L4 §4.7](lecture4.qmd#t4-7)
+
+Bradford Hill criteria
+: Strength, Consistency, Specificity, Temporality, Biological gradient, Plausibility, Coherence, Experiment, Analogy. [L6 §6.2](lecture6.qmd#t6-2)
+
+Central dogma
+: The flow of genetic information DNA → RNA → protein. [L1 §1.4](lecture1.qmd#t1-4) · [L2 §2.2](lecture2.qmd#t2-2)
+
+Chromosomal alterations
+: Large-scale changes: deletion, duplication, inversion, insertion, translocation. [L2 §2.4b](lecture2.qmd#t2-4b)
+
+Circular reasoning (double dipping)
+: Using the same data to define groups (e.g. clusters) and then to test differences between those groups; inflates significance. [L7 §7.16b](lecture7.qmd#t7-16b)
+
+cis-pQTL
+: A pQTL located near the gene encoding the protein; direct interpretation, preferred MR instrument. [L8 §8.9](lecture8.qmd#t8-9) · [L4 §4.10](lecture4.qmd#t4-10)
+
+Codon
+: Three nucleotides specifying one amino acid (or stop). 64 codons for 20 amino acids. [L1 §1.4b](lecture1.qmd#t1-4b) · [L2 §2.3](lecture2.qmd#t2-3)
+
+Coding strand
+: The non-template DNA strand; same sequence as the mRNA with T instead of U. [L2 §2.2](lecture2.qmd#t2-2)
+
+Colocalization
+: Checks whether a pQTL and a disease GWAS signal at one locus share the same causal variant by comparing their association patterns across the region. [L8 §8.11](lecture8.qmd#t8-11)
+
+Complementary base pairing
+: A pairs with T (U in RNA), C pairs with G; the basis of replication and transcription. [L1 §1.4b](lecture1.qmd#t1-4b)
+
+Conditional analysis
+: Adding the lead SNP as a covariate and retesting other SNPs to find independent signals. [L5 §5.4](lecture5.qmd#t5-4)
+
+Confounding
+: A third factor affecting both exposure and outcome (e.g. smoking → LDL-C and CHD). [L6 §6.4](lecture6.qmd#t6-4) · [L8 §8.8](lecture8.qmd#t8-8)
+
+Covariates (in GWAS)
+: Age, sex, BMI, genetic PCs, technical variables (batch, center). β is conditional on them. [L4 §4.5](lecture4.qmd#t4-5)
+
+Credible set
+: A set of candidate causal SNPs chosen from association strength and LD structure. [L5 §5.4](lecture5.qmd#t5-4)
+
+## D–H
+
+dbSNP / rs number
+: NCBI database of short variants; each gets a stable rs identifier (e.g. rs137852912 = PCSK9 D374Y). [L3 §3.3c](lecture3.qmd#t3-3c)
+
+Dominant / recessive allele
+: Dominant affects the phenotype with at least one copy; recessive only with two. [L3 §3.6](lecture3.qmd#t3-6)
+
+Empirical Bayes / variance shrinkage
+: Sharing information across features: each variance is pulled toward a common value. Basis of limma's moderated t. [L7 §7.7](lecture7.qmd#t7-7) · [L7 §7.8](lecture7.qmd#t7-8)
+
+Exclusion restriction
+: MR assumption 3: the variant affects the outcome only through the exposure. Broken by horizontal pleiotropy. [L6 §6.5](lecture6.qmd#t6-5)
+
+FDR (false discovery rate)
+: Expected proportion of false positives among the tests called significant. Controlled by BH. [L7 §7.11](lecture7.qmd#t7-11)
+
+Frameshift
+: An indel whose length is not a multiple of 3, shifting all downstream codons. [L2 §2.4b](lecture2.qmd#t2-4b)
+
+FWER (family-wise error rate)
+: Probability of at least one false positive among all tests. Controlled by Bonferroni. [L7 §7.11](lecture7.qmd#t7-11)
+
+Gain / loss of function (GoF / LoF)
+: A mutation making the protein work better (D374Y in PCSK9) or worse (p.Tyr142*, p.Arg97del). [L3 §3.3](lecture3.qmd#t3-3)
+
+GalNAc / ASGPR
+: Sugar linked to the siRNA in Leqvio that binds ASGPR receptors on hepatocytes: an "address label" to the liver. [L3 §3.2b](lecture3.qmd#t3-2b)
+
+Gene expression
+: Transcription + translation; regulated at chromatin, transcription, RNA processing, mRNA degradation and post-translational levels. [L1 §1.4](lecture1.qmd#t1-4) · [L2 §2.3](lecture2.qmd#t2-3)
+
+Genome build (GRCh37/hg19, GRCh38)
+: Versions of the human reference genome; the same variant has different coordinates in different builds. HG18/HG19 are older names. [L3 §3.3c](lecture3.qmd#t3-3c) · [L4 §4.6](lecture4.qmd#t4-6)
+
+Genome-wide significance
+: p < 5 × 10⁻⁸ ≈ 0.05 / 1,000,000. [L4 §4.7](lecture4.qmd#t4-7)
+
+Genotype / phenotype
+: Genotype = the alleles an individual carries; phenotype = the observable trait. [L3 §3.6](lecture3.qmd#t3-6)
+
+Genotyping
+: Determining alleles at already-known variant positions (TaqMan, SNP arrays), as opposed to sequencing. [L3 §3.5](lecture3.qmd#t3-5) · [L3 §3.8](lecture3.qmd#t3-8)
+
+Germline mutation
+: Arises in germ cells, present in every cell, heritable. [L3 §3.4](lecture3.qmd#t3-4)
+
+GWAS
+: Genome-wide association study: one regression per SNP for ~1 million SNPs. Gives associations, not causality. [L3 §3.8](lecture3.qmd#t3-8) · [L4 §4.6](lecture4.qmd#t4-6) · [L5 §5.2](lecture5.qmd#t5-2)
+
+Haplotype
+: A combination of alleles at two or more loci on the same chromosome copy. [L3 §3.7](lecture3.qmd#t3-7)
+
+Hardy–Weinberg equilibrium (HWE)
+: With allele frequencies p and q: P(AA) = p², P(Aa) = 2pq, P(aa) = q². Deviations are a genotyping QC check. [L3 §3.9](lecture3.qmd#t3-9) · [L4 §4.2](lecture4.qmd#t4-2)
+
+HGVS nomenclature
+: Standard variant notation: reference (NM_ mRNA, NC_ genomic, NP_ protein) + coordinate type (c., g., p.) + change (e.g. c.1120G>T, p.Asp374Tyr). [L3 §3.3b](lecture3.qmd#t3-3b)
+
+Homozygous / heterozygous
+: Two identical alleles (BB, bb) vs two different alleles (Bb). [L3 §3.6](lecture3.qmd#t3-6)
+
+Horizontal pleiotropy
+: A variant affects the outcome through a pathway independent of the exposure; violates the exclusion restriction. [L6 §6.6](lecture6.qmd#t6-6) · [L8 §8.11](lecture8.qmd#t8-11)
+
+## I–M
+
+Imputation
+: Predicting genotypes at unmeasured SNPs from measured SNPs using LD and a reference panel. [L6 §6.1](lecture6.qmd#t6-1)
+
+In-frame indel
+: An insertion/deletion of a multiple of 3 nucleotides; frame preserved (e.g. PCSK9 p.Arg97del). [L2 §2.4b](lecture2.qmd#t2-4b)
+
+Independence (MR assumption)
+: MR assumption 2: the variant is not associated with confounders. Threats: population stratification, assortative mating, selection. [L6 §6.5](lecture6.qmd#t6-5)
+
+Instrumental variable
+: A variable affecting the exposure but related to the outcome only through it; genetic variants are natural instruments. [L6 §6.3](lecture6.qmd#t6-3)
+
+IVW (inverse-variance weighted) MR
+: Weighted regression of β-outcome on β-exposure through the origin = weighted average of Wald ratios. [L6 §6.7](lecture6.qmd#t6-7)
+
+LD clumping
+: Reducing each locus to one approximately independent lead SNP (e.g. r² < 0.01); done before MR. [L5 §5.4b](lecture5.qmd#t5-4b)
+
+LDL / LDLR
+: Low-density lipoprotein carries cholesterol; the LDL receptor on hepatocytes clears it. [L1 §1.2](lecture1.qmd#t1-2)
+
+Lead SNP
+: The SNP with the smallest p-value in a locus; not necessarily causal. [L4 §4.8](lecture4.qmd#t4-8) · [L5 §5.3](lecture5.qmd#t5-3)
+
+limma / moderated t-statistic
+: R package using empirical Bayes variance shrinkage to give stable t-statistics with few samples. [L7 §7.7](lecture7.qmd#t7-7)
+
+Linkage
+: Loci close on the same chromosome are inherited together. [L3 §3.7](lecture3.qmd#t3-7)
+
+Linkage disequilibrium (LD)
+: Non-random association of alleles at different loci in a population; observed ≠ expected haplotype frequency. Measured by r² (or D). [L3 §3.7](lecture3.qmd#t3-7) · [L4 §4.8](lecture4.qmd#t4-8)
+
+Locus
+: A position on a chromosome; in GWAS, a region containing associated variants (one Manhattan peak). [L3 §3.6](lecture3.qmd#t3-6) · [L4 §4.10](lecture4.qmd#t4-10)
+
+Log₂ fold change
+: log₂(group 1 / group 2): 0 = no change, +1 = 2× higher, −1 = 2× lower. [L7 §7.9](lecture7.qmd#t7-9)
+
+Manhattan plot
+: −log₁₀(p) against genomic position; peaks show where associations are, not which variant is causal. [L4 §4.7](lecture4.qmd#t4-7)
+
+Mass spectrometry
+: Trypsin digestion → liquid chromatography → electrospray ionization → mass measurement; detects isoforms, allows discovery. [L8 §8.4](lecture8.qmd#t8-4)
+
+Meiosis / mitosis
+: Meiosis: 4 different gametes with 23 chromosomes. Mitosis: 2 identical cells with 46. [L1 §1.4c](lecture1.qmd#t1-4c)
+
+Mendel's laws
+: Dominance, Segregation, Independent Assortment (broken by linkage). [L3 §3.6](lecture3.qmd#t3-6)
+
+Mendelian randomization (MR)
+: Using genetic variants as instruments to estimate causal effects of an exposure on an outcome. [L6 §6.3](lecture6.qmd#t6-3) · [L8 §8.10](lecture8.qmd#t8-10)
+
+Metabolite
+: A small molecule produced, modified or consumed in biochemical reactions (e.g. glucose). [L1 §1.3](lecture1.qmd#t1-3)
+
+miRNA (microRNA)
+: ~22 nt genome-encoded non-coding RNA; binds targets imperfectly and regulates many mRNAs. [L3 §3.2](lecture3.qmd#t3-2) · [L7 §7.2](lecture7.qmd#t7-2)
+
+Missense / nonsense / silent
+: Substitution giving a different amino acid / a premature stop / the same amino acid. [L2 §2.4](lecture2.qmd#t2-4)
+
+Monoclonal antibody
+: An engineered protein binding one specific target; Repatha and Praluent bind PCSK9 protein. [L3 §3.2b](lecture3.qmd#t3-2b)
+
+MR-Egger
+: MR regression with a free intercept; a non-zero intercept signals directional horizontal pleiotropy. Less precise than IVW. [L6 §6.8](lecture6.qmd#t6-8)
+
+mRNA / rRNA / tRNA
+: Messenger RNA carries the code; ribosomal RNA builds ribosomes; transfer RNA brings amino acids. [L2 §2.1](lecture2.qmd#t2-1)
+
+Multiple testing
+: Many tests at α = 0.05 give many false positives (955 × 0.05 ≈ 48; 1,000,000 × 0.05 = 50,000). [L7 §7.10](lecture7.qmd#t7-10) · [L4 §4.7](lecture4.qmd#t4-7)
+
+## N–R
+
+NGS (next-generation sequencing)
+: Massively parallel sequencing: fast and cheap, short reads (~50–300 nt). [L3 §3.5](lecture3.qmd#t3-5)
+
+NPX (Normalized Protein eXpression)
+: Olink/SomaScan relative abundance on a log₂ scale; 1 NPX = a doubling. [L8 §8.5](lecture8.qmd#t8-5)
+
+Olink / SomaScan
+: High-throughput affinity proteomics platforms for large cohorts. [L8 §8.4](lecture8.qmd#t8-4)
+
+OncomiR
+: A miRNA that promotes cancer (e.g. miR-1246, miR-663a). [L7 §7.2](lecture7.qmd#t7-2) · [L7 §7.16](lecture7.qmd#t7-16)
+
+Odds ratio (per allele)
+: OR = exp(β) from logistic regression; β = −0.16 → OR 0.85 (one copy), 0.73 (two copies). [L4 §4.3](lecture4.qmd#t4-3)
+
+PCR
+: Polymerase chain reaction: in vitro amplification of a DNA region using heat-stable Taq polymerase and primers. [L2 §2.6](lecture2.qmd#t2-6)
+
+PCSK9
+: Protein promoting LDLR degradation; the course's running drug-target example. [L1 §1.2](lecture1.qmd#t1-2) · [L3 §3.3](lecture3.qmd#t3-3) · [L8 §8.12](lecture8.qmd#t8-12)
+
+Population stratification
+: Allele frequency and phenotype both differ between ancestry groups, creating spurious associations. [L4 §4.9](lecture4.qmd#t4-9)
+
+Pre-analytical variation
+: Variation before the assay: fasting, time of day, tube type, time to centrifugation, storage, freeze–thaw, hemolysis. [L8 §8.6](lecture8.qmd#t8-6)
+
+Primer
+: Short DNA sequence where synthesis starts; DNA polymerase needs one, RNA polymerase does not. [L2 §2.2](lecture2.qmd#t2-2) · [L2 §2.6](lecture2.qmd#t2-6)
+
+Protein structure (4 levels)
+: Primary (sequence), secondary (helices, sheets), tertiary (3D fold), quaternary (several chains). [L1 §1.4](lecture1.qmd#t1-4)
+
+Proteome
+: All proteins in a sample; more dynamic and complex than the genome. [L8 §8.1](lecture8.qmd#t8-1)
+
+Proxy SNP
+: A SNP in very strong LD (r² ≈ 1) that stands in for a missing SNP. [L6 §6.1](lecture6.qmd#t6-1)
+
+Post-translational modification (PTM)
+: Chemical changes after translation, e.g. phosphorylation, glycosylation, cleavage. [L8 §8.1](lecture8.qmd#t8-1)
+
+pQTL (protein quantitative trait locus)
+: A SNP associated with a protein's abundance; cis (near the gene) or trans (> 500 kb away). [L8 §8.9](lecture8.qmd#t8-9)
+
+PWAS
+: Proteome-wide association study: one regression per protein. [L8 §8.7](lecture8.qmd#t8-7)
+
+QQ plot
+: Observed vs expected p-values; deviation can mean confounding/batch or high polygenicity. [L4 §4.7](lecture4.qmd#t4-7)
+
+QTL
+: Quantitative trait locus: a region where genetic variation is associated with a quantitative trait (expression, protein, metabolite). [L4 §4.10](lecture4.qmd#t4-10)
+
+Quantile normalization
+: Between-array normalization making all distributions identical while keeping within-array order. [L7 §7.5](lecture7.qmd#t7-5)
+
+r² (LD)
+: Squared genotype correlation between two SNPs: > 0.8 very strong, > 0.5 moderate–strong, < 0.1 weak, ≈ 0 independent. [L4 §4.8](lecture4.qmd#t4-8) · [L5 §5.4b](lecture5.qmd#t5-4b)
+
+Recombination / recombination frequency
+: Exchange of segments between homologous chromosomes in meiosis; r = recombinants / total, 0–50%. [L3 §3.7](lecture3.qmd#t3-7)
+
+Relevance (MR assumption)
+: MR assumption 1: the variant is strongly associated with the exposure; threat: weak instruments. [L6 §6.5](lecture6.qmd#t6-5)
+
+## S–Z
+
+Sanger sequencing
+: The original sequencing method: accurate, lower throughput. [L3 §3.5](lecture3.qmd#t3-5)
+
+siRNA
+: ~21–23 nt RNA from double-stranded RNA; near-perfect match cleaves one target mRNA (Leqvio). [L3 §3.2](lecture3.qmd#t3-2)
+
+SNP / SNV
+: Single nucleotide variant; called a SNP (polymorphism) when common in the population. [L2 §2.4](lecture2.qmd#t2-4) · [L4 §4.2](lecture4.qmd#t4-2)
+
+SNP array
+: Chip with allele-specific probes genotyping up to millions of known SNPs by hybridization and fluorescence. [L3 §3.8](lecture3.qmd#t3-8)
+
+snRNA
+: Small nuclear RNA involved in splicing. [L3 §3.1](lecture3.qmd#t3-1)
+
+Somatic mutation
+: Acquired during life, confined to a tissue, not heritable. [L3 §3.4](lecture3.qmd#t3-4)
+
+Summary statistics
+: Per-SNP GWAS results (SNP, CHR, BP, A1, A2, EAF, β, SE, P, N) with no individual-level data. [L4 §4.6](lecture4.qmd#t4-6)
+
+Supervised / unsupervised analysis
+: Using predefined group labels (differential expression) vs finding groups from the data (clustering). [L7 §7.6](lecture7.qmd#t7-6)
+
+Taq polymerase
+: Heat-stable DNA polymerase used in PCR. [L2 §2.6](lecture2.qmd#t2-6)
+
+Template strand
+: The DNA strand read by RNA polymerase (non-coding strand). [L2 §2.2](lecture2.qmd#t2-2)
+
+Transcription / translation
+: DNA → mRNA (in the nucleus) / mRNA → protein at the ribosome (initiation, elongation, termination at UAA, UAG, UGA). [L2 §2.2](lecture2.qmd#t2-2) · [L2 §2.3](lecture2.qmd#t2-3)
+
+Transcription factor
+: Protein binding DNA to raise or lower transcription. [L2 §2.2](lecture2.qmd#t2-2)
+
+trans-pQTL
+: pQTL far (> 500 kb or other chromosome) from the encoding gene; indirect, more pleiotropy risk. [L8 §8.9](lecture8.qmd#t8-9)
+
+Troponin
+: Released by damaged heart muscle; a marker of injury, predictive but not causal. [L1 §1.3b](lecture1.qmd#t1-3b) · [L8 §8.8](lecture8.qmd#t8-8)
+
+VAF (variant allele frequency)
+: Fraction of reads/cells in one patient's sample carrying a mutation. [L3 §3.4](lecture3.qmd#t3-4)
+
+Vertical pleiotropy
+: The variant affects the outcome through the exposure itself; not a problem for MR. [L6 §6.6](lecture6.qmd#t6-6)
+
+Wald ratio
+: MR estimate with one instrument: β_outcome / β_exposure (β_GO / β_GP in protein MR). [L6 §6.7](lecture6.qmd#t6-7) · [L8 §8.10](lecture8.qmd#t8-10)
+
+Weighted median
+: MR estimator valid if at least ~50% of instrument weight is valid. [L6 §6.8](lecture6.qmd#t6-8)
+
+z-score
+: (x − mean) / SD; puts proteins on a common scale, β per SD. [L8 §8.6](lecture8.qmd#t8-6) · [L8 §8.7](lecture8.qmd#t8-7)
+
+:::

@@ -1,0 +1,322 @@
+---
+title: "Lecture 2 — DNA, RNA and Protein"
+subtitle: "RNA types · transcription · strands and 5′→3′ · translation · mutations · PCR"
+engine: knitr
+---
+
+```{=html}
+<script>document.body.classList.add("block-bio");</script>
+```
+
+Lecture 1 introduced the central dogma, DNA → RNA → protein, as a one-line idea. This lecture is the machinery behind that line: how a gene is copied into messenger RNA, how the ribosome reads that RNA three letters at a time, and how a protein comes out the other end.
+
+Once you know how the machinery works, you can describe what happens when it goes wrong. A single changed letter can do nothing (a silent change), swap one amino acid (missense), or stop the protein early (nonsense). Inserting or deleting letters can shift how every following codon is read. These categories are the vocabulary for every mutation in the rest of the course, including the PCSK9 variant D374Y.
+
+The key intuition is the **reading frame**: the ribosome reads mRNA in fixed groups of three. Most of the mutation rules follow from that one fact.
+
+This page covers RNA vs DNA, transcription and strand terminology, translation and the genetic code, mutation types, the PCSK9 D374Y example and PCR. The strand-and-translate exercise at the bottom is the classic exam-style calculation.
+
+::: {.callout-note collapse="true"}
+## Sources and session
+**Slides:** "Lecture 2_DNA_RNA_protein.pdf" (slide date 3 Sep 2026).
+
+**Rough plan:** Week 1, day 2. DNA–RNA–Protein.
+:::
+
+## 2.1 RNA vs DNA, and the types of RNA {#t2-1 .topic flag="inferred"}
+
+RNA is chemically similar to DNA but differs in three ways:
+
+| | DNA | RNA |
+|---|---|---|
+| Sugar | Deoxyribose | **Ribose** |
+| Bases | A, C, G, **T** (thymine) | A, C, G, **U** (uracil) |
+| Strands | Double-stranded | Usually **single-stranded** |
+
+**Functional types of RNA**
+
+| RNA | Function |
+|---|---|
+| **mRNA** (messenger RNA) | Carries genetic information copied from DNA, used for protein synthesis |
+| **rRNA** (ribosomal RNA) | Structural and catalytic component of ribosomes, the machines that build proteins |
+| **tRNA** (transfer RNA) | Brings the correct amino acid to the ribosome, matched to the mRNA codon being read |
+| snRNA (small nuclear RNA) | RNA splicing (added in Lecture 3) |
+| miRNA (microRNA) | Regulates gene expression (added in Lecture 3) |
+
+:::: {.quiz}
+Which RNA physically brings amino acids to the ribosome during translation?
+
+- mRNA, which carries the copied gene sequence
+- rRNA, which forms the body of the ribosome
+- **tRNA, whose anticodon matches the mRNA codon**
+- miRNA, which binds and silences target mRNAs
+
+::: {.exp}
+Each tRNA carries one specific amino acid and has an anticodon that base-pairs with the codon on the mRNA. mRNA is the message, rRNA is part of the ribosome, miRNA regulates expression.
+:::
+::::
+
+## 2.2 Transcription, strands and directionality {#t2-2 .topic flag="inferred"}
+
+Protein synthesis has two steps: **transcription** and **translation**. In transcription a gene (a defined stretch of DNA) is copied into mRNA; the mature mRNA is exported from the nucleus and translated in the cytoplasm.
+
+**Transcription factors** are proteins that bind DNA and increase or decrease the rate of transcription. They are one of the main controls over which genes are "on" in which cell type.
+
+**Strand terminology** (a frequent source of confusion, be precise):
+
+| Term | Also called | What it is |
+|---|---|---|
+| **Template strand** | Non-coding strand | The strand RNA polymerase reads and copies *from* |
+| **Coding strand** | Non-template strand | Same sequence as the mRNA, with T instead of U |
+| **mRNA** | Transcript | Made complementary to the template strand, so identical to the coding strand (U for T) |
+
+::: {.callout-important}
+## Directionality rules (repeated across Lectures 2 and 3)
+- DNA and RNA are always synthesized **5′ → 3′**: new nucleotides are added to the 3′ end.
+- The new RNA strand is **antiparallel** to the DNA template strand. Antiparallel orientation is what makes base pairing physically possible.
+- **DNA polymerase needs a primer** to start. **RNA polymerase does not.**
+:::
+
+## 2.2b Worked example: strand, transcribe, translate {#t2-2b .topic flag="inferred"}
+
+This example is from Lecture 3 but tests exactly the concepts above. Be able to do it from scratch.
+
+**Task.** Given the double-stranded DNA below, and told that **RNA polymerase moves right to left**, find the coding strand, write it 5′→3′, derive the mRNA and translate it.
+
+```
+5′–ATG TTA GGC TAA CCG AAT GGC CAT TCG TAC–3′
+3′–TAC AAT CCG ATT GGC TTA CCG GTA AGC ATG–5′
+```
+
+::: {.worked}
+| Step | Reasoning | Result |
+|---|---|---|
+| 1. Which strand is read? | RNA is made 5′→3′ and is antiparallel to its template, so the template must be read 3′→5′. Moving right to left, the *top* strand runs 3′→5′. The top strand is the **template**. | Bottom strand = coding strand |
+| 2. Coding strand 5′→3′ | Read the bottom strand right to left | `GTA CGA ATG GCC ATT CGG TTA GCC TAA CAT` |
+| 3. mRNA | Same as coding strand, U for T | `GUA CGA AUG GCC AUU CGG UUA GCC UAA CAU` |
+| 4. Find start | First AUG | `AUG GCC AUU CGG UUA GCC UAA` |
+| 5. Translate | AUG=Met, GCC=Ala, AUU=Ile, CGG=Arg, UUA=Leu, GCC=Ala, UAA=**STOP** | **Met–Ala–Ile–Arg–Leu–Ala** |
+:::
+
+The practice section at the bottom of the page lets you run the same steps in R.
+
+## 2.3 Translation and the genetic code {#t2-3 .topic flag="inferred"}
+
+**Translation**: the ribosome reads the code in the mRNA and builds a protein. It takes place at ribosomes. The genetic code maps three-nucleotide **codons** to amino acids and has three properties:
+
+| Property | Meaning |
+|---|---|
+| **Universal** | Essentially the same in all known life |
+| **Unambiguous** | Each codon specifies exactly one amino acid |
+| **Redundant (degenerate)** | Most amino acids have several codons (64 codons, 20 amino acids) |
+
+**tRNA's role**: each tRNA carries a specific amino acid and has an **anticodon** that base-pairs with the matching codon, delivering the right amino acid at the right moment.
+
+**Three stages of translation**
+
+1. **Initiation**: the ribosome assembles on the mRNA at the **start codon** (AUG, methionine).
+2. **Elongation**: amino acids are added one at a time as the ribosome moves along, each linked to the growing chain.
+3. **Termination**: at a **stop codon**. The three stop codons are **UAA, UAG and UGA**, given identically in Lectures 2 and 3. Memorize them.
+
+**Gene expression differs between cell types.** Human cells have roughly **20,000 genes**, but each cell type makes different proteins because different genes are expressed. Expression can be regulated at several stages:
+
+- chemical/structural modification of DNA or chromatin
+- transcription
+- post-transcriptional modification of RNA
+- mRNA degradation
+- post-translational modification of the protein
+
+This is why *having* a gene and *expressing* it are different things, and why RNA and protein measurements depend on tissue and context (the layer table in Lecture 1).
+
+:::: {.quiz}
+Which set lists all three stop codons?
+
+- AUG, UAA, UGA
+- **UAA, UAG, UGA**
+- UAA, UAG, AUG
+- UGA, UGG, UAG
+
+::: {.exp}
+The stop codons are UAA, UAG and UGA. AUG is the start codon (methionine); UGG codes for tryptophan.
+:::
+::::
+
+## 2.4 Mutations: substitutions {#t2-4 .topic flag="inferred"}
+
+A **mutation** is a change in a DNA sequence. The lecture shows near-identical mRNA sequences, each with one letter changed from the reference, to show how small the physical change can be:
+
+```
+5' - AUGACUCCUUGUGGCUCUACAUAA - 3'   (reference)
+5' - AUGACCCCUUGUGGCUCUACAUAA - 3'
+5' - AUGACUCCUUGUGACUCUACAUAA - 3'
+5' - AUGACUCCUUGUGCCUCUACAUAA - 3'
+5' - AUGACUCCUUGAGGCUCUACAUAA - 3'
+```
+
+**Point mutations (substitutions)** swap one nucleotide for another. Also called an **SNV (single nucleotide variant)**; when the change is common in the population it is called an **SNP (single nucleotide polymorphism)**. Same *type* of change; SNP implies a recurring, population-level variant rather than a one-off.
+
+::: {.worked}
+| Effect | What happens | Consequence |
+|---|---|---|
+| **Silent** | Codon changes but the amino acid does not (code redundancy) | Protein unaffected |
+| **Missense** | Codon now codes a *different* amino acid | Structure/function may change |
+| **Nonsense** | Codon becomes a premature **stop** | Protein truncated |
+:::
+
+Worked on the sequences above (codons `AUG ACU CCU UGU GGC UCU ACA UAA` = Met–Thr–Pro–Cys–Gly–Ser–Thr–stop):
+
+| Line | Changed codon | Effect |
+|---|---|---|
+| 2 | ACU → ACC (both Thr) | Silent |
+| 3 | GGC → GAC (Gly → Asp) | Missense |
+| 4 | GGC → GCC (Gly → Ala) | Missense |
+| 5 | UGU → UGA (Cys → stop) | Nonsense |
+
+## 2.4b Mutations: indels and chromosomal changes {#t2-4b .topic flag="inferred"}
+
+**Indels (insertions and deletions)** add or remove one or more nucleotides. The effect depends on *how many*, because the ribosome reads in fixed groups of three:
+
+| Type | Number of nucleotides | Effect |
+|---|---|---|
+| **Frameshift** | *Not* a multiple of 3 | Every downstream codon is shifted; the rest of the protein is scrambled, often with an early stop |
+| **In-frame** | A multiple of 3 | Reading frame preserved; only the affected amino acid(s) are added or removed |
+
+**Chromosomal alterations** affect whole chromosome segments: **deletion, duplication, inversion, insertion, translocation.**
+
+:::: {.quiz}
+A deletion removes 3 nucleotides inside a gene. What is the most likely effect on the protein?
+
+- A frameshift that scrambles all downstream amino acids
+- A silent change that leaves the protein sequence intact
+- **One amino acid is lost but the reading frame is kept**
+- A premature stop codon at the site of the deletion
+
+::: {.exp}
+Three nucleotides is one codon. The frame downstream is preserved, so the protein simply lacks one amino acid (in-frame deletion). PCSK9 c.290_292delGCC (p.Arg97del) in Lecture 3 is exactly this.
+:::
+::::
+
+## 2.5 The PCSK9 mutation D374Y {#t2-5 .topic}
+
+The specific PCSK9 mutation used as the running example is **D374Y**, written at three levels:
+
+| Level | Notation |
+|---|---|
+| Plain (old style) | D374Y: aspartic acid (D) at position 374 changed to tyrosine (Y) |
+| DNA level | `c.1120G>T` |
+| Combined | `PCSK9 c.1120G>T (p.Asp374Tyr)` |
+
+Lecture 3 (Section 3.3) covers the full HGVS rules for reading and writing this notation, and explains why D374Y is a *gain-of-function* mutation.
+
+## 2.6 PCR: polymerase chain reaction {#t2-6 .topic flag="inferred"}
+
+**PCR** amplifies (makes many copies of) a specific region of DNA ***in vitro*** (in a test tube). "Worth a Nobel Prize": Kary Mullis won the 1993 Nobel Prize in Chemistry for it.
+
+| Component | Role |
+|---|---|
+| **Taq polymerase** | A **heat-stable** DNA polymerase. It survives the repeated heating steps PCR needs, unlike most enzymes |
+| **Primers** | Short DNA sequences that mark the start points and so define *which* region is amplified |
+
+PCR underlies many methods in this course: **TaqMan SNP genotyping** (Lecture 3) and amplifying a small region around a suspected mutation before sequencing in **AML diagnostics** (Lecture 3).
+
+:::: {.quiz}
+Why does PCR use Taq polymerase rather than an ordinary DNA polymerase?
+
+- Taq polymerase needs no primers to start synthesis
+- **Taq polymerase survives the repeated heating steps**
+- Taq polymerase copies RNA as well as DNA templates
+- Taq polymerase reads the strand in the 3′ to 5′ direction
+
+::: {.exp}
+PCR repeatedly heats the sample to separate the strands. Taq is heat-stable, so it survives every cycle. It still needs primers, which define the amplified region.
+:::
+::::
+
+# Practice
+
+::: {.callout-note}
+## Strand → mRNA → protein in R
+The code runs in your browser (the first run takes a few seconds while R loads). The function below does the steps from Section 2.2b. Run it, then try the tasks.
+:::
+
+```{webr-r}
+#| label: translate-practice
+code <- c(
+  UUU="Phe",UUC="Phe",UUA="Leu",UUG="Leu",CUU="Leu",CUC="Leu",CUA="Leu",CUG="Leu",
+  AUU="Ile",AUC="Ile",AUA="Ile",AUG="Met",GUU="Val",GUC="Val",GUA="Val",GUG="Val",
+  UCU="Ser",UCC="Ser",UCA="Ser",UCG="Ser",CCU="Pro",CCC="Pro",CCA="Pro",CCG="Pro",
+  ACU="Thr",ACC="Thr",ACA="Thr",ACG="Thr",GCU="Ala",GCC="Ala",GCA="Ala",GCG="Ala",
+  UAU="Tyr",UAC="Tyr",UAA="STOP",UAG="STOP",CAU="His",CAC="His",CAA="Gln",CAG="Gln",
+  AAU="Asn",AAC="Asn",AAA="Lys",AAG="Lys",GAU="Asp",GAC="Asp",GAA="Glu",GAG="Glu",
+  UGU="Cys",UGC="Cys",UGA="STOP",UGG="Trp",CGU="Arg",CGC="Arg",CGA="Arg",CGG="Arg",
+  AGU="Ser",AGC="Ser",AGA="Arg",AGG="Arg",GGU="Gly",GGC="Gly",GGA="Gly",GGG="Gly")
+
+# Coding strand, written 5'->3'
+coding <- "GTACGAATGGCCATTCGGTTAGCCTAACAT"
+
+mrna  <- chartr("T", "U", coding)            # transcription: T -> U
+start <- regexpr("AUG", mrna)                 # position of first AUG
+orf   <- substring(mrna, start)
+codons <- substring(orf, seq(1, nchar(orf) - 2, 3), seq(3, nchar(orf), 3))
+aa <- code[codons]
+first_stop <- which(aa == "STOP")[1]
+if (is.na(first_stop)) aa else aa[1:first_stop]   # translate up to the first stop
+```
+
+**Tasks**
+
+1. Change one letter in `coding` so that the Leu codon (UUA) becomes a stop codon. Which mutation type is that?
+2. Make a *silent* change in the first Ala codon (GCC).
+3. Delete one letter right after the start codon and rerun. What happens to the protein, and what is this mutation called?
+
+::: {.callout-tip collapse="true"}
+## Model answer
+1. UUA → U**A**A. In the coding strand, replace `CGGTTAGCC` with `CGGTAAGCC`. The protein stops after Met–Ala–Ile–Arg: a **nonsense** mutation.
+2. GCC → GC**A**, GC**U** or GC**G**: still Ala. For example replace `ATGGCC` with `ATGGCA`. A **silent** mutation.
+3. Deleting one letter shifts the reading frame: every codon after the deletion changes, and the stop codon ends up somewhere else (or disappears from the sequence). A **frameshift** mutation.
+:::
+
+# Why-questions
+
+::: {.callout-tip collapse="true"}
+## Why is the coding strand called "coding" if it is not the one being read?
+Because its sequence matches the mRNA (with T for U), and therefore *codes* for the protein in the sense that you can read the codons directly off it. The template strand is the one physically read by RNA polymerase.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why can a substitution be silent?
+The genetic code is redundant: 64 codons encode 20 amino acids plus stop. Many substitutions, especially in the third position of a codon, turn one codon into a synonym for the same amino acid.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why is a 1-nucleotide deletion usually worse than a 3-nucleotide deletion?
+The ribosome reads in triplets. Removing one letter shifts every following codon (frameshift), scrambling the rest of the protein. Removing three letters removes exactly one codon and keeps the frame.
+:::
+
+# Spaced review
+
+:::: {.quiz}
+From Lecture 1: which molecular layer is most stable over a person's lifetime?
+
+- **DNA / genetic variation**
+- RNA / gene expression
+- Protein abundance
+- Metabolite levels
+
+::: {.exp}
+DNA is essentially fixed for life. RNA and proteins are dynamic and tissue-specific; metabolites change fastest of all.
+:::
+::::
+
+# Further reading
+
+Assigned by the course. LibreTexts chapters are on [bio.libretexts.org](https://bio.libretexts.org).
+
+- Central dogma (*Introductory Biology* 4.1); DNA structure and replication (4.2); RNA (4.4); transcription (4.5); genetic code (4.6); translation (4.7); gene expression (4.11)
+- A YouTube video on transcription initiation, elongation and termination (linked on Canvas)
+- "Firefly video" summarizing transcription and translation: [learn.genetics.utah.edu](https://learn.genetics.utah.edu)
+- Transcription/translation practice exercises (LibreTexts Workbench)
+- Mutation types (*Introductory Biology* 4.8) and causes (4.9)
+- Mutation notation: Khan Academy, MCAT prep, "Types of mutations and their notations" ([khanacademy.org](https://www.khanacademy.org))
+- PCR: Khan Academy ([khanacademy.org](https://www.khanacademy.org))
+- Optional interactive "DNA to Proteins" activity: [Concord.org](https://concord.org)

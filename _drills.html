@@ -1,0 +1,366 @@
+<script>
+/* Randomised calculation drills for STA520.
+   Place <div class="drill" data-drill="NAME"></div> in a page.
+   Each drill shows a fresh problem, lets you type answers, checks them,
+   and reveals a full worked solution. "New problem" draws new numbers. */
+(function () {
+  'use strict';
+
+  /* ── helpers ───────────────────────────────────────────────────────── */
+  function rnd(min, max, dp) {
+    var f = Math.pow(10, dp || 0);
+    return Math.round((min + Math.random() * (max - min)) * f) / f;
+  }
+  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  function fmt(x, dp) {
+    if (typeof dp !== 'number') dp = 3;
+    return Number(x).toFixed(dp);
+  }
+  function h(tag, attrs, html) {
+    var e = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      if (k === 'class') e.className = attrs[k]; else e.setAttribute(k, attrs[k]);
+    });
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function table(header, rows) {
+    var s = '<' + 'table class="table table-sm drill-table"><thead><tr>';
+    header.forEach(function (c) { s += '<th>' + c + '</th>'; });
+    s += '</tr></thead><tbody>';
+    rows.forEach(function (r) {
+      s += '<tr>' + r.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>';
+    });
+    return s + '</tbody></' + 'table>';
+  }
+  function close(a, b, tol) {
+    if (isNaN(a)) return false;
+    return Math.abs(a - b) <= (tol !== undefined ? tol : Math.max(0.005, Math.abs(b) * 0.02));
+  }
+  function typeset(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) window.MathJax.typesetPromise([el]);
+  }
+
+  /* ── drill definitions ─────────────────────────────────────────────
+     Each returns { title, question (html), inputs: [{label, answer, tol}], solution (html) } */
+  var DRILLS = {};
+
+  DRILLS.bh = function () {
+    var m = pick([6, 8, 10]);
+    var Q = 0.05;
+    var ps = [];
+    for (var i = 0; i < m; i++) {
+      var r = Math.random();
+      var p = r < 0.45 ? rnd(0.0005, 0.02, 4) : (r < 0.75 ? rnd(0.02, 0.06, 3) : rnd(0.06, 0.6, 3));
+      ps.push(p);
+    }
+    var names = ps.map(function (_, i) { return 'miR-' + (100 + Math.floor(Math.random() * 800)); });
+    var order = ps.map(function (p, i) { return i; }).sort(function (a, b) { return ps[a] - ps[b]; });
+    var sorted = order.map(function (i) { return ps[i]; });
+    var k = 0;
+    sorted.forEach(function (p, i) { if (p <= (i + 1) / m * Q) k = i + 1; });
+    var bonf = sorted.filter(function (p) { return p <= Q / m; }).length;
+    var raw = sorted.map(function (p, i) { return Math.min(1, p * m / (i + 1)); });
+    var adj = raw.slice();
+    for (var j = m - 2; j >= 0; j--) adj[j] = Math.min(adj[j], adj[j + 1]);
+
+    var qRows = ps.map(function (p, i) { return [names[i], fmt(p, 4)]; });
+    var solRows = sorted.map(function (p, i) {
+      var thr = (i + 1) / m * Q;
+      return [i + 1, names[order[i]], fmt(p, 4), fmt(thr, 5), p <= thr ? '≤' : '>',
+              fmt(raw[i], 4), fmt(adj[i], 4), (i + 1) <= k ? '✓' : '—'];
+    });
+    return {
+      title: 'Benjamini–Hochberg and Bonferroni (m = ' + m + ', Q = α = 0.05)',
+      question: '<p>These p-values come from ' + m + ' differential expression tests. ' +
+        'Apply the BH procedure at FDR level Q = 0.05 and Bonferroni at α = 0.05.</p>' +
+        table(['Feature', 'p-value'], qRows),
+      inputs: [
+        { label: 'Largest rank k with p₍ₖ₎ ≤ (k/m)·Q (0 if none)', answer: k, tol: 0 },
+        { label: 'Number of features significant with BH', answer: k, tol: 0 },
+        { label: 'Bonferroni per-test threshold α/m', answer: Q / m, tol: 0.0001 },
+        { label: 'Number significant with Bonferroni', answer: bonf, tol: 0 },
+        { label: 'BH-adjusted p-value of the smallest p', answer: adj[0], tol: 0.0006 }
+      ],
+      solution: '<p><b>Step 1.</b> Sort the p-values. <b>Step 2.</b> Compare each with (i/m)·Q and find the <em>largest</em> i where p₍ᵢ₎ ≤ (i/m)·Q; that is k = <b>' + k + '</b>. ' +
+        '<b>Step 3.</b> All tests with rank ≤ k are significant, even if some of them individually lie above their own threshold.</p>' +
+        table(['Rank i', 'Feature', 'p₍ᵢ₎', '(i/m)·Q', '', 'p₍ᵢ₎·m/i', 'BH-adj p', 'BH sig'], solRows) +
+        '<p><b>Adjusted p-values:</b> p₍ᵢ₎·m/i, then a running minimum from the bottom of the list up: adj(i) = min over j ≥ i of p₍ⱼ₎·m/j (capped at 1). Significant if adj ≤ 0.05, giving the same ' + k + ' features.</p>' +
+        '<p><b>Bonferroni:</b> α/m = 0.05/' + m + ' = ' + fmt(Q / m, 5) + ' → <b>' + bonf + '</b> significant. BH finds ' + k + '. BH\'s threshold rises with rank, Bonferroni\'s is flat.</p>'
+    };
+  };
+
+  DRILLS.hwe = function () {
+    var q = rnd(0.05, 0.45, 2), p = 1 - q, n = pick([1000, 2000, 5000, 10000]);
+    return {
+      title: 'Hardy–Weinberg: allele → genotype frequencies',
+      question: '<p>At a biallelic SNP the minor allele a has frequency q = <b>' + q + '</b>. ' +
+        'Under HWE, give the expected genotype frequencies, and the expected number of heterozygotes among ' + n.toLocaleString('en') + ' people.</p>',
+      inputs: [
+        { label: 'P(AA) = p²', answer: p * p },
+        { label: 'P(Aa) = 2pq', answer: 2 * p * q },
+        { label: 'P(aa) = q²', answer: q * q, tol: 0.0015 },
+        { label: 'Expected heterozygotes (count)', answer: n * 2 * p * q, tol: n * 0.002 }
+      ],
+      solution: '<p>p = 1 − q = ' + fmt(p, 2) + '.</p>' +
+        table(['Genotype', 'Formula', 'Frequency', 'Count (n = ' + n + ')'], [
+          ['AA', 'p² = ' + fmt(p, 2) + '²', fmt(p * p, 4), Math.round(n * p * p)],
+          ['Aa', '2pq = 2 × ' + fmt(p, 2) + ' × ' + fmt(q, 2), fmt(2 * p * q, 4), Math.round(n * 2 * p * q)],
+          ['aa', 'q² = ' + fmt(q, 2) + '²', fmt(q * q, 4), Math.round(n * q * q)]
+        ]) + '<p>Check: the three frequencies sum to 1.</p>'
+    };
+  };
+
+  DRILLS.hwecount = function () {
+    var p = rnd(0.5, 0.85, 2), n = pick([500, 1000, 2000]);
+    var hetShift = rnd(-0.12, 0.02, 2);
+    var het = Math.round(n * (2 * p * (1 - p) + hetShift));
+    var AA = Math.round((n - het) * p / (p + (1 - p) * 0.9));
+    var aa = n - het - AA;
+    var pHat = (2 * AA + het) / (2 * n);
+    var qHat = 1 - pHat;
+    var eAA = n * pHat * pHat, eAa = n * 2 * pHat * qHat, eaa = n * qHat * qHat;
+    var chi = Math.pow(AA - eAA, 2) / eAA + Math.pow(het - eAa, 2) / eAa + Math.pow(aa - eaa, 2) / eaa;
+    return {
+      title: 'Hardy–Weinberg: is this SNP in equilibrium?',
+      question: '<p>Observed genotype counts: AA = <b>' + AA + '</b>, Aa = <b>' + het + '</b>, aa = <b>' + aa + '</b> (n = ' + n + ').</p>',
+      inputs: [
+        { label: 'Allele frequency p = P(A)', answer: pHat },
+        { label: 'Expected number of heterozygotes', answer: eAa, tol: 1 },
+        { label: 'χ² statistic (1 df)', answer: chi, tol: Math.max(0.1, chi * 0.03) }
+      ],
+      solution: '<p>p = (2·AA + Aa) / 2n = (2·' + AA + ' + ' + het + ') / ' + (2 * n) + ' = ' + fmt(pHat, 4) + ', q = ' + fmt(qHat, 4) + '.</p>' +
+        table(['', 'AA', 'Aa', 'aa'], [
+          ['Observed', AA, het, aa],
+          ['Expected', fmt(eAA, 1), fmt(eAa, 1), fmt(eaa, 1)]
+        ]) +
+        '<p>χ² = Σ (O − E)²/E = <b>' + fmt(chi, 2) + '</b> on 1 df (3 classes − 1 − 1 estimated parameter). ' +
+        'Critical value at 5% is 3.84: ' + (chi > 3.84 ? '<b>deviation from HWE</b>. In genotyping data this would flag the SNP in QC (e.g. heterozygote miscalls or population structure).' : 'consistent with HWE.') + '</p>'
+    };
+  };
+
+  DRILLS.or = function () {
+    var beta = pick([-1, 1]) * rnd(0.05, 0.4, 2);
+    return {
+      title: 'Log-odds β → odds ratio',
+      question: '<p>A GWAS of a binary disease reports β = <b>' + beta + '</b> (log-odds) per effect allele.</p>',
+      inputs: [
+        { label: 'OR for one copy', answer: Math.exp(beta) },
+        { label: 'OR for two copies (vs zero)', answer: Math.exp(2 * beta) }
+      ],
+      solution: '<p>OR = e<sup>β</sup> = e<sup>' + beta + '</sup> = <b>' + fmt(Math.exp(beta), 3) + '</b>. ' +
+        'Two copies: e<sup>2β</sup> = e<sup>' + fmt(2 * beta, 2) + '</sup> = <b>' + fmt(Math.exp(2 * beta), 3) + '</b> = (' + fmt(Math.exp(beta), 3) + ')². ' +
+        'On the additive log-odds scale effects add, so on the OR scale they multiply. ' +
+        (beta < 0 ? 'β < 0: the allele is associated with lower odds.' : 'β > 0: the allele is associated with higher odds.') + '</p>'
+    };
+  };
+
+  DRILLS.logbeta = function () {
+    var beta = rnd(0.03, 0.15, 2);
+    return {
+      title: 'Log₁₀-scale β → fold change',
+      question: '<p>A continuous phenotype was analysed on the log₁₀ scale. β = <b>' + beta + '</b> per allele.</p>',
+      inputs: [
+        { label: 'Fold change for one copy', answer: Math.pow(10, beta) },
+        { label: 'Fold change for two copies', answer: Math.pow(10, 2 * beta) }
+      ],
+      solution: '<p>10<sup>' + beta + '</sup> = <b>' + fmt(Math.pow(10, beta), 3) + '</b> (≈ ' + fmt((Math.pow(10, beta) - 1) * 100, 0) + '% higher). ' +
+        'Two copies: 10<sup>' + fmt(2 * beta, 2) + '</sup> = <b>' + fmt(Math.pow(10, 2 * beta), 3) + '</b> (≈ ' + fmt((Math.pow(10, 2 * beta) - 1) * 100, 0) + '% higher), the square of the one-copy factor.</p>'
+    };
+  };
+
+  DRILLS.wald = function () {
+    var bx = rnd(0.1, 0.5, 2), ratio = rnd(0.2, 0.9, 2), by = Math.round(bx * ratio * 1000) / 1000;
+    return {
+      title: 'Mendelian randomization: Wald ratio',
+      question: '<p>A SNP raises LDL-C by <b>' + bx + ' mmol/L</b> per allele and raises the log-odds of CHD by <b>' + by + '</b> per allele.</p>',
+      inputs: [
+        { label: 'Wald ratio β_MR', answer: by / bx },
+        { label: 'OR for CHD per 1 mmol/L LDL-C', answer: Math.exp(by / bx) }
+      ],
+      solution: '<p>β<sub>MR</sub> = β<sub>outcome</sub> / β<sub>exposure</sub> = ' + by + ' / ' + bx + ' = <b>' + fmt(by / bx, 3) + '</b> log-odds per mmol/L. ' +
+        'OR = e<sup>' + fmt(by / bx, 3) + '</sup> = <b>' + fmt(Math.exp(by / bx), 3) + '</b> per 1 mmol/L genetically higher LDL-C. ' +
+        'Valid only if relevance, independence and exclusion restriction hold.</p>'
+    };
+  };
+
+  DRILLS.ivw = function () {
+    var n = 4, rows = [], num = 0, den = 0, trueB = rnd(0.3, 0.7, 2);
+    for (var i = 0; i < n; i++) {
+      var bx = rnd(0.08, 0.35, 2), se = rnd(0.01, 0.03, 3);
+      var by = Math.round((bx * trueB + (Math.random() - 0.5) * 0.03) * 1000) / 1000;
+      rows.push([bx, by, se]);
+      num += bx * by / (se * se); den += bx * bx / (se * se);
+    }
+    var ivw = num / den;
+    return {
+      title: 'Mendelian randomization: IVW estimate',
+      question: '<p>Four independent instruments for an exposure:</p>' +
+        table(['SNP', 'β exposure', 'β outcome', 'SE outcome'], rows.map(function (r, i) { return ['SNP' + (i + 1)].concat(r); })),
+      inputs: [
+        { label: 'Wald ratio of SNP1', answer: rows[0][1] / rows[0][0] },
+        { label: 'IVW estimate', answer: ivw }
+      ],
+      solution: '<p>Wald ratios: ' + rows.map(function (r, i) { return 'SNP' + (i + 1) + ' = ' + fmt(r[1] / r[0], 3); }).join(', ') + '.</p>' +
+        '<p>IVW = Σ(β<sub>X</sub>β<sub>Y</sub>/σ<sub>Y</sub>²) / Σ(β<sub>X</sub>²/σ<sub>Y</sub>²) = ' + fmt(num, 1) + ' / ' + fmt(den, 1) + ' = <b>' + fmt(ivw, 3) + '</b>. ' +
+        'This is a weighted average of the Wald ratios, with weights β<sub>X</sub>²/σ<sub>Y</sub>², the same as a weighted regression of β<sub>Y</sub> on β<sub>X</sub> through the origin.</p>'
+    };
+  };
+
+  DRILLS.log2fc = function () {
+    var fc = pick([-3, -2, -1.5, -1, -0.5, 0.5, 1, 1.5, 2, 3]);
+    var ratio = pick([2, 4, 8, 0.5, 0.25, 0.125, 16]);
+    return {
+      title: 'Log₂ fold change',
+      question: '<p>(a) A miRNA has log₂FC = <b>' + fc + '</b> in tumour vs normal. How many times higher (or lower) is it?<br>' +
+        '(b) A protein is <b>' + ratio + '×</b> as abundant in cases. What is the log₂FC? (Also: how many NPX units apart are they?)</p>',
+      inputs: [
+        { label: '(a) Fold change 2^log₂FC', answer: Math.pow(2, fc) },
+        { label: '(b) log₂FC', answer: Math.log2(ratio) }
+      ],
+      solution: '<p>(a) 2<sup>' + fc + '</sup> = <b>' + fmt(Math.pow(2, fc), 3) + '</b>: ' +
+        (fc > 0 ? fmt(Math.pow(2, fc), 2) + '× higher.' : fmt(Math.pow(2, -fc), 2) + '× lower.') + '</p>' +
+        '<p>(b) log₂(' + ratio + ') = <b>' + fmt(Math.log2(ratio), 2) + '</b>. NPX is on the log₂ scale, so they differ by ' + fmt(Math.log2(ratio), 2) + ' NPX units (1 NPX = a doubling).</p>'
+    };
+  };
+
+  DRILLS.recomb = function () {
+    var total = pick([200, 400, 500, 1000]), rec = Math.round(total * rnd(0.02, 0.45, 2));
+    return {
+      title: 'Recombination frequency',
+      question: '<p>A test cross gives <b>' + rec + '</b> recombinant offspring out of <b>' + total + '</b>.</p>',
+      inputs: [{ label: 'Recombination frequency r (as a proportion)', answer: rec / total }],
+      solution: '<p>r = recombinants / total = ' + rec + ' / ' + total + ' = <b>' + fmt(rec / total, 3) + '</b> (' + fmt(100 * rec / total, 1) + '%). ' +
+        'The range is 0% (complete linkage) to 50% (unlinked). ' + (rec / total < 0.1 ? 'This is tight linkage: the loci are close.' : rec / total > 0.4 ? 'Close to 50%: the loci behave almost as unlinked.' : 'Partial linkage.') + '</p>'
+    };
+  };
+
+  DRILLS.ld = function () {
+    var pA = rnd(0.2, 0.8, 1), pB = rnd(0.2, 0.8, 1), obs = rnd(0.05, Math.min(pA, pB), 2);
+    var exp = pA * pB;
+    return {
+      title: 'Linkage disequilibrium: observed vs expected haplotype',
+      question: '<p>P(A) = <b>' + pA + '</b>, P(B) = <b>' + pB + '</b>. The AB haplotype is observed with frequency <b>' + obs + '</b>.</p>',
+      inputs: [
+        { label: 'Expected AB frequency if independent', answer: exp },
+        { label: 'D = observed − expected', answer: obs - exp }
+      ],
+      solution: '<p>Expected = P(A)·P(B) = ' + pA + ' × ' + pB + ' = <b>' + fmt(exp, 3) + '</b>. D = ' + obs + ' − ' + fmt(exp, 3) + ' = <b>' + fmt(obs - exp, 3) + '</b>. ' +
+        (Math.abs(obs - exp) < 0.01 ? 'Observed ≈ expected: little or no LD.' : 'Observed ≠ expected: the loci are in LD.') + '</p>'
+    };
+  };
+
+  DRILLS.qnorm = function () {
+    var genes = ['A', 'B', 'C', 'D'];
+    function perm() {
+      var v = [1, 2, 3, 4, 5, 6, 7, 8, 9].sort(function () { return Math.random() - 0.5; }).slice(0, 4);
+      return v;
+    }
+    var S = [perm(), perm(), perm()];
+    var sorted = S.map(function (c) { return c.slice().sort(function (a, b) { return a - b; }); });
+    var rankMean = [0, 1, 2, 3].map(function (r) { return (sorted[0][r] + sorted[1][r] + sorted[2][r]) / 3; });
+    var norm = S.map(function (c) {
+      return c.map(function (v) { return rankMean[c.slice().sort(function (a, b) { return a - b; }).indexOf(v)]; });
+    });
+    var gi = Math.floor(Math.random() * 4), si = Math.floor(Math.random() * 3);
+    return {
+      title: 'Quantile normalization by hand',
+      question: '<p>Raw intensities for 4 miRNAs on 3 arrays:</p>' +
+        table(['miRNA', 'Array 1', 'Array 2', 'Array 3'], genes.map(function (g, i) { return [g, S[0][i], S[1][i], S[2][i]]; })),
+      inputs: [
+        { label: 'Mean of the smallest values (rank 1)', answer: rankMean[0] },
+        { label: 'Mean of the largest values (rank 4)', answer: rankMean[3] },
+        { label: 'Normalized value of miRNA ' + genes[gi] + ' on array ' + (si + 1), answer: norm[si][gi] }
+      ],
+      solution: '<p><b>1.</b> Sort each array. <b>2.</b> Average across arrays at each rank. <b>3.</b> Replace every value by the rank mean for its rank within its own array.</p>' +
+        table(['Rank', 'Array 1 sorted', 'Array 2 sorted', 'Array 3 sorted', 'Rank mean'], [0, 1, 2, 3].map(function (r) {
+          return [r + 1, sorted[0][r], sorted[1][r], sorted[2][r], fmt(rankMean[r], 3)];
+        })) +
+        table(['miRNA', 'Array 1', 'Array 2', 'Array 3'], genes.map(function (g, i) { return [g, fmt(norm[0][i], 3), fmt(norm[1][i], 3), fmt(norm[2][i], 3)]; })) +
+        '<p>Every array now has exactly the same set of values (identical distributions), but the order of miRNAs within each array is kept.</p>'
+    };
+  };
+
+  DRILLS.modt = function () {
+    var s2 = rnd(0.005, 0.05, 3), s02 = rnd(0.1, 0.3, 2), d = pick([4, 6]), d0 = pick([4, 6, 10]);
+    var diff = rnd(0.3, 0.8, 2), n1 = d / 2 + 1, n2 = n1;
+    var st2 = (d0 * s02 + d * s2) / (d0 + d);
+    var se = Math.sqrt(1 / n1 + 1 / n2);
+    var t = diff / (Math.sqrt(s2) * se), tm = diff / (Math.sqrt(st2) * se);
+    return {
+      title: 'Moderated t: how shrinkage changes one feature',
+      question: '<p>A miRNA is compared in ' + n1 + ' vs ' + n2 + ' samples (d = ' + d + ' residual df). Its own variance estimate is s² = <b>' + s2 + '</b>; ' +
+        'the mean difference is <b>' + diff + '</b>. Across all miRNAs, the prior (common) variance is s₀² = <b>' + s02 + '</b> with d₀ = <b>' + d0 + '</b>.</p>' +
+        '<p>Moderated variance: s̃² = (d₀·s₀² + d·s²) / (d₀ + d).</p>',
+      inputs: [
+        { label: 'Ordinary t', answer: t, tol: Math.max(0.05, t * 0.02) },
+        { label: 'Moderated variance s̃²', answer: st2, tol: 0.002 },
+        { label: 'Moderated t', answer: tm, tol: Math.max(0.05, tm * 0.02) }
+      ],
+      solution: '<p>Ordinary: t = diff / (s·√(1/n₁ + 1/n₂)) = ' + diff + ' / (' + fmt(Math.sqrt(s2), 4) + ' × ' + fmt(se, 4) + ') = <b>' + fmt(t, 2) + '</b>.</p>' +
+        '<p>s̃² = (' + d0 + '·' + s02 + ' + ' + d + '·' + s2 + ') / (' + d0 + ' + ' + d + ') = <b>' + fmt(st2, 4) + '</b>. Moderated t = ' + diff + ' / (' + fmt(Math.sqrt(st2), 4) + ' × ' + fmt(se, 4) + ') = <b>' + fmt(tm, 2) + '</b>.</p>' +
+        '<p>The feature\'s suspiciously small variance was pulled up toward the common value, so its huge ordinary t shrinks. This is exactly how limma prevents false positives from randomly tiny variances. With more samples (larger d) the feature\'s own s² would get more weight.</p>'
+    };
+  };
+
+  /* ── rendering ─────────────────────────────────────────────────────── */
+  function render(box) {
+    var name = box.getAttribute('data-drill');
+    if (!DRILLS[name]) { box.textContent = 'Unknown drill: ' + name; return; }
+    var d = DRILLS[name]();
+    box.innerHTML = '';
+    box.appendChild(h('div', { 'class': 'drill-title' }, '🧮 ' + d.title));
+    box.appendChild(h('div', { 'class': 'drill-question' }, d.question));
+
+    var form = h('div', { 'class': 'drill-inputs' });
+    var fields = d.inputs.map(function (inp) {
+      var row = h('label', { 'class': 'drill-row' });
+      row.appendChild(h('span', { 'class': 'drill-label' }, inp.label));
+      var field = h('input', { type: 'text', inputmode: 'decimal', autocomplete: 'off' });
+      row.appendChild(field);
+      var mark = h('span', { 'class': 'drill-mark' });
+      row.appendChild(mark);
+      form.appendChild(row);
+      return { inp: inp, field: field, mark: mark };
+    });
+    box.appendChild(form);
+
+    var btns = h('div', { 'class': 'drill-buttons' });
+    var check = h('button', { type: 'button', 'class': 'btn btn-sm btn-primary' }, 'Check');
+    var show = h('button', { type: 'button', 'class': 'btn btn-sm btn-outline-secondary' }, 'Show solution');
+    var again = h('button', { type: 'button', 'class': 'btn btn-sm btn-outline-secondary' }, 'New problem ↻');
+    btns.appendChild(check); btns.appendChild(show); btns.appendChild(again);
+    box.appendChild(btns);
+
+    var sol = h('div', { 'class': 'drill-solution' }, d.solution);
+    sol.style.display = 'none';
+    box.appendChild(sol);
+
+    check.addEventListener('click', function () {
+      fields.forEach(function (f) {
+        var raw = f.field.value.replace(',', '.').replace('×10', 'e').trim();
+        if (raw === '') { f.mark.textContent = ''; return; }
+        var ok = close(parseFloat(raw), f.inp.answer, f.inp.tol);
+        f.mark.textContent = ok ? '✓' : '✗';
+        f.mark.className = 'drill-mark ' + (ok ? 'ok' : 'bad');
+      });
+    });
+    show.addEventListener('click', function () {
+      sol.style.display = sol.style.display === 'none' ? 'block' : 'none';
+      show.textContent = sol.style.display === 'none' ? 'Show solution' : 'Hide solution';
+      typeset(sol);
+    });
+    again.addEventListener('click', function () { render(box); });
+    typeset(box);
+  }
+
+  function init() {
+    document.querySelectorAll('.drill').forEach(render);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

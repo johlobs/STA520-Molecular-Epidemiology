@@ -1,0 +1,3216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>STA520 — Molecular Epidemiology</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./dashboard.html" rel="next">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a06d91ce84fd25668039cca5222332b2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="custom.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">STA520 — Molecular Epidemiology</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./dashboard.html"> 
+<span class="menu-text">Dashboard</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./exam-practice.html"> 
+<span class="menu-text">Exam practice</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./glossary.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About the content</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://johlobs.github.io/" target="_blank"> 
+<span class="menu-text">All courses</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exam prep</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exam-prep dashboard</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exam-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exam practice</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Weeks 1–2: Biology and genetics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 1 — The Biological Language of Molecular Epidemiology</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 2 — DNA, RNA and Protein</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 3 — Recap, Mutations and Genetics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Weeks 2–3: GWAS and MR</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 4 — From SNP to GWAS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 5 — GWAS and Computer Exercise 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 6 — From GWAS to Mendelian Randomization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Week 4: Omics and proteomics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 7 — High-Dimensional Molecular Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 8 — Proteomics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the content</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">STA520 — Molecular Epidemiology</h1>
+<p class="subtitle lead">Interactive study reference and exam-prep tracker</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="welcome" class="level2">
+<h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
+<p>This app covers the eight lectures of STA520: from the biology (DNA, RNA, proteins, mutations) through genetic association (GWAS) and causal inference (Mendelian randomization) to high-dimensional omics and proteomics. One clinical example runs through the whole course: the <strong>LDLR–PCSK9–LDL cholesterol</strong> pathway.</p>
+<div class="grid">
+<section id="weeks-12-biology-and-genetics" class="level3 g-col-12 g-col-md-4">
+<h3 class="anchored" data-anchor-id="weeks-12-biology-and-genetics">Weeks 1–2: Biology and genetics</h3>
+<ul>
+<li><a href="./lecture1.html">L1 · The biological language</a></li>
+<li><a href="./lecture2.html">L2 · DNA, RNA and protein</a></li>
+<li><a href="./lecture3.html">L3 · Mutations and genetics</a></li>
+</ul>
+</section>
+<section id="weeks-23-gwas-and-mr" class="level3 g-col-12 g-col-md-4">
+<h3 class="anchored" data-anchor-id="weeks-23-gwas-and-mr">Weeks 2–3: GWAS and MR</h3>
+<ul>
+<li><a href="./lecture4.html">L4 · From SNP to GWAS</a></li>
+<li><a href="./lecture5.html">L5 · GWAS and computer exercise 1</a></li>
+<li><a href="./lecture6.html">L6 · From GWAS to Mendelian randomization</a></li>
+</ul>
+</section>
+<section id="week-4-omics-and-proteomics" class="level3 g-col-12 g-col-md-4">
+<h3 class="anchored" data-anchor-id="week-4-omics-and-proteomics">Week 4: Omics and proteomics</h3>
+<ul>
+<li><a href="./lecture7.html">L7 · High-dimensional molecular data</a> 🎯</li>
+<li><a href="./lecture8.html">L8 · Proteomics</a></li>
+</ul>
+</section>
+</div>
+<hr>
+</section>
+<section id="how-to-study-with-it" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-study-with-it">How to study with it</h2>
+<ol type="1">
+<li><strong>Read a lecture.</strong> Every topic section has a status control under its heading: <strong>Not reviewed / Reviewed / Confident</strong>. Click as you go.</li>
+<li><strong>Answer the quizzes</strong> inside each lecture and the <strong>why-questions</strong> and <strong>spaced review</strong> at the bottom.</li>
+<li><strong>Practise calculations</strong> on the <a href="./exam-practice.html">Exam practice</a> page: drills that generate new numbers every time (Benjamini–Hochberg, Bonferroni, Hardy–Weinberg, OR from β, Wald ratio, IVW, log₂FC, quantile normalization, moderated t) plus 26 written exam-style questions with model answers.</li>
+<li><strong>Check the <a href="./dashboard.html">dashboard</a></strong> to see what is left, with the instructor-flagged topics listed first.</li>
+<li>Look up terms in the <a href="./glossary.html">glossary</a> or use <strong>search</strong> (top right). Searching “PCSK9” finds it in Lectures 1, 2, 3, 6 and 8.</li>
+</ol>
+</section>
+<section id="exam-flags" class="level2">
+<h2 class="anchored" data-anchor-id="exam-flags">Exam flags</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Badge</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="flag-badge flag-instructor">🎯 Instructor-flagged EXAM</span></td>
+<td>The slide carried the literal “EXAM” marker from the instructor (<strong>Lecture 7 only</strong>). Highest priority.</td>
+</tr>
+<tr class="even">
+<td><span class="flag-badge flag-inferred">📌 Likely exam-relevant (AI-inferred)</span></td>
+<td>Inferred from definitions, formulas and worked examples. <strong>Not confirmed by the instructor.</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Not in this app
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The instructor’s <strong>“Lecture 7 - questions.pdf”</strong> (example exam questions) and the computer exercise instructions were not available. See <a href="./about.html">About the content</a> for the full list.</p>
+</div>
+</div>
+<p>Code blocks marked <em>Run Code</em> are interactive: R runs in your browser, no installation needed. The first run on a page takes a few seconds while R loads.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+window.STA520_TOPICS = [
+
+ {
+
+  "id": "t1-1",
+
+  "title": "1.1 What molecular epidemiology actually is",
+
+  "lecture": 1,
+
+  "page": "lecture1.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t1-2",
+
+  "title": "1.2 The running example: cardiovascular disease, LDL and PCSK9",
+
+  "lecture": 1,
+
+  "page": "lecture1.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t1-3",
+
+  "title": "1.3 Molecular measurement layers",
+
+  "lecture": 1,
+
+  "page": "lecture1.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t1-3b",
+
+  "title": "1.3b Biomarkers and their five roles",
+
+  "lecture": 1,
+
+  "page": "lecture1.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t1-4",
+
+  "title": "1.4 Central dogma and proteins",
+
+  "lecture": 1,
+
+  "page": "lecture1.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t1-4b",
+
+  "title": "1.4b DNA structure and complementary base pairing",
+
+  "lecture": 1,
+
+  "page": "lecture1.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t1-4c",
+
+  "title": "1.4c Chromosomes, mitosis and meiosis",
+
+  "lecture": 1,
+
+  "page": "lecture1.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t1-4d",
+
+  "title": "1.4d Lipids",
+
+  "lecture": 1,
+
+  "page": "lecture1.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t2-1",
+
+  "title": "2.1 RNA vs DNA, and the types of RNA",
+
+  "lecture": 2,
+
+  "page": "lecture2.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t2-2",
+
+  "title": "2.2 Transcription, strands and directionality",
+
+  "lecture": 2,
+
+  "page": "lecture2.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t2-2b",
+
+  "title": "2.2b Worked example: strand, transcribe, translate",
+
+  "lecture": 2,
+
+  "page": "lecture2.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t2-3",
+
+  "title": "2.3 Translation and the genetic code",
+
+  "lecture": 2,
+
+  "page": "lecture2.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t2-4",
+
+  "title": "2.4 Mutations: substitutions",
+
+  "lecture": 2,
+
+  "page": "lecture2.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t2-4b",
+
+  "title": "2.4b Mutations: indels and chromosomal changes",
+
+  "lecture": 2,
+
+  "page": "lecture2.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t2-5",
+
+  "title": "2.5 The PCSK9 mutation D374Y",
+
+  "lecture": 2,
+
+  "page": "lecture2.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t2-6",
+
+  "title": "2.6 PCR: polymerase chain reaction",
+
+  "lecture": 2,
+
+  "page": "lecture2.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t3-1",
+
+  "title": "3.1 Recap and non-coding RNA genes",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t3-2",
+
+  "title": "3.2 miRNA and siRNA",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t3-2b",
+
+  "title": "3.2b Two drugs, one pathway: Leqvio vs Repatha/Praluent",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t3-3",
+
+  "title": "3.3 Gain and loss of function: the PCSK9 variants",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t3-3b",
+
+  "title": "3.3b HGVS nomenclature and reference sequences",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t3-3c",
+
+  "title": "3.3c dbSNP, rs numbers and genome builds",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t3-4",
+
+  "title": "3.4 Germline vs somatic mutations",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t3-5",
+
+  "title": "3.5 Sequencing and genotyping technologies",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t3-6",
+
+  "title": "3.6 Mendelian genetics: vocabulary and laws",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t3-7",
+
+  "title": "3.7 Linkage, recombination and linkage disequilibrium",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t3-8",
+
+  "title": "3.8 First look at GWAS, and SNP arrays",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t3-9",
+
+  "title": "3.9 Hardy–Weinberg equilibrium",
+
+  "lecture": 3,
+
+  "page": "lecture3.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t4-1",
+
+  "title": "4.1 Genotype → phenotype, and why association is not causation",
+
+  "lecture": 4,
+
+  "page": "lecture4.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t4-2",
+
+  "title": "4.2 SNPs, alleles, MAF and genotype frequencies",
+
+  "lecture": 4,
+
+  "page": "lecture4.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t4-3",
+
+  "title": "4.3 Phenotype types and the per-allele effect",
+
+  "lecture": 4,
+
+  "page": "lecture4.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t4-4",
+
+  "title": "4.4 The additive model: β, SE and p",
+
+  "lecture": 4,
+
+  "page": "lecture4.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t4-5",
+
+  "title": "4.5 Covariates",
+
+  "lecture": 4,
+
+  "page": "lecture4.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t4-6",
+
+  "title": "4.6 The GWAS scan and summary statistics",
+
+  "lecture": 4,
+
+  "page": "lecture4.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t4-7",
+
+  "title": "4.7 Multiple testing, Manhattan and QQ plots",
+
+  "lecture": 4,
+
+  "page": "lecture4.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t4-8",
+
+  "title": "4.8 Why one signal gives a cluster: lead SNP and r²",
+
+  "lecture": 4,
+
+  "page": "lecture4.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t4-9",
+
+  "title": "4.9 Population structure and confounding",
+
+  "lecture": 4,
+
+  "page": "lecture4.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t4-10",
+
+  "title": "4.10 From hit to biology: locus, lead SNP, QTLs",
+
+  "lecture": 4,
+
+  "page": "lecture4.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t5-1",
+
+  "title": "5.1 The data behind a single-SNP test",
+
+  "lecture": 5,
+
+  "page": "lecture5.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t5-2",
+
+  "title": "5.2 From one SNP to the full GWAS pipeline",
+
+  "lecture": 5,
+
+  "page": "lecture5.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t5-3",
+
+  "title": "5.3 Why neighbouring SNPs show up together",
+
+  "lecture": 5,
+
+  "page": "lecture5.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t5-4",
+
+  "title": "5.4 Finding the causal SNP: a menu of approaches",
+
+  "lecture": 5,
+
+  "page": "lecture5.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t5-4b",
+
+  "title": "5.4b r² bands and LD clumping",
+
+  "lecture": 5,
+
+  "page": "lecture5.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t5-5",
+
+  "title": "5.5 LD when you only have summary statistics",
+
+  "lecture": 5,
+
+  "page": "lecture5.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t5-6",
+
+  "title": "5.6 Practical pitfalls when combining datasets",
+
+  "lecture": 5,
+
+  "page": "lecture5.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t6-1",
+
+  "title": "6.1 Imputation and proxy SNPs",
+
+  "lecture": 6,
+
+  "page": "lecture6.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t6-2",
+
+  "title": "6.2 The Bradford Hill criteria",
+
+  "lecture": 6,
+
+  "page": "lecture6.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t6-3",
+
+  "title": "6.3 Genetic variants as instruments",
+
+  "lecture": 6,
+
+  "page": "lecture6.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t6-4",
+
+  "title": "6.4 Why we need MR: confounding",
+
+  "lecture": 6,
+
+  "page": "lecture6.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t6-5",
+
+  "title": "6.5 Instruments and the three MR assumptions",
+
+  "lecture": 6,
+
+  "page": "lecture6.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t6-6",
+
+  "title": "6.6 Multiple instruments, dose–response and pleiotropy",
+
+  "lecture": 6,
+
+  "page": "lecture6.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t6-7",
+
+  "title": "6.7 The Wald ratio and IVW",
+
+  "lecture": 6,
+
+  "page": "lecture6.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t6-8",
+
+  "title": "6.8 Sensitivity analyses: weighted median and MR-Egger",
+
+  "lecture": 6,
+
+  "page": "lecture6.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t6-9",
+
+  "title": "6.9 Interpreting an MR result",
+
+  "lecture": 6,
+
+  "page": "lecture6.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t7-1",
+
+  "title": "7.1 Why high-dimensional data is a different problem",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t7-2",
+
+  "title": "7.2 The siNET case study",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t7-3",
+
+  "title": "7.3 The microarray experiment",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t7-4",
+
+  "title": "7.4 Observed variation = biology + technical noise",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-5",
+
+  "title": "7.5 Preprocessing: background correction and normalization",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-6",
+
+  "title": "7.6 Supervised vs unsupervised analysis",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t7-7",
+
+  "title": "7.7 Why the ordinary t-test fails, and the moderated t",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-8",
+
+  "title": "7.8 Summary: the small-sample problem, in full",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-9",
+
+  "title": "7.9 Log₂ transformation and log₂ fold change",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-9b",
+
+  "title": "7.9b Tumour vs normal results, and the paired-sample note",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t7-10",
+
+  "title": "7.10 The multiple testing problem, with this study's numbers",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-11",
+
+  "title": "7.11 FWER vs FDR",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-12",
+
+  "title": "7.12 Bonferroni: controlling the FWER",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-13",
+
+  "title": "7.13 Benjamini–Hochberg: controlling the FDR",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-13b",
+
+  "title": "7.13b BH-adjusted p-values",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-14",
+
+  "title": "7.14 Why FDR fits omics data",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-15",
+
+  "title": "7.15 Multiple testing in the siNET paper",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t7-16",
+
+  "title": "7.16 Cluster analysis and downstream findings",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t7-16b",
+
+  "title": "7.16b Circular reasoning: testing clusters with the data that built them",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": "instructor"
+
+ },
+
+ {
+
+  "id": "t7-17",
+
+  "title": "7.17 Take-home message",
+
+  "lecture": 7,
+
+  "page": "lecture7.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t8-1",
+
+  "title": "8.1 Why study the proteome?",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t8-2",
+
+  "title": "8.2 Where can proteins be measured?",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": null
+
+ },
+
+ {
+
+  "id": "t8-3",
+
+  "title": "8.3 The plasma proteome",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t8-4",
+
+  "title": "8.4 Three technology families",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t8-5",
+
+  "title": "8.5 What a protein measurement means: units and NPX",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t8-6",
+
+  "title": "8.6 QC, pre-analytical variation and batch effects",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t8-7",
+
+  "title": "8.7 The proteome-wide association study (PWAS)",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t8-8",
+
+  "title": "8.8 Association is still not causation",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t8-9",
+
+  "title": "8.9 pQTLs: connecting genetics and proteomics",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t8-10",
+
+  "title": "8.10 Protein Mendelian randomization",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t8-11",
+
+  "title": "8.11 Challenges specific to protein MR",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t8-12",
+
+  "title": "8.12 From association to confirmed mechanism",
+
+  "lecture": 8,
+
+  "page": "lecture8.html",
+
+  "flag": "inferred"
+
+ }
+
+];
+
+</script>
+
+<script>
+/* Topic status tracking for STA520.
+   Reads window.STA520_TOPICS (written by build_topics.py) and:
+   1. adds an exam-flag badge and a status control under every topic heading,
+   2. adds reviewed/total counters to the sidebar,
+   3. renders the dashboard when the page has <div id="sta520-dashboard">. */
+(function () {
+  'use strict';
+
+  var STORAGE_KEY = 'sta520_topic_status';
+  var TOPICS = window.STA520_TOPICS || [];
+
+  var STATUS_LABELS = {
+    '': 'Not reviewed',
+    'reviewed': 'Reviewed',
+    'confident': 'Confident'
+  };
+
+  var FLAG_BADGES = {
+    instructor: {
+      text: '🎯 Instructor-flagged EXAM',
+      title: 'This slide carried the literal "EXAM" marker from the instructor.'
+    },
+    inferred: {
+      text: '📌 Likely exam-relevant (AI-inferred)',
+      title: 'Inferred from definitions, formulas and worked examples. Not confirmed by the instructor.'
+    }
+  };
+
+  var LECTURE_TITLES = {
+    1: 'Biological language of molecular epidemiology',
+    2: 'DNA, RNA and protein',
+    3: 'Recap, mutations and genetics',
+    4: 'From SNP to GWAS',
+    5: 'GWAS and computer exercise 1',
+    6: 'From GWAS to Mendelian randomization',
+    7: 'High-dimensional molecular data',
+    8: 'Proteomics'
+  };
+
+  /* ── storage ───────────────────────────────────────────────────────── */
+  function load() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch (e) { return {}; }
+  }
+  function save(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch (e) { /* storage blocked: status still works for this page view */ }
+  }
+  var state = load();
+
+  function statusOf(id) { return state[id] || ''; }
+  function setStatus(id, value) {
+    if (value) { state[id] = value; } else { delete state[id]; }
+    save(state);
+    refreshAll();
+  }
+
+  /* ── helpers ───────────────────────────────────────────────────────── */
+  function currentPage() {
+    var last = window.location.pathname.split('/').pop();
+    return last === '' ? 'index.html' : last;
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+  function summarise(list) {
+    var s = { total: list.length, reviewed: 0, confident: 0 };
+    list.forEach(function (t) {
+      var st = statusOf(t.id);
+      if (st === 'reviewed' || st === 'confident') s.reviewed++;
+      if (st === 'confident') s.confident++;
+    });
+    return s;
+  }
+  function pct(n, d) { return d === 0 ? 0 : Math.round(100 * n / d); }
+
+  /* ── 1. topic bars on lecture pages ────────────────────────────────── */
+  var controls = [];
+
+  function decorateTopics() {
+    var page = currentPage();
+    TOPICS.filter(function (t) { return t.page === page; }).forEach(function (t) {
+      var section = document.getElementById(t.id);
+      if (!section) return;
+      var heading = section.tagName === 'H2' ? section : section.querySelector('h2');
+      if (!heading) return;
+
+      var bar = el('div', 'topic-bar');
+
+      if (t.flag && FLAG_BADGES[t.flag]) {
+        var badge = el('span', 'flag-badge flag-' + t.flag, FLAG_BADGES[t.flag].text);
+        badge.title = FLAG_BADGES[t.flag].title;
+        bar.appendChild(badge);
+      }
+
+      var group = el('span', 'status-group');
+      group.setAttribute('role', 'group');
+      group.setAttribute('aria-label', 'Review status');
+      ['', 'reviewed', 'confident'].forEach(function (value) {
+        var btn = el('button', 'status-btn status-' + (value || 'none'), STATUS_LABELS[value]);
+        btn.type = 'button';
+        btn.addEventListener('click', function () { setStatus(t.id, value); });
+        group.appendChild(btn);
+        controls.push({ id: t.id, value: value, btn: btn });
+      });
+      bar.appendChild(group);
+
+      heading.parentNode.insertBefore(bar, heading.nextSibling);
+    });
+
+    /* Page summary under the title */
+    var pageTopics = TOPICS.filter(function (t) { return t.page === page; });
+    if (pageTopics.length) {
+      var header = document.querySelector('#title-block-header') ||
+                   document.querySelector('.quarto-title-block');
+      if (header) {
+        var summary = el('div', 'page-progress');
+        summary.id = 'page-progress';
+        header.appendChild(summary);
+      }
+    }
+  }
+
+  function refreshControls() {
+    controls.forEach(function (c) {
+      c.btn.classList.toggle('active', statusOf(c.id) === c.value);
+      c.btn.setAttribute('aria-pressed', statusOf(c.id) === c.value ? 'true' : 'false');
+    });
+    var summary = document.getElementById('page-progress');
+    if (summary) {
+      var page = currentPage();
+      var s = summarise(TOPICS.filter(function (t) { return t.page === page; }));
+      summary.innerHTML = '';
+      summary.appendChild(el('span', null,
+        'This lecture: ' + s.reviewed + '/' + s.total + ' topics reviewed · ' +
+        s.confident + ' confident'));
+      var bar = el('span', 'mini-bar');
+      var fillR = el('span', 'fill-reviewed'); fillR.style.width = pct(s.reviewed, s.total) + '%';
+      var fillC = el('span', 'fill-confident'); fillC.style.width = pct(s.confident, s.total) + '%';
+      bar.appendChild(fillR); bar.appendChild(fillC);
+      summary.appendChild(bar);
+    }
+  }
+
+  /* ── 2. sidebar counters ───────────────────────────────────────────── */
+  function refreshSidebar() {
+    document.querySelectorAll('#quarto-sidebar a').forEach(function (link) {
+      var href = (link.getAttribute('href') || '').split('#')[0].split('/').pop();
+      var list = TOPICS.filter(function (t) { return t.page === href; });
+      if (!list.length) return;
+      var s = summarise(list);
+      var tag = link.querySelector('.sidebar-count');
+      if (!tag) {
+        tag = el('span', 'sidebar-count');
+        link.appendChild(tag);
+      }
+      tag.textContent = s.reviewed + '/' + s.total;
+      tag.classList.toggle('done', s.reviewed === s.total);
+      tag.title = s.reviewed + ' of ' + s.total + ' topics reviewed, ' + s.confident + ' confident';
+    });
+  }
+
+  /* ── 3. dashboard ──────────────────────────────────────────────────── */
+  function statCard(label, s, cls) {
+    var card = el('div', 'dash-card ' + (cls || ''));
+    card.appendChild(el('div', 'dash-card-label', label));
+    card.appendChild(el('div', 'dash-card-value', pct(s.reviewed, s.total) + '%'));
+    card.appendChild(el('div', 'dash-card-sub',
+      s.reviewed + '/' + s.total + ' reviewed · ' + s.confident + ' confident (' +
+      pct(s.confident, s.total) + '%)'));
+    var bar = el('div', 'dash-bar');
+    var r = el('span', 'fill-reviewed'); r.style.width = pct(s.reviewed, s.total) + '%';
+    var c = el('span', 'fill-confident'); c.style.width = pct(s.confident, s.total) + '%';
+    bar.appendChild(r); bar.appendChild(c);
+    card.appendChild(bar);
+    return card;
+  }
+
+  function renderDashboard() {
+    var root = document.getElementById('sta520-dashboard');
+    if (!root) return;
+    root.innerHTML = '';
+
+    /* Rollup cards */
+    var cards = el('div', 'dash-cards');
+    cards.appendChild(statCard('All topics', summarise(TOPICS)));
+    cards.appendChild(statCard('🎯 Instructor-flagged EXAM',
+      summarise(TOPICS.filter(function (t) { return t.flag === 'instructor'; })), 'card-instructor'));
+    cards.appendChild(statCard('📌 Likely relevant (AI-inferred)',
+      summarise(TOPICS.filter(function (t) { return t.flag === 'inferred'; })), 'card-inferred'));
+    cards.appendChild(statCard('Unflagged',
+      summarise(TOPICS.filter(function (t) { return !t.flag; }))));
+    root.appendChild(cards);
+
+    var legend = el('p', 'dash-legend');
+    legend.innerHTML = '<span class="key key-reviewed"></span> reviewed (includes confident) &nbsp; ' +
+                       '<span class="key key-confident"></span> confident';
+    root.appendChild(legend);
+
+    /* Per-lecture table */
+    root.appendChild(el('h2', null, 'Progress per lecture'));
+    var table = el('table', 'dash-table table');
+    var thead = el('thead');
+    var hr = el('tr');
+    ['Lecture', 'Topics', '🎯', 'Reviewed', 'Confident'].forEach(function (h) { hr.appendChild(el('th', null, h)); });
+    thead.appendChild(hr); table.appendChild(thead);
+    var tbody = el('tbody');
+    for (var n = 1; n <= 8; n++) {
+      var list = TOPICS.filter(function (t) { return t.lecture === n; });
+      if (!list.length) continue;
+      var s = summarise(list);
+      var tr = el('tr');
+      var tdName = el('td');
+      var a = el('a', null, 'L' + n + ' · ' + (LECTURE_TITLES[n] || ''));
+      a.href = list[0].page;
+      tdName.appendChild(a);
+      tr.appendChild(tdName);
+      tr.appendChild(el('td', 'num', String(s.total)));
+      var nInstr = list.filter(function (t) { return t.flag === 'instructor'; }).length;
+      tr.appendChild(el('td', 'num', nInstr ? String(nInstr) : '–'));
+      [['reviewed', s.reviewed], ['confident', s.confident]].forEach(function (pair) {
+        var td = el('td');
+        var bar = el('div', 'dash-bar small');
+        var f = el('span', 'fill-' + pair[0]); f.style.width = pct(pair[1], s.total) + '%';
+        bar.appendChild(f);
+        td.appendChild(bar);
+        td.appendChild(el('span', 'bar-label', pair[1] + '/' + s.total));
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    root.appendChild(table);
+
+    /* To-do list: flagged topics that are not yet confident */
+    root.appendChild(el('h2', null, 'Flagged topics not yet confident'));
+    root.appendChild(el('p', 'dash-note',
+      'Instructor-flagged topics first, then AI-inferred ones, in course order. Click a topic to jump to it.'));
+    var todo = TOPICS.filter(function (t) { return t.flag && statusOf(t.id) !== 'confident'; });
+    todo.sort(function (a, b) {
+      if (a.flag !== b.flag) return a.flag === 'instructor' ? -1 : 1;
+      return a.lecture - b.lecture;
+    });
+    if (!todo.length) {
+      root.appendChild(el('p', 'dash-done', 'Every flagged topic is marked confident. 🎉'));
+    } else {
+      var ul = el('ul', 'dash-todo');
+      todo.forEach(function (t) {
+        var li = el('li');
+        li.appendChild(el('span', 'dot dot-' + (statusOf(t.id) || 'none')));
+        li.appendChild(el('span', 'todo-flag', t.flag === 'instructor' ? '🎯' : '📌'));
+        var link = el('a', null, 'L' + t.lecture + ' · ' + t.title);
+        link.href = t.page + '#' + t.id;
+        li.appendChild(link);
+        li.appendChild(el('span', 'todo-status', STATUS_LABELS[statusOf(t.id)]));
+        ul.appendChild(li);
+      });
+      root.appendChild(ul);
+    }
+
+    /* Backup / reset */
+    root.appendChild(el('h2', null, 'Backup and reset'));
+    root.appendChild(el('p', 'dash-note',
+      'Status is saved in this browser only. Export a backup before clearing browser data or switching device.'));
+    var tools = el('div', 'dash-tools');
+
+    var exportBtn = el('button', 'btn btn-outline-secondary btn-sm', 'Export progress (.json)');
+    exportBtn.addEventListener('click', function () {
+      var blob = new Blob([JSON.stringify(state, null, 1)], { type: 'application/json' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'sta520-progress.json';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
+    tools.appendChild(exportBtn);
+
+    var importLabel = el('label', 'btn btn-outline-secondary btn-sm', 'Import progress');
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.style.display = 'none';
+    input.addEventListener('change', function () {
+      var file = input.files[0];
+      if (!file) return;
+      file.text().then(function (text) {
+        try {
+          state = JSON.parse(text);
+          save(state);
+          refreshAll();
+        } catch (e) { alert('That file is not a valid progress export.'); }
+      });
+    });
+    importLabel.appendChild(input);
+    tools.appendChild(importLabel);
+
+    var resetBtn = el('button', 'btn btn-outline-danger btn-sm', 'Reset all progress');
+    resetBtn.addEventListener('click', function () {
+      if (confirm('Reset the status of every topic to "Not reviewed"?')) {
+        state = {};
+        save(state);
+        refreshAll();
+      }
+    });
+    tools.appendChild(resetBtn);
+    root.appendChild(tools);
+  }
+
+  function refreshAll() {
+    refreshControls();
+    refreshSidebar();
+    renderDashboard();
+  }
+
+  function init() {
+    decorateTopics();
+    refreshAll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+
+  function buildQuiz(src) {
+    var question = src.getAttribute('data-question') || '';
+    var opts     = shuffle(Array.from(src.querySelectorAll('.q-opt')));
+    var expText  = (src.querySelector('.q-exp') || {}).textContent || '';
+    var ctxEl    = src.querySelector('.q-ctx');
+
+    var wrap = document.createElement('div');
+    wrap.style.cssText = [
+      'border:1px solid #dee2e6;border-radius:8px;',
+      'padding:1rem 1.25rem;margin:1.2rem 0;background:#f8f9fa;'
+    ].join('');
+
+    if (ctxEl) {
+      var ctx = document.createElement('div');
+      ctx.style.cssText = [
+        'background:#e9ecef;border-radius:4px;',
+        'padding:0.5rem 0.85rem;margin-bottom:0.8rem;',
+        'overflow-x:auto;'
+      ].join('');
+      ctx.innerHTML = ctxEl.innerHTML;
+      wrap.appendChild(ctx);
+    }
+
+    var qEl = document.createElement('p');
+    qEl.style.cssText = 'font-weight:600;margin:0 0 0.7rem;font-size:0.93rem;';
+    qEl.textContent = '\u2753  ' + question;
+    wrap.appendChild(qEl);
+
+    var answered = false;
+    var btns = opts.map(function (opt) {
+      var correct = opt.getAttribute('data-correct') === 'true';
+      var btn = document.createElement('button');
+      btn.textContent = opt.textContent.trim();
+      btn.setAttribute('data-correct', String(correct));
+      btn.style.cssText = [
+        'display:block;width:100%;text-align:left;',
+        'padding:0.38rem 0.85rem;margin:0.28rem 0;',
+        'border:1px solid #ced4da;border-radius:5px;',
+        'background:#fff;cursor:pointer;font-size:0.87rem;',
+        'transition:background 0.12s,border-color 0.12s;'
+      ].join('');
+      btn.addEventListener('mouseover', function () {
+        if (!answered) btn.style.background = '#e9ecef';
+      });
+      btn.addEventListener('mouseout', function () {
+        if (!answered) btn.style.background = '#fff';
+      });
+      btn.addEventListener('click', function () {
+        if (answered) return;
+        answered = true;
+        btns.forEach(function (b) {
+          var c = b.getAttribute('data-correct') === 'true';
+          b.style.cursor = 'default';
+          b.style.fontWeight = c ? '600' : 'normal';
+          if (c) {
+            b.style.background  = '#d4edda';
+            b.style.borderColor = '#28a745';
+            b.style.color       = '#155724';
+            b.textContent       = '\u2713  ' + b.textContent;
+          } else {
+            b.style.background  = '#f8d7da';
+            b.style.borderColor = '#dc3545';
+            b.style.color       = '#721c24';
+          }
+        });
+        if (expText) {
+          var box = document.createElement('div');
+          box.style.cssText = [
+            'margin-top:0.7rem;padding:0.55rem 0.9rem;',
+            'background:#e8f4fd;border-left:3px solid #0d6efd;',
+            'border-radius:4px;font-size:0.85rem;color:#1a1a2e;'
+          ].join('');
+          box.textContent = expText;
+          wrap.appendChild(box);
+        }
+        var retry = document.createElement('button');
+        retry.textContent = 'Try again';
+        retry.style.cssText = [
+          'margin-top:0.5rem;padding:0.22rem 0.75rem;font-size:0.78rem;',
+          'border:1px solid #adb5bd;border-radius:4px;',
+          'background:#fff;cursor:pointer;color:#6c757d;'
+        ].join('');
+        retry.addEventListener('click', function () {
+          wrap.parentNode.replaceChild(buildQuiz(src), wrap);
+        });
+        wrap.appendChild(retry);
+      });
+      wrap.appendChild(btn);
+      return btn;
+    });
+
+    return wrap;
+  }
+
+  function init() {
+    document.querySelectorAll('.sta520-quiz').forEach(function (div) {
+      div.parentNode.replaceChild(buildQuiz(div), div);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+<script>
+
+/* Randomised calculation drills for STA520.
+
+   Place <div class="drill" data-drill="NAME"></div> in a page.
+
+   Each drill shows a fresh problem, lets you type answers, checks them,
+
+   and reveals a full worked solution. "New problem" draws new numbers. */
+
+(function () {
+
+  'use strict';
+
+
+
+  /* ── helpers ───────────────────────────────────────────────────────── */
+
+  function rnd(min, max, dp) {
+
+    var f = Math.pow(10, dp || 0);
+
+    return Math.round((min + Math.random() * (max - min)) * f) / f;
+
+  }
+
+  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+  function fmt(x, dp) {
+
+    if (typeof dp !== 'number') dp = 3;
+
+    return Number(x).toFixed(dp);
+
+  }
+
+  function h(tag, attrs, html) {
+
+    var e = document.createElement(tag);
+
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+
+      if (k === 'class') e.className = attrs[k]; else e.setAttribute(k, attrs[k]);
+
+    });
+
+    if (html !== undefined) e.innerHTML = html;
+
+    return e;
+
+  }
+
+  function table(header, rows) {
+
+    var s = '<' + 'table class="table table-sm drill-table"><thead><tr>';
+
+    header.forEach(function (c) { s += '<th>' + c + '</th>'; });
+
+    s += '</tr></thead><tbody>';
+
+    rows.forEach(function (r) {
+
+      s += '<tr>' + r.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>';
+
+    });
+
+    return s + '</tbody></' + 'table>';
+
+  }
+
+  function close(a, b, tol) {
+
+    if (isNaN(a)) return false;
+
+    return Math.abs(a - b) <= (tol !== undefined ? tol : Math.max(0.005, Math.abs(b) * 0.02));
+
+  }
+
+  function typeset(el) {
+
+    if (window.MathJax && window.MathJax.typesetPromise) window.MathJax.typesetPromise([el]);
+
+  }
+
+
+
+  /* ── drill definitions ─────────────────────────────────────────────
+
+     Each returns { title, question (html), inputs: [{label, answer, tol}], solution (html) } */
+
+  var DRILLS = {};
+
+
+
+  DRILLS.bh = function () {
+
+    var m = pick([6, 8, 10]);
+
+    var Q = 0.05;
+
+    var ps = [];
+
+    for (var i = 0; i < m; i++) {
+
+      var r = Math.random();
+
+      var p = r < 0.45 ? rnd(0.0005, 0.02, 4) : (r < 0.75 ? rnd(0.02, 0.06, 3) : rnd(0.06, 0.6, 3));
+
+      ps.push(p);
+
+    }
+
+    var names = ps.map(function (_, i) { return 'miR-' + (100 + Math.floor(Math.random() * 800)); });
+
+    var order = ps.map(function (p, i) { return i; }).sort(function (a, b) { return ps[a] - ps[b]; });
+
+    var sorted = order.map(function (i) { return ps[i]; });
+
+    var k = 0;
+
+    sorted.forEach(function (p, i) { if (p <= (i + 1) / m * Q) k = i + 1; });
+
+    var bonf = sorted.filter(function (p) { return p <= Q / m; }).length;
+
+    var raw = sorted.map(function (p, i) { return Math.min(1, p * m / (i + 1)); });
+
+    var adj = raw.slice();
+
+    for (var j = m - 2; j >= 0; j--) adj[j] = Math.min(adj[j], adj[j + 1]);
+
+
+
+    var qRows = ps.map(function (p, i) { return [names[i], fmt(p, 4)]; });
+
+    var solRows = sorted.map(function (p, i) {
+
+      var thr = (i + 1) / m * Q;
+
+      return [i + 1, names[order[i]], fmt(p, 4), fmt(thr, 5), p <= thr ? '≤' : '>',
+
+              fmt(raw[i], 4), fmt(adj[i], 4), (i + 1) <= k ? '✓' : '—'];
+
+    });
+
+    return {
+
+      title: 'Benjamini–Hochberg and Bonferroni (m = ' + m + ', Q = α = 0.05)',
+
+      question: '<p>These p-values come from ' + m + ' differential expression tests. ' +
+
+        'Apply the BH procedure at FDR level Q = 0.05 and Bonferroni at α = 0.05.</p>' +
+
+        table(['Feature', 'p-value'], qRows),
+
+      inputs: [
+
+        { label: 'Largest rank k with p₍ₖ₎ ≤ (k/m)·Q (0 if none)', answer: k, tol: 0 },
+
+        { label: 'Number of features significant with BH', answer: k, tol: 0 },
+
+        { label: 'Bonferroni per-test threshold α/m', answer: Q / m, tol: 0.0001 },
+
+        { label: 'Number significant with Bonferroni', answer: bonf, tol: 0 },
+
+        { label: 'BH-adjusted p-value of the smallest p', answer: adj[0], tol: 0.0006 }
+
+      ],
+
+      solution: '<p><b>Step 1.</b> Sort the p-values. <b>Step 2.</b> Compare each with (i/m)·Q and find the <em>largest</em> i where p₍ᵢ₎ ≤ (i/m)·Q; that is k = <b>' + k + '</b>. ' +
+
+        '<b>Step 3.</b> All tests with rank ≤ k are significant, even if some of them individually lie above their own threshold.</p>' +
+
+        table(['Rank i', 'Feature', 'p₍ᵢ₎', '(i/m)·Q', '', 'p₍ᵢ₎·m/i', 'BH-adj p', 'BH sig'], solRows) +
+
+        '<p><b>Adjusted p-values:</b> p₍ᵢ₎·m/i, then a running minimum from the bottom of the list up: adj(i) = min over j ≥ i of p₍ⱼ₎·m/j (capped at 1). Significant if adj ≤ 0.05, giving the same ' + k + ' features.</p>' +
+
+        '<p><b>Bonferroni:</b> α/m = 0.05/' + m + ' = ' + fmt(Q / m, 5) + ' → <b>' + bonf + '</b> significant. BH finds ' + k + '. BH\'s threshold rises with rank, Bonferroni\'s is flat.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.hwe = function () {
+
+    var q = rnd(0.05, 0.45, 2), p = 1 - q, n = pick([1000, 2000, 5000, 10000]);
+
+    return {
+
+      title: 'Hardy–Weinberg: allele → genotype frequencies',
+
+      question: '<p>At a biallelic SNP the minor allele a has frequency q = <b>' + q + '</b>. ' +
+
+        'Under HWE, give the expected genotype frequencies, and the expected number of heterozygotes among ' + n.toLocaleString('en') + ' people.</p>',
+
+      inputs: [
+
+        { label: 'P(AA) = p²', answer: p * p },
+
+        { label: 'P(Aa) = 2pq', answer: 2 * p * q },
+
+        { label: 'P(aa) = q²', answer: q * q, tol: 0.0015 },
+
+        { label: 'Expected heterozygotes (count)', answer: n * 2 * p * q, tol: n * 0.002 }
+
+      ],
+
+      solution: '<p>p = 1 − q = ' + fmt(p, 2) + '.</p>' +
+
+        table(['Genotype', 'Formula', 'Frequency', 'Count (n = ' + n + ')'], [
+
+          ['AA', 'p² = ' + fmt(p, 2) + '²', fmt(p * p, 4), Math.round(n * p * p)],
+
+          ['Aa', '2pq = 2 × ' + fmt(p, 2) + ' × ' + fmt(q, 2), fmt(2 * p * q, 4), Math.round(n * 2 * p * q)],
+
+          ['aa', 'q² = ' + fmt(q, 2) + '²', fmt(q * q, 4), Math.round(n * q * q)]
+
+        ]) + '<p>Check: the three frequencies sum to 1.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.hwecount = function () {
+
+    var p = rnd(0.5, 0.85, 2), n = pick([500, 1000, 2000]);
+
+    var hetShift = rnd(-0.12, 0.02, 2);
+
+    var het = Math.round(n * (2 * p * (1 - p) + hetShift));
+
+    var AA = Math.round((n - het) * p / (p + (1 - p) * 0.9));
+
+    var aa = n - het - AA;
+
+    var pHat = (2 * AA + het) / (2 * n);
+
+    var qHat = 1 - pHat;
+
+    var eAA = n * pHat * pHat, eAa = n * 2 * pHat * qHat, eaa = n * qHat * qHat;
+
+    var chi = Math.pow(AA - eAA, 2) / eAA + Math.pow(het - eAa, 2) / eAa + Math.pow(aa - eaa, 2) / eaa;
+
+    return {
+
+      title: 'Hardy–Weinberg: is this SNP in equilibrium?',
+
+      question: '<p>Observed genotype counts: AA = <b>' + AA + '</b>, Aa = <b>' + het + '</b>, aa = <b>' + aa + '</b> (n = ' + n + ').</p>',
+
+      inputs: [
+
+        { label: 'Allele frequency p = P(A)', answer: pHat },
+
+        { label: 'Expected number of heterozygotes', answer: eAa, tol: 1 },
+
+        { label: 'χ² statistic (1 df)', answer: chi, tol: Math.max(0.1, chi * 0.03) }
+
+      ],
+
+      solution: '<p>p = (2·AA + Aa) / 2n = (2·' + AA + ' + ' + het + ') / ' + (2 * n) + ' = ' + fmt(pHat, 4) + ', q = ' + fmt(qHat, 4) + '.</p>' +
+
+        table(['', 'AA', 'Aa', 'aa'], [
+
+          ['Observed', AA, het, aa],
+
+          ['Expected', fmt(eAA, 1), fmt(eAa, 1), fmt(eaa, 1)]
+
+        ]) +
+
+        '<p>χ² = Σ (O − E)²/E = <b>' + fmt(chi, 2) + '</b> on 1 df (3 classes − 1 − 1 estimated parameter). ' +
+
+        'Critical value at 5% is 3.84: ' + (chi > 3.84 ? '<b>deviation from HWE</b>. In genotyping data this would flag the SNP in QC (e.g. heterozygote miscalls or population structure).' : 'consistent with HWE.') + '</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.or = function () {
+
+    var beta = pick([-1, 1]) * rnd(0.05, 0.4, 2);
+
+    return {
+
+      title: 'Log-odds β → odds ratio',
+
+      question: '<p>A GWAS of a binary disease reports β = <b>' + beta + '</b> (log-odds) per effect allele.</p>',
+
+      inputs: [
+
+        { label: 'OR for one copy', answer: Math.exp(beta) },
+
+        { label: 'OR for two copies (vs zero)', answer: Math.exp(2 * beta) }
+
+      ],
+
+      solution: '<p>OR = e<sup>β</sup> = e<sup>' + beta + '</sup> = <b>' + fmt(Math.exp(beta), 3) + '</b>. ' +
+
+        'Two copies: e<sup>2β</sup> = e<sup>' + fmt(2 * beta, 2) + '</sup> = <b>' + fmt(Math.exp(2 * beta), 3) + '</b> = (' + fmt(Math.exp(beta), 3) + ')². ' +
+
+        'On the additive log-odds scale effects add, so on the OR scale they multiply. ' +
+
+        (beta < 0 ? 'β < 0: the allele is associated with lower odds.' : 'β > 0: the allele is associated with higher odds.') + '</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.logbeta = function () {
+
+    var beta = rnd(0.03, 0.15, 2);
+
+    return {
+
+      title: 'Log₁₀-scale β → fold change',
+
+      question: '<p>A continuous phenotype was analysed on the log₁₀ scale. β = <b>' + beta + '</b> per allele.</p>',
+
+      inputs: [
+
+        { label: 'Fold change for one copy', answer: Math.pow(10, beta) },
+
+        { label: 'Fold change for two copies', answer: Math.pow(10, 2 * beta) }
+
+      ],
+
+      solution: '<p>10<sup>' + beta + '</sup> = <b>' + fmt(Math.pow(10, beta), 3) + '</b> (≈ ' + fmt((Math.pow(10, beta) - 1) * 100, 0) + '% higher). ' +
+
+        'Two copies: 10<sup>' + fmt(2 * beta, 2) + '</sup> = <b>' + fmt(Math.pow(10, 2 * beta), 3) + '</b> (≈ ' + fmt((Math.pow(10, 2 * beta) - 1) * 100, 0) + '% higher), the square of the one-copy factor.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.wald = function () {
+
+    var bx = rnd(0.1, 0.5, 2), ratio = rnd(0.2, 0.9, 2), by = Math.round(bx * ratio * 1000) / 1000;
+
+    return {
+
+      title: 'Mendelian randomization: Wald ratio',
+
+      question: '<p>A SNP raises LDL-C by <b>' + bx + ' mmol/L</b> per allele and raises the log-odds of CHD by <b>' + by + '</b> per allele.</p>',
+
+      inputs: [
+
+        { label: 'Wald ratio β_MR', answer: by / bx },
+
+        { label: 'OR for CHD per 1 mmol/L LDL-C', answer: Math.exp(by / bx) }
+
+      ],
+
+      solution: '<p>β<sub>MR</sub> = β<sub>outcome</sub> / β<sub>exposure</sub> = ' + by + ' / ' + bx + ' = <b>' + fmt(by / bx, 3) + '</b> log-odds per mmol/L. ' +
+
+        'OR = e<sup>' + fmt(by / bx, 3) + '</sup> = <b>' + fmt(Math.exp(by / bx), 3) + '</b> per 1 mmol/L genetically higher LDL-C. ' +
+
+        'Valid only if relevance, independence and exclusion restriction hold.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.ivw = function () {
+
+    var n = 4, rows = [], num = 0, den = 0, trueB = rnd(0.3, 0.7, 2);
+
+    for (var i = 0; i < n; i++) {
+
+      var bx = rnd(0.08, 0.35, 2), se = rnd(0.01, 0.03, 3);
+
+      var by = Math.round((bx * trueB + (Math.random() - 0.5) * 0.03) * 1000) / 1000;
+
+      rows.push([bx, by, se]);
+
+      num += bx * by / (se * se); den += bx * bx / (se * se);
+
+    }
+
+    var ivw = num / den;
+
+    return {
+
+      title: 'Mendelian randomization: IVW estimate',
+
+      question: '<p>Four independent instruments for an exposure:</p>' +
+
+        table(['SNP', 'β exposure', 'β outcome', 'SE outcome'], rows.map(function (r, i) { return ['SNP' + (i + 1)].concat(r); })),
+
+      inputs: [
+
+        { label: 'Wald ratio of SNP1', answer: rows[0][1] / rows[0][0] },
+
+        { label: 'IVW estimate', answer: ivw }
+
+      ],
+
+      solution: '<p>Wald ratios: ' + rows.map(function (r, i) { return 'SNP' + (i + 1) + ' = ' + fmt(r[1] / r[0], 3); }).join(', ') + '.</p>' +
+
+        '<p>IVW = Σ(β<sub>X</sub>β<sub>Y</sub>/σ<sub>Y</sub>²) / Σ(β<sub>X</sub>²/σ<sub>Y</sub>²) = ' + fmt(num, 1) + ' / ' + fmt(den, 1) + ' = <b>' + fmt(ivw, 3) + '</b>. ' +
+
+        'This is a weighted average of the Wald ratios, with weights β<sub>X</sub>²/σ<sub>Y</sub>², the same as a weighted regression of β<sub>Y</sub> on β<sub>X</sub> through the origin.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.log2fc = function () {
+
+    var fc = pick([-3, -2, -1.5, -1, -0.5, 0.5, 1, 1.5, 2, 3]);
+
+    var ratio = pick([2, 4, 8, 0.5, 0.25, 0.125, 16]);
+
+    return {
+
+      title: 'Log₂ fold change',
+
+      question: '<p>(a) A miRNA has log₂FC = <b>' + fc + '</b> in tumour vs normal. How many times higher (or lower) is it?<br>' +
+
+        '(b) A protein is <b>' + ratio + '×</b> as abundant in cases. What is the log₂FC? (Also: how many NPX units apart are they?)</p>',
+
+      inputs: [
+
+        { label: '(a) Fold change 2^log₂FC', answer: Math.pow(2, fc) },
+
+        { label: '(b) log₂FC', answer: Math.log2(ratio) }
+
+      ],
+
+      solution: '<p>(a) 2<sup>' + fc + '</sup> = <b>' + fmt(Math.pow(2, fc), 3) + '</b>: ' +
+
+        (fc > 0 ? fmt(Math.pow(2, fc), 2) + '× higher.' : fmt(Math.pow(2, -fc), 2) + '× lower.') + '</p>' +
+
+        '<p>(b) log₂(' + ratio + ') = <b>' + fmt(Math.log2(ratio), 2) + '</b>. NPX is on the log₂ scale, so they differ by ' + fmt(Math.log2(ratio), 2) + ' NPX units (1 NPX = a doubling).</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.recomb = function () {
+
+    var total = pick([200, 400, 500, 1000]), rec = Math.round(total * rnd(0.02, 0.45, 2));
+
+    return {
+
+      title: 'Recombination frequency',
+
+      question: '<p>A test cross gives <b>' + rec + '</b> recombinant offspring out of <b>' + total + '</b>.</p>',
+
+      inputs: [{ label: 'Recombination frequency r (as a proportion)', answer: rec / total }],
+
+      solution: '<p>r = recombinants / total = ' + rec + ' / ' + total + ' = <b>' + fmt(rec / total, 3) + '</b> (' + fmt(100 * rec / total, 1) + '%). ' +
+
+        'The range is 0% (complete linkage) to 50% (unlinked). ' + (rec / total < 0.1 ? 'This is tight linkage: the loci are close.' : rec / total > 0.4 ? 'Close to 50%: the loci behave almost as unlinked.' : 'Partial linkage.') + '</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.ld = function () {
+
+    var pA = rnd(0.2, 0.8, 1), pB = rnd(0.2, 0.8, 1), obs = rnd(0.05, Math.min(pA, pB), 2);
+
+    var exp = pA * pB;
+
+    return {
+
+      title: 'Linkage disequilibrium: observed vs expected haplotype',
+
+      question: '<p>P(A) = <b>' + pA + '</b>, P(B) = <b>' + pB + '</b>. The AB haplotype is observed with frequency <b>' + obs + '</b>.</p>',
+
+      inputs: [
+
+        { label: 'Expected AB frequency if independent', answer: exp },
+
+        { label: 'D = observed − expected', answer: obs - exp }
+
+      ],
+
+      solution: '<p>Expected = P(A)·P(B) = ' + pA + ' × ' + pB + ' = <b>' + fmt(exp, 3) + '</b>. D = ' + obs + ' − ' + fmt(exp, 3) + ' = <b>' + fmt(obs - exp, 3) + '</b>. ' +
+
+        (Math.abs(obs - exp) < 0.01 ? 'Observed ≈ expected: little or no LD.' : 'Observed ≠ expected: the loci are in LD.') + '</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.qnorm = function () {
+
+    var genes = ['A', 'B', 'C', 'D'];
+
+    function perm() {
+
+      var v = [1, 2, 3, 4, 5, 6, 7, 8, 9].sort(function () { return Math.random() - 0.5; }).slice(0, 4);
+
+      return v;
+
+    }
+
+    var S = [perm(), perm(), perm()];
+
+    var sorted = S.map(function (c) { return c.slice().sort(function (a, b) { return a - b; }); });
+
+    var rankMean = [0, 1, 2, 3].map(function (r) { return (sorted[0][r] + sorted[1][r] + sorted[2][r]) / 3; });
+
+    var norm = S.map(function (c) {
+
+      return c.map(function (v) { return rankMean[c.slice().sort(function (a, b) { return a - b; }).indexOf(v)]; });
+
+    });
+
+    var gi = Math.floor(Math.random() * 4), si = Math.floor(Math.random() * 3);
+
+    return {
+
+      title: 'Quantile normalization by hand',
+
+      question: '<p>Raw intensities for 4 miRNAs on 3 arrays:</p>' +
+
+        table(['miRNA', 'Array 1', 'Array 2', 'Array 3'], genes.map(function (g, i) { return [g, S[0][i], S[1][i], S[2][i]]; })),
+
+      inputs: [
+
+        { label: 'Mean of the smallest values (rank 1)', answer: rankMean[0] },
+
+        { label: 'Mean of the largest values (rank 4)', answer: rankMean[3] },
+
+        { label: 'Normalized value of miRNA ' + genes[gi] + ' on array ' + (si + 1), answer: norm[si][gi] }
+
+      ],
+
+      solution: '<p><b>1.</b> Sort each array. <b>2.</b> Average across arrays at each rank. <b>3.</b> Replace every value by the rank mean for its rank within its own array.</p>' +
+
+        table(['Rank', 'Array 1 sorted', 'Array 2 sorted', 'Array 3 sorted', 'Rank mean'], [0, 1, 2, 3].map(function (r) {
+
+          return [r + 1, sorted[0][r], sorted[1][r], sorted[2][r], fmt(rankMean[r], 3)];
+
+        })) +
+
+        table(['miRNA', 'Array 1', 'Array 2', 'Array 3'], genes.map(function (g, i) { return [g, fmt(norm[0][i], 3), fmt(norm[1][i], 3), fmt(norm[2][i], 3)]; })) +
+
+        '<p>Every array now has exactly the same set of values (identical distributions), but the order of miRNAs within each array is kept.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.modt = function () {
+
+    var s2 = rnd(0.005, 0.05, 3), s02 = rnd(0.1, 0.3, 2), d = pick([4, 6]), d0 = pick([4, 6, 10]);
+
+    var diff = rnd(0.3, 0.8, 2), n1 = d / 2 + 1, n2 = n1;
+
+    var st2 = (d0 * s02 + d * s2) / (d0 + d);
+
+    var se = Math.sqrt(1 / n1 + 1 / n2);
+
+    var t = diff / (Math.sqrt(s2) * se), tm = diff / (Math.sqrt(st2) * se);
+
+    return {
+
+      title: 'Moderated t: how shrinkage changes one feature',
+
+      question: '<p>A miRNA is compared in ' + n1 + ' vs ' + n2 + ' samples (d = ' + d + ' residual df). Its own variance estimate is s² = <b>' + s2 + '</b>; ' +
+
+        'the mean difference is <b>' + diff + '</b>. Across all miRNAs, the prior (common) variance is s₀² = <b>' + s02 + '</b> with d₀ = <b>' + d0 + '</b>.</p>' +
+
+        '<p>Moderated variance: s̃² = (d₀·s₀² + d·s²) / (d₀ + d).</p>',
+
+      inputs: [
+
+        { label: 'Ordinary t', answer: t, tol: Math.max(0.05, t * 0.02) },
+
+        { label: 'Moderated variance s̃²', answer: st2, tol: 0.002 },
+
+        { label: 'Moderated t', answer: tm, tol: Math.max(0.05, tm * 0.02) }
+
+      ],
+
+      solution: '<p>Ordinary: t = diff / (s·√(1/n₁ + 1/n₂)) = ' + diff + ' / (' + fmt(Math.sqrt(s2), 4) + ' × ' + fmt(se, 4) + ') = <b>' + fmt(t, 2) + '</b>.</p>' +
+
+        '<p>s̃² = (' + d0 + '·' + s02 + ' + ' + d + '·' + s2 + ') / (' + d0 + ' + ' + d + ') = <b>' + fmt(st2, 4) + '</b>. Moderated t = ' + diff + ' / (' + fmt(Math.sqrt(st2), 4) + ' × ' + fmt(se, 4) + ') = <b>' + fmt(tm, 2) + '</b>.</p>' +
+
+        '<p>The feature\'s suspiciously small variance was pulled up toward the common value, so its huge ordinary t shrinks. This is exactly how limma prevents false positives from randomly tiny variances. With more samples (larger d) the feature\'s own s² would get more weight.</p>'
+
+    };
+
+  };
+
+
+
+  /* ── rendering ─────────────────────────────────────────────────────── */
+
+  function render(box) {
+
+    var name = box.getAttribute('data-drill');
+
+    if (!DRILLS[name]) { box.textContent = 'Unknown drill: ' + name; return; }
+
+    var d = DRILLS[name]();
+
+    box.innerHTML = '';
+
+    box.appendChild(h('div', { 'class': 'drill-title' }, '🧮 ' + d.title));
+
+    box.appendChild(h('div', { 'class': 'drill-question' }, d.question));
+
+
+
+    var form = h('div', { 'class': 'drill-inputs' });
+
+    var fields = d.inputs.map(function (inp) {
+
+      var row = h('label', { 'class': 'drill-row' });
+
+      row.appendChild(h('span', { 'class': 'drill-label' }, inp.label));
+
+      var field = h('input', { type: 'text', inputmode: 'decimal', autocomplete: 'off' });
+
+      row.appendChild(field);
+
+      var mark = h('span', { 'class': 'drill-mark' });
+
+      row.appendChild(mark);
+
+      form.appendChild(row);
+
+      return { inp: inp, field: field, mark: mark };
+
+    });
+
+    box.appendChild(form);
+
+
+
+    var btns = h('div', { 'class': 'drill-buttons' });
+
+    var check = h('button', { type: 'button', 'class': 'btn btn-sm btn-primary' }, 'Check');
+
+    var show = h('button', { type: 'button', 'class': 'btn btn-sm btn-outline-secondary' }, 'Show solution');
+
+    var again = h('button', { type: 'button', 'class': 'btn btn-sm btn-outline-secondary' }, 'New problem ↻');
+
+    btns.appendChild(check); btns.appendChild(show); btns.appendChild(again);
+
+    box.appendChild(btns);
+
+
+
+    var sol = h('div', { 'class': 'drill-solution' }, d.solution);
+
+    sol.style.display = 'none';
+
+    box.appendChild(sol);
+
+
+
+    check.addEventListener('click', function () {
+
+      fields.forEach(function (f) {
+
+        var raw = f.field.value.replace(',', '.').replace('×10', 'e').trim();
+
+        if (raw === '') { f.mark.textContent = ''; return; }
+
+        var ok = close(parseFloat(raw), f.inp.answer, f.inp.tol);
+
+        f.mark.textContent = ok ? '✓' : '✗';
+
+        f.mark.className = 'drill-mark ' + (ok ? 'ok' : 'bad');
+
+      });
+
+    });
+
+    show.addEventListener('click', function () {
+
+      sol.style.display = sol.style.display === 'none' ? 'block' : 'none';
+
+      show.textContent = sol.style.display === 'none' ? 'Show solution' : 'Hide solution';
+
+      typeset(sol);
+
+    });
+
+    again.addEventListener('click', function () { render(box); });
+
+    typeset(box);
+
+  }
+
+
+
+  function init() {
+
+    document.querySelectorAll('.drill').forEach(render);
+
+  }
+
+  if (document.readyState === 'loading') {
+
+    document.addEventListener('DOMContentLoaded', init);
+
+  } else {
+
+    init();
+
+  }
+
+})();
+
+</script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./dashboard.html" class="pagination-link" aria-label="Exam-prep dashboard">
+        <span class="nav-page-text">Exam-prep dashboard</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>STA520 · University of Gothenburg · Built with Quarto + WebR</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

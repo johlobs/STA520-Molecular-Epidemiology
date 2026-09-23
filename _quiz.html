@@ -1,0 +1,119 @@
+<script>
+(function () {
+  'use strict';
+
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+
+  function buildQuiz(src) {
+    var question = src.getAttribute('data-question') || '';
+    var opts     = shuffle(Array.from(src.querySelectorAll('.q-opt')));
+    var expText  = (src.querySelector('.q-exp') || {}).textContent || '';
+    var ctxEl    = src.querySelector('.q-ctx');
+
+    var wrap = document.createElement('div');
+    wrap.style.cssText = [
+      'border:1px solid #dee2e6;border-radius:8px;',
+      'padding:1rem 1.25rem;margin:1.2rem 0;background:#f8f9fa;'
+    ].join('');
+
+    if (ctxEl) {
+      var ctx = document.createElement('div');
+      ctx.style.cssText = [
+        'background:#e9ecef;border-radius:4px;',
+        'padding:0.5rem 0.85rem;margin-bottom:0.8rem;',
+        'overflow-x:auto;'
+      ].join('');
+      ctx.innerHTML = ctxEl.innerHTML;
+      wrap.appendChild(ctx);
+    }
+
+    var qEl = document.createElement('p');
+    qEl.style.cssText = 'font-weight:600;margin:0 0 0.7rem;font-size:0.93rem;';
+    qEl.textContent = '\u2753  ' + question;
+    wrap.appendChild(qEl);
+
+    var answered = false;
+    var btns = opts.map(function (opt) {
+      var correct = opt.getAttribute('data-correct') === 'true';
+      var btn = document.createElement('button');
+      btn.textContent = opt.textContent.trim();
+      btn.setAttribute('data-correct', String(correct));
+      btn.style.cssText = [
+        'display:block;width:100%;text-align:left;',
+        'padding:0.38rem 0.85rem;margin:0.28rem 0;',
+        'border:1px solid #ced4da;border-radius:5px;',
+        'background:#fff;cursor:pointer;font-size:0.87rem;',
+        'transition:background 0.12s,border-color 0.12s;'
+      ].join('');
+      btn.addEventListener('mouseover', function () {
+        if (!answered) btn.style.background = '#e9ecef';
+      });
+      btn.addEventListener('mouseout', function () {
+        if (!answered) btn.style.background = '#fff';
+      });
+      btn.addEventListener('click', function () {
+        if (answered) return;
+        answered = true;
+        btns.forEach(function (b) {
+          var c = b.getAttribute('data-correct') === 'true';
+          b.style.cursor = 'default';
+          b.style.fontWeight = c ? '600' : 'normal';
+          if (c) {
+            b.style.background  = '#d4edda';
+            b.style.borderColor = '#28a745';
+            b.style.color       = '#155724';
+            b.textContent       = '\u2713  ' + b.textContent;
+          } else {
+            b.style.background  = '#f8d7da';
+            b.style.borderColor = '#dc3545';
+            b.style.color       = '#721c24';
+          }
+        });
+        if (expText) {
+          var box = document.createElement('div');
+          box.style.cssText = [
+            'margin-top:0.7rem;padding:0.55rem 0.9rem;',
+            'background:#e8f4fd;border-left:3px solid #0d6efd;',
+            'border-radius:4px;font-size:0.85rem;color:#1a1a2e;'
+          ].join('');
+          box.textContent = expText;
+          wrap.appendChild(box);
+        }
+        var retry = document.createElement('button');
+        retry.textContent = 'Try again';
+        retry.style.cssText = [
+          'margin-top:0.5rem;padding:0.22rem 0.75rem;font-size:0.78rem;',
+          'border:1px solid #adb5bd;border-radius:4px;',
+          'background:#fff;cursor:pointer;color:#6c757d;'
+        ].join('');
+        retry.addEventListener('click', function () {
+          wrap.parentNode.replaceChild(buildQuiz(src), wrap);
+        });
+        wrap.appendChild(retry);
+      });
+      wrap.appendChild(btn);
+      return btn;
+    });
+
+    return wrap;
+  }
+
+  function init() {
+    document.querySelectorAll('.sta520-quiz').forEach(function (div) {
+      div.parentNode.replaceChild(buildQuiz(div), div);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

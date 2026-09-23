@@ -1,0 +1,447 @@
+---
+title: "Lecture 8 — Proteomics"
+subtitle: "Why proteins · sample types · the plasma proteome · measurement technologies · NPX · QC and batch effects · PWAS · pQTLs · protein MR · colocalization · from association to mechanism"
+engine: knitr
+---
+
+```{=html}
+<script>document.body.classList.add("block-omics");</script>
+```
+
+DNA is fixed for life, but proteins change with diet, disease, drugs and age, and they are what actually does the work in cells. Most drugs act on proteins. That makes the **proteome**, all the proteins in a sample, an attractive layer for finding biomarkers and drug targets.
+
+Measuring proteins is harder than reading DNA. Plasma contains proteins at concentrations that differ by many orders of magnitude, the same gene can give several protein forms, and most methods measure how much protein there is, not how well it works. Modern platforms (Olink, SomaScan) now measure thousands of proteins in tens of thousands of people, which allows **proteome-wide association studies (PWAS)**, the protein version of a GWAS.
+
+The second half connects proteins back to genetics. A SNP that changes a protein's level is a **pQTL**. If it sits next to the protein's own gene (cis-pQTL), it is a good instrument for **protein Mendelian randomization**: does genetically higher protein cause disease? The lecture closes the course's PCSK9 story end to end.
+
+This page covers why and where to measure proteins, the three technology families, what the numbers mean (NPX), QC and batch effects, PWAS, pQTLs (cis vs trans), protein MR and its specific pitfalls, colocalization and the path from association to mechanism.
+
+::: {.callout-note collapse="true"}
+## Sources and session
+**Slides:** "Lecture 8 proteomics.pdf", delivered in two parts. No additional reading listed.
+
+**Rough plan:** Week 4, day 1. High-dimensional data, proteomics.
+:::
+
+# Part 1: Proteomics fundamentals
+
+## 8.1 Why study the proteome? {#t8-1 .topic flag="inferred"}
+
+Contrast from the molecular-layer table (Lecture 1): **DNA is fixed**, while **RNA and proteins are dynamic**, affected by diet, disease, drugs, environment and age. Proteins matter because they **carry out cellular functions**, act as **signalling molecules**, **respond** to disease/environment/diet/drugs/age, and are **the targets of most drugs** (Leqvio and Repatha in Lecture 3).
+
+**Worked example: insulin biosynthesis.** "One gene" does not always mean "one direct protein":
+
+```
+INS gene ─transcription─▶ INS mRNA ─translation─▶ preproinsulin
+   ─signal peptide removed─▶ proinsulin
+   ─folds, forms disulfide bonds, C-peptide cleaved out─▶ insulin + C-peptide
+```
+
+(Insulin is a signalling molecule central to metabolism, obesity and diabetes; compare the glucose/insulin example in Lecture 1.)
+
+**Proteins are not 1-to-1 with genes.** Processes that multiply protein products:
+
+| Process | Example |
+|---|---|
+| **Alternative splicing** | One gene's transcript spliced into several mRNA/protein variants |
+| **Cleavage** | Insulin from proinsulin |
+| **Post-translational modification (PTM)** | **Phosphorylation**, **glycosylation**, cleavage |
+| **Different cellular localization** | Same sequence behaves differently depending on where it ends up |
+| **Protein complexes** | Proteins assemble into larger units (quaternary structure, Lecture 1) |
+
+Net effect: **the proteome is more dynamic and complex than the genome.**
+
+::: {.callout-important}
+## Protein amount ≠ protein function
+More protein does not automatically mean more function (though in the simplest case it does). The **same amount** can have **different function**, e.g. after a GoF or LoF mutation (the PCSK9 examples in Lecture 3): a functionally altered protein can be present at a normal concentration. **Most proteomics methods measure amount (abundance), not function.**
+:::
+
+:::: {.quiz}
+Why is the proteome larger and more complex than the set of protein-coding genes?
+
+- Every gene is translated into exactly one protein product
+- **Splicing, cleavage and modifications create extra variants**
+- Proteins are copied directly from other proteins in the cell
+- The genome changes continuously with diet and age
+
+::: {.exp}
+Alternative splicing, cleavage, post-translational modifications, localization and complex formation all multiply the number of distinct protein products per gene.
+:::
+::::
+
+## 8.2 Where can proteins be measured? {#t8-2 .topic}
+
+| Sample type | Trade-off |
+|---|---|
+| **Plasma / serum** | Easily accessible; **systemic**, whole-body signal |
+| **Tissue** | Needs a biopsy, but closer to the site of biology |
+| **Cells** | Cell-type-specific mechanisms |
+| **Urine** | Reflects kidney/urinary tract function and filtering |
+| **CSF** (cerebrospinal fluid) | Relevant for neurological disease, but hard to obtain |
+| **Saliva, etc.** | Accessible but more local; generally lower complexity/information than blood |
+
+## 8.3 The plasma proteome {#t8-3 .topic flag="inferred"}
+
+Many organs, including blood cells, release proteins into plasma. A protein's circulating level is the **net balance of production/synthesis, release, distribution, degradation, uptake and clearance**, so a change in plasma level can reflect a change in *any* of these, not necessarily in how much is made. Plasma **integrates signals from many tissues**: some proteins come from one tissue and reflect it specifically; for others, the tissue you care about can **drown** in signal from other tissues.
+
+**Why plasma is attractive for diagnostics:** easy to access and informative, a mixture carrying signal from the liver, immune cells, adipose tissue, muscle, **damaged tissues** (injury releases proteins, see troponin below) and secreted hormones/signalling proteins.
+
+**Measurement challenges in plasma**
+
+- some proteins have low abundance and/or are technically hard to measure;
+- **isoforms** complicate quantification;
+- signalling proteins and cytokines are often at very low concentration;
+- **mass vs count** units (mg/dL vs mmol/L) can disagree because isoforms have different molecular weights;
+- some proteins (e.g. **albumin**) are hugely abundant: plasma proteins span an **enormous dynamic range** (many orders of magnitude), a major challenge for any multi-protein assay.
+
+**Worked example: troponin.** Normally very low in plasma. After myocardial injury: cardiomyocyte injury → troponin released from damaged cells → plasma troponin rises. Unlike a **constitutively secreted** protein, troponin in blood signals **damage**, not normal secretion (the "disease/tissue injury" biomarker type from Lecture 1).
+
+## 8.4 Three technology families {#t8-4 .topic flag="inferred"}
+
+::: {.worked}
+| | **1. Antibody-based** | **2. Mass spectrometry** | **3. High-throughput affinity** |
+|---|---|---|---|
+| Examples | **ELISA**, clinical immunoassays, **Western blot** | LC-MS | **Olink**, **SomaScan** |
+| How | An antibody binds its target protein, giving a signal proportional to the amount | Protein digested into peptides with **trypsin** (cuts at **lysine and arginine**) → separated by **liquid chromatography (LC)** → charged by **electrospray ionization** → masses measured ("mass spectrum 1" = intact precursor peptide masses) | Each protein binds a specific engineered **affinity reagent**; the signal estimates relative abundance |
+| Scope | **Highly targeted**: one or a few proteins | Can do **discovery** (unknown proteins/changes) | Thousands of proteins per sample |
+| Quantification | **Quantitative** with calibration standards | Often calibrated with **labelled control peptides** | **Relative** abundance, not absolute |
+| Strengths | Basis of routine clinical chemistry | **Detects isoforms**; discovery | Designed for **large cohorts**, biomarker discovery, **PWAS** |
+| Weaknesses | Few proteins at a time | Technically complex; dynamic range needs dilution/preparation | Relative values only; assay binding can be affected by variants (8.11) |
+:::
+
+Real-world example: **UK Biobank (UKBB) proteomics**: about **50,000 individuals**, about **3,000 proteins** each.
+
+:::: {.quiz}
+You want to discover protein isoforms nobody has described before. Which technology family fits best?
+
+- ELISA, since it is quantitative with calibration standards
+- **Mass spectrometry, since it can detect isoforms and discover**
+- Olink, since it measures thousands of proteins at once
+- Western blot, since it uses a specific antibody per protein
+
+::: {.exp}
+Antibody and affinity methods measure predefined targets. Mass spectrometry measures peptides directly, can separate isoforms and supports discovery.
+:::
+::::
+
+## 8.5 What a protein measurement means: units and NPX {#t8-5 .topic flag="inferred"}
+
+| Kind | Meaning | Units |
+|---|---|---|
+| **Absolute concentration** | Real physical amount | mg/dL (US), mmol/L (EU), ng/mL or pg/mL for low-abundance proteins |
+| **Relative abundance** | *Relationships* between samples are meaningful, the numbers are not physical concentrations | Often normalized, log-transformed, arbitrary units |
+
+**Platform units**
+
+- **Olink and SomaScan**: relative abundance as **NPX (Normalized Protein eXpression)** on a **log₂ scale**. **One NPX unit = a doubling** of signal (same logic as log₂FC in Lecture 7).
+- **Mass spectrometry**: peptide intensity, ion counts or peak area; often calibrated by spiking in a **labelled peptide of known concentration** as an internal standard.
+
+:::: {.quiz}
+Two people differ by 3 NPX units for a protein. How do their relative abundances compare?
+
+- The first person has 3 times as much
+- **The first person has 8 times as much**
+- The first person has 3 mg/dL more
+- They differ by 3% in concentration
+
+::: {.exp}
+NPX is log₂: a difference of 3 NPX means 2³ = 8 times the relative abundance. It says nothing about absolute mg/dL.
+:::
+::::
+
+## 8.6 QC, pre-analytical variation and batch effects {#t8-6 .topic flag="inferred"}
+
+**Pipeline:** individual → blood sample → plasma/serum → assay → [QC, batch-effect handling, sample-prep issues such as freeze/thaw] → **protein table** (one row per person, one column per protein, e.g. Protein 1 … Protein 3000). Same shape as the GWAS table in Lecture 5, with continuous protein values instead of dosages.
+
+**QC at two levels**
+
+| Sample-level QC | Protein-level QC |
+|---|---|
+| Was the sample measured successfully? | Is the protein reliably detected across samples? |
+| Is it an outlier across *many* proteins (a sample-wide problem)? | Too much missingness for this protein? |
+| Too much missingness for this sample? | Is the assay reproducible? |
+| Did internal technical controls fail? | Is its variation dominated by **batch** rather than biology? |
+
+A very high or low value can be: real biology, contamination, technical failure, **assay saturation** (signal maxed out) or a processing error. **Technical controls** (for sample processing, hybridization/amplification, assay performance, normalization) help separate biology from artifact.
+
+**Pre-analytical variation** (before the lab assay, often overlooked): fasting vs non-fasting, time of day, posture and recent exercise, tube/anticoagulant, time from draw to centrifugation, storage temperature, number of **freeze–thaw cycles**, **hemolysis** (red cells rupturing into the plasma), delay before freezing.
+
+::: {.callout-warning}
+## Systematic, not random
+Sick patients may be handled differently (more time, more controlled) than controls (processed faster, more randomly). Centers may have different protocols, and protocols change over time. If handling correlates with disease status, you get **systematic bias**.
+:::
+
+**Batch effects.** A batch is any group of samples processed together that may share an artifact: the same **plate**, **reagent lot**, **lab run**, **day**, **instrument** or **operator**.
+
+**Detection:** boxplots by plate/run (systematic shifts), **PCA** (do samples cluster by batch rather than biology?), clustering, technical controls, replicate samples across batches, comparing value distributions across plates.
+
+::: {.worked}
+| **Prevent: design stage** | **Correct: analysis stage** |
+|---|---|
+| **Randomize** samples across plates | **Normalize** across platforms/batches |
+| **Balance** cases and controls across plates/batches | Adjust for **plate/run** as a covariate |
+| Technical **replicate** samples across plates | Include **batch** as a covariate in the regression (like genotyping batch in GWAS, Lecture 4) |
+| Common **reference samples** repeated across plates | |
+:::
+
+**Transformations for proteomics data** (right-skewed, wide dynamic range, sensitive to extremes):
+
+- **log transformation** compresses the right tail;
+- **z-scores** $z = \dfrac{x - \text{mean}(x)}{\text{SD}(x)}$ (mean 0, SD 1) make effect sizes comparable across proteins on different scales;
+- **plate normalization**;
+- **reference-sample normalization**: the same sample on every plate, and all values on a plate normalized to it, removing plate-to-plate drift.
+
+:::: {.quiz}
+All cases in a proteomics study were run on plates 1–3 and all controls on plates 4–6. What is the main problem?
+
+- The study cannot use NPX units for relative abundance
+- **Batch is completely confounded with case status**
+- Too few proteins are measured on each individual plate
+- The protein values will no longer be right-skewed
+
+::: {.exp}
+Any plate effect is indistinguishable from the case–control difference. Randomizing and balancing cases and controls across plates at the design stage prevents this; no analysis step can fully fix it afterwards.
+:::
+::::
+
+# Part 2: PWAS and genetics–proteomics integration
+
+## 8.7 The proteome-wide association study (PWAS) {#t8-7 .topic flag="inferred"}
+
+Same structure as a GWAS, with a protein instead of a SNP as the predictor:
+
+$$Y = \beta_0 + \beta_1 \times \text{protein} + \beta_2 \times \text{age} + \beta_3 \times \text{sex} + \dots$$
+
+If the protein is standardized (z-score), $\beta$ is the effect of a **1-SD** higher protein level:
+
+- continuous $Y$: $\beta = 0.18$ → 0.18 units higher outcome per SD;
+- binary $Y$ (logistic): $e^{0.18} \approx 1.20$ → **20% higher odds** per SD.
+
+**Two model directions**
+
+| Protein as **predictor** | Protein as **outcome** |
+|---|---|
+| $Y = \beta_0 + \beta_1 \times \text{protein} + \text{covariates}$ | $\text{protein} = \beta_0 + \beta_1 \times \text{exposure} + \text{covariates}$ |
+| Does this protein predict the phenotype? | Does this exposure predict the protein level? |
+
+**Multiple testing in PWAS.** ~3,000 proteins → about $3{,}000 \times 0.05 = 150$ false positives at uncorrected $p < 0.05$. In discovery, control the **FDR** (usually BH, Lecture 7). Unlike GWAS, there is **no single conventional threshold** like 5×10⁻⁸: it depends on the number of proteins, their correlation and the strategy.
+
+## 8.8 Association is still not causation {#t8-8 .topic flag="inferred"}
+
+Three explanations for a protein–disease association:
+
+```
+protein ──▶ disease            causal
+disease ──▶ protein            reverse causation (disease changes the protein)
+protein ◀── confounder ──▶ disease   confounding
+```
+
+**A protein can be a good biomarker/predictor without being causal.** Troponin marks cardiac injury, but **lowering troponin would not treat an MI**: it is a readout of injury that already happened. **Prediction and causation are different properties**; only some proteins have both.
+
+:::: {.quiz}
+Troponin predicts myocardial infarction very well. Why is it not a drug target?
+
+- Troponin cannot be measured in plasma with current assays
+- **It is released by injury, a consequence of the infarction**
+- Troponin levels are fixed at conception like DNA
+- It is a trans-pQTL, so it has horizontal pleiotropy
+
+::: {.exp}
+Troponin is a readout of cardiomyocyte damage. Lowering it would not undo the damage: prediction without causation.
+:::
+::::
+
+## 8.9 pQTLs: connecting genetics and proteomics {#t8-9 .topic flag="inferred"}
+
+For a given SNP, do genotype groups (AA = 0, AG = 1, GG = 2) differ in protein abundance?
+
+$$\text{Protein} = \beta_0 + \beta_1 \times \text{Genotype} + \varepsilon$$
+
+(The SNP → continuous phenotype model of Lecture 4 with protein level as the outcome.) Questions it answers: which variants regulate which circulating proteins? Which genes influence protein levels? Can a protein be linked genetically to disease? Can the variant be an MR instrument?
+
+**pQTL (protein quantitative trait locus):** a SNP associated with a protein's abundance.
+
+::: {.callout-warning}
+## A SNP can change function without changing abundance
+Since assays measure amount, a functionally important variant can be **invisible** to a pQTL analysis if it does not also change the concentration.
+:::
+
+**PCSK9 chain:** PCSK9 SNP → circulating PCSK9 protein → LDL receptor activity → LDL-C. DNA to clinical biomarker in four steps.
+
+::: {.worked}
+| | **cis-pQTL** | **trans-pQTL** |
+|---|---|---|
+| Location | **Close to** the gene encoding the protein | **Far away**: common working definition **> 500 kb**, or a different chromosome |
+| Plausible mechanisms | Transcription, splicing, protein stability or secretion of *that* gene's product | Indirect: transcription factors, receptors, signalling pathways, protein-processing machinery |
+| Interpretation | Relatively **direct** biological interpretation | More indirect |
+| As MR instrument | **Preferred** | Higher risk of horizontal pleiotropy |
+:::
+
+:::: {.quiz}
+A SNP on chromosome 3 is associated with the level of a protein encoded on chromosome 11. What is it?
+
+- A cis-pQTL, because it changes protein abundance
+- **A trans-pQTL, because it is far from the encoding gene**
+- A cis-pQTL, because any SNP near a gene counts as cis
+- Not a pQTL, because pQTLs must be on the same gene
+
+::: {.exp}
+cis = near the encoding gene; trans = far away (> 500 kb) or on another chromosome. Different chromosome → trans.
+:::
+::::
+
+## 8.10 Protein Mendelian randomization {#t8-10 .topic flag="inferred"}
+
+Genetic variant → protein abundance → disease risk. With $\beta_{GP}$ = SNP effect on **P**rotein and $\beta_{GO}$ = SNP effect on **O**utcome:
+
+$$\hat\beta_{MR} = \frac{\beta_{GO}}{\beta_{GP}}$$
+
+The Wald ratio of Lecture 6 with protein level as the exposure: the effect on the outcome per genetically predicted unit change in protein.
+
+**Why cis-pQTLs are preferred as instruments:** closer to the encoding gene, so an easier and more direct biological link, and **less risk of horizontal pleiotropy** (fewer alternative pathways than a variant acting at a distance). **But cis-pQTLs still need all three MR assumptions** (relevance, independence, exclusion restriction). Being cis reduces one risk; it does not remove the need for the other checks.
+
+:::: {.quiz}
+A cis-pQTL raises plasma protein X by 0.5 SD per allele and raises the log-odds of disease by 0.10 per allele. What is the protein-MR estimate?
+
+- 0.05 log-odds per SD of protein X
+- **0.20 log-odds per SD of protein X**
+- 5.0 log-odds per SD of protein X
+- 0.60 log-odds per SD of protein X
+
+::: {.exp}
+β_MR = β_GO / β_GP = 0.10 / 0.5 = 0.20 per SD, i.e. OR ≈ e^0.2 ≈ 1.22 per SD higher genetically predicted protein X.
+:::
+::::
+
+## 8.11 Challenges specific to protein MR {#t8-11 .topic flag="inferred"}
+
+| Challenge | Why it matters |
+|---|---|
+| **Horizontal pleiotropy** | Violates the exclusion restriction; **especially relevant for trans-pQTLs** |
+| **Assay binding artifacts** | A **coding** variant can change the protein's structure so the antibody/aptamer binds worse, giving a *seemingly* lower level with no real change in amount. Fairly unique to protein instruments |
+| **Amount ≠ function** | A variant can change activity, binding, stability or localization without changing measured abundance |
+| **LD can fake causality** | SNP A affects the protein, a different SNP B in LD affects disease through another mechanism: protein and disease look linked only through the LD |
+| **One pQTL, many proteins** | SNP → protein A, B and C at once; the effect may not run through the one protein you study |
+
+**Colocalization: is it the same signal?** Compare the pattern of association across a region for the **protein's pQTL** and for the **disease GWAS**. If one shared causal variant drives both, SNPs in LD should give a **matching pattern** of association strength for both traits. If the patterns do not line up, the protein and disease associations are probably driven by **two distinct** (possibly nearby) causal variants. Check this before concluding that a pQTL and a GWAS hit at "the same locus" reflect the same biology.
+
+:::: {.quiz}
+A missense SNP in a protein's own gene is associated with much lower measured levels on an affinity platform. Before calling it a strong cis-pQTL, what should you worry about?
+
+- **The variant may change assay binding, not the amount**
+- The variant must be a trans-pQTL since it is missense
+- The variant cannot affect protein function at all
+- The variant proves the protein causes the disease
+
+::: {.exp}
+Coding variants can alter the epitope the antibody or aptamer binds, producing an apparent drop in abundance: an assay binding artifact.
+:::
+::::
+
+## 8.12 From association to confirmed mechanism {#t8-12 .topic flag="inferred"}
+
+The lecture's pipeline:
+
+```
+protein association → pQTL evidence → MR / colocalization
+   → candidate causal protein → mechanistic experiments → biological pathway
+```
+
+**Follow-up questions** once a protein is genetically implicated: Which cell or tissue produces it? Which receptor or pathway does it act through? Does changing its level or activity change cell function? Does it reproduce in an experimental model? Can the pathway be modified by a drug (is it druggable)?
+
+**Experimental validation approaches:** CRISPR knock-out or knock-in; protein overexpression or targeted inhibition; cultured cells; organoids; animal models; receptor-binding experiments; enzyme activity assays.
+
+::: {.worked}
+**The PCSK9 story, end to end** (be able to reproduce it from memory)
+
+| Step | |
+|---|---|
+| Genetics | PCSK9 genetic variation |
+| Protein | PCSK9 protein abundance |
+| Mechanism | PCSK9 promotes LDLR degradation → fewer LDL receptors on hepatocytes |
+| Physiology | Reduced LDL clearance → higher LDL-C |
+| Disease | Higher atherosclerotic risk |
+| Drug (mirror image) | PCSK9 inhibition (Repatha/Praluent block the protein; Leqvio silences the mRNA) → more LDLR → lower LDL-C |
+:::
+
+::: {.callout-important}
+## Closing statement of the course's method arc
+A protein can be **statistically associated**, **genetically supported** (pQTL/MR) and **still need experimental validation** before you understand the mechanism. This echoes Lecture 1: molecular epidemiology is not biology.
+:::
+
+# Practice
+
+::: {.callout-note}
+## Quick calculations
+:::
+
+<div class="drill" data-drill="log2fc"></div>
+
+<div class="drill" data-drill="wald"></div>
+
+# Why-questions
+
+::: {.callout-tip collapse="true"}
+## Why is a cis-pQTL a better MR instrument than a trans-pQTL?
+A cis variant sits by the gene that encodes the protein, so its effect most plausibly runs directly through that protein (transcription, splicing, stability). A trans variant acts through other genes and pathways, so it more often affects the outcome by routes that bypass the protein: horizontal pleiotropy.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why is plasma level not the same as production?
+Plasma level is a balance of synthesis, release, distribution, degradation, uptake and clearance. A kidney problem that slows clearance raises the level without any change in production.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why can a batch effect not simply be "corrected away" afterwards?
+If batch is confounded with the comparison (all cases on some plates), batch and biology cannot be separated statistically. That is why randomization and balance at the design stage matter most.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why do we still need colocalization after finding a pQTL and a GWAS hit in the same region?
+LD means two different causal variants close together can both produce signals at "the same locus". Colocalization checks whether one shared variant explains both association patterns.
+:::
+
+# Spaced review
+
+:::: {.quiz}
+From Lecture 6: which MR sensitivity method has a free intercept that can reveal directional pleiotropy?
+
+- Inverse-variance weighting
+- Weighted median
+- **MR-Egger regression**
+- The Wald ratio
+
+::: {.exp}
+MR-Egger lets the intercept differ from zero; a non-zero intercept signals directional horizontal pleiotropy.
+:::
+::::
+
+:::: {.quiz}
+From Lecture 7: what is controlled by the Benjamini–Hochberg procedure?
+
+- The probability of at least one false positive
+- **The expected proportion of false hits among the hits**
+- The variance of each feature across replicate arrays
+- The number of features that are truly differentially expressed
+
+::: {.exp}
+BH controls the FDR, the expected proportion of false discoveries. The probability of any false positive is the FWER (Bonferroni).
+:::
+::::
+
+:::: {.quiz}
+From Lecture 1: which biomarker role does LDL-C play when used to assess future atherosclerotic disease?
+
+- Exposure marker
+- Marker of tissue injury
+- **Marker of future risk**
+- Marker of inflammation
+
+::: {.exp}
+LDL-C is the course's example of a marker of future risk; its change after statin therapy would be a treatment-response marker.
+:::
+::::
+
+# Further reading
+
+No additional reading listed beyond the lecture slides.

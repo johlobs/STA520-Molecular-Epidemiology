@@ -1,0 +1,275 @@
+---
+title: "Lecture 1 — The Biological Language of Molecular Epidemiology"
+subtitle: "Molecular epidemiology vs biology · LDL/PCSK9 · molecular layers · biomarkers · DNA and protein structure"
+engine: knitr
+---
+
+```{=html}
+<script>document.body.classList.add("block-bio");</script>
+```
+
+Molecular epidemiology is epidemiology that looks inside the body. Classical epidemiology links an exposure (smoking, diet, a drug) to a disease and treats everything in between as a black box. Molecular epidemiology opens that box. It measures DNA variants, RNA levels, proteins and metabolites across many people and asks how they relate to exposures and disease.
+
+The course runs on one clinical example: a young patient with a heart attack, a father who had one too, and very high LDL cholesterol in the whole family. Following that family from DNA to protein to blood lipids to heart disease introduces almost every idea in the course, and the same LDLR/PCSK9 pathway comes back in Lectures 2, 3, 6 and 8.
+
+The key intuition is that a molecule linked to a disease can play three roles. It can **cause** the disease, it can **reflect** a disease process that is already running, or it can simply be **associated** with it through something else. Most of the course is about telling these three apart.
+
+This page covers the framing of the field, the LDL/PCSK9 example, the molecular measurement layers and biomarker types, and the DNA and protein structure you need for everything after this.
+
+::: {.callout-note collapse="true"}
+## Sources and session
+**Slides:** "Lecture 1A An introduction to the biological language of molecular epidemiology.pptx" and "Lecture 1_part2_ProteinsAndDNA.pdf" (same session, 1 Sep 2026). Part A is the framing, Part 2 is the DNA/protein background.
+
+**Rough plan:** Week 1, day 1. Intro to the biological language of molecular epidemiology; biological macromolecules (proteins, DNA, lipids).
+:::
+
+## 1.1 What molecular epidemiology actually is {#t1-1 .topic}
+
+Classical epidemiology asks whether an *exposure* (smoking, diet, a drug) is associated with a *disease outcome* in a population and usually treats the biology in between as a black box. Molecular epidemiology opens that black box. It asks how changes at the molecular level (a DNA variant, an RNA transcript level, a protein concentration, a metabolite) **cause, precede, accompany or result from** disease. It studies the relationship in both directions: from molecule to disease, and from disease to molecule.
+
+**It is not the same discipline as biology.** A molecular epidemiologist works with statistical evidence at the population level: associations, effect sizes, p-values. A molecular biologist provides the mechanistic, "definite" answers about how a change works in the cell. The two fields depend on each other. Statistical association points to candidates, and biological experiments confirm or explain the mechanism. The course frames this partnership as needing a shared vocabulary: you need to "talk biology" to read the molecular papers you build models around, and "talk bioinformatics/genetics" (variant nomenclature, databases, sequencing terms) to process the data.
+
+::: {.callout-important}
+## Central question of the field
+Does a statistical association between a molecule and a disease reflect **causality** (the molecule contributes to causing the disease), or is it only correlated, a downstream consequence of disease, or a confounded association? This question runs through the whole course and is the explicit subject of Lecture 6 (Mendelian randomization).
+:::
+
+**Formal definition** (the synthesis at the end of the lecture): *molecular epidemiology studies how molecular variation across individuals relates to exposures, traits and disease in populations.* In practice the field measures molecular variation across many individuals, links it to exposures, risk factors, disease, prognosis or treatment response, and then asks whether the associations are **reproducible, predictive, mechanistically informative and potentially causal**.
+
+## 1.2 The running example: cardiovascular disease, LDL and PCSK9 {#t1-2 .topic flag="inferred"}
+
+**Why cardiovascular disease?** Cardiovascular disease (CVD) is *not one disease* but a family of clinical phenotypes with overlapping biology:
+
+| Phenotype | What it is |
+|---|---|
+| Atherosclerotic CVD | Coronary artery disease, ischemic stroke, peripheral artery disease; all share atherosclerosis |
+| Myocardial infarction (MI) | Acute interruption of coronary blood flow causing ischemic injury |
+| Heart failure | Impaired pumping or filling; can follow ischemic injury, hypertension, cardiomyopathy and more |
+| Stroke | Ischemic or hemorrhagic; ischemic stroke shares risk factors and mechanisms with coronary disease |
+
+Shared biological processes: **atherosclerosis, thrombosis, inflammation, metabolic dysfunction and cardiac remodeling.**
+
+**Two questions research keeps asking**
+
+1. *Why does disease develop at all?* Traditional risk factors (smoking, blood pressure, LDL cholesterol, diabetes), genetic susceptibility, environment and lifestyle, and the biological mechanisms connecting them to disease.
+2. *Why does disease differ between people who have it?* Age of onset, severity, presentation (stable disease vs MI vs stroke vs heart failure), treatment response and prognosis.
+
+Molecular measurements help with both: understanding mechanisms, identifying risk, improving prediction, finding biomarkers, discovering druggable targets and explaining variable treatment response. The goal is to separate molecules that are **associated** with disease, molecules that **reflect** ongoing disease, and molecules that **participate in causing** disease.
+
+**Background biology: cholesterol deposition.** LDL (low-density lipoprotein) particles are macromolecules of protein and lipid that carry cholesterol in the blood. They form from larger VLDL (very low-density lipoprotein) particles, which the liver makes; VLDL is remodeled into LDL in the bloodstream. Most circulating LDL is cleared by the liver, prominently through the **LDL receptor (LDLR)**. How much LDLR sits on the cell surface regulates how fast LDL is taken up. When blood LDL is high, more LDL enters the artery wall, gets trapped and starts atherosclerosis (plaque buildup).
+
+**The family case.** A patient has a myocardial infarction young, with no explanation from age alone, and the father also had a premature MI, which suggests a hereditary risk factor. Lipid tests show the patient and several first-degree relatives all have markedly raised LDL cholesterol (LDL-C). Two conclusions: disease can be inherited, and high LDL-C seems linked to premature coronary heart disease. This motivates why you need DNA and heritability, mutations (changes in DNA), the DNA → gene → protein pathway, and how mutations make a protein work better or worse.
+
+**The molecular resolution.** A mutation in the gene encoding the LDL receptor (*LDLR*) lowers its binding affinity for LDL. Liver cells take up LDL more slowly, circulating LDL rises and more LDL gets trapped in arteries.
+
+::: {.callout-warning}
+## This does not "solve" cardiovascular disease
+Single-gene, strong-effect mutations like this are **uncommon** causes of CVD in the population. Most CVD comes from many small-effect variants plus lifestyle and environment. Finding the mechanism is still valuable: it identifies a **druggable target** (the LDLR/PCSK9 pathway) and teaches us LDLR's normal function.
+:::
+
+**The LDLR–PCSK9 pathway.** PCSK9 (Proprotein Convertase Subtilisin/Kexin type 9) is a protein that **promotes degradation of the LDL receptor**. More LDLR would clear more LDL-C, but drugs that *increase* expression of a target are hard to make, while drugs that *decrease* synthesis or *block* a protein are much easier. So drugs target PCSK9 and reduce its activity. That leaves more LDLR available and lowers LDL-C.
+
+```
+PCSK9 ──promotes degradation of──▶ LDLR ──clears──▶ LDL-C ──▶ atherosclerosis ──▶ CHD
+   ▲
+   └── drugs block or reduce PCSK9  ⇒  more LDLR  ⇒  lower LDL-C
+```
+
+This single pathway (LDLR–PCSK9–LDL-C) anchors gene regulation (L2), siRNA and antibody drugs (L3), Mendelian randomization (L6) and protein MR (L8). Know it well.
+
+:::: {.quiz}
+A drug lowers LDL cholesterol by acting on PCSK9. What does the drug do to PCSK9, and why?
+
+- It raises PCSK9 so that LDL receptors are built faster on liver cells
+- **It lowers PCSK9 activity, so fewer LDL receptors are degraded**
+- It replaces PCSK9 with LDL receptors taken up from the blood
+- It turns PCSK9 into LDL so less cholesterol reaches the artery
+
+::: {.exp}
+PCSK9 promotes LDLR degradation. Reducing PCSK9 (by blocking the protein or reducing its synthesis) leaves more LDLR on liver cells, so more LDL-C is cleared. Drugs that decrease or block are far easier to make than drugs that increase expression.
+:::
+::::
+
+## 1.3 Molecular measurement layers {#t1-3 .topic flag="inferred"}
+
+The course organizes "what can we measure" into layers with different properties. **Memorize this table**; Lecture 8 relies on the contrast between fixed DNA and dynamic RNA/protein.
+
+::: {.worked}
+| Layer | What it tells us | Typical feature |
+|---|---|---|
+| DNA / genetic variation | Inherited predisposition | Relatively stable (does not change over a lifetime) |
+| RNA | Which genes are currently being expressed | Dynamic, cell- and tissue-specific |
+| Proteins | Functional molecules and signaling | Reflects abundance and activity |
+| Metabolites | Ongoing biochemical state | Highly responsive to physiology (changes fast) |
+| Cells / cell markers | Cellular composition and state | Context-dependent |
+:::
+
+**Metabolites** are small molecules produced, modified or consumed in biochemical reactions, for example glucose. Worked example of *signaling*: glucose signals insulin secretion, and insulin signals cells to take up glucose. Signaling means one molecule triggers a response that changes the behavior or output of another part of the system.
+
+**The causal chain used throughout the course**
+
+> Genetic variation → RNA/gene expression → Protein amount or function → Metabolites/cellular processes → Cell behavior → Tissue and organ function → Clinical phenotype/disease
+
+Two caveats, both important:
+
+1. Changes can propagate down the chain, but the relationships are **not always one-directional**. Disease itself can change RNA, protein and metabolite levels, so an observed molecular change can be a *consequence* of disease.
+2. Each level can therefore be a **cause, an intermediate or a consequence** depending on the case. This ambiguity is exactly why Lecture 6 introduces Mendelian randomization.
+
+## 1.3b Biomarkers and their five roles {#t1-3b .topic flag="inferred"}
+
+A **biomarker** is *any measurable biological characteristic that provides information about a biological process, exposure, disease or treatment response*. Being a biomarker does **not** imply being causal.
+
+::: {.worked}
+| Biomarker role | Example |
+|---|---|
+| Exposure marker | Cotinine for tobacco exposure |
+| Ongoing biological process | CRP (C-reactive protein) for systemic inflammation |
+| Disease or tissue injury | Troponin for myocardial injury |
+| Future risk | LDL-C for future atherosclerotic disease |
+| Treatment response | Change in LDL-C after starting lipid-lowering therapy |
+:::
+
+Recognizing which of the five roles a biomarker plays in a study is a recurring skill in the course. Troponin comes back in Lecture 8 as the classic example of a useful predictor that is not causal.
+
+:::: {.quiz}
+In a study, plasma troponin rises sharply in patients admitted with chest pain who turn out to have had a heart attack. Which biomarker role does troponin play here?
+
+- Exposure marker, like cotinine for tobacco smoke
+- **Marker of disease or tissue injury, released by damaged cells**
+- Marker of future risk, like LDL-C for atherosclerosis
+- Marker of treatment response after lipid-lowering therapy
+
+::: {.exp}
+Troponin is released when cardiomyocytes are damaged. It signals injury that has already happened. It is a good predictor but not a cause: lowering troponin would not treat the infarction (Lecture 8, Section 8.8).
+:::
+::::
+
+## 1.4 Central dogma and proteins {#t1-4 .topic flag="inferred"}
+
+**The central dogma** describes the (mostly) one-way flow of genetic information in a cell: **DNA → RNA → protein**. DNA is the durable, inherited information store; RNA is a transient working copy transcribed from specific genes; proteins are the functional molecules translated from that RNA. **Gene expression** is the umbrella term for the two steps, transcription (DNA → RNA) and translation (RNA → protein). Lecture 2 covers both mechanically.
+
+**Proteins** are long polymers (chains) of amino acids. There are **20 standard amino acids**. A typical human protein is a few hundred amino acids long (median about **375 aa**). Proteins are also called polypeptides; shorter chains of roughly **2–50 amino acids** are called peptides.
+
+**Six functions of proteins, with the lecture's examples**
+
+| Function | Example |
+|---|---|
+| Catalyzing chemical reactions | Enzymes |
+| Synthesizing and repairing DNA | DNA polymerases and repair enzymes |
+| Transporting molecules | Hemoglobin carries oxygen |
+| Receiving and sending chemical signals | LDL receptor as a *receiver*; insulin as the *signal* and the insulin receptor as the *detector/responder* |
+| Responding to stimuli | Antibodies |
+| Structural support | Collagen |
+
+Note the distinction between a **signal molecule** (insulin) and its **receptor** (insulin receptor).
+
+**Four levels of protein structure**
+
+1. **Primary**: the linear sequence of amino acids.
+2. **Secondary**: regular local structures the chain folds into (alpha helices, beta sheets).
+3. **Tertiary**: the overall 3D folded shape of one polypeptide chain.
+4. **Quaternary**: several folded chains (subunits) assembled into one functional complex. Not every protein has this level.
+
+**Why this matters for genetics.** The order of amino acids determines the 3D structure, and changing a single amino acid can change structure and therefore function. DNA holds the instructions for the amino acid sequence, so this is the direct link from a DNA mutation to a changed protein to a changed phenotype. Side note from the slides: other molecules, including drugs, can bind a protein and change its function **without any change to DNA**. That is how most pharmaceuticals work, as opposed to gene therapy.
+
+:::: {.quiz}
+A protein is made of two separate folded polypeptide chains that must assemble to work. Which structural level describes that assembly?
+
+- Primary structure, the order of amino acids
+- Secondary structure, helices and sheets
+- Tertiary structure, the fold of one chain
+- **Quaternary structure, several chains together**
+
+::: {.exp}
+Quaternary structure is the arrangement of multiple folded polypeptide chains into one complex. Tertiary is the 3D shape of a single chain. Not every protein has a quaternary level.
+:::
+::::
+
+## 1.4b DNA structure and complementary base pairing {#t1-4b .topic flag="inferred"}
+
+**Genes**, the basic physical and functional units of heredity, are made of DNA. DNA is a polymer of **nucleotides**; there are four types: **A (adenine), C (cytosine), G (guanine), T (thymine)**. DNA normally forms a **double helix**: two strands wound around each other, held together by comparatively weak **hydrogen bonds** between complementary bases. Because these bonds are weak, the strands can be separated for replication and transcription without breaking the covalent backbone.
+
+**DNA as information.** The order of nucleotides along a strand *is* the DNA sequence, and the information is encoded in that order. There is essentially no restriction on the order of A/C/G/T, which is why four building blocks can encode so much. For a sequence of 10 nucleotides there are $4^{10} = 1\,048\,576$ possible sequences.
+
+The slides tease the question *how many letters are needed to specify an amino acid?* Answer (Lecture 2): **three nucleotides, a codon, specify one amino acid.** Two letters would give only $4^2 = 16$ combinations, too few for 20 amino acids; three give $4^3 = 64$.
+
+**DNA as the unit of inheritance.** To be hereditary material DNA must replicate. The mechanism is **complementary base pairing: A pairs with T, C pairs with G.** Because the pairing rule is fixed, each strand can act as a template for a new complementary strand. This is the physical basis of DNA replication.
+
+:::: {.quiz}
+One DNA strand reads 5′-ATGC-3′. What is the complementary strand, written 3′ to 5′ underneath it?
+
+- 3′-ATGC-5′, the same letters in the same order
+- **3′-TACG-5′, pairing A with T and G with C**
+- 3′-UACG-5′, since the copy uses uracil
+- 3′-GCAT-5′, the letters in reverse order
+
+::: {.exp}
+A pairs with T and C pairs with G, and the strands are antiparallel. Under 5′-ATGC-3′ sits 3′-TACG-5′. Uracil only appears in RNA.
+:::
+::::
+
+## 1.4c Chromosomes, mitosis and meiosis {#t1-4c .topic flag="inferred"}
+
+Human DNA is organized into **23 different types of chromosomes**, each containing many genes. Most human cells have **46 chromosomes in 23 pairs**, one of each pair from the mother and one from the father. DNA replicates before cell division so each daughter cell gets a complete genome.
+
+::: {.worked}
+| | Mitosis | Meiosis |
+|---|---|---|
+| Produces | 2 daughter cells | 4 sex cells (gametes: sperm or egg) |
+| Genetically | Identical (or near-identical) to each other | Different from each other |
+| Chromosome number | Same as parent (46) | Half (23) |
+| Purpose | Ordinary tissue growth and repair | Sexual reproduction; fertilization restores 46 |
+| Source of diversity | None | Recombination shuffles alleles (Lecture 3) |
+:::
+
+The halving in meiosis lets two gametes combine at fertilization and restore 46 chromosomes. The shuffling during meiosis (recombination, Lecture 3) is why siblings differ genetically.
+
+:::: {.quiz}
+Which statement about meiosis is correct?
+
+- It gives two identical cells with 46 chromosomes each
+- It gives four identical cells with 23 chromosomes each
+- **It gives four different cells with 23 chromosomes each**
+- It gives two different cells with 46 chromosomes each
+
+::: {.exp}
+Meiosis produces four genetically different gametes, each with half the chromosome number (23). Mitosis produces two identical cells with the full 46.
+:::
+::::
+
+## 1.4d Lipids {#t1-4d .topic}
+
+**Lipids** are a diverse group of molecules that dissolve poorly in water: fats, phospholipids, cholesterol and steroid hormones. **Phospholipids and cholesterol build cell membranes.** This is the bridge to the cardiovascular theme: cholesterol and LDL biology (Section 1.2) is fundamentally a story of lipid transport and membrane biology.
+
+# Why-questions
+
+::: {.callout-tip collapse="true"}
+## Why is "associated with disease" not the same as "causes disease"?
+Because a molecule can be associated in three ways: it causes the disease, it reflects a disease process already under way (reverse direction), or both it and the disease are driven by a third factor (confounding). Troponin is strongly associated with MI but is released *by* the injury. Only a causal molecule is a sensible drug target.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why target PCSK9 instead of increasing LDLR directly?
+Pharmacologically it is hard to make a drug that *increases* synthesis of a protein, but much easier to make one that *decreases* synthesis or *blocks* a protein. Blocking PCSK9 indirectly raises LDLR, which gives the desired effect.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why are RNA and protein measurements tissue-dependent while DNA is not?
+Almost every cell has the same DNA sequence, fixed for life. Which genes are *expressed* differs by cell type and changes with physiology, disease, diet and drugs, so RNA and protein levels depend on which tissue you sample and when.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why does a single amino acid change sometimes matter so much?
+The amino acid sequence (primary structure) determines how the chain folds (secondary, tertiary, quaternary). Changing one residue can change the fold, and function follows structure. This is the link between a single DNA change and a changed phenotype.
+:::
+
+# Further reading
+
+Assigned by the course (Canvas reading guide). All chapters are on [LibreTexts Biology](https://bio.libretexts.org); search for the chapter titles.
+
+- Central dogma: *Introductory Biology*, ch. 4.1
+- Proteins overview: *Introductory Biology*, ch. 1.12
+- The 20 amino acids: *General Biology*, ch. 3.8
+- Protein functions: *General Biology*, ch. 3.7
+- Protein structure: *General Biology*, ch. 3.9
+- DNA structure and replication: *Introductory Biology*, ch. 4.2

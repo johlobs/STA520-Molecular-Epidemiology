@@ -1,0 +1,72 @@
+project:
+  type: website
+  output-dir: _site
+  pre-render: build_topics.py
+
+website:
+  title: "STA520 — Molecular Epidemiology"
+  page-footer: "STA520 · University of Gothenburg · Built with Quarto + WebR"
+  page-navigation: true
+  navbar:
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Dashboard"
+        href: dashboard.qmd
+      - text: "Exam practice"
+        href: exam-practice.qmd
+      - text: "Glossary"
+        href: glossary.qmd
+      - text: "About the content"
+        href: about.qmd
+      - text: "All courses"
+        href: "https://johlobs.github.io/"
+        target: "_blank"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: "Home"
+        href: index.qmd
+      - section: "Exam prep"
+        contents:
+          - dashboard.qmd
+          - exam-practice.qmd
+          - glossary.qmd
+      - section: "Weeks 1–2: Biology and genetics"
+        contents:
+          - lecture1.qmd
+          - lecture2.qmd
+          - lecture3.qmd
+      - section: "Weeks 2–3: GWAS and MR"
+        contents:
+          - lecture4.qmd
+          - lecture5.qmd
+          - lecture6.qmd
+      - section: "Week 4: Omics and proteomics"
+        contents:
+          - lecture7.qmd
+          - lecture8.qmd
+      - section: "Reference"
+        contents:
+          - about.qmd
+
+format:
+  html:
+    theme: flatly
+    css: custom.css
+    toc: true
+    toc-depth: 2
+    number-sections: false
+    self-contained: false
+    include-after-body:
+      - _topics-data.html
+      - _topics.html
+      - _quiz.html
+      - _drills.html
+
+engine: knitr
+
+filters:
+  - webr
+  - _quiz-filter.lua

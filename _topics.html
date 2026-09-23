@@ -1,0 +1,330 @@
+<script>
+/* Topic status tracking for STA520.
+   Reads window.STA520_TOPICS (written by build_topics.py) and:
+   1. adds an exam-flag badge and a status control under every topic heading,
+   2. adds reviewed/total counters to the sidebar,
+   3. renders the dashboard when the page has <div id="sta520-dashboard">. */
+(function () {
+  'use strict';
+
+  var STORAGE_KEY = 'sta520_topic_status';
+  var TOPICS = window.STA520_TOPICS || [];
+
+  var STATUS_LABELS = {
+    '': 'Not reviewed',
+    'reviewed': 'Reviewed',
+    'confident': 'Confident'
+  };
+
+  var FLAG_BADGES = {
+    instructor: {
+      text: '🎯 Instructor-flagged EXAM',
+      title: 'This slide carried the literal "EXAM" marker from the instructor.'
+    },
+    inferred: {
+      text: '📌 Likely exam-relevant (AI-inferred)',
+      title: 'Inferred from definitions, formulas and worked examples. Not confirmed by the instructor.'
+    }
+  };
+
+  var LECTURE_TITLES = {
+    1: 'Biological language of molecular epidemiology',
+    2: 'DNA, RNA and protein',
+    3: 'Recap, mutations and genetics',
+    4: 'From SNP to GWAS',
+    5: 'GWAS and computer exercise 1',
+    6: 'From GWAS to Mendelian randomization',
+    7: 'High-dimensional molecular data',
+    8: 'Proteomics'
+  };
+
+  /* ── storage ───────────────────────────────────────────────────────── */
+  function load() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch (e) { return {}; }
+  }
+  function save(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch (e) { /* storage blocked: status still works for this page view */ }
+  }
+  var state = load();
+
+  function statusOf(id) { return state[id] || ''; }
+  function setStatus(id, value) {
+    if (value) { state[id] = value; } else { delete state[id]; }
+    save(state);
+    refreshAll();
+  }
+
+  /* ── helpers ───────────────────────────────────────────────────────── */
+  function currentPage() {
+    var last = window.location.pathname.split('/').pop();
+    return last === '' ? 'index.html' : last;
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+  function summarise(list) {
+    var s = { total: list.length, reviewed: 0, confident: 0 };
+    list.forEach(function (t) {
+      var st = statusOf(t.id);
+      if (st === 'reviewed' || st === 'confident') s.reviewed++;
+      if (st === 'confident') s.confident++;
+    });
+    return s;
+  }
+  function pct(n, d) { return d === 0 ? 0 : Math.round(100 * n / d); }
+
+  /* ── 1. topic bars on lecture pages ────────────────────────────────── */
+  var controls = [];
+
+  function decorateTopics() {
+    var page = currentPage();
+    TOPICS.filter(function (t) { return t.page === page; }).forEach(function (t) {
+      var section = document.getElementById(t.id);
+      if (!section) return;
+      var heading = section.tagName === 'H2' ? section : section.querySelector('h2');
+      if (!heading) return;
+
+      var bar = el('div', 'topic-bar');
+
+      if (t.flag && FLAG_BADGES[t.flag]) {
+        var badge = el('span', 'flag-badge flag-' + t.flag, FLAG_BADGES[t.flag].text);
+        badge.title = FLAG_BADGES[t.flag].title;
+        bar.appendChild(badge);
+      }
+
+      var group = el('span', 'status-group');
+      group.setAttribute('role', 'group');
+      group.setAttribute('aria-label', 'Review status');
+      ['', 'reviewed', 'confident'].forEach(function (value) {
+        var btn = el('button', 'status-btn status-' + (value || 'none'), STATUS_LABELS[value]);
+        btn.type = 'button';
+        btn.addEventListener('click', function () { setStatus(t.id, value); });
+        group.appendChild(btn);
+        controls.push({ id: t.id, value: value, btn: btn });
+      });
+      bar.appendChild(group);
+
+      heading.parentNode.insertBefore(bar, heading.nextSibling);
+    });
+
+    /* Page summary under the title */
+    var pageTopics = TOPICS.filter(function (t) { return t.page === page; });
+    if (pageTopics.length) {
+      var header = document.querySelector('#title-block-header') ||
+                   document.querySelector('.quarto-title-block');
+      if (header) {
+        var summary = el('div', 'page-progress');
+        summary.id = 'page-progress';
+        header.appendChild(summary);
+      }
+    }
+  }
+
+  function refreshControls() {
+    controls.forEach(function (c) {
+      c.btn.classList.toggle('active', statusOf(c.id) === c.value);
+      c.btn.setAttribute('aria-pressed', statusOf(c.id) === c.value ? 'true' : 'false');
+    });
+    var summary = document.getElementById('page-progress');
+    if (summary) {
+      var page = currentPage();
+      var s = summarise(TOPICS.filter(function (t) { return t.page === page; }));
+      summary.innerHTML = '';
+      summary.appendChild(el('span', null,
+        'This lecture: ' + s.reviewed + '/' + s.total + ' topics reviewed · ' +
+        s.confident + ' confident'));
+      var bar = el('span', 'mini-bar');
+      var fillR = el('span', 'fill-reviewed'); fillR.style.width = pct(s.reviewed, s.total) + '%';
+      var fillC = el('span', 'fill-confident'); fillC.style.width = pct(s.confident, s.total) + '%';
+      bar.appendChild(fillR); bar.appendChild(fillC);
+      summary.appendChild(bar);
+    }
+  }
+
+  /* ── 2. sidebar counters ───────────────────────────────────────────── */
+  function refreshSidebar() {
+    document.querySelectorAll('#quarto-sidebar a').forEach(function (link) {
+      var href = (link.getAttribute('href') || '').split('#')[0].split('/').pop();
+      var list = TOPICS.filter(function (t) { return t.page === href; });
+      if (!list.length) return;
+      var s = summarise(list);
+      var tag = link.querySelector('.sidebar-count');
+      if (!tag) {
+        tag = el('span', 'sidebar-count');
+        link.appendChild(tag);
+      }
+      tag.textContent = s.reviewed + '/' + s.total;
+      tag.classList.toggle('done', s.reviewed === s.total);
+      tag.title = s.reviewed + ' of ' + s.total + ' topics reviewed, ' + s.confident + ' confident';
+    });
+  }
+
+  /* ── 3. dashboard ──────────────────────────────────────────────────── */
+  function statCard(label, s, cls) {
+    var card = el('div', 'dash-card ' + (cls || ''));
+    card.appendChild(el('div', 'dash-card-label', label));
+    card.appendChild(el('div', 'dash-card-value', pct(s.reviewed, s.total) + '%'));
+    card.appendChild(el('div', 'dash-card-sub',
+      s.reviewed + '/' + s.total + ' reviewed · ' + s.confident + ' confident (' +
+      pct(s.confident, s.total) + '%)'));
+    var bar = el('div', 'dash-bar');
+    var r = el('span', 'fill-reviewed'); r.style.width = pct(s.reviewed, s.total) + '%';
+    var c = el('span', 'fill-confident'); c.style.width = pct(s.confident, s.total) + '%';
+    bar.appendChild(r); bar.appendChild(c);
+    card.appendChild(bar);
+    return card;
+  }
+
+  function renderDashboard() {
+    var root = document.getElementById('sta520-dashboard');
+    if (!root) return;
+    root.innerHTML = '';
+
+    /* Rollup cards */
+    var cards = el('div', 'dash-cards');
+    cards.appendChild(statCard('All topics', summarise(TOPICS)));
+    cards.appendChild(statCard('🎯 Instructor-flagged EXAM',
+      summarise(TOPICS.filter(function (t) { return t.flag === 'instructor'; })), 'card-instructor'));
+    cards.appendChild(statCard('📌 Likely relevant (AI-inferred)',
+      summarise(TOPICS.filter(function (t) { return t.flag === 'inferred'; })), 'card-inferred'));
+    cards.appendChild(statCard('Unflagged',
+      summarise(TOPICS.filter(function (t) { return !t.flag; }))));
+    root.appendChild(cards);
+
+    var legend = el('p', 'dash-legend');
+    legend.innerHTML = '<span class="key key-reviewed"></span> reviewed (includes confident) &nbsp; ' +
+                       '<span class="key key-confident"></span> confident';
+    root.appendChild(legend);
+
+    /* Per-lecture table */
+    root.appendChild(el('h2', null, 'Progress per lecture'));
+    var table = el('table', 'dash-table table');
+    var thead = el('thead');
+    var hr = el('tr');
+    ['Lecture', 'Topics', '🎯', 'Reviewed', 'Confident'].forEach(function (h) { hr.appendChild(el('th', null, h)); });
+    thead.appendChild(hr); table.appendChild(thead);
+    var tbody = el('tbody');
+    for (var n = 1; n <= 8; n++) {
+      var list = TOPICS.filter(function (t) { return t.lecture === n; });
+      if (!list.length) continue;
+      var s = summarise(list);
+      var tr = el('tr');
+      var tdName = el('td');
+      var a = el('a', null, 'L' + n + ' · ' + (LECTURE_TITLES[n] || ''));
+      a.href = list[0].page;
+      tdName.appendChild(a);
+      tr.appendChild(tdName);
+      tr.appendChild(el('td', 'num', String(s.total)));
+      var nInstr = list.filter(function (t) { return t.flag === 'instructor'; }).length;
+      tr.appendChild(el('td', 'num', nInstr ? String(nInstr) : '–'));
+      [['reviewed', s.reviewed], ['confident', s.confident]].forEach(function (pair) {
+        var td = el('td');
+        var bar = el('div', 'dash-bar small');
+        var f = el('span', 'fill-' + pair[0]); f.style.width = pct(pair[1], s.total) + '%';
+        bar.appendChild(f);
+        td.appendChild(bar);
+        td.appendChild(el('span', 'bar-label', pair[1] + '/' + s.total));
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    root.appendChild(table);
+
+    /* To-do list: flagged topics that are not yet confident */
+    root.appendChild(el('h2', null, 'Flagged topics not yet confident'));
+    root.appendChild(el('p', 'dash-note',
+      'Instructor-flagged topics first, then AI-inferred ones, in course order. Click a topic to jump to it.'));
+    var todo = TOPICS.filter(function (t) { return t.flag && statusOf(t.id) !== 'confident'; });
+    todo.sort(function (a, b) {
+      if (a.flag !== b.flag) return a.flag === 'instructor' ? -1 : 1;
+      return a.lecture - b.lecture;
+    });
+    if (!todo.length) {
+      root.appendChild(el('p', 'dash-done', 'Every flagged topic is marked confident. 🎉'));
+    } else {
+      var ul = el('ul', 'dash-todo');
+      todo.forEach(function (t) {
+        var li = el('li');
+        li.appendChild(el('span', 'dot dot-' + (statusOf(t.id) || 'none')));
+        li.appendChild(el('span', 'todo-flag', t.flag === 'instructor' ? '🎯' : '📌'));
+        var link = el('a', null, 'L' + t.lecture + ' · ' + t.title);
+        link.href = t.page + '#' + t.id;
+        li.appendChild(link);
+        li.appendChild(el('span', 'todo-status', STATUS_LABELS[statusOf(t.id)]));
+        ul.appendChild(li);
+      });
+      root.appendChild(ul);
+    }
+
+    /* Backup / reset */
+    root.appendChild(el('h2', null, 'Backup and reset'));
+    root.appendChild(el('p', 'dash-note',
+      'Status is saved in this browser only. Export a backup before clearing browser data or switching device.'));
+    var tools = el('div', 'dash-tools');
+
+    var exportBtn = el('button', 'btn btn-outline-secondary btn-sm', 'Export progress (.json)');
+    exportBtn.addEventListener('click', function () {
+      var blob = new Blob([JSON.stringify(state, null, 1)], { type: 'application/json' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'sta520-progress.json';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
+    tools.appendChild(exportBtn);
+
+    var importLabel = el('label', 'btn btn-outline-secondary btn-sm', 'Import progress');
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.style.display = 'none';
+    input.addEventListener('change', function () {
+      var file = input.files[0];
+      if (!file) return;
+      file.text().then(function (text) {
+        try {
+          state = JSON.parse(text);
+          save(state);
+          refreshAll();
+        } catch (e) { alert('That file is not a valid progress export.'); }
+      });
+    });
+    importLabel.appendChild(input);
+    tools.appendChild(importLabel);
+
+    var resetBtn = el('button', 'btn btn-outline-danger btn-sm', 'Reset all progress');
+    resetBtn.addEventListener('click', function () {
+      if (confirm('Reset the status of every topic to "Not reviewed"?')) {
+        state = {};
+        save(state);
+        refreshAll();
+      }
+    });
+    tools.appendChild(resetBtn);
+    root.appendChild(tools);
+  }
+
+  function refreshAll() {
+    refreshControls();
+    refreshSidebar();
+    renderDashboard();
+  }
+
+  function init() {
+    decorateTopics();
+    refreshAll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

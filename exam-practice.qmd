@@ -1,0 +1,211 @@
+---
+title: "Exam practice"
+subtitle: "Calculation drills with new numbers every time, and exam-style written questions with model answers"
+---
+
+This page collects everything you can **practise** rather than read. The calculation drills draw new numbers each time you press **New problem ↻**: work on paper, type your answers, press **Check**, then open the full solution. The written questions below them follow the style of the definitions, comparisons and "explain why" material the slides emphasize. Try answering out loud or on paper before you open the model answer.
+
+::: {.callout-note collapse="true"}
+## Where the questions come from, and what is missing
+The drills cover every numerical worked example in the course. The written questions are **inferred** from the slides (🎯 marks topics the instructor tagged EXAM in Lecture 7; the rest are 📌 AI-inferred). The instructor's own **"Lecture 7 - questions.pdf"** (example exercises and possible exam questions) is not in this app. Do it from Canvas as well.
+:::
+
+# Calculation drills
+
+## 🎯 Multiple testing (Lecture 7)
+
+Benjamini–Hochberg and Bonferroni side by side. Do several: the "largest k" rule and the running minimum for adjusted p-values are where mistakes happen.
+
+<div class="drill" data-drill="bh"></div>
+
+<div class="drill" data-drill="bh"></div>
+
+<div class="drill" data-drill="bh"></div>
+
+::: {.callout-tip collapse="true"}
+## BH checklist for the exam
+1. **Sort** the p-values from smallest to largest; write the rank $i$ next to each.
+2. Compute the threshold $\frac{i}{m} Q$ for every rank.
+3. Find the **largest** $i$ with $p_{(i)} \le \frac{i}{m} Q$. Call it $k$. Do not stop at the first failure.
+4. Everything with rank $\le k$ is significant.
+5. Adjusted p: compute $p_{(i)} \cdot m / i$, then go **from the bottom up** taking the running minimum. Cap at 1.
+6. Bonferroni for comparison: one threshold $\alpha/m$ (or $p \times m$), same for all.
+7. State the interpretation: BH controls the **FDR** (expected share of false hits among hits); Bonferroni controls the **FWER** (probability of any false hit).
+:::
+
+## 🎯 Preprocessing and moderated statistics (Lecture 7)
+
+<div class="drill" data-drill="qnorm"></div>
+
+<div class="drill" data-drill="modt"></div>
+
+<div class="drill" data-drill="log2fc"></div>
+
+## 📌 Genetics calculations (Lectures 3–4)
+
+<div class="drill" data-drill="hwe"></div>
+
+<div class="drill" data-drill="hwecount"></div>
+
+<div class="drill" data-drill="ld"></div>
+
+<div class="drill" data-drill="recomb"></div>
+
+<div class="drill" data-drill="or"></div>
+
+<div class="drill" data-drill="logbeta"></div>
+
+## 📌 Mendelian randomization (Lectures 6 and 8)
+
+<div class="drill" data-drill="wald"></div>
+
+<div class="drill" data-drill="ivw"></div>
+
+# Written questions
+
+Each question links to the section it comes from. Open the model answer only after you have tried.
+
+## 🎯 Lecture 7: high-dimensional data
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q1. Explain why the ordinary t-test is problematic for omics data with few samples, and how the moderated t-statistic solves it.
+**Model answer.** In omics data we measure thousands of features on few replicates, e.g. 3 vs 3 samples, giving only $n_1 + n_2 - 2 = 4$ degrees of freedom per feature. Each feature's variance $s^2$ is estimated separately and is therefore very unstable. By chance some features get a tiny $s^2$; since $s^2$ is in the denominator of $t$, they get huge t-values although the mean difference is small → **false positives**. Others get a randomly large $s^2$, masking real effects → **lost power**. This instability affects every p-value and so also undermines the multiple-testing correction.
+
+The **moderated t** (limma, empirical Bayes) **shares information across all features**: each variance is shrunk toward a common variance $s_0^2$ estimated from the whole dataset, $\tilde s^2 = (d_0 s_0^2 + d\, s^2)/(d_0 + d)$. With few replicates the prior weight $d_0$ dominates and the shrinkage is strong; with many replicates the feature's own variance dominates. Result: fewer false positives, more power, more reliable FDR-adjusted results. [→ 7.7–7.8](lecture7.qmd#t7-7)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q2. Define FWER and FDR. Which correction methods control each, and which is preferred for a miRNA microarray screen? Give reasons.
+**Model answer.** **FWER** = P(at least one false positive among all tests), controlled by **Bonferroni** ($p \le \alpha/m$). **FDR** = the expected proportion of false positives among all tests called significant, E[FP / positives], controlled by **Benjamini–Hochberg**.
+
+For omics screens **FDR/BH** is preferred: (1) with thousands of tests Bonferroni's threshold is so small that most true effects are missed (0.05/955 ≈ 0.00005); (2) the analysis is **exploratory**, producing a shortlist where a controlled fraction of false leads is acceptable; (3) hits are **validated** afterwards in an independent cohort/method (miR-375 by qRT-PCR and in situ hybridization); (4) features are **correlated**, so the effective number of tests is smaller than $m$ and Bonferroni is needlessly strict. [→ 7.11–7.14](lecture7.qmd#t7-11)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q3. The study tested 955 miRNAs. How many significant results would you expect at p < 0.05 if no miRNA truly differed? What is the Bonferroni threshold?
+**Model answer.** $955 \times 0.05 \approx 48$ false positives. Bonferroni: $0.05/955 \approx 5.2 \times 10^{-5}$ (≈ 0.00005). With 955 independent null tests the chance of at least one false positive is $1 - 0.95^{955} \approx 1$, so the cutoff itself must change. [→ 7.10](lecture7.qmd#t7-10)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q4. Describe the preprocessing of the microarray data. What does quantile normalization do and what does it assume?
+**Model answer.** Observed signal = biological signal + technical noise (RNA extraction, labelling, hybridization, scanner, batch). Steps: (1) **quality control**; (2) **background correction within each array** with **normexp**, which models observed = signal (exponential) + background (normal) and estimates the true signal, giving positive values and better low-intensity estimates; (3) **normalization between arrays** with **quantile normalization**: rank the values in each array, average across arrays at each rank, replace each value by its rank mean, so all arrays get an identical distribution while keeping each array's internal order; (4) **average replicate probes** (4–8 spots) per miRNA. Assumption of quantile normalization: the overall expression distribution should be the same in every sample, so distribution differences are technical. [→ 7.4–7.5](lecture7.qmd#t7-5)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q5. The authors clustered the samples on miRNA expression, found clusters M1 and M2, and then reported 141 miRNAs differentially expressed between M1 and M2. Comment critically.
+**Model answer.** This is **circular reasoning**: the clusters were defined from the same miRNA data that was then tested. Clustering produces groups that differ in the clustering variables almost by construction, so significant differences are expected even in pure noise and the p-values are inflated. The differences are not independent evidence. Valid alternatives: test the cluster–clinical associations (grade, Ki67, chromosome 14 gain, which used other data), validate the clusters in an independent cohort, or use methods that account for the selection. [→ 7.16b](lecture7.qmd#t7-16b)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q6. What does log₂FC = 1.5 mean? And why log-transform expression data at all?
+**Model answer.** $2^{1.5} \approx 2.83$: expression is about 2.8 times higher in the first group. log₂FC = 0 means no change, +1 twice as high, −1 half as high. Log₂ transformation makes the distribution more symmetric and reduces the influence of very large raw values; on the log scale, fold changes become differences. [→ 7.9](lecture7.qmd#t7-9)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q7. Five patients had both a primary tumour and a liver metastasis. Why were only their primary tumours used in the tumour vs normal comparison?
+**Model answer.** Two samples from the same patient are not independent. Including both would double-weight those patients and violate the independence assumption of the test, biasing variance estimates and p-values. [→ 7.9b](lecture7.qmd#t7-9b)
+:::
+
+## 📌 Lectures 4–6: GWAS and Mendelian randomization
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q8. State the three assumptions of Mendelian randomization and give a threat to each.
+**Model answer.**
+1. **Relevance**: the variant is robustly associated with the exposure (genome-wide significant). Threat: **weak instruments**, which bias and destabilize the estimate.
+2. **Independence**: the variant is not associated with confounders of the exposure–outcome relationship. Threats: **population stratification**, **assortative mating**, **selection effects**.
+3. **Exclusion restriction**: the variant affects the outcome only through the exposure. Threat: **horizontal pleiotropy** (another pathway, e.g. SNP → inflammation → CHD). [→ 6.5](lecture6.qmd#t6-5)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q9. Distinguish vertical and horizontal pleiotropy. Which one is a problem for MR and why?
+**Model answer.** **Vertical**: the SNP affects the outcome *through* the exposure (SNP → PCSK9 → LDLR → LDL-C → CHD); this is the causal chain MR measures, not a problem. **Horizontal**: the SNP also affects the outcome through a pathway **independent** of the exposure (SNP → inflammation → CHD); this violates the exclusion restriction and biases the MR estimate, because part of the SNP–outcome association is wrongly attributed to the exposure. [→ 6.6](lecture6.qmd#t6-6)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q10. Explain the Wald ratio, IVW, weighted median and MR-Egger. When would you trust a causal conclusion?
+**Model answer.** **Wald ratio** (one instrument): $\beta_{\text{outcome}}/\beta_{\text{exposure}}$, change in outcome per genetically predicted unit of exposure (log-odds for binary outcomes). **IVW**: weighted regression of β-outcome on β-exposure through the origin = precision-weighted average of the Wald ratios; assumes all instruments valid. **Weighted median**: consistent if at least ~50% of the instrument weight is valid, so robust to a minority of bad instruments. **MR-Egger**: free intercept; a non-zero intercept indicates directional horizontal pleiotropy; less precise and more sensitive to weak instruments, relies on the InSIDE assumption. Trust grows when **all methods point in the same direction**, since their weaknesses differ. Always state the exposure unit and the direction. [→ 6.7–6.9](lecture6.qmd#t6-7)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q11. Why are genetic variants useful for causal inference? Compare MR with an RCT.
+**Model answer.** Genotype is fixed at conception, so it precedes the disease: no reverse causation. Alleles are allocated randomly at meiosis, like treatment in an RCT, so they are (under the independence assumption) unrelated to confounders such as smoking. An allele that lowers LDL-C is a lifelong "natural trial" of lower LDL-C. MR is cheaper and possible where RCTs are not, but relies on the three instrument assumptions. [→ 6.3–6.4](lecture6.qmd#t6-4)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q12. A Manhattan plot shows a tall peak with dozens of significant SNPs. Explain why, and what "lead SNP" and "locus" mean. Is the lead SNP causal?
+**Model answer.** Nearby SNPs are correlated (in LD) because they are inherited together, so one causal variant makes all SNPs in LD with it look associated. The **locus** is the region containing the associated signal; the **lead SNP** is the one with the smallest p-value there. It is **not necessarily causal**: it may be a proxy, and the causal variant may not even be on the array. Ways forward: conditional analysis, credible sets, functional annotation, protein folding models, pQTL evidence, experiments (knock-in mice). [→ 4.8, 5.3–5.4](lecture5.qmd#t5-4)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q13. What is population stratification and how is it handled in a GWAS?
+**Model answer.** If allele frequencies and the phenotype both differ between ancestry groups, pooling them creates a spurious SNP–phenotype association even without any biological effect. Handling: restrict to genetically homogeneous ancestry groups; adjust for genetic principal components; use mixed models that account for relatedness (e.g. regenie); check the QQ plot and genomic inflation. [→ 4.9](lecture4.qmd#t4-9)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q14. Why is the genome-wide significance threshold 5×10⁻⁸? Does p < 5×10⁻⁸ mean the SNP matters?
+**Model answer.** About 1 million independent tests: $0.05/10^6 = 5 \times 10^{-8}$ (Bonferroni); at 0.05 you would get ~50,000 false positives. Significance means statistical robustness only. It says nothing about effect size (huge samples make tiny effects significant), causality or public-health relevance (rs11591147 has a big effect but is rare, 1.5%). [→ 4.7, 4.10](lecture4.qmd#t4-7)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q15. What must you always know when using GWAS summary statistics?
+**Model answer.** Which allele is the **effect allele** (A1/EA); whether β is an **OR or log(OR)** for binary outcomes; the **scale** of the phenotype (log? SD units?); the **genome build** (GRCh37/hg19 vs GRCh38). When combining datasets also check SNP coverage, allele/strand alignment and ancestry of the LD reference panel. rsIDs help avoid mismatches. [→ 4.6, 5.6](lecture5.qmd#t5-6)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q16. List the Bradford Hill criteria.
+**Model answer.** Strength, Consistency, Specificity, Temporality, Biological gradient (dose–response), Plausibility, Coherence, Experiment, Analogy. [→ 6.2](lecture6.qmd#t6-2)
+:::
+
+## 📌 Lectures 1–3: biology and genetics
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q17. Explain the LDLR–PCSK9–LDL-C pathway, and how Leqvio and Repatha lower LDL-C differently.
+**Model answer.** The LDL receptor on hepatocytes clears LDL from the blood. PCSK9 promotes LDLR degradation, so more PCSK9 → fewer receptors → higher LDL-C → more atherosclerosis. **Leqvio (inclisiran)** is an siRNA linked to GalNAc, which binds ASGPR on liver cells; inside, it degrades PCSK9 **mRNA**, so less PCSK9 is **made**. **Repatha/Praluent** are monoclonal antibodies binding free PCSK9 **protein** in blood, **blocking its action**. Both leave more LDLR and lower LDL-C: two druggable points on one pathway. D374Y (GoF) raises LDL-C; PCSK9 LoF lowers it, as the drugs mimic. [→ 1.2, 3.2b, 3.3](lecture3.qmd#t3-2b)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q18. Compare germline and somatic mutations.
+**Model answer.** Germline: arise in egg/sperm, present in every cell, heritable, detected in blood/saliva, cause inherited disorders and hereditary cancer syndromes. Somatic: acquired during life in non-reproductive cells, confined to the tissue/tumour, not heritable, need a biopsy of the tissue, drive cancers and benign tumours (e.g. AML, detected by targeted deep sequencing and VAF). [→ 3.4](lecture3.qmd#t3-4)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q19. Read this variant: NM_174936.4(PCSK9):c.1120G>T, p.Asp374Tyr, rs137852912.
+**Model answer.** In PCSK9 transcript NM_174936 version 4 (NM_ = mRNA reference), coding DNA position 1120 has G replaced by T. At the protein level (p.) aspartic acid 374 becomes tyrosine (D374Y): a missense, gain-of-function SNV. rs137852912 is its dbSNP identifier; its genomic position is chr1:55057454 in GRCh38 and 55523127 in GRCh37 (NC_ prefix, g. coordinates). [→ 3.3b–3.3c](lecture3.qmd#t3-3b)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q20. Compare miRNA and siRNA.
+**Model answer.** miRNA: ~22 nt, genome-encoded, binds targets imperfectly, inhibits translation or promotes degradation, regulates many mRNAs (why it is widely dysregulated in cancer). siRNA: ~21–23 nt, from double-stranded RNA, binds with near-perfect complementarity, cleaves one specific mRNA, used as designed drugs (Leqvio). [→ 3.2](lecture3.qmd#t3-2)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q21. Define linkage, recombination frequency and linkage disequilibrium. How is LD detected?
+**Model answer.** Linkage: loci close on the same chromosome tend to be inherited together. Recombination frequency $r$ = recombinant offspring / total, 0% (complete linkage) to 50% (unlinked). LD: non-random association of alleles at different loci in a population. Detected by comparing observed haplotype frequency with the expected product of allele frequencies (e.g. expected AB = 0.5 × 0.4 = 0.20); a difference indicates LD. Quantified with $r^2$ (> 0.8 very strong; < 0.01 treated as independent). [→ 3.7](lecture3.qmd#t3-7)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q22. Give the five categories of biomarker with an example each. Is a biomarker causal?
+**Model answer.** Exposure (cotinine for tobacco), biological process (CRP for inflammation), disease/tissue injury (troponin for myocardial injury), future risk (LDL-C for atherosclerosis), treatment response (LDL-C change on lipid-lowering therapy). Being a biomarker does not imply causality. [→ 1.3b](lecture1.qmd#t1-3b)
+:::
+
+## 📌 Lecture 8: proteomics
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q23. What is a cis-pQTL vs a trans-pQTL, and why are cis-pQTLs preferred as MR instruments?
+**Model answer.** A pQTL is a SNP associated with a protein's abundance. **cis**: near the encoding gene (mechanisms: transcription, splicing, stability, secretion). **trans**: far away, > 500 kb or another chromosome (mechanisms: transcription factors, receptors, signalling). cis-pQTLs are preferred because the link to the protein is direct and there is **less risk of horizontal pleiotropy**; they still need all three MR assumptions. Protein MR: $\beta_{MR} = \beta_{GO}/\beta_{GP}$. [→ 8.9–8.10](lecture8.qmd#t8-9)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q24. List challenges specific to protein MR.
+**Model answer.** Horizontal pleiotropy (especially trans-pQTLs); assay binding artifacts (coding variants change the epitope, fake lower abundance); amount ≠ function (variants changing activity without abundance are invisible); LD creating false appearance of causality (different SNPs in LD for protein and disease), checked by colocalization; one pQTL affecting several proteins. [→ 8.11](lecture8.qmd#t8-11)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q25. How do you prevent and correct batch effects in a large proteomics study?
+**Model answer.** Batch = plate, reagent lot, run, day, instrument, operator. **Prevent (design):** randomize samples across plates, balance cases and controls, technical replicates across plates, common reference samples on every plate. **Detect:** boxplots by plate, PCA, clustering, controls, replicates. **Correct (analysis):** normalization across plates/batches (incl. reference-sample normalization), adjust for plate/run or include batch as a covariate. Also consider pre-analytical variation (fasting, time to centrifugation, freeze–thaw, hemolysis) that may differ systematically between cases and controls. [→ 8.6](lecture8.qmd#t8-6)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q26. Compare the three families of protein measurement technology.
+**Model answer.** **Antibody-based** (ELISA, immunoassays, Western blot): targeted, quantitative with standards, clinical routine. **Mass spectrometry**: trypsin digestion → LC → electrospray → masses; detects isoforms, allows discovery; complex, dynamic-range problems, labelled peptides for calibration. **High-throughput affinity** (Olink, SomaScan): thousands of proteins in large cohorts (UKBB: ~50,000 people, ~3,000 proteins), relative abundance in NPX (log₂; 1 NPX = doubling). [→ 8.4–8.5](lecture8.qmd#t8-4)
+:::

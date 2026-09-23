@@ -1,0 +1,67 @@
+---
+title: "About the content"
+subtitle: "Sources, schedule, exam flags, and what is missing"
+---
+
+## Where the content comes from
+
+The app is built from a study guide (`sta520-study-app-guide_1.md`) synthesized from the course's lecture slides (PDF/PPTX), expanded with textbook-level background explanations. The background prose is written independently from general molecular biology, genetics and biostatistics knowledge. It is **not** copied from the assigned textbook (*Principles of Genetics and Molecular Epidemiology*, Gomez-Verjan & Rivero-Segura, eds., Springer 2022).
+
+The quizzes, drills, R exercises, figures, written model answers and the illustrative MR numbers in Lecture 6 were added for this app.
+
+## How to read the exam flags
+
+| Badge | Meaning |
+|---|---|
+| <span class="flag-badge flag-instructor">🎯 Instructor-flagged EXAM</span> | The slide carried the literal text "EXAM" from the instructor. **Lecture 7 only.** The course's reading guide confirms: *"The slides with information that we will be testing on the exam are marked with a small text 'EXAM.'"* |
+| <span class="flag-badge flag-inferred">📌 Likely exam-relevant (AI-inferred)</span> | An **inference** from what the slides present as a definition, formula, worked numerical example or something repeated across lectures. **Not confirmed by the instructor.** |
+| (no badge) | Background or context. Still course content. |
+
+## Course schedule (official rough plan)
+
+STA520 Molecular Epidemiology, 4 credits, Sahlgrenska Academy, University of Gothenburg, autumn 2026 (31 Aug – 2 Oct), taught in English.
+
+| Week | Day 1 | Day 2 |
+|---|---|---|
+| 1 | Intro to the biological language of molecular epidemiology; biological macromolecules (proteins, DNA, lipids) | DNA–RNA–Protein |
+| 2 | Genetic variation and protein function | From SNP to GWAS |
+| 3 | From GWAS to Mendelian randomisation | Computer exercise intro |
+| 4 | High-dimensional data (gene expression, GO, clusters), proteomics | Study design, bias and interpretation; computer exercise discussion |
+| 5 | Integrating molecular data | Workshop/Seminar |
+
+::: {.callout-warning}
+## File-to-session correction
+"Lecture 3_genetics.pdf" was actually presented **at the start of the Lecture 4 session**, as a recap ("the same lecture notes as posted for lecture 3"). In this app, Lecture 3 merges "Lecture 3_recap and mutations.pdf" and "Lecture 3_genetics.pdf" by content. The genetics fundamentals (Mendel, LD, SNP arrays, HWE; [Sections 3.6–3.9](lecture3.qmd#t3-6)) were therefore **taught in the Lecture 4 session**, just before "Lecture 4 from SNP to GWAS.pdf". This matters if an exam question refers to material "from lecture 4".
+:::
+
+## Source files per lecture
+
+| Lecture | Slide file(s) |
+|---|---|
+| [1](lecture1.qmd) | Lecture 1A An introduction to the biological language of molecular epidemiology.pptx; Lecture 1_part2_ProteinsAndDNA.pdf |
+| [2](lecture2.qmd) | Lecture 2_DNA_RNA_protein.pdf |
+| [3](lecture3.qmd) | Lecture 3_recap and mutations.pdf; Lecture 3_genetics.pdf |
+| [4](lecture4.qmd) | Lecture 4 from SNP to GWAS.pdf |
+| [5](lecture5.qmd) | Lecture 5 GWAS and computer exercise 1.pdf |
+| [6](lecture6.qmd) | Lecture 6 from GWAS to MR.pdf |
+| [7](lecture7.qmd) | Lecture 7 part 1 PRELIMINARY.pdf |
+| [8](lecture8.qmd) | Lecture 8 proteomics.pdf |
+
+## What is missing
+
+These exist in the course but were **not available** when the study guide was written, so nothing here is built from them:
+
+- **"Lecture 7 - questions.pdf"**: the instructor's example exercises and possible exam questions. **The most valuable missing file. Do it from Canvas.**
+- The full siNET article (Arvidsson et al., *Modern Pathology* 2018): more methodological detail for Lecture 7.
+- `Computer exercise1.docx` and `Computer exercise 2.docx`: the PLINK exercise instructions. Lectures 5–6 cover only the conceptual lecture content, not the hands-on steps.
+- Raw exercise data: `Lecture4_ex1.csv`, `jointGwasMc_LDL.txt`, `simulated_LDL.pheno`, `all_hg38_subset.*`, `CAD_Summary_filtered.txt`.
+- "STA520 Literature list.pdf" and "STA520 Syllabus.pdf" returned no extractable text (probably scanned), so only "STA520 Course Syllabus.docx" was used for the course context.
+- The assigned textbook was deliberately not reproduced (copyright).
+- Two uploads of "Lecture 3_recap and mutations.pdf" existed; only one was read. No personal comments or annotations were found in any slide PDF.
+- Sessions from week 4 day 2 onward ("Study design, bias and interpretation", "Integrating molecular data", the seminar) have no slides in the guide yet.
+
+If any of these become available, they can be added as new sections or questions.
+
+## Your progress data
+
+Your review status (Not reviewed / Reviewed / Confident) is stored in this browser's localStorage under the key `sta520_topic_status`. It stays between visits on the same browser and device, but not across devices or after clearing site data. Use **Export progress** on the [dashboard](dashboard.qmd) to keep a backup.

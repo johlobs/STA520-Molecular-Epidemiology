@@ -1,0 +1,233 @@
+---
+title: "Lecture 5 — GWAS and Computer Exercise 1"
+subtitle: "Data structures · the GWAS pipeline · lead SNP vs causal SNP · finding the causal variant · r² and LD clumping · LD from summary statistics · pitfalls"
+engine: knitr
+---
+
+```{=html}
+<script>document.body.classList.add("block-gwas");</script>
+```
+
+This session was mostly a hands-on PLINK exercise, framed by a short lecture. The lecture turns the GWAS idea from Lecture 4 into a concrete workflow: what the data files look like, how they flow through the software, and what you get out at the end.
+
+Its main new content is about what to do *after* you have a peak in the Manhattan plot. A peak contains many correlated SNPs. Which one is causal? The lecture lists the tools for narrowing it down (conditional analysis, functional annotation, pQTLs, experiments) and introduces **LD clumping**, the standard way to reduce each peak to one independent SNP.
+
+The key intuition: statistical independence (low LD) is not the same as biological causality. Clumping gives you independent signals, which is exactly what Mendelian randomization needs in Lecture 6, but the clumped SNP may still only be a proxy for the true causal variant.
+
+This page covers the data structures, the end-to-end pipeline, lead vs causal SNPs, approaches to finding the causal variant, the r² table, LD clumping, computing LD from summary statistics and the practical pitfalls when combining datasets.
+
+::: {.callout-note collapse="true"}
+## Sources and session
+**Slides:** "Lecture 5 GWAS and computer exercise 1.pdf".
+
+**Not covered here:** the exercise itself. `Computer exercise1.docx`, `jointGwasMc_LDL.txt` and `simulated_LDL.pheno` are lab materials not included in the source guide. Official PLINK 2.0 documentation: [cog-genomics.org/plink/2.0/resources](https://www.cog-genomics.org/plink/2.0/resources).
+
+**Rough plan:** Week 3, day 2. Computer exercise intro.
+:::
+
+## 5.1 The data behind a single-SNP test {#t5-1 .topic}
+
+Individual-level GWAS data has **one row per subject**:
+
+| ID | SBP (continuous) | Diabetes (binary) | SNP dosage (0/1/2) | Age | Treatment | … |
+|---|---|---|---|---|---|---|
+| 001 | 132 | 0 | 1 | 54 | 0 | |
+| 002 | 147 | 1 | 2 | 61 | 1 | |
+| 003 | 118 | 0 | 0 | 47 | 0 | |
+
+For a continuous phenotype (e.g. SBP, systolic blood pressure) you fit a **linear model** with SNP dosage as X and the phenotype as Y, adjusted for:
+
+- **technical variables**: batch, machine, …
+- **biological covariates**: age, age², sex, …
+- **population structure**: PC1 to PC10, say
+
+For a binary phenotype, the same setup with a **logistic model**. This is exactly the single-SNP model of Lecture 4, now framed as "what you actually run in software".
+
+## 5.2 From one SNP to the full GWAS pipeline {#t5-2 .topic}
+
+Repeat the model for all SNPs (~1,000,000), apply the genome-wide threshold, make Manhattan and QQ plots. You get candidate significant SNPs, which must be **grouped into loci** and reduced to **lead SNPs**.
+
+**Where GWAS data comes from, end to end**
+
+```
+Study participants: visits and follow-up
+        │
+Blood drawn and analyzed → DNA extracted
+        │
+ ┌──────────────┬──────────────────┬───────────────────────────┐
+ Phenotype data   Covariate data     Genotype data
+ (by subject ID,  (by subject ID,    (by subject ID, binary file:
+  text/CSV)        text/CSV)          millions of SNPs per person)
+ └──────────────┴────────┬─────────┴───────────────────────────┘
+                         │  + external QC and PCA (population structure)
+                       PLINK
+                         │
+          GWAS summary data (by SNP ID, text/CSV)
+```
+
+## 5.3 Why neighbouring SNPs show up together {#t5-3 .topic flag="inferred"}
+
+Two distinct reasons many related SNPs appear in GWAS output (the exam could phrase it either way):
+
+1. **Causal biology**: one causal SNP really changes gene expression or protein function, which changes the phenotype.
+2. **Statistical, not biological**: SNPs are inherited together (LD). SNP 1, SNP 2, the causal SNP, SNP 3 and SNP 4 can all look associated only because they are correlated with the causal SNP, **not because each affects the phenotype**.
+
+| Term | Definition |
+|---|---|
+| **Lead SNP** | The SNP with the smallest p-value in a region. **Not necessarily causal.** |
+| **Locus** | The genomic region with the associated signal: the cluster of correlated SNPs around and including the lead SNP |
+
+The causal SNP **may not even be on the array**. Arrays genotype a pre-chosen set of known SNPs; if the causal variant is not one of them, it can only be inferred indirectly (LD with genotyped SNPs, or imputation, Lecture 6).
+
+## 5.4 Finding the causal SNP: a menu of approaches {#t5-4 .topic flag="inferred"}
+
+Useful as a "list the approaches" answer:
+
+| Approach | What it does |
+|---|---|
+| **Credible set** | A set of candidate SNPs based on association strength and LD structure |
+| **Conditional analysis** | Add the lead SNP as a covariate and retest the others. Associations that survive are **independent** of the lead SNP; those that vanish were only tagging it through LD |
+| **Functional annotation** | Where does the SNP sit? Promoter, protein-coding sequence, does it cause a missense change? |
+| **Protein folding models** | Computational prediction of whether the variant changes protein structure |
+| **pQTL evidence** | Does a variant near a protein-coding gene change that protein's circulating level? (Lecture 8) |
+| **Knock-in mouse models** and other experiments | Test the candidate mutation's effect directly in a living model |
+
+:::: {.quiz}
+You add the lead SNP as a covariate and rerun the association for the other SNPs in the locus. Most of them lose their signal. What does that suggest?
+
+- They are independent causal variants at the same locus
+- **They were mainly tagging the lead SNP through LD**
+- The lead SNP was a false positive caused by chance
+- The locus must contain several different causal genes
+
+::: {.exp}
+Conditional analysis separates independent signals from LD shadows. Associations that disappear once the lead SNP is in the model carried no information beyond it. Any that remain are independent signals.
+:::
+::::
+
+## 5.4b r² bands and LD clumping {#t5-4b .topic flag="inferred"}
+
+::: {.worked}
+| SNP | $r^2$ with lead SNP | LD strength |
+|---|---|---|
+| SNP 1 | 0.05 | Weak |
+| SNP 2 | 0.85 | Very strong |
+| Lead SNP | 1.0 | (reference) |
+| SNP 3 | 0.01 | Independent |
+| SNP 4 | 0.64 | Moderate to strong |
+:::
+
+Bands: $r^2 > 0.8$ very strong LD / close proxy; $r^2 > 0.5$ moderate to strong; $r^2 < 0.1$ weak; $r^2 \approx 0$ essentially independent. A common practical threshold for calling SNPs **independent** is $r^2 < 0.01$.
+
+::: {.callout-warning}
+## Physical proximity ≠ correlation
+LD is usually strongest locally, but not every nearby SNP is highly correlated:
+
+- LD patterns **differ between populations** (different recombination histories and genetic drift);
+- $r^2$ depends on **both SNPs' allele frequencies** and the haplotype structure;
+- two SNPs can be physically close yet have low $r^2$. **You have to calculate it.**
+:::
+
+**LD clumping** is the automated procedure that reduces each locus's correlated SNPs to one representative, approximately independent lead variant. Standard practice, and specifically used **before Mendelian randomization** (Lecture 6), because MR needs independent instruments. Caveat: the clumped SNP may still only be a **statistical proxy** for the causal variant.
+
+:::: {.quiz}
+The lead SNP is missing from a second dataset you want to use. Using the r² table above, which SNP is the best substitute (proxy)?
+
+- SNP 1, because it has weak LD with the lead SNP
+- **SNP 2, because r² = 0.85 makes it a close proxy**
+- SNP 3, because it is independent of the lead SNP
+- SNP 4, because moderate LD avoids double counting
+
+::: {.exp}
+A proxy should carry nearly the same signal, so you want the highest r² with the lead SNP. SNP 2 (r² = 0.85 > 0.8) is a very strong LD proxy. Proxy SNPs return in Lecture 6.
+:::
+::::
+
+## 5.5 LD when you only have summary statistics {#t5-5 .topic flag="inferred"}
+
+With **individual-level** genotypes you can compute both the GWAS association and the LD between SNPs from the same data. With only **summary statistics** (the usual situation with published GWAS, since they contain no individual data) you need an **external reference dataset**, such as **1000 Genomes**, to compute LD.
+
+Why not one big file with everything? Individual-level genotype data is sensitive, restricted and tied to specific projects, so it cannot be bundled with public summary data. You use a separate, appropriately permissioned reference panel.
+
+::: {.callout-important}
+## Match the ancestry
+The reference panel's ancestry must match the GWAS population, because LD patterns differ between populations.
+:::
+
+## 5.6 Practical pitfalls when combining datasets {#t5-6 .topic flag="inferred"}
+
+A "what could go wrong" checklist:
+
+| Check | Question |
+|---|---|
+| **Genomic coverage** | Are the same SNPs present in both the GWAS and the reference panel? |
+| **Allele compatibility** | Is "A1" the same physical allele in both, or is the strand/labeling flipped? |
+| **Genome build** | Is everything on the same build: hg19/GRCh37 vs hg38/GRCh38? |
+| **Identifiers** | Working with **rsIDs** avoids many mismatches: they are stable across datasets |
+
+Two reminders: **statistical independence (low LD) ≠ biological causality**, and **the lead SNP is not necessarily causal**; one locus may represent several candidate variants or genes.
+
+The purpose of all this (genome-wide significant, LD-clumped, independent SNPs) is to obtain valid **genetic instruments for Mendelian randomization** (Lecture 6).
+
+:::: {.quiz}
+You merge your GWAS with a reference panel and find that half the betas change sign compared with a published analysis. Which pitfall is the most likely cause?
+
+- The reference panel was too large for your sample size
+- **The effect allele (A1) is flipped between the datasets**
+- The SNPs were sorted by rsID instead of by position
+- The p-values were not corrected for multiple testing
+
+::: {.exp}
+If A1 in one dataset is A2 in the other, every β for those SNPs flips sign. Always align alleles (and strands) and check the genome build before combining data.
+:::
+::::
+
+# Why-questions
+
+::: {.callout-tip collapse="true"}
+## Why is LD clumping done before Mendelian randomization?
+MR combines several instruments as if each carried independent information. Correlated SNPs would count the same signal several times and understate the uncertainty. Clumping keeps one approximately independent SNP per locus.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why can you not compute LD from GWAS summary statistics alone?
+LD is a correlation between genotypes *within individuals*. Summary statistics only contain per-SNP aggregates, with no individual genotypes, so you need a reference panel with individual-level data from a matching ancestry.
+:::
+
+::: {.callout-tip collapse="true"}
+## Why is "independent" not the same as "causal"?
+Independence is a statistical property: the SNP's signal is not explained by another SNP. Causality is biological: the variant changes gene or protein function. A clumped, independent SNP can still be a proxy for an unmeasured causal variant.
+:::
+
+# Spaced review
+
+:::: {.quiz}
+From Lecture 4: what does the SE of a GWAS β mainly depend on?
+
+- **Sample size, allele frequency and phenotype variability**
+- The genome build and the rsID of the variant tested
+- Whether the SNP is the lead SNP of its locus or not
+- Only the size of β, since larger effects have larger SE
+
+::: {.exp}
+SE reflects precision: more people, a more common allele and a less variable phenotype all make β more precise.
+:::
+::::
+
+:::: {.quiz}
+From Lecture 3: which method determines alleles at already-known SNP positions without sequencing?
+
+- Sanger sequencing
+- Next-generation sequencing
+- **Genotyping, e.g. TaqMan or SNP arrays**
+- Targeted deep sequencing
+
+::: {.exp}
+Genotyping reads known variant positions. Sequencing determines the full nucleotide order.
+:::
+::::
+
+# Further reading
+
+- No extra reading beyond the Lecture 4 material.
+- PLINK 2.0 documentation and tutorial: [cog-genomics.org/plink/2.0/resources](https://www.cog-genomics.org/plink/2.0/resources)
