@@ -1760,6 +1760,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./computer-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer exercises: concepts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./glossary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Glossary</span></a>
   </div>
@@ -5271,6 +5277,228 @@ window.STA520_TOPICS = [
 
 
 
+
+
+  DRILLS.clump = function () {
+
+    /* 7 significant SNPs belonging to 2–4 hidden LD blocks. */
+
+    var nBlocks = pick([2, 3, 3, 4]);
+
+    var n = 7, snps = [], i, j;
+
+    for (i = 0; i < n; i++) {
+
+      snps.push({ block: i < nBlocks ? i : Math.floor(Math.random() * nBlocks) });
+
+    }
+
+    snps.sort(function () { return Math.random() - 0.5; });
+
+    var exps = [];
+
+    for (i = 0; i < n; i++) exps.push(rnd(8.1, 30, 1));
+
+    snps.forEach(function (sn, k) {
+
+      sn.id = 'rs' + (100000 + Math.floor(Math.random() * 899999));
+
+      sn.logp = exps[k];
+
+    });
+
+    /* r² matrix: high within blocks, tiny (< 0.01) or moderate between */
+
+    var r2 = [];
+
+    for (i = 0; i < n; i++) { r2.push([]); }
+
+    for (i = 0; i < n; i++) {
+
+      for (j = i; j < n; j++) {
+
+        var v;
+
+        if (i === j) v = 1;
+
+        else if (snps[i].block === snps[j].block) v = rnd(0.05, 0.95, 2);
+
+        else v = rnd(0, 0.009, 3);
+
+        r2[i][j] = v; r2[j][i] = v;
+
+      }
+
+    }
+
+    /* run clumping at r² < 0.01 */
+
+    var remaining = snps.map(function (_, k) { return k; });
+
+    var leads = [], steps = [];
+
+    while (remaining.length) {
+
+      remaining.sort(function (a, b) { return snps[b].logp - snps[a].logp; });
+
+      var lead = remaining[0];
+
+      var removed = remaining.slice(1).filter(function (k) { return r2[lead][k] >= 0.01; });
+
+      leads.push(lead);
+
+      steps.push('<li><b>' + snps[lead].id + '</b> (p = 10⁻' + snps[lead].logp + ') becomes signal ' + leads.length +
+
+        '. Removed (r² ≥ 0.01 with it): ' + (removed.length ? removed.map(function (k) { return snps[k].id + ' (r² = ' + r2[lead][k] + ')'; }).join(', ') : 'none') + '.</li>');
+
+      remaining = remaining.slice(1).filter(function (k) { return r2[lead][k] < 0.01; });
+
+    }
+
+    var header = ['SNP', '−log₁₀ p'].concat(snps.map(function (sn) { return sn.id; }));
+
+    var rows = snps.map(function (sn, a) {
+
+      return [sn.id, sn.logp].concat(snps.map(function (_, b) { return a === b ? '—' : r2[a][b]; }));
+
+    });
+
+    var weakest = leads[leads.length - 1];
+
+    return {
+
+      title: 'Manual LD clumping (r² < 0.01)',
+
+      question: '<p>Seven SNPs pass p &lt; 5×10⁻⁸ (made-up data). The table gives −log₁₀ p (larger = stronger) and pairwise r² from a reference panel. ' +
+
+        'Clump them: take the strongest remaining SNP as a lead, remove every remaining SNP with r² ≥ 0.01 to it, repeat.</p>' +
+
+        '<div style="overflow-x:auto">' + table(header, rows) + '</div>',
+
+      inputs: [
+
+        { label: 'Number of approximately independent signals', answer: leads.length, tol: 0 },
+
+        { label: 'Lead SNP of the last (weakest) signal', options: snps.map(function (sn) { return sn.id; }), answer: weakest },
+
+        { label: 'Number of SNPs removed in total', answer: n - leads.length, tol: 0 }
+
+      ],
+
+      solution: '<ol>' + steps.join('') + '</ol>' +
+
+        '<p><b>' + leads.length + ' independent signals</b> from ' + n + ' significant SNPs. Each lead SNP is the strongest <em>statistical</em> signal in its LD block; it is not necessarily the causal variant. ' +
+
+        'Note that the order matters: always start from the strongest remaining SNP, and only compare against SNPs that are still left.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.allele = function () {
+
+    var comp = { A: 'T', T: 'A', C: 'G', G: 'C' };
+
+    var nonPal = [['A', 'G'], ['A', 'C'], ['G', 'T'], ['C', 'T'], ['A', 'G'], ['C', 'A']];
+
+    var betaX = rnd(0.03, 0.15, 3), betaY = pick([-1, 1]) * rnd(0.01, 0.09, 3);
+
+    var eafX, eafY, ea, oa, oEA, oOA, action, alignedY, why;
+
+    var scenario = pick(['same', 'swap', 'strand', 'strandswap', 'incompatible', 'palClear', 'palFlip', 'palAmbig']);
+
+    if (scenario.indexOf('pal') === 0) {
+
+      var pal = pick([['A', 'T'], ['C', 'G']]);
+
+      ea = pal[0]; oa = pal[1];
+
+    } else {
+
+      var pair = pick(nonPal);
+
+      if (Math.random() < 0.5) pair = [pair[1], pair[0]];
+
+      ea = pair[0]; oa = pair[1];
+
+    }
+
+    eafX = rnd(0.08, 0.35, 2);
+
+    if (scenario === 'palAmbig') eafX = rnd(0.44, 0.56, 2);
+
+    eafY = Math.round((eafX + rnd(-0.03, 0.03, 2)) * 100) / 100;
+
+    if (scenario === 'same') { oEA = ea; oOA = oa; action = 0; alignedY = betaY;
+
+      why = 'Same effect allele and other allele in both files: the betas already refer to the same allele.'; }
+
+    if (scenario === 'swap') { oEA = oa; oOA = ea; eafY = Math.round((1 - eafY) * 100) / 100; action = 1; alignedY = -betaY;
+
+      why = 'The alleles are the same but the roles are swapped: the outcome β is per copy of ' + oa + ', the exposure β per copy of ' + ea + '. Flip the sign of the outcome β (and use 1 − EAF).'; }
+
+    if (scenario === 'strand') { oEA = comp[ea]; oOA = comp[oa]; action = 0; alignedY = betaY;
+
+      why = comp[ea] + '/' + comp[oa] + ' is the complement of ' + ea + '/' + oa + ': the outcome study reported the other DNA strand. After complementing, the effect alleles match, so β is kept.'; }
+
+    if (scenario === 'strandswap') { oEA = comp[oa]; oOA = comp[ea]; eafY = Math.round((1 - eafY) * 100) / 100; action = 1; alignedY = -betaY;
+
+      why = 'Complement the outcome alleles (other strand): ' + comp[oa] + '/' + comp[ea] + ' becomes ' + oa + '/' + ea + '. Now the effect allele is the exposure\'s other allele, so flip the sign of β.'; }
+
+    if (scenario === 'incompatible') {
+
+      var others = ['A', 'C', 'G', 'T'].filter(function (x) { return x !== ea && x !== oa && x !== comp[ea] && x !== comp[oa]; });
+
+      if (!others.length) others = ['A', 'C', 'G', 'T'].filter(function (x) { return x !== ea && x !== oa; });
+
+      oEA = ea; oOA = others[0]; action = 2; alignedY = NaN;
+
+      why = ea + '/' + oa + ' and ' + oEA + '/' + oOA + ' are different variants (not a swap, not a strand complement). The SNP cannot be aligned: exclude it.'; }
+
+    if (scenario === 'palClear') { oEA = ea; oOA = oa; action = 0; alignedY = betaY;
+
+      why = ea + '/' + oa + ' is palindromic, so strand cannot be read from the letters. But EAF is far from 0.5 and similar in both studies (' + eafX + ' vs ' + eafY + '), so the same allele is clearly the effect allele: keep β.'; }
+
+    if (scenario === 'palFlip') { oEA = ea; oOA = oa; eafY = Math.round((1 - eafY) * 100) / 100; action = 1; alignedY = -betaY;
+
+      why = ea + '/' + oa + ' is palindromic. The letters match, but EAF is ' + eafX + ' in the exposure study and ' + eafY + ' in the outcome study: the "same" letter is the common allele in one and the rare allele in the other. That points to a strand flip, so flip the sign of β (only safe because EAF is far from 0.5).'; }
+
+    if (scenario === 'palAmbig') { oEA = ea; oOA = oa; action = 2; alignedY = NaN;
+
+      why = ea + '/' + oa + ' is palindromic and EAF ≈ 0.5 (' + eafX + ' vs ' + eafY + '): you cannot tell whether the strands agree. Exclude it (or treat it as ambiguous).'; }
+
+    var inputs = [{ label: 'What do you do with this SNP?', options: ['Keep β as it is', 'Flip the sign of the outcome β', 'Exclude the SNP'], answer: action }];
+
+    if (action !== 2) inputs.push({ label: 'Aligned outcome β (per exposure effect allele)', answer: alignedY, tol: 0.0005 });
+
+    return {
+
+      title: 'Allele alignment before MR',
+
+      question: '<p>The same SNP in two summary statistics files (made-up numbers). Align the outcome to the exposure\'s effect allele.</p>' +
+
+        table(['', 'Effect allele', 'Other allele', 'EAF', 'β'], [
+
+          ['Exposure (LDL-C)', ea, oa, eafX, betaX],
+
+          ['Outcome (CAD, log-odds)', oEA, oOA, eafY, betaY]
+
+        ]),
+
+      inputs: inputs,
+
+      solution: '<p>' + why + '</p>' + (action === 2 ? '' : '<p>Aligned outcome β = <b>' + fmt(alignedY, 3) + '</b> per copy of ' + ea + ', the exposure-raising allele.</p>') +
+
+        '<p><b>Checklist:</b> same alleles → keep · swapped → flip β · complementary letters → other strand (complement, then compare) · A/T or C/G → palindromic, decide with EAF or exclude · anything else → incompatible, exclude.</p>'
+
+    };
+
+  };
+
+
+
   /* ── rendering ─────────────────────────────────────────────────────── */
 
   function render(box) {
@@ -5297,7 +5525,21 @@ window.STA520_TOPICS = [
 
       row.appendChild(h('span', { 'class': 'drill-label' }, inp.label));
 
-      var field = h('input', { type: 'text', inputmode: 'decimal', autocomplete: 'off' });
+      var field;
+
+      if (inp.options) {
+
+        field = h('select', { 'class': 'form-select form-select-sm drill-select' });
+
+        field.appendChild(h('option', { value: '' }, 'Choose …'));
+
+        inp.options.forEach(function (o, i) { field.appendChild(h('option', { value: String(i) }, o)); });
+
+      } else {
+
+        field = h('input', { type: 'text', inputmode: 'decimal', autocomplete: 'off' });
+
+      }
 
       row.appendChild(field);
 
@@ -5345,7 +5587,9 @@ window.STA520_TOPICS = [
 
         if (raw === '') { f.mark.textContent = ''; return; }
 
-        var ok = close(parseFloat(raw), f.inp.answer, f.inp.tol);
+        var ok = f.inp.options ? parseInt(raw, 10) === f.inp.answer
+
+                               : close(parseFloat(raw), f.inp.answer, f.inp.tol);
 
         f.mark.textContent = ok ? '✓' : '✗';
 

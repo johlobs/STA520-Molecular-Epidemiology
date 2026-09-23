@@ -540,7 +540,7 @@
     "href": "index.html#how-to-study-with-it",
     "title": "STA520 — Molecular Epidemiology",
     "section": "How to study with it",
-    "text": "How to study with it\n\nRead a lecture. Every topic section has a status control under its heading: Not reviewed / Reviewed / Confident. Click as you go.\nAnswer the quizzes inside each lecture and the why-questions and spaced review at the bottom.\nStart the Exam practice page with the instructor’s 11 Lecture 7 example questions, then practise calculations: drills that generate new numbers every time (Benjamini–Hochberg, Bonferroni, Hardy–Weinberg, OR from β, Wald ratio, IVW, log₂FC, quantile normalization, moderated t) plus 26 written exam-style questions with model answers.\nCheck the dashboard to see what is left, with the instructor-flagged topics listed first.\nLook up terms in the glossary or use search (top right). Searching “PCSK9” finds it in Lectures 1, 2, 3, 6 and 8.",
+    "text": "How to study with it\n\nRead a lecture. Every topic section has a status control under its heading: Not reviewed / Reviewed / Confident. Click as you go.\nAnswer the quizzes inside each lecture and the why-questions and spaced review at the bottom.\nStart the Exam practice page with the instructor’s 11 Lecture 7 example questions, then practise calculations: drills that generate new numbers every time (Benjamini–Hochberg, Bonferroni, Hardy–Weinberg, OR from β, Wald ratio, IVW, log₂FC, quantile normalization, moderated t) plus 26 written exam-style questions with model answers.\nPrepare for the computer exercises with Computer exercises: concepts: QC, PLINK output, clumping, allele alignment and MR interpretation on made-up data.\nCheck the dashboard to see what is left, with the instructor-flagged topics listed first.\nLook up terms in the glossary or use search (top right). Searching “PCSK9” finds it in Lectures 1, 2, 3, 6 and 8.",
     "crumbs": [
       "Home"
     ]
@@ -664,6 +664,138 @@
     ]
   },
   {
+    "objectID": "computer-exercises.html",
+    "href": "computer-exercises.html",
+    "title": "Computer exercises: concepts",
+    "section": "",
+    "text": "The two computer exercises turn Lectures 4–6 into a working pipeline. Exercise 1 goes from genotypes to a GWAS and then reduces many significant SNPs to a few independent signals, first with individual-level data and then with published summary statistics. Exercise 2 uses those independent signals as instruments in a Mendelian randomization of LDL-C on coronary artery disease.\nThis page is not a solution to the exercises. It uses its own made-up tables and simulated data so you can practise the concepts and interpretations: what each QC filter does, how to read association output, how clumping works, how to align alleles between two files, and how to read IVW, MR-Egger and weighted median results. Then do the exercises yourself with the course data.",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
+    "objectID": "computer-exercises.html#the-workflow",
+    "href": "computer-exercises.html#the-workflow",
+    "title": "Computer exercises: concepts",
+    "section": "The workflow",
+    "text": "The workflow\nIndividual-level data (Exercise 1, part 1)\n  genotypes ─▶ QC ─▶ GWAS ─▶ significant SNPs ─▶ LD ─▶ independent signals\n\nSummary-level data (Exercise 1, part 2)\n  GWAS summary statistics + external genotype reference\n      ─▶ match variants and alleles ─▶ LD in the reference ─▶ independent signals\n\nMendelian randomization (Exercise 2)\n  independent exposure SNPs ─▶ look up in outcome GWAS ─▶ align alleles\n      ─▶ Wald ratios ─▶ IVW + MR-Egger + weighted median ─▶ interpretation\n\n\n\nStep\nTheory in the lectures\n\n\n\n\nAllele frequency, MAF, per-allele β\n4.2, 4.4\n\n\nSummary statistics columns\n4.6\n\n\nManhattan plot, 5×10⁻⁸\n4.7\n\n\nLead SNP, locus, r²\n4.8, 5.3\n\n\nLD clumping\n5.4b\n\n\nLD from summary statistics, reference panels\n5.5, 5.6\n\n\nMR assumptions, IVW, Egger, weighted median\n6.5, 6.7, 6.8",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
+    "objectID": "computer-exercises.html#a1.-plink-2-files-and-genotype-qc",
+    "href": "computer-exercises.html#a1.-plink-2-files-and-genotype-qc",
+    "title": "Computer exercises: concepts",
+    "section": "A1. PLINK 2 files and genotype QC",
+    "text": "A1. PLINK 2 files and genotype QC\nPLINK 2 stores a genotype dataset as three files with the same name:\n\n\n\n\n\n\n\nFile\nContents\n\n\n\n\n.pgen\nThe genotype matrix itself (every individual × every variant), in a compact binary format\n\n\n.pvar\nOne row per variant: chromosome, position, ID (rsID), reference and alternative allele. .pvar.zst is a compressed version (read with vzs)\n\n\n.psam\nOne row per sample (individual): IDs, sex and similar\n\n\n\nQC filters and why they are used\n\n\n\n\n\n\n\n\nPLINK flag\nKeeps\nWhy\n\n\n\n\n--snps-only just-acgt\nSingle-nucleotide variants with plain A/C/G/T alleles\nDrops indels and odd allele codes that complicate matching between datasets\n\n\n--min-alleles 2 --max-alleles 2\nBiallelic variants\nThe additive 0/1/2 model assumes exactly two alleles\n\n\n--maf 0.01\nMAF ≥ 1%\nVery rare variants give unstable estimates (A2 below) and are prone to genotyping error\n\n\n--geno 0.02\nVariants with ≥ 98% of genotypes called\nA variant that fails in many samples is technically unreliable (per-variant missingness)\n\n\n--mind 0.02\nIndividuals with ≥ 98% of genotypes called\nA sample with many missing calls suggests poor DNA quality (per-individual missingness)\n\n\n\nThe same idea returns in proteomics QC (8.6): check both the features (variants, proteins) and the samples (people).\n\n  The MAF filter removed most variants, so the panel is mostly rare\n  An unusual share of people had many missing genotype calls\n  Many variants failed to genotype in most of the samples\n  The array must be multiallelic, since many variants were removed\n  8% of the individuals (240 of 3,000) failed the per-individual call rate, far more than the few hundred variants removed by –geno would suggest. That points to sample problems (DNA quality, a bad plate or batch) worth investigating before the GWAS. Read your own exercise log the same way: which filter removed most, and does that make sense for this kind of data?",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
+    "objectID": "computer-exercises.html#a2.-why-rare-variants-are-hard-for-single-snp-regression",
+    "href": "computer-exercises.html#a2.-why-rare-variants-are-hard-for-single-snp-regression",
+    "title": "Computer exercises: concepts",
+    "section": "A2. Why rare variants are hard for single-SNP regression",
+    "text": "A2. Why rare variants are hard for single-SNP regression\nThe standard error of the per-allele β shrinks with the number of carriers. For a continuous phenotype with residual SD \\(\\sigma\\) and \\(n\\) people, approximately\n\\[\\text{SE}(\\hat\\beta) \\approx \\frac{\\sigma}{\\sqrt{2\\,n\\,\\text{MAF}\\,(1-\\text{MAF})}}\\]\nbecause the variance of the 0/1/2 dosage under HWE is \\(2\\,\\text{MAF}(1-\\text{MAF})\\). With MAF = 0.001 in 2,500 people you expect only about 5 carriers, so β rests on a handful of people: huge SE, low power, and sensitivity to a single genotyping error.\n\n\n\n\n\nApproximate SE of β (phenotype SD = 1) against MAF, for 2,500 and 100,000 people. SE explodes as MAF approaches zero; the dashed line marks MAF = 0.01.",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
+    "objectID": "computer-exercises.html#a3.-reading-association-output",
+    "href": "computer-exercises.html#a3.-reading-association-output",
+    "title": "Computer exercises: concepts",
+    "section": "A3. Reading association output",
+    "text": "A3. Reading association output\nA PLINK --glm linear regression file has one row per variant and test. Invented example:\n#CHROM  POS       ID          REF  ALT  A1  TEST  OBS_CT  BETA     SE       T_STAT   P\n19      11100000  rs1000001   G    A    A   ADD   2450    -0.312   0.041    -7.61    3.9e-14\n19      11100000  rs1000001   G    A    A   AGE   2450     0.021   0.004     5.25    1.6e-07\n19      44900000  rs1000002   C    T    T   ADD   2450     0.205   0.035     5.86    5.3e-09\n\n\n\n\n\n\n\nColumn\nMeaning\n\n\n\n\nA1\nThe allele β refers to (counted 0/1/2)\n\n\nTEST\nADD = the additive genotype effect; other rows are covariates (hidden with hide-covar)\n\n\nOBS_CT\nNumber of people in the model\n\n\nBETA, SE, T_STAT, P\nPer-A1-allele effect, its standard error, t = β/SE, p-value\n\n\n\n\n  Each G allele lowers the phenotype by 0.312 units\n  Each A allele lowers the phenotype by 0.312 units\n  The A allele explains 31.2% of the phenotype variance\n  Age lowers the phenotype by 0.312 units per year\n  β is per copy of A1, here A. The AGE row is a covariate. β says nothing about variance explained.",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
+    "objectID": "computer-exercises.html#a4.-significant-snp-lead-snp-independent-signal",
+    "href": "computer-exercises.html#a4.-significant-snp-lead-snp-independent-signal",
+    "title": "Computer exercises: concepts",
+    "section": "A4. Significant SNP, lead SNP, independent signal",
+    "text": "A4. Significant SNP, lead SNP, independent signal\n\n\n\n\n\n\n\nTerm\nWhat it is\n\n\n\n\nSignificant SNP\nAny SNP with p below the threshold (e.g. 5×10⁻⁸). Many can come from one causal variant\n\n\nLead SNP\nThe strongest (smallest p) SNP in a region; the representative of a peak\n\n\nIndependent signal\nWhat is left after clumping: lead SNPs with r² below the threshold (e.g. &lt; 0.01) to each other\n\n\nCausal SNP\nThe variant that actually changes biology. It may be a lead SNP, a SNP in LD with it, or not genotyped at all\n\n\n\nDoes distance predict LD? Only roughly. LD tends to decay with distance, but recombination hotspots, allele frequencies and population history make the relationship very noisy. Always compute r².\n\n\nWarning in annotate(\"label\", x = -500, y = 0.12, label = \"dashed: r² = 0.01\", :\nIgnoring unknown parameters: `label.size`\n\n\n\n\n\nSimulated r² with a lead SNP against distance. LD decays on average, but some nearby SNPs have r² ≈ 0 (different allele frequencies, a recombination hotspot) and some distant ones remain correlated.",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
+    "objectID": "computer-exercises.html#a5.-manual-ld-clumping",
+    "href": "computer-exercises.html#a5.-manual-ld-clumping",
+    "title": "Computer exercises: concepts",
+    "section": "A5. Manual LD clumping",
+    "text": "A5. Manual LD clumping\nThe algorithm used in the exercises:\n\nAmong the remaining significant SNPs, pick the smallest p-value as a lead SNP.\nCompute r² between it and every other remaining significant SNP.\nRemove all SNPs with r² ≥ 0.01 (they are “the same signal”).\nKeep the lead as one signal and repeat from step 1 until nothing is left.\n\nPractise on invented tables. The drill gives a new table each time.\n\n\n\n\n\n\n\n\n\n\n\n\nTipCommon mistakes in clumping\n\n\n\n\n\n\nStarting from a SNP that is not the strongest remaining one.\nComparing with SNPs that have already been removed.\nUsing a threshold in the wrong direction (remove r² ≥ 0.01, keep r² &lt; 0.01).\nConcluding that the lead SNPs are causal. They are the strongest statistical signals. A simulated phenotype, where the causal SNPs are known, is exactly the situation where you can check this.",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
+    "objectID": "computer-exercises.html#b1.-why-an-external-reference-is-needed",
+    "href": "computer-exercises.html#b1.-why-an-external-reference-is-needed",
+    "title": "Computer exercises: concepts",
+    "section": "B1. Why an external reference is needed",
+    "text": "B1. Why an external reference is needed\nSummary statistics have one row per SNP and no individual genotypes, so the correlation between two SNPs (LD) cannot be computed from them. You need a reference panel with individual-level genotypes, e.g. 1000 Genomes, from a population with matching ancestry, because LD patterns differ between populations. → 5.5\nThings that go wrong when matching the two:\n\n\n\nProblem\nWhy it happens\nHandling\n\n\n\n\nSNP missing from the reference\nRare in that population, not in the panel, filtered by QC, or a different ID\nAccept the loss, or use a proxy SNP (6.1)\n\n\nDifferent genome builds\nPositions differ between hg19/GRCh37 and hg38/GRCh38\nMatch on rsID, which does not depend on the build\n\n\nDifferent allele coding\nEffect allele differs, or the other DNA strand is reported\nAlign alleles (B2)",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
+    "objectID": "computer-exercises.html#allele-alignment",
+    "href": "computer-exercises.html#allele-alignment",
+    "title": "Computer exercises: concepts",
+    "section": "B2. Allele alignment",
+    "text": "B2. Allele alignment\nBefore combining two files (GWAS + reference, or exposure + outcome in MR) every SNP must refer to the same effect allele.\n\n\n\n\n\n\n\n\n\nExposure alleles (effect/other)\nOutcome alleles (effect/other)\nCase\nAction\n\n\n\n\nA / G\nA / G\nSame\nKeep β\n\n\nA / G\nG / A\nSwapped\nFlip the sign of the outcome β (and use 1 − EAF)\n\n\nA / G\nT / C\nOther strand (complement)\nComplement → A/G: keep β\n\n\nA / G\nC / T\nOther strand and swapped\nComplement → G/A: flip the sign\n\n\nA / G\nA / C\nIncompatible\nExclude\n\n\nA / T or C / G\nsame letters\nPalindromic: the complement is the same pair, so strand is invisible\nUse EAF: if clearly far from 0.5, compare EAFs to decide; if close to 0.5, exclude\n\n\n\n\n\n\n\n\n\n\n  They are always multiallelic and fail QC\n  Their complement is the same allele pair, hiding strand flips\n  They cannot be tested with the additive model\n  They never reach genome-wide significance\n  For A/G you can spot a strand flip because the other strand reads T/C. For A/T the other strand also reads A/T (T/A), so a flip is invisible from the letters. Allele frequencies can resolve it only when the EAF is clearly different from 0.5.",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
+    "objectID": "computer-exercises.html#c1.-the-mr-pipeline-in-exercise-2-as-concepts",
+    "href": "computer-exercises.html#c1.-the-mr-pipeline-in-exercise-2-as-concepts",
+    "title": "Computer exercises: concepts",
+    "section": "C1. The MR pipeline in Exercise 2, as concepts",
+    "text": "C1. The MR pipeline in Exercise 2, as concepts\n\n\n\nStep\nWhy\nTheory\n\n\n\n\nKeep exposure SNPs with p &lt; 5×10⁻⁸\nRelevance: instruments must be strongly associated with the exposure\n6.5\n\n\nRestrict to SNPs present in the reference panel\nLD can only be computed for SNPs that exist there\n5.5\n\n\nKeep IDs that start with “rs”\nStable identifiers for matching across files and builds\n3.3c\n\n\nLD clumping at r² &lt; 0.01\nInstruments must be independent, or the same signal is counted several times\n5.4b\n\n\nLook up the lead SNPs in the outcome GWAS\nNeed βoutcome for each instrument; missing SNPs are lost (or replaced by proxies)\n6.1\n\n\nAlign alleles\nβexposure and βoutcome must refer to the same allele\nB2 above\n\n\nWald ratio per SNP; IVW, MR-Egger, weighted median\nEstimate and check robustness\n6.7, 6.8\n\n\n\nA common convention is to orient every SNP so that the effect allele raises the exposure (βexposure &gt; 0), flipping both betas when needed. The MR scatter plot then lies in the right half.",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
+    "objectID": "computer-exercises.html#c2.-reading-an-mr-analysis-a-simulated-example",
+    "href": "computer-exercises.html#c2.-reading-an-mr-analysis-a-simulated-example",
+    "title": "Computer exercises: concepts",
+    "section": "C2. Reading an MR analysis: a simulated example",
+    "text": "C2. Reading an MR analysis: a simulated example\nSimulated data, not the course data: 30 independent instruments with a true causal effect of 0.5 (log-odds of the outcome per unit exposure). Four instruments also have a direct effect on the outcome (horizontal pleiotropy).\n\n\n\n\n\nSimulated MR scatter. Orange points are the four pleiotropic instruments. IVW (green) is forced through the origin; MR-Egger (orange, dashed) has a free intercept; the dotted line shows the true effect 0.5.\n\n\n\n\n\n\n\nMR estimates for the simulated data (true causal effect = 0.5)\n\n\nMethod\nEstimate\np-value\n\n\n\n\nIVW\n0.543\n2.3e-15\n\n\nMR-Egger (slope)\n0.335\n8.4e-05\n\n\nMR-Egger (intercept)\n0.031\n0.004\n\n\nWeighted median\n0.505\nn/a\n\n\n\n\n\nHow to read it\n\nIVW uses all instruments and assumes they are all valid. With positive pleiotropy in a few SNPs it is pulled upward.\nWeighted median is robust as long as at least ~50% of the weight comes from valid instruments. Here it should be closer to 0.5.\nMR-Egger’s intercept estimates the average pleiotropic effect. Here it is clearly non-zero, signalling directional pleiotropy. The Egger slope is meant to be the pleiotropy-adjusted estimate, but in this simulation it lands well below the truth: with only four pleiotropic SNPs among 30, the free intercept over-corrects. Egger is imprecise and relies on its own assumption (InSIDE), so treat its slope as a sensitivity check, not the answer.\nAgreement in direction across the three methods supports a causal effect; the size of the estimates should be interpreted with the exposure unit in mind (6.9).\n\n\n  Consistent evidence of a positive effect, no sign of directional pleiotropy\n  The Egger intercept shows strong pleiotropy, so IVW is invalid\n  The methods disagree in direction, so no conclusion is possible\n  The effect is negative, since Egger’s slope is smaller than IVW\n  All three estimates are positive and similar, and the Egger intercept is close to zero and non-significant. That is the triangulation pattern that strengthens a causal interpretation. The Egger p-value is larger simply because Egger is less precise.\n\n\n  A strong and robust causal effect, since IVW is the main method\n  IVW is probably driven by pleiotropic instruments; be cautious\n  The weighted median is wrong because its p-value is not significant\n  Egger’s intercept confirms that the instruments are all valid\n  The robust method (weighted median) finds almost nothing, and the Egger intercept indicates directional pleiotropy. IVW, which assumes all instruments are valid, is then likely biased. Look for outlying instruments and do not claim causality from IVW alone.\n\n\n  Nothing, because IVW only uses βexposure\n  Those five points land on the wrong side of the line\n  All points move closer to the origin by the same amount\n  The Wald ratios of those five SNPs become exactly zero\n  A swapped allele gives the outcome β the wrong sign, so those SNPs point in the opposite direction from the rest. They pull IVW toward zero and can create a spurious Egger intercept. This is why allele alignment comes before any MR estimate.",
+    "crumbs": [
+      "Home",
+      "Exam prep",
+      "Computer exercises: concepts"
+    ]
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About the content",
@@ -728,7 +860,7 @@
     "href": "about.html#what-is-missing",
     "title": "About the content",
     "section": "What is missing",
-    "text": "What is missing\nThese exist in the course but were not available when the study guide was written, so nothing here is built from them:\n\nThe full siNET article (Arvidsson et al., Modern Pathology 2018): more methodological detail for Lecture 7.\nComputer exercise1.docx and Computer exercise 2.docx: the PLINK exercise instructions. Lectures 5–6 cover only the conceptual lecture content, not the hands-on steps.\nRaw exercise data: Lecture4_ex1.csv, jointGwasMc_LDL.txt, simulated_LDL.pheno, all_hg38_subset.*, CAD_Summary_filtered.txt.\n“STA520 Literature list.pdf” and “STA520 Syllabus.pdf” returned no extractable text (probably scanned), so only “STA520 Course Syllabus.docx” was used for the course context.\nThe assigned textbook was deliberately not reproduced (copyright).\nTwo uploads of “Lecture 3_recap and mutations.pdf” existed; only one was read. No personal comments or annotations were found in any slide PDF.\nSessions from week 4 day 2 onward (“Study design, bias and interpretation”, “Integrating molecular data”, the seminar) have no slides in the guide yet.\n\nIf any of these become available, they can be added as new sections or questions.",
+    "text": "What is missing\nThese exist in the course but were not available when the study guide was written, so nothing here is built from them:\n\nThe full siNET article (Arvidsson et al., Modern Pathology 2018): more methodological detail for Lecture 7.\nSolutions to Computer exercise1.docx and Computer exercise 2.docx. These are deliberately not included: the Computer exercises: concepts page teaches the ideas behind them on made-up and simulated data, without code or results for the course data.\nRaw exercise data: Lecture4_ex1.csv, jointGwasMc_LDL.txt, simulated_LDL.pheno, all_hg38_subset.*, CAD_Summary_filtered.txt.\n“STA520 Literature list.pdf” and “STA520 Syllabus.pdf” returned no extractable text (probably scanned), so only “STA520 Course Syllabus.docx” was used for the course context.\nThe assigned textbook was deliberately not reproduced (copyright).\nTwo uploads of “Lecture 3_recap and mutations.pdf” existed; only one was read. No personal comments or annotations were found in any slide PDF.\nSessions from week 4 day 2 onward (“Study design, bias and interpretation”, “Integrating molecular data”, the seminar) have no slides in the guide yet.\n\nIf any of these become available, they can be added as new sections or questions.",
     "crumbs": [
       "Home",
       "Reference",
@@ -1184,7 +1316,7 @@
     "href": "lecture5.html#t5-6",
     "title": "Lecture 5 — GWAS and Computer Exercise 1",
     "section": "5.6 Practical pitfalls when combining datasets",
-    "text": "5.6 Practical pitfalls when combining datasets\nA “what could go wrong” checklist:\n\n\n\n\n\n\n\nCheck\nQuestion\n\n\n\n\nGenomic coverage\nAre the same SNPs present in both the GWAS and the reference panel?\n\n\nAllele compatibility\nIs “A1” the same physical allele in both, or is the strand/labeling flipped?\n\n\nGenome build\nIs everything on the same build: hg19/GRCh37 vs hg38/GRCh38?\n\n\nIdentifiers\nWorking with rsIDs avoids many mismatches: they are stable across datasets\n\n\n\nTwo reminders: statistical independence (low LD) ≠ biological causality, and the lead SNP is not necessarily causal; one locus may represent several candidate variants or genes.\nThe purpose of all this (genome-wide significant, LD-clumped, independent SNPs) is to obtain valid genetic instruments for Mendelian randomization (Lecture 6).\n\n  The reference panel was too large for your sample size\n  The effect allele (A1) is flipped between the datasets\n  The SNPs were sorted by rsID instead of by position\n  The p-values were not corrected for multiple testing\n  If A1 in one dataset is A2 in the other, every β for those SNPs flips sign. Always align alleles (and strands) and check the genome build before combining data.",
+    "text": "5.6 Practical pitfalls when combining datasets\nA “what could go wrong” checklist:\n\n\n\n\n\n\n\nCheck\nQuestion\n\n\n\n\nGenomic coverage\nAre the same SNPs present in both the GWAS and the reference panel?\n\n\nAllele compatibility\nIs “A1” the same physical allele in both, or is the strand/labeling flipped?\n\n\nGenome build\nIs everything on the same build: hg19/GRCh37 vs hg38/GRCh38?\n\n\nIdentifiers\nWorking with rsIDs avoids many mismatches: they are stable across datasets\n\n\n\nStrands and palindromic SNPs (from the computer exercises). DNA has two strands, and studies do not always report alleles on the same one: A/G in one file can appear as T/C (the complement) in another. For most SNPs this is easy to detect. For palindromic SNPs (A/T and C/G) the complement is the same pair, so a strand flip cannot be seen from the letters. They are resolved with allele frequencies when the frequency is clearly different from 0.5, and otherwise excluded. When the alleles are the same but swapped, the sign of β is flipped. Practise in the computer exercise concepts page.\nTwo reminders: statistical independence (low LD) ≠ biological causality, and the lead SNP is not necessarily causal; one locus may represent several candidate variants or genes.\nThe purpose of all this (genome-wide significant, LD-clumped, independent SNPs) is to obtain valid genetic instruments for Mendelian randomization (Lecture 6).\n\n  The reference panel was too large for your sample size\n  The effect allele (A1) is flipped between the datasets\n  The SNPs were sorted by rsID instead of by position\n  The p-values were not corrected for multiple testing\n  If A1 in one dataset is A2 in the other, every β for those SNPs flips sign. Always align alleles (and strands) and check the genome build before combining data.",
     "crumbs": [
       "Home",
       "Weeks 2–3: GWAS and MR",
