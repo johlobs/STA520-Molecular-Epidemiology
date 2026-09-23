@@ -1,0 +1,229 @@
+/* ── Section block colours (same idea as STA240) ─────────────────────── */
+/* Weeks 1–2 biology – slate blue */
+body.block-bio   { background-color: #e8eef4; }
+/* Weeks 2–3 GWAS/MR – warm sage */
+body.block-gwas  { background-color: #e8f0e8; }
+/* Week 4 omics – warm sand */
+body.block-omics { background-color: #f0ece4; }
+
+/* Content cards sit on white so they pop against the background */
+.quarto-title-block,
+.cell,
+.callout,
+table {
+  background-color: #ffffff;
+}
+
+/* ── Topic bar: exam badge + status control ──────────────────────────── */
+.topic-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: -0.2rem 0 1rem;
+}
+
+.flag-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  line-height: 1.4;
+}
+/* Instructor-confirmed: solid, loud */
+.flag-instructor {
+  background: #d9480f;
+  color: #ffffff;
+  border: 2px solid #d9480f;
+  box-shadow: 0 1px 3px rgba(217, 72, 15, 0.35);
+}
+/* AI-inferred: outlined, quiet */
+.flag-inferred {
+  background: transparent;
+  color: #2f5d8a;
+  border: 1.5px dashed #6c8fb3;
+  font-weight: 500;
+}
+
+.status-group {
+  display: inline-flex;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #ffffff;
+}
+.status-btn {
+  border: none;
+  border-right: 1px solid #ced4da;
+  background: #ffffff;
+  color: #495057;
+  font-size: 0.78rem;
+  padding: 0.22rem 0.65rem;
+  cursor: pointer;
+}
+.status-btn:last-child { border-right: none; }
+.status-btn:hover { background: #f1f3f5; }
+.status-none.active      { background: #e9ecef; color: #212529; font-weight: 600; }
+.status-reviewed.active  { background: #fff3cd; color: #7a5b00; font-weight: 600; }
+.status-confident.active { background: #d4edda; color: #155724; font-weight: 600; }
+
+/* Instructor-flagged topic headings get a coloured rule */
+section.topic[data-flag="instructor"] > h2 {
+  border-left: 5px solid #d9480f;
+  padding-left: 0.6rem;
+}
+
+/* ── Page summary under the title ────────────────────────────────────── */
+.page-progress {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: #495057;
+}
+.mini-bar {
+  position: relative;
+  display: inline-block;
+  width: 160px;
+  height: 8px;
+  border-radius: 4px;
+  background: #e9ecef;
+  overflow: hidden;
+}
+.mini-bar span, .dash-bar span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+/* ── Sidebar counters ────────────────────────────────────────────────── */
+.sidebar-count {
+  margin-left: 0.4rem;
+  font-size: 0.72rem;
+  color: #6c757d;
+  background: #e9ecef;
+  border-radius: 999px;
+  padding: 0 0.4rem;
+}
+.sidebar-count.done { background: #d4edda; color: #155724; }
+
+/* ── Dashboard ───────────────────────────────────────────────────────── */
+.dash-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.9rem;
+  margin: 1rem 0 0.5rem;
+}
+.dash-card {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+}
+.dash-card.card-instructor { border: 2px solid #d9480f; }
+.dash-card.card-inferred   { border: 1.5px dashed #6c8fb3; }
+.dash-card-label { font-size: 0.82rem; color: #495057; font-weight: 600; }
+.dash-card-value { font-size: 1.9rem; font-weight: 700; line-height: 1.2; }
+.dash-card-sub   { font-size: 0.78rem; color: #6c757d; margin-bottom: 0.5rem; }
+
+.dash-bar {
+  position: relative;
+  height: 10px;
+  border-radius: 5px;
+  background: #e9ecef;
+  overflow: hidden;
+}
+.dash-bar.small { display: inline-block; width: 110px; height: 8px; vertical-align: middle; }
+.fill-reviewed  { background: #f0b429; }
+.fill-confident { background: #2f9e44; }
+.bar-label { font-size: 0.78rem; color: #6c757d; margin-left: 0.4rem; }
+
+.dash-legend { font-size: 0.8rem; color: #6c757d; }
+.key { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; }
+.key-reviewed  { background: #f0b429; }
+.key-confident { background: #2f9e44; }
+
+.dash-table td.num { text-align: center; }
+.dash-note { font-size: 0.85rem; color: #6c757d; }
+.dash-done { font-weight: 600; color: #155724; }
+
+.dash-todo { list-style: none; padding-left: 0; }
+.dash-todo li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  border-bottom: 1px solid #edf0f2;
+  background: #ffffff;
+  font-size: 0.9rem;
+}
+.todo-status { margin-left: auto; font-size: 0.75rem; color: #6c757d; white-space: nowrap; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.dot-none      { background: #ced4da; }
+.dot-reviewed  { background: #f0b429; }
+.dot-confident { background: #2f9e44; }
+
+.dash-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+.dash-tools label { margin: 0; }
+
+/* ── Worked example tables ───────────────────────────────────────────── */
+.worked table { font-size: 0.9rem; }
+.worked caption, .worked .table-caption { font-weight: 600; }
+
+/* ── Glossary ────────────────────────────────────────────────────────── */
+.glossary dt { margin-top: 0.9rem; }
+.glossary dd { margin-left: 1rem; }
+.glossary .gl-links { font-size: 0.8rem; color: #6c757d; }
+
+/* ── Mobile ──────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  pre { font-size: 0.78rem; }
+  .status-btn { padding: 0.25rem 0.5rem; }
+  .dash-todo li { flex-wrap: wrap; }
+  .todo-status { margin-left: 1.3rem; }
+}
+
+/* ── Randomised drills ───────────────────────────────────────────────── */
+.drill {
+  border: 1px solid #b6c6d8;
+  border-left: 5px solid #2f5d8a;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 1rem 1.2rem;
+  margin: 1.4rem 0;
+}
+.drill-title { font-weight: 700; margin-bottom: 0.5rem; }
+.drill-question table, .drill-solution table { width: auto; font-size: 0.85rem; }
+.drill-inputs { display: grid; gap: 0.4rem; margin: 0.6rem 0; }
+.drill-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.9rem;
+}
+.drill-label { flex: 1 1 260px; }
+.drill-row input {
+  width: 8.5rem;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+.drill-mark { width: 1.2rem; font-weight: 700; }
+.drill-mark.ok  { color: #2f9e44; }
+.drill-mark.bad { color: #c92a2a; }
+.drill-buttons { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.drill-solution {
+  margin-top: 0.8rem;
+  padding: 0.7rem 0.9rem;
+  background: #eef5ec;
+  border-left: 3px solid #2f9e44;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  overflow-x: auto;
+}
