@@ -38,7 +38,7 @@ This app covers the eight lectures of STA520: from the biology (DNA, RNA, protei
 
 1. **Read a lecture.** Every topic section has a status control under its heading: **Not reviewed / Reviewed / Confident**. Click as you go.
 2. **Answer the quizzes** inside each lecture and the **why-questions** and **spaced review** at the bottom.
-3. **Practise calculations** on the [Exam practice](exam-practice.qmd) page: drills that generate new numbers every time (Benjamini–Hochberg, Bonferroni, Hardy–Weinberg, OR from β, Wald ratio, IVW, log₂FC, quantile normalization, moderated t) plus 26 written exam-style questions with model answers.
+3. **Start the [Exam practice](exam-practice.qmd) page with the instructor's 11 Lecture 7 example questions**, then practise calculations: drills that generate new numbers every time (Benjamini–Hochberg, Bonferroni, Hardy–Weinberg, OR from β, Wald ratio, IVW, log₂FC, quantile normalization, moderated t) plus 26 written exam-style questions with model answers.
 4. **Check the [dashboard](dashboard.qmd)** to see what is left, with the instructor-flagged topics listed first.
 5. Look up terms in the [glossary](glossary.qmd) or use **search** (top right). Searching "PCSK9" finds it in Lectures 1, 2, 3, 6 and 8.
 
@@ -49,9 +49,9 @@ This app covers the eight lectures of STA520: from the biology (DNA, RNA, protei
 | <span class="flag-badge flag-instructor">🎯 Instructor-flagged EXAM</span> | The slide carried the literal "EXAM" marker from the instructor (**Lecture 7 only**). Highest priority. |
 | <span class="flag-badge flag-inferred">📌 Likely exam-relevant (AI-inferred)</span> | Inferred from definitions, formulas and worked examples. **Not confirmed by the instructor.** |
 
-::: {.callout-warning}
-## Not in this app
-The instructor's **"Lecture 7 - questions.pdf"** (example exam questions) and the computer exercise instructions were not available. See [About the content](about.qmd) for the full list.
+::: {.callout-important}
+## Instructor's example exam questions included
+The 11 questions from **"Lecture 7 - questions.pdf"** are on the [Exam practice](exam-practice.qmd) page, with model answers written for this app. The computer exercise instructions are still missing; see [About the content](about.qmd).
 :::
 
 Code blocks marked *Run Code* are interactive: R runs in your browser, no installation needed. The first run on a page takes a few seconds while R loads.

@@ -1,13 +1,149 @@
 ---
 title: "Exam practice"
-subtitle: "Calculation drills with new numbers every time, and exam-style written questions with model answers"
+subtitle: "The instructor's Lecture 7 exam questions, calculation drills with new numbers every time, and written questions with model answers"
 ---
 
-This page collects everything you can **practise** rather than read. The calculation drills draw new numbers each time you press **New problem ↻**: work on paper, type your answers, press **Check**, then open the full solution. The written questions below them follow the style of the definitions, comparisons and "explain why" material the slides emphasize. Try answering out loud or on paper before you open the model answer.
+This page collects everything you can **practise** rather than read. It starts with **the instructor's own example exam questions** for Lecture 7. Then come calculation drills that draw new numbers each time you press **New problem ↻**: work on paper, type your answers, press **Check**, then open the full solution. Last are written questions in the style of the definitions, comparisons and "explain why" material the slides emphasize. Try answering out loud or on paper before you open a model answer.
 
 ::: {.callout-note collapse="true"}
-## Where the questions come from, and what is missing
-The drills cover every numerical worked example in the course. The written questions are **inferred** from the slides (🎯 marks topics the instructor tagged EXAM in Lecture 7; the rest are 📌 AI-inferred). The instructor's own **"Lecture 7 - questions.pdf"** (example exercises and possible exam questions) is not in this app. Do it from Canvas as well.
+## Where the questions come from
+**Instructor's questions:** the 11 questions in the first section are from **"Lecture 7 - questions.pdf"**, described on Canvas as "examples (but not an exhaustive list) of exercises and possible exam questions". The questions are the instructor's; the **model answers are written for this app** and are not an official answer key.
+
+**Drills and written questions:** the drills cover every numerical worked example in the course. The written questions further down are **inferred** from the slides (🎯 marks topics the instructor tagged EXAM in Lecture 7; the rest are 📌 AI-inferred).
+:::
+
+# 🎯 Instructor's example questions: Lecture 7
+
+These come straight from "Lecture 7 - questions.pdf", the closest thing to real exam questions in the course. Answer each one on paper first.
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q1. Explain the relationship "observed variation = biological variation + technical variation/noise." Name two sources of technical variation mentioned in the lecture.
+**Model answer.** Every value measured on a high-throughput platform is the sum of the true biological signal we want and variation added by the measurement process. Differences between samples can therefore come from biology *or* from the technology, and we must remove as much technical variation as possible (preprocessing) before comparing groups. Sources of technical variation named in the lecture (any two): **RNA extraction**, **labelling**, **hybridization**, **scanner/detection noise**, **batch effects**. [→ 7.4](lecture7.qmd#t7-4)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q2. What problem does normexp background correction solve, and why is simply subtracting the background from the signal too naive a method?
+**Model answer.** The fluorescence at each spot contains background noise on top of the true signal, and this matters most for weakly expressed miRNAs. Simple subtraction (foreground − background) is too naive because the background estimate is itself noisy: for low-intensity spots the result is often **zero or negative**, which is biologically meaningless and cannot be log-transformed, and the low-intensity values become very unstable. **normexp** models observed intensity = true signal + background, with the **signal exponentially distributed** and the **background normally distributed**, and replaces each value by the **expected true signal given the observed intensity**. The corrected values are always **positive**, and low-intensity measurements become more reliable. [→ 7.5](lecture7.qmd#t7-5)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q3. Describe what quantile normalization does to the distributions of expression intensities across arrays, and explain why this step is necessary before comparing samples.
+**Model answer.** It makes the distribution of intensities **identical on every array**: rank the values within each array, compute the mean across arrays at each rank, and replace every value by the mean for its rank. Each array keeps its **internal order** (the highest miRNA stays highest), but differences in overall level and spread between arrays disappear. It is needed because arrays differ systematically for technical reasons (amount of RNA, labelling efficiency, scanner settings, batch). The assumption is that the *overall* distribution of expression should be similar across samples, so a whole-array shift is technical. Without normalization a miRNA could look "up" in a sample simply because that whole array was brighter. [→ 7.5](lecture7.qmd#t7-5)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q4. In the ordinary two-sample t-statistic, explain why the standard deviation estimate s becomes unreliable with only a few samples per group (e.g. 3 vs 3), and what statistical consequences (false positives/negatives) this can lead to.
+$$t = \frac{\bar x_1 - \bar x_2}{s\sqrt{1/n_1 + 1/n_2}}$$
+
+**Model answer.** $s$ is estimated separately for every miRNA from only $n_1 + n_2 - 2 = 4$ degrees of freedom. With so few observations, the sampling variability of $s$ is huge: a feature's estimate can easily be far below or far above its true value just by chance. Across hundreds or thousands of features, many extreme estimates are guaranteed.
+
+- **False positives:** features with a randomly **small** $s$ get a small denominator and a huge $t$, even when the mean difference is tiny.
+- **False negatives (lost power):** features with a randomly **large** $s$ get a small $t$, so real differences are missed.
+- The ranking of "top hits" is driven partly by noise in $s$ rather than by effect size, and the unstable p-values also undermine the multiple-testing correction applied afterwards. [→ 7.7–7.8](lecture7.qmd#t7-7)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q5. What is the moderated t-statistic (limma), and how does it address the problem in Question 4? Explain "shrinking gene-specific variance toward a common/global estimate", and what happens to the moderated variance when the number of replicates is large versus small.
+**Model answer.** The moderated t-statistic (limma) is a t-statistic in which each feature's variance is replaced by a **moderated variance** estimated with **empirical Bayes**, sharing information across all features:
+
+$$\tilde s_g^2 = \frac{d_0 s_0^2 + d_g s_g^2}{d_0 + d_g}$$
+
+"Shrinking toward a common estimate" means each gene's own variance $s_g^2$ is pulled toward a global variance $s_0^2$ estimated from all genes. The result is a **weighted average**: weight $d_0$ (prior degrees of freedom) on the global value and weight $d_g$ (the gene's own residual df) on its own estimate. Extremely small and extremely large variances are pulled toward the middle, which stabilizes the denominator of $t$ and gives fewer false positives and more power.
+
+- **Few replicates** (small $d_g$): $d_0$ dominates, and each variance is pulled **strongly** toward $s_0^2$.
+- **Many replicates** (large $d_g$): the gene's own data dominate, and $\tilde s_g^2 \to s_g^2$, so the moderated t approaches the ordinary t. [→ 7.7](lecture7.qmd#t7-7)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q6. A miRNA happens, purely by chance, to have an unusually small variance estimate in a small study. Why does this create a false-positive risk under the ordinary t-test, and why does moderation reduce that risk?
+**Model answer.** The variance sits in the denominator of $t$. A randomly tiny $s^2$ makes $t$ very large and the p-value very small, even if the mean difference is modest or zero, so the miRNA is called significant because of noise in $s^2$ rather than a real effect. Moderation replaces $s^2$ by $\tilde s^2 = (d_0 s_0^2 + d\, s^2)/(d_0 + d)$. Because the global variance $s_0^2$ is typical rather than tiny, $\tilde s^2$ is pulled **up** toward it, the denominator grows, and $t$ shrinks back to a realistic size. With few samples the pull is strong, which is exactly when the risk is largest. (Try the *moderated t* drill below.) [→ 7.7](lecture7.qmd#t7-7)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q7. State the definitions of FWER and FDR precisely, and explain the key conceptual difference between them.
+**Model answer.**
+
+- **FWER** (family-wise error rate) $= P(V \ge 1)$: the probability of making **at least one** false positive among all $m$ tests. Here $V$ is the number of false positives.
+- **FDR** (false discovery rate) $= E\left[V/R\right]$, with $V/R$ taken as 0 when $R = 0$: the **expected proportion** of false positives among all tests called significant, where $R$ is the number of rejections.
+
+**Key difference:** FWER treats a single false positive anywhere as failure of the whole experiment, which is very strict. FDR accepts that some hits will be false and controls the *fraction* of false hits among the discoveries. FWER is controlled by Bonferroni (α/m); FDR is controlled by Benjamini–Hochberg. FDR control gives more power when many tests are run. [→ 7.11](lecture7.qmd#t7-11)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q8. Ten miRNAs, tumour vs normal: Bonferroni and Benjamini–Hochberg (α = Q = 0.05)
+| miRNA | p-value |
+|---|---|
+| miR-A | 0.0360 |
+| miR-B | 0.0008 |
+| miR-C | 0.0620 |
+| miR-D | 0.0140 |
+| miR-E | 0.0071 |
+| miR-F | 0.0810 |
+| miR-G | 0.0090 |
+| miR-H | 0.0330 |
+| miR-I | 0.0038 |
+| miR-J | 0.0420 |
+
+(a) How many are significant with no correction (p < 0.05)? (b) With Bonferroni (α/m)? (c) Bonferroni-adjusted p for miR-H (p × m); is it significant? (d) Sort, give ranks 1–10, show (i/m)·Q; how many are significant with BH, and which rank sets the cutoff? (e) Compute p₍ᵢ₎·m/i for every rank. (f) BH-adjusted p for rank 5? (g) BH-adjusted p for rank 3? (Hint: not simply p₍₃₎·m/3.)
+
+**Model answer.** m = 10.
+
+**(a)** All except miR-C (0.062) and miR-F (0.081): **8 significant**.
+
+**(b)** α/m = 0.05/10 = **0.005**. Only miR-B (0.0008) and miR-I (0.0038): **2 significant**.
+
+**(c)** p_adj = 0.0330 × 10 = **0.33** > 0.05, so miR-H is **not significant** after Bonferroni.
+
+**(d)–(e)**
+
+| Rank i | miRNA | p₍ᵢ₎ | (i/m)·Q | p₍ᵢ₎ ≤ (i/m)·Q? | p₍ᵢ₎·m/i | BH-adjusted p |
+|---|---|---|---|---|---|---|
+| 1 | miR-B | 0.0008 | 0.005 | ✓ | 0.0080 | 0.0080 |
+| 2 | miR-I | 0.0038 | 0.010 | ✓ | 0.0190 | 0.0190 |
+| 3 | miR-E | 0.0071 | 0.015 | ✓ | 0.0237 | **0.0225** |
+| 4 | miR-G | 0.0090 | 0.020 | ✓ | 0.0225 | 0.0225 |
+| **5** | **miR-D** | **0.0140** | **0.025** | **✓ (cutoff)** | **0.0280** | **0.0280** |
+| 6 | miR-H | 0.0330 | 0.030 | ✗ | 0.0550 | 0.0514 |
+| 7 | miR-A | 0.0360 | 0.035 | ✗ | 0.0514 | 0.0514 |
+| 8 | miR-J | 0.0420 | 0.040 | ✗ | 0.0525 | 0.0525 |
+| 9 | miR-C | 0.0620 | 0.045 | ✗ | 0.0689 | 0.0689 |
+| 10 | miR-F | 0.0810 | 0.050 | ✗ | 0.0810 | 0.0810 |
+
+The largest rank with p₍ᵢ₎ ≤ (i/m)·Q is **i = 5** (0.0140 ≤ 0.025), and ranks 6–10 all fail. **5 significant with BH**: miR-B, miR-I, miR-E, miR-G, miR-D. (Note how close ranks 6 and 7 are: 0.0330 vs 0.030 and 0.0360 vs 0.035.)
+
+**(f)** Rank 5: the minimum over j ≥ 5 of p₍ⱼ₎·m/j = min(0.0280, 0.0550, 0.0514, 0.0525, 0.0689, 0.0810) = **0.028**. Here the minimum is at rank 5 itself.
+
+**(g)** Rank 3: p₍₃₎·m/3 = 0.0071 × 10/3 = 0.0237, but rank 4 gives **0.0225**, which is smaller. The adjusted value is the running minimum from the bottom, so **p_adj(3) = 0.0225** (the minimum occurs at rank 4). This keeps adjusted p-values non-decreasing down the sorted list.
+
+**Summary:** uncorrected 8, BH 5, Bonferroni 2 significant. In R, `p.adjust(p, "BH")` and `p.adjust(p, "bonferroni")` give the same values. [→ 7.12–7.13b](lecture7.qmd#t7-13)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q9. Give two reasons from the lecture why FDR control is generally preferred over strict FWER control (Bonferroni) in high-throughput omics studies such as the miRNA profiling paper.
+**Model answer.** Any two of the four:
+
+1. **Too many tests:** with m ≈ 955, Bonferroni requires p < 0.05/955 ≈ 0.00005, so most true effects are missed and power collapses.
+2. **Exploratory aim:** the screen produces a shortlist of candidates, so a small, controlled fraction of false leads is acceptable in exchange for finding more true effects.
+3. **Validation follows:** hits are re-tested with an independent method or cohort (miR-375 was confirmed by qRT-PCR and in situ hybridization in a separate cohort).
+4. **Correlated features:** co-regulated miRNAs make the effective number of independent tests smaller than m, so Bonferroni is needlessly strict. [→ 7.14](lecture7.qmd#t7-14)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q10. (a) Which tests related cluster membership (M1/M2) to a categorical variable such as tumour grade, and to a numerical variable such as age? Why does each fit? (b) How do M1 and M2 differ biologically and clinically?
+Given: M1 had more high-grade tumours (P = 0.0011), more Ki67 > 3% (P = 0.00023), more chromosome 14 gain (P = 0.0013) and shorter overall survival than M2 (log-rank P = 0.029).
+
+**Model answer.**
+
+**(a)** **Fisher's exact test** for categorical variables such as grade. It tests association in a contingency table (cluster × category) and is exact, so it is valid with the small cell counts you get with a few dozen tumours, where the χ² approximation is unreliable. The **t-test** for numerical variables such as age. It compares the mean of a continuous variable between two groups (M1 vs M2).
+
+**(b)** M1 tumours are **more proliferative and more aggressive**: higher grade (G2/G3) and more Ki67 > 3%, both markers of cell division. They also more often carry **gain of chromosome 14**, fitting the idea that siNETs are driven by chromosomal alterations rather than point mutations. Clinically, M1 patients have **shorter overall survival** (log-rank P = 0.029). So M1 is a molecular subtype with a worse prognosis, and M2 is a less proliferative subtype with a better one. The most upregulated miRNAs in M1 (miR-1246, miR-663a) are known oncomiRs; miR-488-3p, a reported tumour suppressor, is down. [→ 7.16](lecture7.qmd#t7-16)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## L7-Q11. Why is testing for differentially expressed miRNAs between M1 and M2 an example of circular reasoning ("using the data twice"), and what does it imply for the p-values and the list of differentially expressed miRNAs?
+**Model answer.** M1 and M2 were **created from the miRNA expression data** by unsupervised clustering, which by construction puts samples with similar expression together and samples with different expression apart. Testing the **same miRNA data** for differences between those clusters asks a question whose answer was built in by the first step. Even pure noise, clustered into two groups, would give many "significant" miRNAs.
+
+**Implications:** the p-values are **not valid**. They are biased toward zero because the null distribution assumed by the test does not account for the groups having been selected from the data, and the multiple-testing correction does not fix this. The list of differentially expressed miRNAs (76 up, 65 down) mainly **describes what separates the clusters**; it is not independent evidence of biological differences. It should be treated as descriptive or hypothesis-generating, and **validated in an independent cohort** (or analysed with methods that account for the selection). The associations with *clinical* variables (grade, Ki67, survival) are more informative, because those variables were not used to build the clusters. [→ 7.16b](lecture7.qmd#t7-16b)
 :::
 
 # Calculation drills
@@ -61,7 +197,7 @@ Benjamini–Hochberg and Bonferroni side by side. Do several: the "largest k" ru
 
 <div class="drill" data-drill="ivw"></div>
 
-# Written questions
+# More written questions (AI-inferred)
 
 Each question links to the section it comes from. Open the model answer only after you have tried.
 

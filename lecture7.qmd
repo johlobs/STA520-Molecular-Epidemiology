@@ -16,7 +16,7 @@ set.seed(7)
 
 ::: {.callout-important}
 ## This is the only lecture with instructor EXAM tags
-The course's reading guide says: *"The slides with information that we will be testing on the exam are marked with a small text 'EXAM.'"* Every section below with the <span class="flag-badge flag-instructor">🎯 Instructor-flagged EXAM</span> badge carried that marker. **Treat these as the highest-confidence exam content in the course.** The instructor also posted "Lecture 7 - questions.pdf" with example exam questions; it is not in this app (see [About the content](about.qmd)).
+The course's reading guide says: *"The slides with information that we will be testing on the exam are marked with a small text 'EXAM.'"* Every section below with the <span class="flag-badge flag-instructor">🎯 Instructor-flagged EXAM</span> badge carried that marker. **Treat these as the highest-confidence exam content in the course.** The instructor also posted **"Lecture 7 - questions.pdf"** with example exam questions. All 11 are on the [Exam practice](exam-practice.qmd) page with model answers.
 :::
 
 Up to now, each analysis tested one thing: one SNP, one exposure. Omics data flips that around. You measure hundreds or thousands of molecules (here 955 microRNAs) in a few dozen samples and ask which of them differ between groups. Three problems follow in a chain: **high dimensionality → noisy measurements → multiple testing.**
@@ -501,7 +501,9 @@ Quote from the methods: **"All P-values were adjusted for multiple testing using
 
 **Differential expression M1 vs M2:** 76 miRNAs up and 65 down in M1 (adjusted P < 0.05). Most upregulated in M1: **miR-1246** and **miR-663a**, highly expressed in several cancers and implicated as **oncomiRs** (proliferation, invasiveness, metastasis). Most downregulated: **miR-488-3p**, reported as a **tumour suppressor** in gastric cancer.
 
-**Survival analysis:** **one Cox regression per miRNA**, adjusted for age and gender. **miR-375** was the top candidate: **higher expression → longer survival**. miR-375 was also shown to be expressed in liver metastases via tissue microarray.
+**Survival by cluster:** patients with **M1** tumours had **shorter overall survival** than M2 (log-rank P = 0.029; from the instructor's example questions).
+
+**Survival analysis per miRNA:** **one Cox regression per miRNA**, adjusted for age and gender. **miR-375** was the top candidate: **higher expression → longer survival**. miR-375 was also shown to be expressed in liver metastases via tissue microarray.
 
 ## 7.16b Circular reasoning: testing clusters with the data that built them {#t7-16b .topic flag="instructor"}
 
@@ -715,4 +717,4 @@ miRNA binds imperfectly, so one miRNA regulates many targets; siRNA binds near-p
 # Further reading
 
 - **Arvidsson Y, Rehammar A, Bergström A, et al.** miRNA profiling of small intestinal neuroendocrine tumors defines novel molecular subtypes and identifies miR-375 as a biomarker of patient survival. *Modern Pathology* 2018. (On Canvas as `miRNA_profiling_of_siNETs_defines_molecular_subtypes_and_identifies_biomarker_of_patient_survival.pdf`.)
-- **"Lecture 7 - questions.pdf"** on Canvas: the instructor's example exercises and possible exam questions. *Not included in this app; worth doing.*
+- **"Lecture 7 - questions.pdf"** on Canvas: the instructor's example exercises and possible exam questions. All 11 are worked through on the [Exam practice](exam-practice.qmd) page.

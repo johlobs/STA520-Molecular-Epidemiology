@@ -9,6 +9,8 @@ The app is built from a study guide (`sta520-study-app-guide_1.md`) synthesized 
 
 The quizzes, drills, R exercises, figures, written model answers and the illustrative MR numbers in Lecture 6 were added for this app.
 
+**Added later:** "Lecture 7 - questions.pdf", the instructor's example exercises and possible exam questions. Its 11 questions are on the [Exam practice](exam-practice.qmd) page. The questions are the instructor's; the model answers are written for this app and are not an official answer key. The survival result by cluster (M1 shorter survival, log-rank P = 0.029) in Lecture 7 comes from this document.
+
 ## How to read the exam flags
 
 | Badge | Meaning |
@@ -51,7 +53,6 @@ STA520 Molecular Epidemiology, 4 credits, Sahlgrenska Academy, University of Got
 
 These exist in the course but were **not available** when the study guide was written, so nothing here is built from them:
 
-- **"Lecture 7 - questions.pdf"**: the instructor's example exercises and possible exam questions. **The most valuable missing file. Do it from Canvas.**
 - The full siNET article (Arvidsson et al., *Modern Pathology* 2018): more methodological detail for Lecture 7.
 - `Computer exercise1.docx` and `Computer exercise 2.docx`: the PLINK exercise instructions. Lectures 5–6 cover only the conceptual lecture content, not the hands-on steps.
 - Raw exercise data: `Lecture4_ex1.csv`, `jointGwasMc_LDL.txt`, `simulated_LDL.pheno`, `all_hg38_subset.*`, `CAD_Summary_filtered.txt`.
