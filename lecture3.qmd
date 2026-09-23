@@ -504,14 +504,30 @@ The chain is not one-directional: disease can alter RNA, protein and metabolite 
 :::
 ::::
 
-# Further reading
+# Further reading {#further-reading}
 
-Assigned by the course. LibreTexts chapters are on [bio.libretexts.org](https://bio.libretexts.org).
+Links from the course's reading guide ("Reading links connected to lectures" on Canvas). IB = *Introductory Biology (CK-12)*, GB = *General Biology (Boundless)*, MG = *Modern Genetics*, all on LibreTexts.
 
-- Mutation types (*Introductory Biology* 4.8); mutation notation and PCR (Khan Academy, [khanacademy.org](https://www.khanacademy.org))
-- Sequencing (Khan Academy)
-- Genetics basic concepts and Mendel's laws (*Introductory Biology* 3.4)
-- Law of Dominance / Segregation / Independent Assortment (*General Biology* 12.3B, 12.3C, 12.3D)
-- Recombination and linkage (*General Biology* 12.3E; *Modern Genetics* 4.2), plus a video on recombination frequency and test crosses
-- Optional, longer: *Introduction to Genetics* (Singh), ch. 9, linkage and recombination
-- Hardy–Weinberg equilibrium and testing whether a population is in HWE (*Modern Genetics* 11.1 and 11.2)
+**Mutations, PCR and sequencing**
+
+- Mutation types: [IB chapter 4.8](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.08%3A_Mutation_Types>){target="_blank"}
+- Types of mutations and their annotation: [Khan Academy](<https://www.khanacademy.org/test-prep/mcat/biomolecules/genetic-mutations/a/types-of-mutations-and-their-notations>){target="_blank"}
+- PCR: [Khan Academy](<https://www.khanacademy.org/science/ap-biology/gene-expression-and-regulation/biotechnology/a/polymerase-chain-reaction-pcr>){target="_blank"}
+- Sequencing: [Khan Academy](<https://www.khanacademy.org/science/ap-biology/gene-expression-and-regulation/biotechnology/a/dna-sequencing>){target="_blank"}
+
+**Genetics** (the genetics part was taught at the start of the Lecture 4 session)
+
+- Genetics, basic concepts: [IB chapter 3.4](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/03%3A_Genetics/3.04%3A_Mendel's_Laws_and_Genetics>){target="_blank"}
+- Mendel's Law of Dominance: [GB chapter 12.3B](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/General_Biology_(Boundless)/12%3A_Mendel's_Experiments_and_Heredity/12.03%3A_Laws_of_Inheritance/12.3B%3A_Mendels_Law_of_Dominance>){target="_blank"} (alleles can be dominant or recessive)
+- Mendel's Law of Segregation: [GB chapter 12.3C](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/General_Biology_(Boundless)/12%3A_Mendel's_Experiments_and_Heredity/12.03%3A_Laws_of_Inheritance/12.3C%3A_Mendels_Law_of_Segregation>){target="_blank"}
+- Mendel's Law of Independent Assortment: [GB chapter 12.3D](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/General_Biology_(Boundless)/12%3A_Mendel's_Experiments_and_Heredity/12.03%3A_Laws_of_Inheritance/12.3D%3A_Mendels_Law_of_Independent_Assortment>){target="_blank"}
+- Recombination and linkage: [GB chapter 12.3E](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/General_Biology_(Boundless)/12%3A_Mendel's_Experiments_and_Heredity/12.03%3A_Laws_of_Inheritance/12.3E%3A_Genetic_Linkage_and_Violation_of_the_Law_of_Independent_Assortment>){target="_blank"}, [MG chapter 4.2](<https://bio.libretexts.org/Workbench/Modern_Genetics/04%3A_Recombination_linkage_and_mapping/4.02%3A_Linkage_and_Recombination>){target="_blank"}
+- Recombination frequency and test crosses: a video linked on Canvas (no address in the reading guide)
+- Longer text on linkage and recombination (optional): [Introduction to Genetics (Singh), chapter 9](<https://bio.libretexts.org/Bookshelves/Genetics/Introduction_to_Genetics_(Singh)/09%3A_Linkage_and_Recombination_Frequency>){target="_blank"}
+- Hardy–Weinberg equilibrium: [MG chapter 11.1](<https://bio.libretexts.org/Workbench/Modern_Genetics/11%3A_Population_genetics/11.01%3A_Hardy-Weinberg_equilibrium>){target="_blank"}
+- Examine if a population is in HWE: [MG chapter 11.2](<https://bio.libretexts.org/Workbench/Modern_Genetics/11%3A_Population_genetics/11.02%3A_Is_a_population_in_Hardy-Weinberg_equilibrium>){target="_blank"}
+
+::: {.callout-note collapse="true"}
+## Course files on Canvas (GU login required)
+- [Lecture 3_genetics.pdf (also used at the start of Lecture 4)](https://canvas.gu.se/courses/101301/files/11668142?wrap=1){target="_blank"}
+:::

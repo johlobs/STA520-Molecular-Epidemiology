@@ -442,6 +442,11 @@ LDL-C is the course's example of a marker of future risk; its change after stati
 :::
 ::::
 
-# Further reading
+# Further reading {#further-reading}
 
 No additional reading listed beyond the lecture slides.
+
+::: {.callout-note collapse="true"}
+## Course files on Canvas (GU login required)
+- [Lecture 8 proteomics.pdf](https://canvas.gu.se/courses/101301/files/11716172?wrap=1){target="_blank"}
+:::

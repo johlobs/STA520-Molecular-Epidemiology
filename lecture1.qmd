@@ -263,13 +263,21 @@ Almost every cell has the same DNA sequence, fixed for life. Which genes are *ex
 The amino acid sequence (primary structure) determines how the chain folds (secondary, tertiary, quaternary). Changing one residue can change the fold, and function follows structure. This is the link between a single DNA change and a changed phenotype.
 :::
 
-# Further reading
+# Further reading {#further-reading}
 
-Assigned by the course (Canvas reading guide). All chapters are on [LibreTexts Biology](https://bio.libretexts.org); search for the chapter titles.
+Links from the course's reading guide ("Reading links connected to lectures" on Canvas). IB = *Introductory Biology (CK-12)*, GB = *General Biology (Boundless)*, MG = *Modern Genetics*, all on LibreTexts.
 
-- Central dogma: *Introductory Biology*, ch. 4.1
-- Proteins overview: *Introductory Biology*, ch. 1.12
-- The 20 amino acids: *General Biology*, ch. 3.8
-- Protein functions: *General Biology*, ch. 3.7
-- Protein structure: *General Biology*, ch. 3.9
-- DNA structure and replication: *Introductory Biology*, ch. 4.2
+**Reading for part 2 (proteins and DNA)**
+
+- Central dogma of molecular biology: [IB chapter 4.1](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.01%3A_Central_Dogma_of_Molecular_Biology>){target="_blank"}
+- Proteins: [IB chapter 1.12](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/01%3A_Introduction_to_Biology/1.12%3A_Proteins>){target="_blank"}
+- The 20 amino acids: [GB chapter 3.8](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/General_Biology_(Boundless)/03%3A_Biological_Macromolecules/3.08%3A_Proteins_-_Amino_Acids>){target="_blank"}
+- Functions of proteins: [GB chapter 3.7](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/General_Biology_(Boundless)/03%3A_Biological_Macromolecules/3.07%3A_Proteins_-_Types_and_Functions_of_Proteins>){target="_blank"}
+- Protein structure: [GB chapter 3.9](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/General_Biology_(Boundless)/03%3A_Biological_Macromolecules/3.09%3A_Proteins_-_Protein_Structure>){target="_blank"}
+- DNA structure and replication: [IB chapter 4.2](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.03%3A_DNA_Structure_and_Replication>){target="_blank"}
+
+::: {.callout-note collapse="true"}
+## Course files on Canvas (GU login required)
+- [Lecture 1A An introduction to the biological language of molecular epidemiology.pptx](https://canvas.gu.se/courses/101301/files/11640787?wrap=1){target="_blank"}
+- [Lecture 1_part2_ProteinsAndDNA.pdf](https://canvas.gu.se/courses/101301/files/11642122?wrap=1){target="_blank"}
+:::

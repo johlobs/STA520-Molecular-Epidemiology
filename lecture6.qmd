@@ -393,6 +393,19 @@ Genetic PCs capture ancestry differences. Age and sex are biological covariates;
 :::
 ::::
 
-# Further reading
+# Further reading {#further-reading}
 
-No separate reading list beyond the lecture notes. The Uffelmann et al. GWAS primer (Lecture 4) is useful background for instrument selection.
+No separate reading list beyond the lecture notes. The [Uffelmann et al. GWAS primer](<https://www.nature.com/articles/s43586-021-00056-9>){target="_blank"} (Lecture 4) is useful background for instrument selection.
+
+- Concepts behind computer exercise 2, practised on simulated data: [Computer exercises: concepts](computer-exercises.qmd#part-c)
+
+::: {.callout-note collapse="true"}
+## Course files on Canvas (GU login required)
+- [Lecture 6 from GWAS to MR.pdf](https://canvas.gu.se/courses/101301/files/11690254?wrap=1){target="_blank"}
+- [Computer exercise 2.docx](https://canvas.gu.se/courses/101301/files/11690252?wrap=1){target="_blank"}
+- [all_hg38_subset.pgen](https://canvas.gu.se/courses/101301/files/11689394?wrap=1){target="_blank"}
+- [all_hg38_subset.psam](https://canvas.gu.se/courses/101301/files/11689401?wrap=1){target="_blank"}
+- [all_hg38_subset.pvar](https://canvas.gu.se/courses/101301/files/11689400?wrap=1){target="_blank"}
+- [all_hg38_subset.snplist](https://canvas.gu.se/courses/101301/files/11689402?wrap=1){target="_blank"}
+- [CAD_Summary_filtered.txt](https://canvas.gu.se/courses/101301/files/11690427?wrap=1){target="_blank"}
+:::

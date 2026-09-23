@@ -308,15 +308,32 @@ DNA is essentially fixed for life. RNA and proteins are dynamic and tissue-speci
 :::
 ::::
 
-# Further reading
+# Further reading {#further-reading}
 
-Assigned by the course. LibreTexts chapters are on [bio.libretexts.org](https://bio.libretexts.org).
+Links from the course's reading guide ("Reading links connected to lectures" on Canvas). IB = *Introductory Biology (CK-12)*, GB = *General Biology (Boundless)*, MG = *Modern Genetics*, all on LibreTexts.
 
-- Central dogma (*Introductory Biology* 4.1); DNA structure and replication (4.2); RNA (4.4); transcription (4.5); genetic code (4.6); translation (4.7); gene expression (4.11)
-- A YouTube video on transcription initiation, elongation and termination (linked on Canvas)
-- "Firefly video" summarizing transcription and translation: [learn.genetics.utah.edu](https://learn.genetics.utah.edu)
-- Transcription/translation practice exercises (LibreTexts Workbench)
-- Mutation types (*Introductory Biology* 4.8) and causes (4.9)
-- Mutation notation: Khan Academy, MCAT prep, "Types of mutations and their notations" ([khanacademy.org](https://www.khanacademy.org))
-- PCR: Khan Academy ([khanacademy.org](https://www.khanacademy.org))
-- Optional interactive "DNA to Proteins" activity: [Concord.org](https://concord.org)
+**Reading**
+
+- Central dogma of molecular biology: [IB chapter 4.1](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.01%3A_Central_Dogma_of_Molecular_Biology>){target="_blank"}
+- DNA structure and replication: [IB chapter 4.2](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.03%3A_DNA_Structure_and_Replication>){target="_blank"}
+- RNA: [IB chapter 4.4](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.04%3A_RNA>){target="_blank"}
+- Transcription of DNA to RNA: [IB chapter 4.5](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.05%3A_Transcription_of_DNA_to_RNA>){target="_blank"}
+- Genetic code: [IB chapter 4.6](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.06%3A_Genetic_Code>){target="_blank"}
+- Translation of RNA to proteins: [IB chapter 4.7](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.07%3A_Translation_of_RNA_to_Protein>){target="_blank"}
+- Gene expression: [IB chapter 4.11](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.11%3A_Gene_Expression>){target="_blank"}
+- Mutation types: [IB chapter 4.8](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.08%3A_Mutation_Types>){target="_blank"}
+- Mutation causes: [IB chapter 4.9](<https://bio.libretexts.org/Bookshelves/Introductory_and_General_Biology/Introductory_Biology_(CK-12)/04%3A_Molecular_Biology/4.09%3A_Mutation_Causes>){target="_blank"}
+- Types of mutations and their annotation: [Khan Academy](<https://www.khanacademy.org/test-prep/mcat/biomolecules/genetic-mutations/a/types-of-mutations-and-their-notations>){target="_blank"}
+- PCR: [Khan Academy](<https://www.khanacademy.org/science/ap-biology/gene-expression-and-regulation/biotechnology/a/polymerase-chain-reaction-pcr>){target="_blank"}
+
+**Videos, exercises and activities**
+
+- A video explaining transcription: [Transcription (initiation, elongation, termination)](<https://www.youtube.com/watch?v=5LZXg_f1mf4>){target="_blank"} (YouTube)
+- Summary of transcription and translation: [Firefly video](<https://learn.genetics.utah.edu/content/basics/firefly/>){target="_blank"} (Learn.Genetics, University of Utah)
+- Exercises: [Transcription and translation examples](<https://bio.libretexts.org/Workbench/Bio_11A_-_Introduction_to_Biology_I/20%3A_Translation/20.04%3A_Transcription_and_Translation_Examples>){target="_blank"} (LibreTexts Workbench)
+- Optional activity: [DNA to Proteins](<https://activity-player.concord.org/?activity=https%3A%2F%2Fauthoring.concord.org%2Fapi%2Fv1%2Factivities%2F10763.json&page=page_135743&runKey=d94eb375-2669-4b79-8e99-04c84c2fba1f>){target="_blank"} (Concord Consortium)
+
+::: {.callout-note collapse="true"}
+## Course files on Canvas (GU login required)
+- [Lecture 2_DNA_RNA_protein.pdf](https://canvas.gu.se/courses/101301/files/11650475?wrap=1){target="_blank"}
+:::

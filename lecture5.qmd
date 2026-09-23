@@ -231,7 +231,18 @@ Genotyping reads known variant positions. Sequencing determines the full nucleot
 :::
 ::::
 
-# Further reading
+# Further reading {#further-reading}
 
-- No extra reading beyond the Lecture 4 material.
-- PLINK 2.0 documentation and tutorial: [cog-genomics.org/plink/2.0/resources](https://www.cog-genomics.org/plink/2.0/resources)
+No additional reading beyond the Lecture 4 material and PLINK 2 help.
+
+- PLINK 2.0: [Resources – PLINK 2.0](<https://www.cog-genomics.org/plink/2.0/resources>){target="_blank"} (download PLINK 2 and the 1000 Genomes reference files)
+- [Uffelmann et al. 2021, Genome-wide association studies](<https://www.nature.com/articles/s43586-021-00056-9>){target="_blank"} (Lecture 4 reading)
+- Concepts behind the exercise, practised on made-up data: [Computer exercises: concepts](computer-exercises.qmd)
+
+::: {.callout-note collapse="true"}
+## Course files on Canvas (GU login required)
+- [Lecture 5 GWAS and computer exercise 1.pdf](https://canvas.gu.se/courses/101301/files/11685623?wrap=1){target="_blank"}
+- [Computer exercise1.docx](https://canvas.gu.se/courses/101301/files/11685627?wrap=1){target="_blank"}
+- [simulated_LDL.pheno (download)](https://canvas.gu.se/courses/101301/files/11684876?wrap=1){target="_blank"}
+- [jointGwasMc_LDL.txt (download, ~200 MB)](https://canvas.gu.se/courses/101301/files/11667776?wrap=1){target="_blank"}
+:::

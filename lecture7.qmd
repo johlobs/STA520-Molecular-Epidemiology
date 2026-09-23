@@ -714,7 +714,16 @@ miRNA binds imperfectly, so one miRNA regulates many targets; siRNA binds near-p
 :::
 ::::
 
-# Further reading
+# Further reading {#further-reading}
 
-- **Arvidsson Y, Rehammar A, Bergström A, et al.** miRNA profiling of small intestinal neuroendocrine tumors defines novel molecular subtypes and identifies miR-375 as a biomarker of patient survival. *Modern Pathology* 2018. (On Canvas as `miRNA_profiling_of_siNETs_defines_molecular_subtypes_and_identifies_biomarker_of_patient_survival.pdf`.)
-- **"Lecture 7 - questions.pdf"** on Canvas: the instructor's example exercises and possible exam questions. All 11 are worked through on the [Exam practice](exam-practice.qmd) page.
+The course's reading guide summarizes the lecture's main themes (last slide, page 51): noisy data due to technical variation, which needs quality control and preprocessing; high dimensionality with few samples, where the moderated t-statistic replaces the ordinary t; and multiple testing, FWER and FDR, Bonferroni and Benjamini–Hochberg. *"The slides with information that we will be testing on the exam are marked with a small text 'EXAM'."*
+
+- **Arvidsson Y, Rehammar A, Bergström A, et al.** miRNA profiling of small intestinal neuroendocrine tumors defines novel molecular subtypes and identifies miR-375 as a biomarker of patient survival. *Modern Pathology* 2018. The article the case study is built on (PDF on Canvas below).
+- **"Lecture 7 - questions.pdf"**: all 11 questions are worked through on the [Exam practice](exam-practice.qmd) page.
+
+::: {.callout-note collapse="true"}
+## Course files on Canvas (GU login required)
+- [Lecture 7.pdf (updated 22 Sep, 16.30)](https://canvas.gu.se/courses/101301/files/11714353?wrap=1){target="_blank"}
+- [miRNA_profiling_of_siNETs_defines_molecular_subtypes_and_identifies_biomarker_of_patient_survival.pdf](https://canvas.gu.se/courses/101301/files/11709324?wrap=1){target="_blank"}
+- [Lecture 7 - questions.pdf](https://canvas.gu.se/courses/101301/files/11714701?wrap=1){target="_blank"}
+:::
