@@ -273,12 +273,29 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Reference</span></a>
+ <span class="menu-text">Week 5: Two-sample MR and PRS</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 9 — Two-sample MR and polygenic risk scores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./about.html" class="sidebar-item-text sidebar-link">
@@ -318,7 +335,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="welcome" class="level2">
 <h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
-<p>This app covers the eight lectures of STA520: from the biology (DNA, RNA, proteins, mutations) through genetic association (GWAS) and causal inference (Mendelian randomization) to high-dimensional omics and proteomics. One clinical example runs through the whole course: the <strong>LDLR–PCSK9–LDL cholesterol</strong> pathway.</p>
+<p>This app covers the nine lectures of STA520: from the biology (DNA, RNA, proteins, mutations) through genetic association (GWAS) and causal inference (Mendelian randomization) to high-dimensional omics, proteomics and polygenic risk scores. One clinical example runs through the whole course: the <strong>LDLR–PCSK9–LDL cholesterol</strong> pathway.</p>
 <div class="grid">
 <section id="weeks-12-biology-and-genetics" class="level3 g-col-12 g-col-md-4">
 <h3 class="anchored" data-anchor-id="weeks-12-biology-and-genetics">Weeks 1–2: Biology and genetics</h3>
@@ -343,6 +360,12 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./lecture8.html">L8 · Proteomics</a></li>
 </ul>
 </section>
+<section id="week-5-two-sample-mr-and-prs" class="level3 g-col-12 g-col-md-4">
+<h3 class="anchored" data-anchor-id="week-5-two-sample-mr-and-prs">Week 5: Two-sample MR and PRS</h3>
+<ul>
+<li><a href="./lecture9.html">L9 · Two-sample MR and polygenic risk scores</a></li>
+</ul>
+</section>
 </div>
 <hr>
 </section>
@@ -351,7 +374,7 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li><strong>Read a lecture.</strong> Every topic section has a status control under its heading: <strong>Not reviewed / Reviewed / Confident</strong>. Click as you go.</li>
 <li><strong>Answer the quizzes</strong> inside each lecture and the <strong>why-questions</strong> and <strong>spaced review</strong> at the bottom.</li>
-<li><strong>Start the <a href="./exam-practice.html">Exam practice</a> page with the instructor’s 11 Lecture 7 example questions</strong>, then practise calculations: drills that generate new numbers every time (Benjamini–Hochberg, Bonferroni, Hardy–Weinberg, OR from β, Wald ratio, IVW, log₂FC, quantile normalization, moderated t) plus 26 written exam-style questions with model answers.</li>
+<li><strong>Start the <a href="./exam-practice.html">Exam practice</a> page with the instructor’s 11 Lecture 7 example questions</strong>, then practise calculations: drills that generate new numbers every time (Benjamini–Hochberg, Bonferroni, Hardy–Weinberg, OR from β, Wald ratio, IVW, F-statistic, allele alignment, PRS, log₂FC, quantile normalization, moderated t) plus 35 written exam-style questions with model answers.</li>
 <li><strong>Prepare for the computer exercises</strong> with <a href="./computer-exercises.html">Computer exercises: concepts</a>: QC, PLINK output, clumping, allele alignment and MR interpretation on made-up data.</li>
 <li><strong>Check the <a href="./dashboard.html">dashboard</a></strong> to see what is left, with the instructor-flagged topics listed first.</li>
 <li>Look up terms in the <a href="./glossary.html">glossary</a> or use <strong>search</strong> (top right). Searching “PCSK9” finds it in Lectures 1, 2, 3, 6 and 8.</li>
@@ -1606,6 +1629,202 @@ window.STA520_TOPICS = [
 
   "flag": "inferred"
 
+ },
+
+ {
+
+  "id": "t9-1",
+
+  "title": "9.1 What makes MR \"two-sample\"?",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-2",
+
+  "title": "9.2 The data you actually need",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-3",
+
+  "title": "9.3 Step 1: selecting instruments and the F-statistic",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-4",
+
+  "title": "9.4 Step 2: finding the same variants in the outcome GWAS",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-5",
+
+  "title": "9.5 Step 3: harmonisation",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-6",
+
+  "title": "9.6 Step 4: the Wald ratio and IVW",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-7",
+
+  "title": "9.7 Interpreting an MR estimate: units, and \"genetically predicted ≠ intervention\"",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-8",
+
+  "title": "9.8 Pleiotropy, sensitivity analyses and practical pitfalls",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-9",
+
+  "title": "9.9 PRS vs MR: same GWAS, different question",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-10",
+
+  "title": "9.10 The PRS formula",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-11",
+
+  "title": "9.11 Two datasets: discovery and target",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-12",
+
+  "title": "9.12 Choosing SNPs: clumping + thresholding, and shrinkage",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-13",
+
+  "title": "9.13 Interpreting and evaluating a PRS",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-14",
+
+  "title": "9.14 Extra material: remnant cholesterol, LDL and CHD in UK Biobank",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": null
+
  }
 
 ];
@@ -1649,7 +1868,8 @@ window.STA520_TOPICS = [
     5: 'GWAS and computer exercise 1',
     6: 'From GWAS to Mendelian randomization',
     7: 'High-dimensional molecular data',
-    8: 'Proteomics'
+    8: 'Proteomics',
+    9: 'Two-sample MR and polygenic risk scores'
   };
 
   /* ── storage ───────────────────────────────────────────────────────── */
@@ -1823,7 +2043,7 @@ window.STA520_TOPICS = [
     ['Lecture', 'Topics', '🎯', 'Reviewed', 'Confident'].forEach(function (h) { hr.appendChild(el('th', null, h)); });
     thead.appendChild(hr); table.appendChild(thead);
     var tbody = el('tbody');
-    for (var n = 1; n <= 8; n++) {
+    for (var n = 1; n <= 9; n++) {
       var list = TOPICS.filter(function (t) { return t.lecture === n; });
       if (!list.length) continue;
       var s = summarise(list);
@@ -2886,6 +3106,108 @@ window.STA520_TOPICS = [
       solution: '<p>' + why + '</p>' + (action === 2 ? '' : '<p>Aligned outcome β = <b>' + fmt(alignedY, 3) + '</b> per copy of ' + ea + ', the exposure-raising allele.</p>') +
 
         '<p><b>Checklist:</b> same alleles → keep · swapped → flip β · complementary letters → other strand (complement, then compare) · A/T or C/G → palindromic, decide with EAF or exclude · anything else → incompatible, exclude.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.fstat = function () {
+
+    var rows = [];
+
+    for (var i = 0; i < 4; i++) {
+
+      var se = rnd(0.005, 0.02, 3);
+
+      var z = pick([rnd(1.5, 3.1, 1), rnd(3.3, 9, 1)]);
+
+      var b = Math.round(z * se * 1000) / 1000;
+
+      if (b === 0) b = 0.01;
+
+      rows.push([b, se]);
+
+    }
+
+    var F = rows.map(function (r) { return Math.pow(r[0] / r[1], 2); });
+
+    var nWeak = F.filter(function (f) { return f < 10; }).length;
+
+    return {
+
+      title: 'Instrument strength: the F-statistic',
+
+      question: '<p>Four candidate instruments from an exposure GWAS (made-up numbers):</p>' +
+
+        table(['SNP', 'β exposure', 'SE exposure'], rows.map(function (r, i) { return ['SNP' + (i + 1)].concat(r); })),
+
+      inputs: [
+
+        { label: 'F for SNP1', answer: F[0], tol: Math.max(0.2, F[0] * 0.03) },
+
+        { label: 'Number of weak instruments (F < 10)', answer: nWeak, tol: 0 }
+
+      ],
+
+      solution: '<p>F = (β / SE)²: ' + F.map(function (f, i) { return 'SNP' + (i + 1) + ' = (' + rows[i][0] + ' / ' + rows[i][1] + ')² = <b>' + fmt(f, 1) + '</b>'; }).join('; ') + '.</p>' +
+
+        '<p><b>' + nWeak + '</b> SNP(s) have F < 10 and count as weak instruments: their Wald ratios are unstable and, in two non-overlapping samples, biased toward the null. ' +
+
+        'A genome-wide significant SNP (P < 5×10⁻⁸, |z| ≥ 5.45) always has F ≥ 29.7.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.prs = function () {
+
+    var betas = [];
+
+    for (var j = 0; j < 4; j++) betas.push(pick([-1, 1]) * rnd(0.05, 0.20, 2));
+
+    var people = [];
+
+    for (var i = 0; i < 2; i++) people.push([0, 0, 0, 0].map(function () { return pick([0, 0, 1, 1, 2]); }));
+
+    var prs = people.map(function (g) {
+
+      return g.reduce(function (s, d, j) { return s + d * betas[j]; }, 0);
+
+    });
+
+    function workings(g) {
+
+      return g.map(function (d, j) { return d + '·(' + fmt(betas[j], 2) + ')'; }).join(' + ');
+
+    }
+
+    return {
+
+      title: 'Polygenic risk score for two individuals',
+
+      question: '<p>GWAS effect sizes (per effect allele): ' + betas.map(function (b, j) { return 'β̂<sub>' + (j + 1) + '</sub> = ' + fmt(b, 2); }).join(', ') +
+
+        '. Genotypes are the number of effect alleles (0, 1, 2).</p>' +
+
+        table(['ID', 'SNP1', 'SNP2', 'SNP3', 'SNP4'], people.map(function (g, i) { return [i + 1].concat(g); })),
+
+      inputs: [
+
+        { label: 'PRS for ID 1', answer: prs[0], tol: 0.0005 },
+
+        { label: 'PRS for ID 2', answer: prs[1], tol: 0.0005 }
+
+      ],
+
+      solution: '<p>PRS<sub>i</sub> = Σ<sub>j</sub> G<sub>ij</sub> β̂<sub>j</sub>.</p>' +
+
+        '<p>ID 1: ' + workings(people[0]) + ' = <b>' + fmt(prs[0], 2) + '</b><br>ID 2: ' + workings(people[1]) + ' = <b>' + fmt(prs[1], 2) + '</b></p>' +
+
+        '<p>ID ' + (prs[0] >= prs[1] ? 1 : 2) + ' has the higher genetic liability <i>relative</i> to the other. The score has no unit of its own and is not a probability of disease.</p>'
 
     };
 
