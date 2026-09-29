@@ -27,7 +27,7 @@ This page covers the data structures, the end-to-end pipeline, lead vs causal SN
 **Rough plan:** Week 3, day 2. Computer exercise intro.
 :::
 
-## 5.1 The data behind a single-SNP test {#t5-1 .topic}
+## 5.1 The data behind a single-SNP test {#t5-1 .topic flag="seminar"}
 
 Individual-level GWAS data has **one row per subject**:
 
@@ -45,7 +45,7 @@ For a continuous phenotype (e.g. SBP, systolic blood pressure) you fit a **linea
 
 For a binary phenotype, the same setup with a **logistic model**. This is exactly the single-SNP model of Lecture 4, now framed as "what you actually run in software".
 
-## 5.2 From one SNP to the full GWAS pipeline {#t5-2 .topic}
+## 5.2 From one SNP to the full GWAS pipeline {#t5-2 .topic flag="seminar"}
 
 Repeat the model for all SNPs (~1,000,000), apply the genome-wide threshold, make Manhattan and QQ plots. You get candidate significant SNPs, which must be **grouped into loci** and reduced to **lead SNPs**.
 
@@ -67,7 +67,7 @@ Blood drawn and analyzed → DNA extracted
           GWAS summary data (by SNP ID, text/CSV)
 ```
 
-## 5.3 Why neighbouring SNPs show up together {#t5-3 .topic flag="inferred"}
+## 5.3 Why neighbouring SNPs show up together {#t5-3 .topic flag="seminar"}
 
 Two distinct reasons many related SNPs appear in GWAS output (the exam could phrase it either way):
 
@@ -81,7 +81,7 @@ Two distinct reasons many related SNPs appear in GWAS output (the exam could phr
 
 The causal SNP **may not even be on the array**. Arrays genotype a pre-chosen set of known SNPs; if the causal variant is not one of them, it can only be inferred indirectly (LD with genotyped SNPs, or imputation, Lecture 6).
 
-## 5.4 Finding the causal SNP: a menu of approaches {#t5-4 .topic flag="inferred"}
+## 5.4 Finding the causal SNP: a menu of approaches {#t5-4 .topic flag="unclear"}
 
 Useful as a "list the approaches" answer:
 
@@ -107,7 +107,7 @@ Conditional analysis separates independent signals from LD shadows. Associations
 :::
 ::::
 
-## 5.4b r² bands and LD clumping {#t5-4b .topic flag="inferred"}
+## 5.4b r² bands and LD clumping {#t5-4b .topic flag="seminar"}
 
 ::: {.worked}
 | SNP | $r^2$ with lead SNP | LD strength |
@@ -145,7 +145,7 @@ A proxy should carry nearly the same signal, so you want the highest r² with th
 :::
 ::::
 
-## 5.5 LD when you only have summary statistics {#t5-5 .topic flag="inferred"}
+## 5.5 LD when you only have summary statistics {#t5-5 .topic flag="seminar"}
 
 With **individual-level** genotypes you can compute both the GWAS association and the LD between SNPs from the same data. With only **summary statistics** (the usual situation with published GWAS, since they contain no individual data) you need an **external reference dataset**, such as **1000 Genomes**, to compute LD.
 
@@ -156,7 +156,7 @@ Why not one big file with everything? Individual-level genotype data is sensitiv
 The reference panel's ancestry must match the GWAS population, because LD patterns differ between populations.
 :::
 
-## 5.6 Practical pitfalls when combining datasets {#t5-6 .topic flag="inferred"}
+## 5.6 Practical pitfalls when combining datasets {#t5-6 .topic flag="seminar"}
 
 A "what could go wrong" checklist:
 

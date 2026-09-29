@@ -28,7 +28,7 @@ The lecture ends with Hardy–Weinberg equilibrium (HWE): simple probability tha
 **Rough plan:** Week 2, day 1. Genetic variation and protein function.
 :::
 
-## 3.1 Recap and non-coding RNA genes {#t3-1 .topic}
+## 3.1 Recap and non-coding RNA genes {#t3-1 .topic flag="professor"}
 
 Quick recap of Lecture 2 (restated because the instructor treats it as foundational):
 
@@ -43,7 +43,7 @@ Beyond mRNA, rRNA and tRNA, two more classes of **non-coding RNA genes** exist. 
 - **snRNA (small nuclear RNA)**: involved in **RNA splicing**, removing non-coding sections from a pre-mRNA before translation.
 - **miRNA (microRNA)**: regulates gene expression (next section).
 
-## 3.2 miRNA and siRNA {#t3-2 .topic flag="inferred"}
+## 3.2 miRNA and siRNA {#t3-2 .topic flag="professor"}
 
 ::: {.worked}
 | | **miRNA** (microRNA) | **siRNA** (small interfering RNA) |
@@ -71,7 +71,7 @@ siRNA binds its target with high complementarity and triggers cleavage of that o
 :::
 ::::
 
-## 3.2b Two drugs, one pathway: Leqvio vs Repatha/Praluent {#t3-2b .topic flag="inferred"}
+## 3.2b Two drugs, one pathway: Leqvio vs Repatha/Praluent {#t3-2b .topic flag="example"}
 
 **Leqvio (inclisiran): an siRNA drug** that lowers LDL cholesterol.
 
@@ -109,9 +109,14 @@ GalNAc is a sugar that binds ASGPR receptors on hepatocytes, so the siRNA is tak
 :::
 ::::
 
-## 3.3 Gain and loss of function: the PCSK9 variants {#t3-3 .topic flag="inferred"}
+## 3.3 Gain and loss of function: the PCSK9 variants {#t3-3 .topic flag="professor"}
 
 A mutation can make a protein work **better** (gain of function, GoF) or **worse** (loss of function, LoF).
+
+::: {.callout-note}
+## Learn the concept, not the example
+**Gain of function** and **loss of function** are on the professor's list. The PCSK9 variants below are only the course's running example: the lecturer said not to learn specific mutations or medicines.
+:::
 
 ::: {.worked}
 | Variant | DNA | Protein | Classification | Effect |
@@ -140,7 +145,7 @@ PCSK9 promotes LDLR degradation. Losing PCSK9 function leaves more LDLR, more LD
 :::
 ::::
 
-## 3.3b HGVS nomenclature and reference sequences {#t3-3b .topic flag="inferred"}
+## 3.3b HGVS nomenclature and reference sequences {#t3-3b .topic flag="professor"}
 
 **Which reference is a variant described against?** The PCSK9 annotations above use the transcript **NM_174936.4** from NCBI RefSeq.
 
@@ -186,7 +191,7 @@ NM_ = mRNA reference, .4 = version, c. = coding DNA coordinates, 1120G>T = posit
 :::
 ::::
 
-## 3.3c dbSNP, rs numbers and genome builds {#t3-3c .topic flag="inferred"}
+## 3.3c dbSNP, rs numbers and genome builds {#t3-3c .topic flag="professor"}
 
 **dbSNP** is an NCBI database (separate from RefSeq) cataloguing SNPs and other short variants, including indels. Every variant gets a stable identifier, an **rs number** (Reference SNP ID).
 
@@ -204,7 +209,7 @@ NM_ = mRNA reference, .4 = version, c. = coding DNA coordinates, 1120G>T = posit
 
 Note for RUNX1: the coding change is T>G but the genomic change is A>C. The gene lies on the minus strand of the chromosome, so the genomic (plus-strand) letters are the complements of the coding letters.
 
-## 3.4 Germline vs somatic mutations {#t3-4 .topic flag="inferred"}
+## 3.4 Germline vs somatic mutations {#t3-4 .topic flag="professor"}
 
 A clean side-by-side comparison on the slides, a typical definition-style exam question.
 
@@ -250,7 +255,7 @@ A germline mutation would be in every cell, including blood. Found only in the t
 :::
 ::::
 
-## 3.5 Sequencing and genotyping technologies {#t3-5 .topic}
+## 3.5 Sequencing and genotyping technologies {#t3-5 .topic flag="professor"}
 
 **Sequencing** determines the actual order of nucleotides in a piece of DNA.
 
@@ -261,7 +266,7 @@ A germline mutation would be in every cell, including blood. Found only in the t
 
 **Genotyping** (as distinct from sequencing) determines which allele(s) a person carries at **already known** variant positions, without sequencing the surrounding DNA from scratch. **TaqMan SNP genotyping** is a PCR-based technology for doing this efficiently at a single known SNP. SNP arrays (Section 3.8) genotype up to millions of known SNPs at once.
 
-## 3.6 Mendelian genetics: vocabulary and laws {#t3-6 .topic flag="inferred"}
+## 3.6 Mendelian genetics: vocabulary and laws {#t3-6 .topic flag="professor"}
 
 **Genetics** is the study of how genes and traits pass from parents to offspring. **Gregor Mendel** found the basic principles by breeding pea plants and studying single-gene traits (seed shape, flower color, plant height).
 
@@ -298,7 +303,7 @@ Segregation: the two alleles separate into different gametes, so each gamete car
 :::
 ::::
 
-## 3.7 Linkage, recombination and linkage disequilibrium {#t3-7 .topic flag="inferred"}
+## 3.7 Linkage, recombination and linkage disequilibrium {#t3-7 .topic flag="professor"}
 
 **Recombination (crossover)** happens during **meiosis**: homologous chromosomes exchange segments. This is what lets alleles of genes on the same chromosome be reshuffled.
 
@@ -338,7 +343,7 @@ Expected under independence: 0.3 × 0.6 = 0.18. Observed equals expected, so the
 :::
 ::::
 
-## 3.8 First look at GWAS, and SNP arrays {#t3-8 .topic flag="inferred"}
+## 3.8 First look at GWAS, and SNP arrays {#t3-8 .topic flag="professor"}
 
 **GWAS (genome-wide association study)** searches the *entire* genome for variants associated with a trait or disease. Millions of SNPs are compared between individuals with different phenotypes; for each SNP you ask: is one allele more common among people with the trait?
 
@@ -360,7 +365,7 @@ DNA sample → fragment DNA → bind to SNP array → detect which probes light 
 
 If both the "A signal" and the "G signal" light up at a position, the person is an AG heterozygote.
 
-## 3.9 Hardy–Weinberg equilibrium {#t3-9 .topic flag="inferred"}
+## 3.9 Hardy–Weinberg equilibrium {#t3-9 .topic flag="professor"}
 
 **HWE** gives the *expected* genotype frequencies in a population when allele frequencies stay constant across generations. The idealized assumptions: no selection, no new mutation, no migration, random mating, infinite population size. (The slides focus on the math rather than the full assumption list.)
 

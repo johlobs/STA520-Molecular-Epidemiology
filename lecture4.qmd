@@ -38,13 +38,13 @@ This page covers allele and genotype frequencies, the additive model for continu
 None of the Lecture 4 slides carry the "EXAM" marker. The 📌 flags below are inferred: the lecture is built around worked calculations (MAF → genotype frequencies, log β → OR, allele frequency → genotype frequency for rs11591147), so being able to redo them with other numbers is high-priority prep.
 :::
 
-## 4.1 Genotype → phenotype, and why association is not causation {#t4-1 .topic}
+## 4.1 Genotype → phenotype, and why association is not causation {#t4-1 .topic flag="unclear"}
 
 DNA variation can plausibly **cause** a phenotype (disease status, a biomarker level). The reverse is logically impossible: a phenotype or disease **cannot change your inherited DNA sequence**, which was fixed at conception, long before any adult disease.
 
 This directional certainty is exactly why genetic variants are useful for causal inference (Mendelian randomization, Lecture 6). But finding a variant *associated* with a phenotype is still only an association: **confounding, chance and linkage** can all produce a spurious-looking association, so causality still has to be investigated.
 
-## 4.2 SNPs, alleles, MAF and genotype frequencies {#t4-2 .topic flag="inferred"}
+## 4.2 SNPs, alleles, MAF and genotype frequencies {#t4-2 .topic flag="professor"}
 
 At a given position, the nucleotide is sometimes A and sometimes C across people: a **SNP**. You can refer to it by base-pair position or by its rs number. The two possible nucleotides are its **alleles**.
 
@@ -103,7 +103,7 @@ P(minor homozygote) = MAF² = 0.2² = 0.04, and 0.04 × 5,000 = 200. For compari
 :::
 ::::
 
-## 4.3 Phenotype types and the per-allele effect {#t4-3 .topic flag="inferred"}
+## 4.3 Phenotype types and the per-allele effect {#t4-3 .topic flag="unclear"}
 
 | Phenotype | Examples | Model |
 |---|---|---|
@@ -164,7 +164,7 @@ Two copies → 2 × 0.10 = 0.20 on the log-odds scale → OR = e^0.20 ≈ 1.22 (
 :::
 ::::
 
-## 4.4 The additive model: β, SE and p {#t4-4 .topic flag="inferred"}
+## 4.4 The additive model: β, SE and p {#t4-4 .topic flag="professor_unsure"}
 
 **The additive model** (used for both phenotype types): compare the phenotype across the 0/1/2 groups, with each extra copy one unit of **genotype dosage** (the X variable).
 
@@ -199,7 +199,7 @@ ggplot(d, aes(dosage, ldl)) +
 
 **"Worth noting" 2: additive, dominant and recessive describe the genotype–phenotype relationship, not the allele.** The same allele can act dominant for one phenotype and recessive for another. Most GWAS use **additive** models because they test many SNPs at once and the additive model is the simplest, most tractable default that works reasonably across all of them. Dominant/recessive models are more useful when studying **one specific SNP or gene** in depth.
 
-## 4.5 Covariates {#t4-5 .topic flag="inferred"}
+## 4.5 Covariates {#t4-5 .topic flag="unclear"}
 
 $$y = \beta_0 + \beta_1 G + \beta_2 X_1 + \dots + \beta_n X_{n-1} + \varepsilon$$
 
@@ -216,7 +216,7 @@ $G$ is genotype dosage; the $X$s are covariates such as **age, sex, BMI and gene
 The same SNP can have a somewhat different β in two studies that adjusted for different covariates. When comparing effect estimates across papers, check what was adjusted for.
 :::
 
-## 4.6 The GWAS scan and summary statistics {#t4-6 .topic flag="inferred"}
+## 4.6 The GWAS scan and summary statistics {#t4-6 .topic flag="seminar"}
 
 **GWAS** = repeat the single-SNP regression separately for about **1,000,000 SNPs**, one model per SNP, each adjusted, giving β, SE and p for every SNP. Conceptually simple but **computationally heavy**. Software: **PLINK** and **regenie**.
 
@@ -261,7 +261,7 @@ A summary statistics file lists A1 = T, A2 = C, BETA = −0.05 for LDL-C in SD u
 :::
 ::::
 
-## 4.7 Multiple testing, Manhattan and QQ plots {#t4-7 .topic flag="inferred"}
+## 4.7 Multiple testing, Manhattan and QQ plots {#t4-7 .topic flag="seminar"}
 
 Testing ~1,000,000 SNPs at $p < 0.05$ would give about $1{,}000{,}000 \times 0.05 = 50{,}000$ **false positives** by chance. The field's standard threshold is:
 
@@ -347,7 +347,7 @@ A tiny p-value in a huge sample only says the association is unlikely to be chan
 :::
 ::::
 
-## 4.8 Why one signal gives a cluster: lead SNP and r² {#t4-8 .topic flag="inferred"}
+## 4.8 Why one signal gives a cluster: lead SNP and r² {#t4-8 .topic flag="seminar"}
 
 Nearby SNPs are correlated (in LD) because they are inherited together. So **one** true causal variant appears as **many** associated SNPs: every SNP in LD with it shows an association, not because it is independently causal but because it is correlated. If two SNPs are in LD, knowing one tells you about the other. The result is one peak in the Manhattan plot.
 
@@ -364,7 +364,7 @@ From the cluster you pick a representative, the **lead SNP**: usually the one wi
 
 Downstream analyses usually need **independent** variables, which raises the questions of how to find independent signals and the causal variant in a correlated cluster (Lecture 5), and the complication that the causal variant might not even be measured on the array.
 
-## 4.9 Population structure and confounding {#t4-9 .topic flag="inferred"}
+## 4.9 Population structure and confounding {#t4-9 .topic flag="unclear"}
 
 **The problem.** If ancestry-related differences in allele frequency coincide with differences in the phenotype across subpopulations (different countries, or distinct communities such as the Amish), a SNP can look associated with the phenotype **even with no biological effect at all**.
 
@@ -396,7 +396,7 @@ Stratification is confounding; a different p-value threshold does not remove it.
 :::
 ::::
 
-## 4.10 From hit to biology: locus, lead SNP, QTLs {#t4-10 .topic flag="inferred"}
+## 4.10 From hit to biology: locus, lead SNP, QTLs {#t4-10 .topic flag="unclear"}
 
 | Term | Definition |
 |---|---|

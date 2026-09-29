@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Computer exercises: concepts – STA520 — Molecular Epidemiology</title>
+<title>Words to use in a sentence – STA520 — Molecular Epidemiology</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./glossary.html" rel="next">
-<link href="./vocabulary.html" rel="prev">
+<link href="./computer-exercises.html" rel="next">
+<link href="./exam-practice.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -73,40 +73,11 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="custom.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -162,7 +133,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dashboard.html">Exam prep</a></li><li class="breadcrumb-item"><a href="./computer-exercises.html">Computer exercises: concepts</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dashboard.html">Exam prep</a></li><li class="breadcrumb-item"><a href="./vocabulary.html">Words to use in a sentence</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -211,13 +182,13 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./vocabulary.html" class="sidebar-item-text sidebar-link">
+  <a href="./vocabulary.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Words to use in a sentence</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./computer-exercises.html" class="sidebar-item-text sidebar-link active">
+  <a href="./computer-exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Computer exercises: concepts</span></a>
   </div>
 </li>
@@ -349,41 +320,14 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul class="collapse">
-  <li><a href="#the-workflow" id="toc-the-workflow" class="nav-link active" data-scroll-target="#the-workflow">The workflow</a></li>
-  <li><a href="#part-a-from-genotypes-to-independent-signals" id="toc-part-a-from-genotypes-to-independent-signals" class="nav-link" data-scroll-target="#part-a-from-genotypes-to-independent-signals">Part A: from genotypes to independent signals</a>
-  <ul class="collapse">
-  <li><a href="#a1.-plink-2-files-and-genotype-qc" id="toc-a1.-plink-2-files-and-genotype-qc" class="nav-link" data-scroll-target="#a1.-plink-2-files-and-genotype-qc">A1. PLINK 2 files and genotype QC</a></li>
-  <li><a href="#a2.-why-rare-variants-are-hard-for-single-snp-regression" id="toc-a2.-why-rare-variants-are-hard-for-single-snp-regression" class="nav-link" data-scroll-target="#a2.-why-rare-variants-are-hard-for-single-snp-regression">A2. Why rare variants are hard for single-SNP regression</a></li>
-  <li><a href="#a3.-reading-association-output" id="toc-a3.-reading-association-output" class="nav-link" data-scroll-target="#a3.-reading-association-output">A3. Reading association output</a></li>
-  <li><a href="#a4.-significant-snp-lead-snp-independent-signal" id="toc-a4.-significant-snp-lead-snp-independent-signal" class="nav-link" data-scroll-target="#a4.-significant-snp-lead-snp-independent-signal">A4. Significant SNP, lead SNP, independent signal</a></li>
-  <li><a href="#a5.-manual-ld-clumping" id="toc-a5.-manual-ld-clumping" class="nav-link" data-scroll-target="#a5.-manual-ld-clumping">A5. Manual LD clumping</a></li>
-  </ul></li>
-  <li><a href="#part-b-summary-statistics-and-a-reference-panel" id="toc-part-b-summary-statistics-and-a-reference-panel" class="nav-link" data-scroll-target="#part-b-summary-statistics-and-a-reference-panel">Part B: summary statistics and a reference panel</a>
-  <ul class="collapse">
-  <li><a href="#b1.-why-an-external-reference-is-needed" id="toc-b1.-why-an-external-reference-is-needed" class="nav-link" data-scroll-target="#b1.-why-an-external-reference-is-needed">B1. Why an external reference is needed</a></li>
-  <li><a href="#allele-alignment" id="toc-allele-alignment" class="nav-link" data-scroll-target="#allele-alignment">B2. Allele alignment</a></li>
-  </ul></li>
-  <li><a href="#part-c" id="toc-part-c" class="nav-link" data-scroll-target="#part-c">Part C: from independent signals to Mendelian randomization</a>
-  <ul class="collapse">
-  <li><a href="#c1.-the-mr-pipeline-in-exercise-2-as-concepts" id="toc-c1.-the-mr-pipeline-in-exercise-2-as-concepts" class="nav-link" data-scroll-target="#c1.-the-mr-pipeline-in-exercise-2-as-concepts">C1. The MR pipeline in Exercise 2, as concepts</a></li>
-  <li><a href="#c2.-reading-an-mr-analysis-a-simulated-example" id="toc-c2.-reading-an-mr-analysis-a-simulated-example" class="nav-link" data-scroll-target="#c2.-reading-an-mr-analysis-a-simulated-example">C2. Reading an MR analysis: a simulated example</a></li>
-  </ul></li>
-  <li><a href="#concept-questions-to-prepare-with" id="toc-concept-questions-to-prepare-with" class="nav-link" data-scroll-target="#concept-questions-to-prepare-with">Concept questions to prepare with</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dashboard.html">Exam prep</a></li><li class="breadcrumb-item"><a href="./computer-exercises.html">Computer exercises: concepts</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dashboard.html">Exam prep</a></li><li class="breadcrumb-item"><a href="./vocabulary.html">Words to use in a sentence</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Computer exercises: concepts</h1>
-<p class="subtitle lead">The ideas behind computer exercises 1 and 2, practised on made-up and simulated data</p>
+<h1 class="title">Words to use in a sentence</h1>
+<p class="subtitle lead">Flashcards for the professor’s word and concept list (Lectures 1–3)</p>
 </div>
 
 
@@ -400,586 +344,322 @@ window.Quarto = {
 </header>
 
 
-<p>The two computer exercises turn Lectures 4–6 into a working pipeline. Exercise 1 goes from genotypes to a GWAS and then reduces many significant SNPs to a few independent signals, first with individual-level data and then with published summary statistics. Exercise 2 uses those independent signals as instruments in a Mendelian randomization of LDL-C on coronary artery disease.</p>
-<p>This page is <strong>not a solution to the exercises</strong>. It uses its own made-up tables and simulated data so you can practise the concepts and interpretations: what each QC filter does, how to read association output, how clumping works, how to align alleles between two files, and how to read IVW, MR-Egger and weighted median results. Then do the exercises yourself with the course data.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>What is and is not on this page
+<span class="screen-reader-only">Important</span>Partial list: the full list is coming
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Included:</strong> concepts, the logic of each step, interpretation, and practice on invented numbers (two drills generate new problems every time).</p>
-<p><strong>Not included:</strong> code for the exercise tasks, results from the course data (chromosome 19, GLGC, CAD), or answers to the exercises’ own questions. The theory behind the exercises’ final questions is in the lecture sections linked below.</p>
+<p>The lecturer will upload the complete list of words you should be able to <strong>use in a sentence</strong>, for example when talking with doctors. These cards contain the words and concepts noted so far (lecture notes, 29 September). Cards will be added when the full list is available.</p>
 </div>
 </div>
-</div>
-<section id="the-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="the-workflow">The workflow</h2>
-<pre><code>Individual-level data (Exercise 1, part 1)
-  genotypes ─▶ QC ─▶ GWAS ─▶ significant SNPs ─▶ LD ─▶ independent signals
+<p><strong>How to use the cards.</strong> Read the word, <strong>write your own sentence</strong> in the box (as if explaining it to a doctor), then flip the card to compare with the definition and a model sentence. Mark the card <strong>I can use it</strong> or <strong>Practise again</strong>. Your marks are saved in this browser only.</p>
+<div id="vocab-app" class="vocab-app">
+  <div class="vocab-controls">
+    <label>Show
+      <select id="vocab-filter" class="form-select form-select-sm">
+        <option value="all">All cards</option>
+        <option value="word">Words</option>
+        <option value="concept">Concepts</option>
+        <option value="unsure">Uncertain about use</option>
+        <option value="todo">Not yet "I can use it"</option>
+      </select>
+    </label>
+    <button id="vocab-shuffle" class="btn btn-sm btn-outline-secondary" type="button">Shuffle ↻</button>
+    <span id="vocab-progress" class="vocab-progress"></span>
+  </div>
 
-Summary-level data (Exercise 1, part 2)
-  GWAS summary statistics + external genotype reference
-      ─▶ match variants and alleles ─▶ LD in the reference ─▶ independent signals
+  <div class="vocab-card">
+    <div class="vocab-meta"><span id="vocab-kind" class="vocab-kind"></span> <span id="vocab-pos"></span></div>
+    <div id="vocab-term" class="vocab-term"></div>
+    <textarea id="vocab-own" class="form-control" rows="2" placeholder="Write your own sentence using the word …"></textarea>
+    <button id="vocab-flip" class="btn btn-sm btn-primary" type="button">Flip card</button>
+    <div id="vocab-back" class="vocab-back" hidden="">
+      <p><b>Meaning.</b> <span id="vocab-def"></span></p>
+      <p><b>Model sentence.</b> <i id="vocab-sentence"></i></p>
+      <p id="vocab-link-row"><a id="vocab-link" href="#">Read more in the lecture →</a></p>
+      <div class="vocab-mark">
+        <button id="vocab-know" class="btn btn-sm btn-success" type="button">✓ I can use it</button>
+        <button id="vocab-again" class="btn btn-sm btn-outline-warning" type="button">Practise again</button>
+      </div>
+    </div>
+  </div>
 
-Mendelian randomization (Exercise 2)
-  independent exposure SNPs ─▶ look up in outcome GWAS ─▶ align alleles
-      ─▶ Wald ratios ─▶ IVW + MR-Egger + weighted median ─▶ interpretation</code></pre>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Step</th>
-<th>Theory in the lectures</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Allele frequency, MAF, per-allele β</td>
-<td><a href="./lecture4.html#t4-2">4.2</a>, <a href="./lecture4.html#t4-4">4.4</a></td>
-</tr>
-<tr class="even">
-<td>Summary statistics columns</td>
-<td><a href="./lecture4.html#t4-6">4.6</a></td>
-</tr>
-<tr class="odd">
-<td>Manhattan plot, 5×10⁻⁸</td>
-<td><a href="./lecture4.html#t4-7">4.7</a></td>
-</tr>
-<tr class="even">
-<td>Lead SNP, locus, r²</td>
-<td><a href="./lecture4.html#t4-8">4.8</a>, <a href="./lecture5.html#t5-3">5.3</a></td>
-</tr>
-<tr class="odd">
-<td>LD clumping</td>
-<td><a href="./lecture5.html#t5-4b">5.4b</a></td>
-</tr>
-<tr class="even">
-<td>LD from summary statistics, reference panels</td>
-<td><a href="./lecture5.html#t5-5">5.5</a>, <a href="./lecture5.html#t5-6">5.6</a></td>
-</tr>
-<tr class="odd">
-<td>MR assumptions, IVW, Egger, weighted median</td>
-<td><a href="./lecture6.html#t6-5">6.5</a>, <a href="./lecture6.html#t6-7">6.7</a>, <a href="./lecture6.html#t6-8">6.8</a></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="part-a-from-genotypes-to-independent-signals" class="level1">
-<h1>Part A: from genotypes to independent signals</h1>
-<section id="a1.-plink-2-files-and-genotype-qc" class="level2">
-<h2 class="anchored" data-anchor-id="a1.-plink-2-files-and-genotype-qc">A1. PLINK 2 files and genotype QC</h2>
-<p>PLINK 2 stores a genotype dataset as <strong>three files with the same name</strong>:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>File</th>
-<th>Contents</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>.pgen</code></td>
-<td>The genotype matrix itself (every individual × every variant), in a compact binary format</td>
-</tr>
-<tr class="even">
-<td><code>.pvar</code></td>
-<td>One row per <strong>variant</strong>: chromosome, position, ID (rsID), reference and alternative allele. <code>.pvar.zst</code> is a compressed version (read with <code>vzs</code>)</td>
-</tr>
-<tr class="odd">
-<td><code>.psam</code></td>
-<td>One row per <strong>sample</strong> (individual): IDs, sex and similar</td>
-</tr>
-</tbody>
-</table>
-<p><strong>QC filters and why they are used</strong></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>PLINK flag</th>
-<th>Keeps</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>--snps-only just-acgt</code></td>
-<td>Single-nucleotide variants with plain A/C/G/T alleles</td>
-<td>Drops indels and odd allele codes that complicate matching between datasets</td>
-</tr>
-<tr class="even">
-<td><code>--min-alleles 2 --max-alleles 2</code></td>
-<td><strong>Biallelic</strong> variants</td>
-<td>The additive 0/1/2 model assumes exactly two alleles</td>
-</tr>
-<tr class="odd">
-<td><code>--maf 0.01</code></td>
-<td>MAF ≥ 1%</td>
-<td>Very rare variants give unstable estimates (A2 below) and are prone to genotyping error</td>
-</tr>
-<tr class="even">
-<td><code>--geno 0.02</code></td>
-<td>Variants with ≥ 98% of genotypes called</td>
-<td>A variant that fails in many samples is technically unreliable (<strong>per-variant</strong> missingness)</td>
-</tr>
-<tr class="odd">
-<td><code>--mind 0.02</code></td>
-<td>Individuals with ≥ 98% of genotypes called</td>
-<td>A sample with many missing calls suggests poor DNA quality (<strong>per-individual</strong> missingness)</td>
-</tr>
-</tbody>
-</table>
-<p>The same idea returns in proteomics QC (<a href="./lecture8.html#t8-6">8.6</a>): check both the <strong>features</strong> (variants, proteins) and the <strong>samples</strong> (people).</p>
-<div class="sta520-quiz" data-question="An invented QC log from a SNP-array study reads: 650,000 variants loaded; 4,000 removed as non-SNP or multiallelic; 21,000 removed by –maf 0.01; 900 removed by –geno; 240 of 3,000 people removed by –mind. What stands out?">
-  <div class="q-opt" data-correct="false">The MAF filter removed most variants, so the panel is mostly rare</div>
-  <div class="q-opt" data-correct="true">An unusual share of people had many missing genotype calls</div>
-  <div class="q-opt" data-correct="false">Many variants failed to genotype in most of the samples</div>
-  <div class="q-opt" data-correct="false">The array must be multiallelic, since many variants were removed</div>
-  <div class="q-exp">8% of the individuals (240 of 3,000) failed the per-individual call rate, far more than the few hundred variants removed by –geno would suggest. That points to sample problems (DNA quality, a bad plate or batch) worth investigating before the GWAS. Read your own exercise log the same way: which filter removed most, and does that make sense for this kind of data?</div>
+  <div class="vocab-nav">
+    <button id="vocab-prev" class="btn btn-sm btn-outline-secondary" type="button">← Previous</button>
+    <button id="vocab-next" class="btn btn-sm btn-outline-secondary" type="button">Next →</button>
+  </div>
 </div>
-</section>
-<section id="a2.-why-rare-variants-are-hard-for-single-snp-regression" class="level2">
-<h2 class="anchored" data-anchor-id="a2.-why-rare-variants-are-hard-for-single-snp-regression">A2. Why rare variants are hard for single-SNP regression</h2>
-<p>The standard error of the per-allele β shrinks with the number of carriers. For a continuous phenotype with residual SD <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(n\)</span> people, approximately</p>
-<p><span class="math display">\[\text{SE}(\hat\beta) \approx \frac{\sigma}{\sqrt{2\,n\,\text{MAF}\,(1-\text{MAF})}}\]</span></p>
-<p>because the variance of the 0/1/2 dosage under HWE is <span class="math inline">\(2\,\text{MAF}(1-\text{MAF})\)</span>. With MAF = 0.001 in 2,500 people you expect only about 5 carriers, so β rests on a handful of people: huge SE, low power, and sensitivity to a single genotyping error.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="computer-exercises_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Approximate SE of β (phenotype SD = 1) against MAF, for 2,500 and 100,000 people. SE explodes as MAF approaches zero; the dashed line marks MAF = 0.01.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="a3.-reading-association-output" class="level2">
-<h2 class="anchored" data-anchor-id="a3.-reading-association-output">A3. Reading association output</h2>
-<p>A PLINK <code>--glm</code> linear regression file has one row per variant and test. Invented example:</p>
-<pre><code>#CHROM  POS       ID          REF  ALT  A1  TEST  OBS_CT  BETA     SE       T_STAT   P
-19      11100000  rs1000001   G    A    A   ADD   2450    -0.312   0.041    -7.61    3.9e-14
-19      11100000  rs1000001   G    A    A   AGE   2450     0.021   0.004     5.25    1.6e-07
-19      44900000  rs1000002   C    T    T   ADD   2450     0.205   0.035     5.86    5.3e-09</code></pre>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>A1</code></td>
-<td>The allele <strong>β refers to</strong> (counted 0/1/2)</td>
-</tr>
-<tr class="even">
-<td><code>TEST</code></td>
-<td><code>ADD</code> = the additive genotype effect; other rows are covariates (hidden with <code>hide-covar</code>)</td>
-</tr>
-<tr class="odd">
-<td><code>OBS_CT</code></td>
-<td>Number of people in the model</td>
-</tr>
-<tr class="even">
-<td><code>BETA</code>, <code>SE</code>, <code>T_STAT</code>, <code>P</code></td>
-<td>Per-A1-allele effect, its standard error, t = β/SE, p-value</td>
-</tr>
-</tbody>
-</table>
-<div class="sta520-quiz" data-question="In the invented output above, how do you read the ADD row for rs1000001?">
-  <div class="q-opt" data-correct="false">Each G allele lowers the phenotype by 0.312 units</div>
-  <div class="q-opt" data-correct="true">Each A allele lowers the phenotype by 0.312 units</div>
-  <div class="q-opt" data-correct="false">The A allele explains 31.2% of the phenotype variance</div>
-  <div class="q-opt" data-correct="false">Age lowers the phenotype by 0.312 units per year</div>
-  <div class="q-exp">β is per copy of A1, here A. The AGE row is a covariate. β says nothing about variance explained.</div>
-</div>
-</section>
-<section id="a4.-significant-snp-lead-snp-independent-signal" class="level2">
-<h2 class="anchored" data-anchor-id="a4.-significant-snp-lead-snp-independent-signal">A4. Significant SNP, lead SNP, independent signal</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Term</th>
-<th>What it is</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Significant SNP</strong></td>
-<td>Any SNP with p below the threshold (e.g.&nbsp;5×10⁻⁸). Many can come from one causal variant</td>
-</tr>
-<tr class="even">
-<td><strong>Lead SNP</strong></td>
-<td>The strongest (smallest p) SNP in a region; the representative of a peak</td>
-</tr>
-<tr class="odd">
-<td><strong>Independent signal</strong></td>
-<td>What is left after clumping: lead SNPs with r² below the threshold (e.g.&nbsp;&lt; 0.01) to each other</td>
-</tr>
-<tr class="even">
-<td><strong>Causal SNP</strong></td>
-<td>The variant that actually changes biology. It may be a lead SNP, a SNP in LD with it, or not genotyped at all</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Does distance predict LD?</strong> Only roughly. LD tends to decay with distance, but recombination hotspots, allele frequencies and population history make the relationship very noisy. Always compute r².</p>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in annotate("label", x = -500, y = 0.12, label = "dashed: r² = 0.01", :
-Ignoring unknown parameters: `label.size`</code></pre>
-</div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="computer-exercises_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Simulated r² with a lead SNP against distance. LD decays on average, but some nearby SNPs have r² ≈ 0 (different allele frequencies, a recombination hotspot) and some distant ones remain correlated.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="a5.-manual-ld-clumping" class="level2">
-<h2 class="anchored" data-anchor-id="a5.-manual-ld-clumping">A5. Manual LD clumping</h2>
-<p>The algorithm used in the exercises:</p>
-<ol type="1">
-<li>Among the remaining significant SNPs, pick the <strong>smallest p-value</strong> as a lead SNP.</li>
-<li>Compute r² between it and every other remaining significant SNP.</li>
-<li><strong>Remove</strong> all SNPs with r² ≥ 0.01 (they are “the same signal”).</li>
-<li>Keep the lead as one signal and repeat from step 1 until nothing is left.</li>
-</ol>
-<p>Practise on invented tables. The drill gives a new table each time.</p>
-<div class="drill" data-drill="clump">
 
-</div>
-<div class="drill" data-drill="clump">
+<details class="vocab-all">
+  <summary>Show all cards as a list</summary>
+  <div id="vocab-list"></div>
+</details>
 
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
+<script>
+(function () {
+  'use strict';
+  /* kind: word | concept | unsure.  link: lecture page + topic anchor (empty = not in the slides) */
+  var CARDS = [
+    { t: 'DNA', k: 'word', l: 'lecture1.qmd#t1-4b',
+      d: 'Deoxyribonucleic acid: the double-stranded molecule that stores genetic information as a sequence of the bases A, T, C and G.',
+      s: 'The patient\'s DNA was extracted from a blood sample so that we could look for inherited variants.' },
+    { t: 'Nucleotide', k: 'word', l: 'lecture1.qmd#t1-4b',
+      d: 'The building block of DNA and RNA: a sugar, a phosphate group and one base.',
+      s: 'A single-nucleotide change in this gene is enough to alter the protein it codes for.' },
+    { t: 'Polynucleotide', k: 'word', l: 'lecture1.qmd#t1-4b',
+      d: 'A chain of nucleotides linked by sugar–phosphate bonds; each DNA or RNA strand is a polynucleotide.',
+      s: 'Each strand of the DNA helix is a long polynucleotide chain.' },
+    { t: 'Complementary base pairing', k: 'word', l: 'lecture1.qmd#t1-4b',
+      d: 'A pairs with T (U in RNA) and C pairs with G, so one strand determines the sequence of the other.',
+      s: 'Because of complementary base pairing, a PCR primer only binds where the sequence matches the target.' },
+    { t: 'Strand, complementary strand', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'One of the two polynucleotide chains of DNA; the complementary strand has the matching bases on the other side.',
+      s: 'The variant can be reported on either strand, so we check which strand the laboratory used.' },
+    { t: 'Antiparallel strands; 5′→3′ direction of synthesis', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'The two strands run in opposite directions (5′→3′ and 3′→5′). New DNA and RNA are always made 5′→3′.',
+      s: 'Since the strands are antiparallel, the polymerase reads the template 3′→5′ while building the new strand 5′→3′.' },
+    { t: 'Gene', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'A stretch of DNA that is transcribed into a functional RNA, usually coding for a protein.',
+      s: 'This gene codes for a receptor that clears cholesterol from the blood.' },
+    { t: 'Chromosome', k: 'word', l: 'lecture1.qmd#t1-4c',
+      d: 'One long DNA molecule packed with proteins; humans have 23 pairs.',
+      s: 'The gene is located on chromosome 19, so it is inherited independently of genes on other chromosomes.' },
+    { t: 'DNA replication', k: 'word', l: 'lecture1.qmd#t1-4b',
+      d: 'Copying of DNA before cell division: each strand serves as template for a new complementary strand.',
+      s: 'Errors during DNA replication that are not repaired become mutations in the daughter cells.' },
+    { t: 'Meiosis and mitosis', k: 'word', l: 'lecture1.qmd#t1-4c',
+      d: 'Mitosis: division into two identical cells (growth, repair). Meiosis: two divisions producing eggs or sperm with half the chromosome number and new allele combinations.',
+      s: 'A mutation arising in mitosis in the tumour is somatic, whereas one passed on through meiosis can be inherited.' },
+    { t: 'RNA', k: 'word', l: 'lecture2.qmd#t2-1',
+      d: 'Ribonucleic acid: usually single-stranded, uses the sugar ribose and the base U instead of T.',
+      s: 'We measured RNA to see which genes are actively expressed in the tissue.' },
+    { t: 'mRNA, rRNA, miRNA', k: 'word', l: 'lecture2.qmd#t2-1',
+      d: 'mRNA carries the code for a protein to the ribosome; rRNA is part of the ribosome; miRNA is a short RNA that regulates other mRNAs.',
+      s: 'The drug lowers the amount of the target mRNA, so less of the protein is produced.' },
+    { t: 'Transcription', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'Copying a gene\'s DNA into RNA by RNA polymerase, in the nucleus.',
+      s: 'The variant sits in a regulatory region, so it changes how much the gene is transcribed.' },
+    { t: 'Translation', k: 'word', l: 'lecture2.qmd#t2-3',
+      d: 'Reading the mRNA codons at the ribosome to build a protein, one amino acid at a time.',
+      s: 'The stop codon ends translation early, so the protein is truncated.' },
+    { t: 'Template strand (non-coding strand)', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'The DNA strand RNA polymerase reads; the RNA is complementary to it. The other strand (coding strand) has the same sequence as the mRNA.',
+      s: 'The mRNA is complementary to the template strand, so it matches the coding strand with U instead of T.' },
+    { t: 'Codon', k: 'word', l: 'lecture2.qmd#t2-3',
+      d: 'Three consecutive mRNA bases that specify one amino acid (or a stop).',
+      s: 'The substitution changes one codon, so a different amino acid is built into the protein.' },
+    { t: 'Start codon, stop codon', k: 'word', l: 'lecture2.qmd#t2-3',
+      d: 'AUG (methionine) starts translation; UAA, UAG and UGA stop it.',
+      s: 'The mutation creates a premature stop codon, so the protein is cut short.' },
+    { t: 'Intron, exon', k: 'word', l: '',
+      d: 'Exons are the parts of a gene kept in the mature mRNA; introns are removed by splicing before translation. (Not covered in the app\'s slides; definition added.)',
+      s: 'The variant lies in an intron, so it does not change the protein sequence directly but may affect splicing.' },
+    { t: 'Protein (including functions)', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'A folded chain of amino acids. Functions include enzymes, transport, receptors, structure, signalling (hormones) and defence (antibodies).',
+      s: 'The receptor protein on the liver cell takes up cholesterol from the blood.' },
+    { t: 'Enzyme', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'A protein that speeds up a specific chemical reaction without being used up.',
+      s: 'A loss-of-function variant in this enzyme slows the breakdown of the substance, so it accumulates.' },
+    { t: 'Amino acids', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'The 20 building blocks of proteins; the order is set by the codons of the mRNA.',
+      s: 'The missense variant replaces one amino acid with another at position 151.' },
+    { t: 'Peptide, polypeptide', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'A peptide is a short chain of amino acids; a polypeptide is a long chain, which folds into a protein.',
+      s: 'Insulin is made from a longer polypeptide that is cut into its active form.' },
+    { t: 'Mutation', k: 'word', l: 'lecture2.qmd#t2-4',
+      d: 'A permanent change in the DNA sequence.',
+      s: 'The test looks for a mutation that is known to raise the risk of the disease.' },
+    { t: 'Point mutation', k: 'word', l: 'lecture2.qmd#t2-4',
+      d: 'A change of a single base (a substitution, or a one-base insertion or deletion).',
+      s: 'A single point mutation was found, changing one base in the coding sequence.' },
+    { t: 'Substitution, insertion, deletion', k: 'word', l: 'lecture2.qmd#t2-4b',
+      d: 'Substitution: one base replaced by another. Insertion: bases added. Deletion: bases removed.',
+      s: 'The sequencing report shows a two-base deletion rather than a substitution.' },
+    { t: 'Silent, missense, nonsense', k: 'word', l: 'lecture2.qmd#t2-4',
+      d: 'Effects of a substitution on the protein: silent = same amino acid; missense = a different amino acid; nonsense = a stop codon.',
+      s: 'This is a missense variant: the protein is full length but one amino acid is different.' },
+    { t: 'Frameshift, in-frame', k: 'word', l: 'lecture2.qmd#t2-4b',
+      d: 'An insertion or deletion not a multiple of 3 shifts the reading frame (frameshift); a multiple of 3 keeps the frame (in-frame).',
+      s: 'The one-base deletion causes a frameshift, so every codon after it is read wrongly.' },
+    { t: 'Gain of function, loss of function', k: 'word', l: 'lecture3.qmd#t3-3',
+      d: 'Gain of function: the protein becomes more active or gets a new activity. Loss of function: it works less or not at all.',
+      s: 'A loss-of-function variant in this gene lowers the protein\'s activity, which mimics the effect of the drug.' },
+    { t: 'PCR, primer', k: 'word', l: 'lecture2.qmd#t2-6',
+      d: 'PCR copies a chosen DNA region millions of times. Primers are short single-stranded DNA pieces that bind on each side of the region and give the polymerase a starting point.',
+      s: 'We used PCR with primers flanking the variant to amplify that region before sequencing.' },
+    { t: 'Genotyping', k: 'word', l: 'lecture3.qmd#t3-5',
+      d: 'Determining which alleles a person carries at known, pre-selected positions (e.g. with a SNP array).',
+      s: 'When we genotype the patient, we check which alleles they carry at positions already known to vary.' },
+    { t: 'Sequencing', k: 'word', l: 'lecture3.qmd#t3-5',
+      d: 'Reading the actual order of bases in a DNA region, so new or unknown variants can also be found.',
+      s: 'Sequencing the whole gene can reveal a rare variant that a genotyping array would miss.' },
+    { t: 'dbSNP, rs numbers', k: 'word', l: 'lecture3.qmd#t3-3c',
+      d: 'dbSNP is the public database of genetic variants; each variant gets an rs number, a stable ID that does not change between genome builds.',
+      s: 'The report lists the variant by its rs number, so we can look it up in dbSNP.' },
+    { t: 'Germline and somatic mutations', k: 'word', l: 'lecture3.qmd#t3-4',
+      d: 'Germline: in egg or sperm, present in every cell and heritable. Somatic: arises in one tissue during life, not inherited.',
+      s: 'The variant was found in the tumour but not in the blood, so it is somatic rather than germline.' },
+    { t: 'Allele frequency', k: 'word', l: 'lecture4.qmd#t4-2',
+      d: 'The proportion of all copies of a gene in a population that are a given allele.',
+      s: 'The risk allele has a frequency of about 20% in Europeans, so it is common.' },
+    { t: 'Random mating, HWE', k: 'word', l: 'lecture3.qmd#t3-9',
+      d: 'Under random mating (and no selection, migration or mutation), genotype frequencies are p², 2pq and q²: Hardy–Weinberg equilibrium.',
+      s: 'The genotype counts fit Hardy–Weinberg equilibrium, which suggests the genotyping worked well.' },
+    { t: 'Linkage disequilibrium', k: 'word', l: 'lecture3.qmd#t3-7',
+      d: 'Non-random association of alleles at nearby positions: they are inherited together more often than chance predicts.',
+      s: 'Because of linkage disequilibrium, the SNP we tested may only be a marker for the causal variant nearby.' },
+    { t: 'SNP arrays', k: 'word', l: 'lecture3.qmd#t3-5',
+      d: 'Chips that genotype hundreds of thousands of pre-selected SNPs at once, cheaply.',
+      s: 'The cohort was genotyped on a SNP array, so only known common variants were measured.' },
+    { t: 'DNA polymerase', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'The enzyme that builds new DNA 5′→3′ from a template; it needs a primer to start.',
+      s: 'In PCR a heat-stable DNA polymerase copies the region between the primers.' },
+    { t: 'RNA polymerase', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'The enzyme that transcribes DNA into RNA; it does not need a primer.',
+      s: 'RNA polymerase binds at the promoter and starts transcribing the gene.' },
+    { t: 'Transcription factors', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'Proteins that bind DNA and increase or decrease how much a gene is transcribed.',
+      s: 'A variant in the binding site of a transcription factor can change how much of the gene is expressed.' },
+    { t: 'Ribosome', k: 'word', l: 'lecture2.qmd#t2-1',
+      d: 'The RNA–protein machine that translates mRNA into protein.',
+      s: 'The ribosome reads the mRNA codon by codon and joins the amino acids.' },
+    { t: 'Chromosomal alterations', k: 'word', l: 'lecture2.qmd#t2-4b',
+      d: 'Large structural changes: deletion, duplication, inversion, insertion or translocation of chromosome segments.',
+      s: 'The leukaemia carries a translocation that joins parts of two chromosomes.' },
+    { t: 'Lipids, including phospholipids', k: 'word', l: 'lecture1.qmd#t1-4d',
+      d: 'Fat-soluble molecules (fatty acids, triglycerides, cholesterol). Phospholipids have a water-loving head and fat-loving tails and form cell membranes.',
+      s: 'Blood lipids such as cholesterol and triglycerides are transported in lipoprotein particles.' },
+    { t: 'Metabolism, metabolites', k: 'word', l: 'lecture1.qmd#t1-3',
+      d: 'Metabolism: all chemical reactions in the body. Metabolites: the small molecules involved (e.g. glucose, amino acids, fatty acids).',
+      s: 'Metabolites in plasma reflect both the patient\'s genes and their recent diet.' },
+    { t: 'Reference genome', k: 'word', l: 'lecture3.qmd#t3-3c',
+      d: 'A standard assembled human genome sequence (e.g. GRCh37/hg19, GRCh38/hg38) that positions and variants are described against.',
+      s: 'Positions differ between reference genome builds, so we state that we use GRCh38.' },
+    { t: 'Central dogma of molecular biology', k: 'concept', l: 'lecture1.qmd#t1-4',
+      d: 'Information flows DNA → RNA (transcription) → protein (translation); DNA is copied by replication.',
+      s: 'Following the central dogma, a DNA variant can change the mRNA and in turn the protein.' },
+    { t: 'Regulation of gene expression', k: 'concept', l: 'lecture2.qmd#t2-3',
+      d: 'Cells control which genes are used and how much, at several levels: DNA/chromatin, transcription (transcription factors), RNA processing, mRNA degradation, translation and protein modification.',
+      s: 'All cells carry the same genes, but regulation of gene expression explains why liver and muscle make different proteins.' },
+    { t: 'Nomenclature for mutations', k: 'concept', l: 'lecture3.qmd#t3-3b',
+      d: 'HGVS notation: reference sequence (NM_, NC_), c. for coding DNA, p. for protein, g. for genomic, e.g. c.451C>T, p.Arg151Trp.',
+      s: 'The report writes c.451C>T, p.Arg151Trp: a C-to-T change at coding position 451 that swaps arginine for tryptophan.' },
+    { t: 'Mendel\'s law of independent assortment', k: 'concept', l: 'lecture3.qmd#t3-6',
+      d: 'Alleles of different genes are passed on independently of each other, if the genes are on different chromosomes or far apart.',
+      s: 'The two traits follow independent assortment because their genes lie on different chromosomes.' },
+    { t: 'Test crosses, recombination frequency, linked and unlinked genes', k: 'concept', l: 'lecture3.qmd#t3-7',
+      d: 'A test cross (with a homozygous recessive) reveals the gametes. Recombination frequency = recombinant offspring / total; close to 50% for unlinked genes, lower for linked genes close together.',
+      s: 'A recombination frequency of 5% shows the two genes are linked and lie close together.' },
+    { t: 'How to check for HWE', k: 'unsure', l: 'lecture3.qmd#t3-9',
+      d: 'Estimate allele frequencies p and q from the genotype counts, compute expected counts p²N, 2pqN, q²N, and compare with the observed counts (chi-square test).',
+      s: 'We checked HWE by comparing the observed genotype counts with those expected from the allele frequencies.' },
+    { t: 'How to check for association between SNP and phenotype', k: 'unsure', l: 'lecture4.qmd#t4-4',
+      d: 'Regress the phenotype on the number of effect alleles (0/1/2): linear regression for a continuous trait, logistic for disease; β, SE and p per SNP.',
+      s: 'Each extra copy of the allele was associated with 0.1 mmol/L higher LDL cholesterol in the regression.' }
+  ];
+
+  var KIND_LABEL = { word: 'Word', concept: 'Concept', unsure: 'Uncertain about use' };
+  var KEY = 'sta520_vocab';
+  var marks = {};
+  try { marks = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { marks = {}; }
+  function saveMarks() { try { localStorage.setItem(KEY, JSON.stringify(marks)); } catch (e) {} }
+  function href(l) { return l ? l.replace('.qmd', '.html') : ''; }
+
+  var order = CARDS.map(function (_, i) { return i; });
+  var pos = 0;
+  var $ = function (id) { return document.getElementById(id); };
+
+  function visible() {
+    var f = $('vocab-filter').value;
+    return order.filter(function (i) {
+      var c = CARDS[i];
+      if (f === 'all') return true;
+      if (f === 'todo') return marks[c.t] !== 'know';
+      return c.k === f;
+    });
+  }
+
+  function show() {
+    var list = visible();
+    var known = CARDS.filter(function (c) { return marks[c.t] === 'know'; }).length;
+    $('vocab-progress').textContent = known + ' of ' + CARDS.length + ' marked "I can use it"';
+    if (!list.length) {
+      $('vocab-term').textContent = 'No cards left in this view 🎉';
+      $('vocab-kind').textContent = ''; $('vocab-pos').textContent = '';
+      $('vocab-back').hidden = true; return;
+    }
+    if (pos >= list.length) pos = 0;
+    if (pos < 0) pos = list.length - 1;
+    var c = CARDS[list[pos]];
+    $('vocab-kind').textContent = KIND_LABEL[c.k] + (marks[c.t] === 'know' ? ' · ✓' : '');
+    $('vocab-kind').className = 'vocab-kind vocab-kind-' + c.k;
+    $('vocab-pos').textContent = (pos + 1) + ' / ' + list.length;
+    $('vocab-term').textContent = c.t;
+    $('vocab-def').textContent = c.d;
+    $('vocab-sentence').textContent = c.s;
+    if (c.l) { $('vocab-link').href = href(c.l); $('vocab-link-row').hidden = false; }
+    else { $('vocab-link-row').hidden = true; }
+    $('vocab-back').hidden = true;
+    $('vocab-own').value = '';
+  }
+
+  function mark(v) {
+    var list = visible(); if (!list.length) return;
+    marks[CARDS[list[pos]].t] = v; saveMarks();
+    if ($('vocab-filter').value !== 'todo' || v !== 'know') pos++;
+    show(); renderList();
+  }
+
+  function renderList() {
+    var s = '<' + 'table class="table table-sm"><thead><tr><th>Word or concept</th><th>Meaning</th><th></th></tr></thead><tbody>';
+    CARDS.forEach(function (c) {
+      s += '<tr><td><b>' + c.t + '</b>' + (c.k !== 'word' ? '<br><small>' + KIND_LABEL[c.k] + '</small>' : '') + '</td><td>' + c.d +
+        '<br><i>' + c.s + '</i></td><td>' + (marks[c.t] === 'know' ? '✓' : '') +
+        (c.l ? ' <a href="' + href(c.l) + '">→</a>' : '') + '</td></tr>';
+    });
+    $('vocab-list').innerHTML = s + '</tbody></' + 'table>';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    $('vocab-flip').addEventListener('click', function () { $('vocab-back').hidden = !$('vocab-back').hidden; });
+    $('vocab-next').addEventListener('click', function () { pos++; show(); });
+    $('vocab-prev').addEventListener('click', function () { pos--; show(); });
+    $('vocab-know').addEventListener('click', function () { mark('know'); });
+    $('vocab-again').addEventListener('click', function () { mark('again'); });
+    $('vocab-filter').addEventListener('change', function () { pos = 0; show(); });
+    $('vocab-shuffle').addEventListener('click', function () {
+      for (var i = order.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1)); var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+      }
+      pos = 0; show();
+    });
+    show(); renderList();
+  });
+})();
+</script>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Common mistakes in clumping
+<span class="screen-reader-only">Note</span>Source of the list
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<ul>
-<li>Starting from a SNP that is not the strongest remaining one.</li>
-<li>Comparing with SNPs that have already been removed.</li>
-<li>Using a threshold in the wrong direction (remove r² <strong>≥</strong> 0.01, keep r² &lt; 0.01).</li>
-<li>Concluding that the lead SNPs are causal. They are the strongest <em>statistical</em> signals. A simulated phenotype, where the causal SNPs are known, is exactly the situation where you can check this.</li>
-</ul>
+<p>From the lecture notes of 29 September: “Words to be able to use in a sentence (from the first three lectures)”, the words and concepts noted from the professor’s list, and two items listed as “uncertain about use”. The definitions and model sentences are written for this app. “Intron, exon” is on the list but not covered in the slides the app is built from, so its card has no lecture link.</p>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="part-b-summary-statistics-and-a-reference-panel" class="level1">
-<h1>Part B: summary statistics and a reference panel</h1>
-<section id="b1.-why-an-external-reference-is-needed" class="level2">
-<h2 class="anchored" data-anchor-id="b1.-why-an-external-reference-is-needed">B1. Why an external reference is needed</h2>
-<p>Summary statistics have one row per SNP and <strong>no individual genotypes</strong>, so the correlation between two SNPs (LD) cannot be computed from them. You need a <strong>reference panel</strong> with individual-level genotypes, e.g.&nbsp;1000 Genomes, from a population with <strong>matching ancestry</strong>, because LD patterns differ between populations. <a href="./lecture5.html#t5-5">→ 5.5</a></p>
-<p>Things that go wrong when matching the two:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Problem</th>
-<th>Why it happens</th>
-<th>Handling</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>SNP missing from the reference</td>
-<td>Rare in that population, not in the panel, filtered by QC, or a different ID</td>
-<td>Accept the loss, or use a proxy SNP (<a href="./lecture6.html#t6-1">6.1</a>)</td>
-</tr>
-<tr class="even">
-<td>Different genome builds</td>
-<td>Positions differ between hg19/GRCh37 and hg38/GRCh38</td>
-<td>Match on <strong>rsID</strong>, which does not depend on the build</td>
-</tr>
-<tr class="odd">
-<td>Different allele coding</td>
-<td>Effect allele differs, or the other DNA strand is reported</td>
-<td>Align alleles (B2)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="allele-alignment" class="level2">
-<h2 class="anchored" data-anchor-id="allele-alignment">B2. Allele alignment</h2>
-<p>Before combining two files (GWAS + reference, or exposure + outcome in MR) every SNP must refer to the <strong>same effect allele</strong>.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Exposure alleles (effect/other)</th>
-<th>Outcome alleles (effect/other)</th>
-<th>Case</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A / G</td>
-<td>A / G</td>
-<td>Same</td>
-<td>Keep β</td>
-</tr>
-<tr class="even">
-<td>A / G</td>
-<td>G / A</td>
-<td>Swapped</td>
-<td><strong>Flip the sign</strong> of the outcome β (and use 1 − EAF)</td>
-</tr>
-<tr class="odd">
-<td>A / G</td>
-<td>T / C</td>
-<td>Other strand (complement)</td>
-<td>Complement → A/G: keep β</td>
-</tr>
-<tr class="even">
-<td>A / G</td>
-<td>C / T</td>
-<td>Other strand and swapped</td>
-<td>Complement → G/A: flip the sign</td>
-</tr>
-<tr class="odd">
-<td>A / G</td>
-<td>A / C</td>
-<td>Incompatible</td>
-<td>Exclude</td>
-</tr>
-<tr class="even">
-<td>A / T or C / G</td>
-<td>same letters</td>
-<td><strong>Palindromic</strong>: the complement is the same pair, so strand is invisible</td>
-<td>Use EAF: if clearly far from 0.5, compare EAFs to decide; if close to 0.5, <strong>exclude</strong></td>
-</tr>
-</tbody>
-</table>
-<div class="drill" data-drill="allele">
-
-</div>
-<div class="drill" data-drill="allele">
-
-</div>
-<div class="sta520-quiz" data-question="Why are palindromic SNPs (A/T, C/G) a special problem when combining datasets?">
-  <div class="q-opt" data-correct="false">They are always multiallelic and fail QC</div>
-  <div class="q-opt" data-correct="true">Their complement is the same allele pair, hiding strand flips</div>
-  <div class="q-opt" data-correct="false">They cannot be tested with the additive model</div>
-  <div class="q-opt" data-correct="false">They never reach genome-wide significance</div>
-  <div class="q-exp">For A/G you can spot a strand flip because the other strand reads T/C. For A/T the other strand also reads A/T (T/A), so a flip is invisible from the letters. Allele frequencies can resolve it only when the EAF is clearly different from 0.5.</div>
-</div>
-</section>
-</section>
-<section id="part-c" class="level1">
-<h1>Part C: from independent signals to Mendelian randomization</h1>
-<section id="c1.-the-mr-pipeline-in-exercise-2-as-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="c1.-the-mr-pipeline-in-exercise-2-as-concepts">C1. The MR pipeline in Exercise 2, as concepts</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Step</th>
-<th>Why</th>
-<th>Theory</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Keep exposure SNPs with p &lt; 5×10⁻⁸</td>
-<td><strong>Relevance</strong>: instruments must be strongly associated with the exposure</td>
-<td><a href="./lecture6.html#t6-5">6.5</a></td>
-</tr>
-<tr class="even">
-<td>Restrict to SNPs present in the reference panel</td>
-<td>LD can only be computed for SNPs that exist there</td>
-<td><a href="./lecture5.html#t5-5">5.5</a></td>
-</tr>
-<tr class="odd">
-<td>Keep IDs that start with “rs”</td>
-<td>Stable identifiers for matching across files and builds</td>
-<td><a href="./lecture3.html#t3-3c">3.3c</a></td>
-</tr>
-<tr class="even">
-<td>LD clumping at r² &lt; 0.01</td>
-<td>Instruments must be <strong>independent</strong>, or the same signal is counted several times</td>
-<td><a href="./lecture5.html#t5-4b">5.4b</a></td>
-</tr>
-<tr class="odd">
-<td>Look up the lead SNPs in the outcome GWAS</td>
-<td>Need β<sub>outcome</sub> for each instrument; missing SNPs are lost (or replaced by proxies)</td>
-<td><a href="./lecture6.html#t6-1">6.1</a></td>
-</tr>
-<tr class="even">
-<td>Align alleles</td>
-<td>β<sub>exposure</sub> and β<sub>outcome</sub> must refer to the same allele</td>
-<td>B2 above</td>
-</tr>
-<tr class="odd">
-<td>Wald ratio per SNP; IVW, MR-Egger, weighted median</td>
-<td>Estimate and check robustness</td>
-<td><a href="./lecture6.html#t6-7">6.7</a>, <a href="./lecture6.html#t6-8">6.8</a></td>
-</tr>
-</tbody>
-</table>
-<p>A common convention is to orient every SNP so that the effect allele <strong>raises the exposure</strong> (β<sub>exposure</sub> &gt; 0), flipping both betas when needed. The MR scatter plot then lies in the right half.</p>
-</section>
-<section id="c2.-reading-an-mr-analysis-a-simulated-example" class="level2">
-<h2 class="anchored" data-anchor-id="c2.-reading-an-mr-analysis-a-simulated-example">C2. Reading an MR analysis: a simulated example</h2>
-<p>Simulated data, not the course data: 30 independent instruments with a true causal effect of 0.5 (log-odds of the outcome per unit exposure). Four instruments also have a <strong>direct</strong> effect on the outcome (horizontal pleiotropy).</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="computer-exercises_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Simulated MR scatter. Orange points are the four pleiotropic instruments. IVW (green) is forced through the origin; MR-Egger (orange, dashed) has a free intercept; the dotted line shows the true effect 0.5.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>MR estimates for the simulated data (true causal effect = 0.5)</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Method</th>
-<th style="text-align: right;">Estimate</th>
-<th style="text-align: left;">p-value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">IVW</td>
-<td style="text-align: right;">0.543</td>
-<td style="text-align: left;">2.3e-15</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">MR-Egger (slope)</td>
-<td style="text-align: right;">0.335</td>
-<td style="text-align: left;">8.4e-05</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">MR-Egger (intercept)</td>
-<td style="text-align: right;">0.031</td>
-<td style="text-align: left;">0.004</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Weighted median</td>
-<td style="text-align: right;">0.505</td>
-<td style="text-align: left;">n/a</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><strong>How to read it</strong></p>
-<ul>
-<li><strong>IVW</strong> uses all instruments and assumes they are all valid. With positive pleiotropy in a few SNPs it is pulled <strong>upward</strong>.</li>
-<li><strong>Weighted median</strong> is robust as long as at least ~50% of the weight comes from valid instruments. Here it should be closer to 0.5.</li>
-<li><strong>MR-Egger</strong>’s intercept estimates the average pleiotropic effect. Here it is clearly non-zero, signalling <strong>directional</strong> pleiotropy. The Egger slope is meant to be the pleiotropy-adjusted estimate, but in this simulation it lands well <em>below</em> the truth: with only four pleiotropic SNPs among 30, the free intercept over-corrects. Egger is imprecise and relies on its own assumption (InSIDE), so treat its slope as a sensitivity check, not the answer.</li>
-<li><strong>Agreement</strong> in direction across the three methods supports a causal effect; the size of the estimates should be interpreted with the exposure unit in mind (<a href="./lecture6.html#t6-9">6.9</a>).</li>
-</ul>
-<div class="sta520-quiz" data-question="An MR analysis gives IVW β = 0.42 (p = 10⁻¹²), weighted median β = 0.39 (p = 10⁻⁶), MR-Egger slope 0.35 (p = 0.03) with intercept 0.002 (p = 0.61). How do you summarize it?">
-  <div class="q-opt" data-correct="true">Consistent evidence of a positive effect, no sign of directional pleiotropy</div>
-  <div class="q-opt" data-correct="false">The Egger intercept shows strong pleiotropy, so IVW is invalid</div>
-  <div class="q-opt" data-correct="false">The methods disagree in direction, so no conclusion is possible</div>
-  <div class="q-opt" data-correct="false">The effect is negative, since Egger’s slope is smaller than IVW</div>
-  <div class="q-exp">All three estimates are positive and similar, and the Egger intercept is close to zero and non-significant. That is the triangulation pattern that strengthens a causal interpretation. The Egger p-value is larger simply because Egger is less precise.</div>
-</div>
-<div class="sta520-quiz" data-question="IVW β = 0.60 (p = 10⁻⁸) but weighted median β = 0.05 (p = 0.7) and MR-Egger intercept = 0.03 (p = 0.002). What is the most plausible reading?">
-  <div class="q-opt" data-correct="false">A strong and robust causal effect, since IVW is the main method</div>
-  <div class="q-opt" data-correct="true">IVW is probably driven by pleiotropic instruments; be cautious</div>
-  <div class="q-opt" data-correct="false">The weighted median is wrong because its p-value is not significant</div>
-  <div class="q-opt" data-correct="false">Egger’s intercept confirms that the instruments are all valid</div>
-  <div class="q-exp">The robust method (weighted median) finds almost nothing, and the Egger intercept indicates directional pleiotropy. IVW, which assumes all instruments are valid, is then likely biased. Look for outlying instruments and do not claim causality from IVW alone.</div>
-</div>
-<div class="sta520-quiz" data-question="After aligning alleles you forget to flip βoutcome for five instruments whose effect alleles were swapped. What happens to the MR scatter plot?">
-  <div class="q-opt" data-correct="false">Nothing, because IVW only uses βexposure</div>
-  <div class="q-opt" data-correct="true">Those five points land on the wrong side of the line</div>
-  <div class="q-opt" data-correct="false">All points move closer to the origin by the same amount</div>
-  <div class="q-opt" data-correct="false">The Wald ratios of those five SNPs become exactly zero</div>
-  <div class="q-exp">A swapped allele gives the outcome β the wrong sign, so those SNPs point in the opposite direction from the rest. They pull IVW toward zero and can create a spurious Egger intercept. This is why allele alignment comes before any MR estimate.</div>
-</div>
-</section>
-</section>
-<section id="concept-questions-to-prepare-with" class="level1">
-<h1>Concept questions to prepare with</h1>
-<p>The exercises end with concept questions. The theory behind them is in these sections; try explaining each in your own words before you look:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Concept</th>
-<th>Where</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>One signal gives many significant SNPs</td>
-<td><a href="./lecture4.html#t4-8">4.8</a>, <a href="./lecture5.html#t5-3">5.3</a></td>
-</tr>
-<tr class="even">
-<td>Significant SNP vs lead SNP vs independent signal</td>
-<td>A4 above, <a href="./lecture4.html#t4-10">4.10</a></td>
-</tr>
-<tr class="odd">
-<td>Lead SNP vs causal SNP</td>
-<td><a href="./lecture5.html#t5-3">5.3</a>, <a href="./lecture5.html#t5-4">5.4</a></td>
-</tr>
-<tr class="even">
-<td>LD cannot come from summary statistics alone</td>
-<td><a href="./lecture5.html#t5-5">5.5</a></td>
-</tr>
-<tr class="odd">
-<td>Ancestry of the reference panel</td>
-<td><a href="./lecture5.html#t5-4b">5.4b</a>, <a href="./lecture5.html#t5-5">5.5</a></td>
-</tr>
-<tr class="even">
-<td>Allele compatibility</td>
-<td>B2 above, <a href="./lecture5.html#t5-6">5.6</a></td>
-</tr>
-<tr class="odd">
-<td>Clumping before MR</td>
-<td><a href="./lecture5.html#t5-4b">5.4b</a>, <a href="./lecture6.html#t6-5">6.5</a></td>
-</tr>
-</tbody>
-</table>
 
 
-</section>
 
 </main> <!-- /main -->
 <script>
@@ -4369,13 +4049,13 @@ window.STA520_TOPICS = [
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./vocabulary.html" class="pagination-link" aria-label="Words to use in a sentence">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Words to use in a sentence</span>
+      <a href="./exam-practice.html" class="pagination-link" aria-label="Exam practice">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Exam practice</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./glossary.html" class="pagination-link" aria-label="Glossary">
-        <span class="nav-page-text">Glossary</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./computer-exercises.html" class="pagination-link" aria-label="Computer exercises: concepts">
+        <span class="nav-page-text">Computer exercises: concepts</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

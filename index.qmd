@@ -43,17 +43,25 @@ This app covers the nine lectures of STA520: from the biology (DNA, RNA, protein
 
 1. **Read a lecture.** Every topic section has a status control under its heading: **Not reviewed / Reviewed / Confident**. Click as you go.
 2. **Answer the quizzes** inside each lecture and the **why-questions** and **spaced review** at the bottom.
-3. **Start the [Exam practice](exam-practice.qmd) page with the instructor's 11 Lecture 7 example questions**, then practise calculations: drills that generate new numbers every time (Benjamini–Hochberg, Bonferroni, Hardy–Weinberg, OR from β, Wald ratio, IVW, F-statistic, allele alignment, PRS, log₂FC, quantile normalization, moderated t) plus 35 written exam-style questions with model answers.
+3. **Start the [Exam practice](exam-practice.qmd) page with the instructor's 11 Lecture 7 example questions**, then practise calculations: drills that generate new numbers every time (Benjamini–Hochberg, Bonferroni, Hardy–Weinberg, OR from β, Wald ratio, IVW, F-statistic, allele alignment, PRS, log₂FC, quantile normalization, moderated t) plus 34 written exam-style questions with model answers.
 4. **Prepare for the computer exercises** with [Computer exercises: concepts](computer-exercises.qmd): QC, PLINK output, clumping, allele alignment and MR interpretation on made-up data.
-5. **Check the [dashboard](dashboard.qmd)** to see what is left, with the instructor-flagged topics listed first.
-6. Look up terms in the [glossary](glossary.qmd) or use **search** (top right). Searching "PCSK9" finds it in Lectures 1, 2, 3, 6 and 8.
+5. **Practise the professor's word list** with the [flashcards](vocabulary.qmd): write a sentence with each word, then compare.
+6. **Check the [dashboard](dashboard.qmd)** to see what is left: written-exam topics first, then topics with unclear status; seminar topics are listed separately.
+7. Look up terms in the [glossary](glossary.qmd) or use **search** (top right). Searching "PCSK9" finds it in Lectures 1, 2, 3, 6 and 8.
 
 ## Exam flags
+
+What the lecturer said about the exam (lecture notes, 29 September): the **written exam** covers Lecture 7 (🎯) and the words and concepts on the professor's list for Lectures 1–3 (🎓). **GWAS and Mendelian randomization are examined at the seminar**, and what is examined there will not come on the written exam (🗣️). Do not focus on specific medicines, mutations or the running examples.
 
 | Badge | Meaning |
 |---|---|
 | <span class="flag-badge flag-instructor">🎯 Instructor-flagged EXAM</span> | The slide carried the literal "EXAM" marker from the instructor (**Lecture 7 only**). Highest priority. |
 | <span class="flag-badge flag-inferred">📌 Likely exam-relevant (AI-inferred)</span> | Inferred from definitions, formulas and worked examples. **Not confirmed by the instructor.** |
+| <span class="flag-badge flag-professor">🎓 On the professor's list</span> | The section covers words or concepts on the professor's exam list for Lectures 1–3 (lecture notes, 29 September). Practise them with the [flashcards](vocabulary.qmd). **On the written exam.** |
+| <span class="flag-badge flag-professor_unsure">🎓 On the professor's list (use uncertain)</span> | On the professor's list, under "uncertain about use" (checking HWE, checking SNP–phenotype association). |
+| <span class="flag-badge flag-unclear">❔ Exam status unclear</span> | GWAS/MR theory that is **not** part of computer exercises 1–2, plus polygenic risk scores and protein MR. Not confirmed as seminar or written-exam content. |
+| <span class="flag-badge flag-seminar">🗣️ Seminar: not on the written exam</span> | Covered by computer exercises 1–2. The lecturer said GWAS and MR are examined at the seminar, and what is examined there will **not** come on the written exam. |
+| <span class="flag-badge flag-example">Example, not exam focus</span> | The course's running examples (PCSK9, LDLR, specific medicines and mutations). The lecturer said not to learn them specifically. |
 
 ::: {.callout-important}
 ## Instructor's example exam questions included

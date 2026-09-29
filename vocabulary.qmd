@@ -1,0 +1,304 @@
+---
+title: "Words to use in a sentence"
+subtitle: "Flashcards for the professor's word and concept list (Lectures 1–3)"
+toc: false
+---
+
+::: {.callout-important}
+## Partial list: the full list is coming
+The lecturer will upload the complete list of words you should be able to **use in a sentence**, for example when talking with doctors. These cards contain the words and concepts noted so far (lecture notes, 29 September). Cards will be added when the full list is available.
+:::
+
+**How to use the cards.** Read the word, **write your own sentence** in the box (as if explaining it to a doctor), then flip the card to compare with the definition and a model sentence. Mark the card **I can use it** or **Practise again**. Your marks are saved in this browser only.
+
+```{=html}
+<div id="vocab-app" class="vocab-app">
+  <div class="vocab-controls">
+    <label>Show
+      <select id="vocab-filter" class="form-select form-select-sm">
+        <option value="all">All cards</option>
+        <option value="word">Words</option>
+        <option value="concept">Concepts</option>
+        <option value="unsure">Uncertain about use</option>
+        <option value="todo">Not yet "I can use it"</option>
+      </select>
+    </label>
+    <button id="vocab-shuffle" class="btn btn-sm btn-outline-secondary" type="button">Shuffle ↻</button>
+    <span id="vocab-progress" class="vocab-progress"></span>
+  </div>
+
+  <div class="vocab-card">
+    <div class="vocab-meta"><span id="vocab-kind" class="vocab-kind"></span> <span id="vocab-pos"></span></div>
+    <div id="vocab-term" class="vocab-term"></div>
+    <textarea id="vocab-own" class="form-control" rows="2" placeholder="Write your own sentence using the word …"></textarea>
+    <button id="vocab-flip" class="btn btn-sm btn-primary" type="button">Flip card</button>
+    <div id="vocab-back" class="vocab-back" hidden>
+      <p><b>Meaning.</b> <span id="vocab-def"></span></p>
+      <p><b>Model sentence.</b> <i id="vocab-sentence"></i></p>
+      <p id="vocab-link-row"><a id="vocab-link" href="#">Read more in the lecture →</a></p>
+      <div class="vocab-mark">
+        <button id="vocab-know" class="btn btn-sm btn-success" type="button">✓ I can use it</button>
+        <button id="vocab-again" class="btn btn-sm btn-outline-warning" type="button">Practise again</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="vocab-nav">
+    <button id="vocab-prev" class="btn btn-sm btn-outline-secondary" type="button">← Previous</button>
+    <button id="vocab-next" class="btn btn-sm btn-outline-secondary" type="button">Next →</button>
+  </div>
+</div>
+
+<details class="vocab-all">
+  <summary>Show all cards as a list</summary>
+  <div id="vocab-list"></div>
+</details>
+
+<script>
+(function () {
+  'use strict';
+  /* kind: word | concept | unsure.  link: lecture page + topic anchor (empty = not in the slides) */
+  var CARDS = [
+    { t: 'DNA', k: 'word', l: 'lecture1.qmd#t1-4b',
+      d: 'Deoxyribonucleic acid: the double-stranded molecule that stores genetic information as a sequence of the bases A, T, C and G.',
+      s: 'The patient\'s DNA was extracted from a blood sample so that we could look for inherited variants.' },
+    { t: 'Nucleotide', k: 'word', l: 'lecture1.qmd#t1-4b',
+      d: 'The building block of DNA and RNA: a sugar, a phosphate group and one base.',
+      s: 'A single-nucleotide change in this gene is enough to alter the protein it codes for.' },
+    { t: 'Polynucleotide', k: 'word', l: 'lecture1.qmd#t1-4b',
+      d: 'A chain of nucleotides linked by sugar–phosphate bonds; each DNA or RNA strand is a polynucleotide.',
+      s: 'Each strand of the DNA helix is a long polynucleotide chain.' },
+    { t: 'Complementary base pairing', k: 'word', l: 'lecture1.qmd#t1-4b',
+      d: 'A pairs with T (U in RNA) and C pairs with G, so one strand determines the sequence of the other.',
+      s: 'Because of complementary base pairing, a PCR primer only binds where the sequence matches the target.' },
+    { t: 'Strand, complementary strand', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'One of the two polynucleotide chains of DNA; the complementary strand has the matching bases on the other side.',
+      s: 'The variant can be reported on either strand, so we check which strand the laboratory used.' },
+    { t: 'Antiparallel strands; 5′→3′ direction of synthesis', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'The two strands run in opposite directions (5′→3′ and 3′→5′). New DNA and RNA are always made 5′→3′.',
+      s: 'Since the strands are antiparallel, the polymerase reads the template 3′→5′ while building the new strand 5′→3′.' },
+    { t: 'Gene', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'A stretch of DNA that is transcribed into a functional RNA, usually coding for a protein.',
+      s: 'This gene codes for a receptor that clears cholesterol from the blood.' },
+    { t: 'Chromosome', k: 'word', l: 'lecture1.qmd#t1-4c',
+      d: 'One long DNA molecule packed with proteins; humans have 23 pairs.',
+      s: 'The gene is located on chromosome 19, so it is inherited independently of genes on other chromosomes.' },
+    { t: 'DNA replication', k: 'word', l: 'lecture1.qmd#t1-4b',
+      d: 'Copying of DNA before cell division: each strand serves as template for a new complementary strand.',
+      s: 'Errors during DNA replication that are not repaired become mutations in the daughter cells.' },
+    { t: 'Meiosis and mitosis', k: 'word', l: 'lecture1.qmd#t1-4c',
+      d: 'Mitosis: division into two identical cells (growth, repair). Meiosis: two divisions producing eggs or sperm with half the chromosome number and new allele combinations.',
+      s: 'A mutation arising in mitosis in the tumour is somatic, whereas one passed on through meiosis can be inherited.' },
+    { t: 'RNA', k: 'word', l: 'lecture2.qmd#t2-1',
+      d: 'Ribonucleic acid: usually single-stranded, uses the sugar ribose and the base U instead of T.',
+      s: 'We measured RNA to see which genes are actively expressed in the tissue.' },
+    { t: 'mRNA, rRNA, miRNA', k: 'word', l: 'lecture2.qmd#t2-1',
+      d: 'mRNA carries the code for a protein to the ribosome; rRNA is part of the ribosome; miRNA is a short RNA that regulates other mRNAs.',
+      s: 'The drug lowers the amount of the target mRNA, so less of the protein is produced.' },
+    { t: 'Transcription', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'Copying a gene\'s DNA into RNA by RNA polymerase, in the nucleus.',
+      s: 'The variant sits in a regulatory region, so it changes how much the gene is transcribed.' },
+    { t: 'Translation', k: 'word', l: 'lecture2.qmd#t2-3',
+      d: 'Reading the mRNA codons at the ribosome to build a protein, one amino acid at a time.',
+      s: 'The stop codon ends translation early, so the protein is truncated.' },
+    { t: 'Template strand (non-coding strand)', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'The DNA strand RNA polymerase reads; the RNA is complementary to it. The other strand (coding strand) has the same sequence as the mRNA.',
+      s: 'The mRNA is complementary to the template strand, so it matches the coding strand with U instead of T.' },
+    { t: 'Codon', k: 'word', l: 'lecture2.qmd#t2-3',
+      d: 'Three consecutive mRNA bases that specify one amino acid (or a stop).',
+      s: 'The substitution changes one codon, so a different amino acid is built into the protein.' },
+    { t: 'Start codon, stop codon', k: 'word', l: 'lecture2.qmd#t2-3',
+      d: 'AUG (methionine) starts translation; UAA, UAG and UGA stop it.',
+      s: 'The mutation creates a premature stop codon, so the protein is cut short.' },
+    { t: 'Intron, exon', k: 'word', l: '',
+      d: 'Exons are the parts of a gene kept in the mature mRNA; introns are removed by splicing before translation. (Not covered in the app\'s slides; definition added.)',
+      s: 'The variant lies in an intron, so it does not change the protein sequence directly but may affect splicing.' },
+    { t: 'Protein (including functions)', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'A folded chain of amino acids. Functions include enzymes, transport, receptors, structure, signalling (hormones) and defence (antibodies).',
+      s: 'The receptor protein on the liver cell takes up cholesterol from the blood.' },
+    { t: 'Enzyme', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'A protein that speeds up a specific chemical reaction without being used up.',
+      s: 'A loss-of-function variant in this enzyme slows the breakdown of the substance, so it accumulates.' },
+    { t: 'Amino acids', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'The 20 building blocks of proteins; the order is set by the codons of the mRNA.',
+      s: 'The missense variant replaces one amino acid with another at position 151.' },
+    { t: 'Peptide, polypeptide', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'A peptide is a short chain of amino acids; a polypeptide is a long chain, which folds into a protein.',
+      s: 'Insulin is made from a longer polypeptide that is cut into its active form.' },
+    { t: 'Mutation', k: 'word', l: 'lecture2.qmd#t2-4',
+      d: 'A permanent change in the DNA sequence.',
+      s: 'The test looks for a mutation that is known to raise the risk of the disease.' },
+    { t: 'Point mutation', k: 'word', l: 'lecture2.qmd#t2-4',
+      d: 'A change of a single base (a substitution, or a one-base insertion or deletion).',
+      s: 'A single point mutation was found, changing one base in the coding sequence.' },
+    { t: 'Substitution, insertion, deletion', k: 'word', l: 'lecture2.qmd#t2-4b',
+      d: 'Substitution: one base replaced by another. Insertion: bases added. Deletion: bases removed.',
+      s: 'The sequencing report shows a two-base deletion rather than a substitution.' },
+    { t: 'Silent, missense, nonsense', k: 'word', l: 'lecture2.qmd#t2-4',
+      d: 'Effects of a substitution on the protein: silent = same amino acid; missense = a different amino acid; nonsense = a stop codon.',
+      s: 'This is a missense variant: the protein is full length but one amino acid is different.' },
+    { t: 'Frameshift, in-frame', k: 'word', l: 'lecture2.qmd#t2-4b',
+      d: 'An insertion or deletion not a multiple of 3 shifts the reading frame (frameshift); a multiple of 3 keeps the frame (in-frame).',
+      s: 'The one-base deletion causes a frameshift, so every codon after it is read wrongly.' },
+    { t: 'Gain of function, loss of function', k: 'word', l: 'lecture3.qmd#t3-3',
+      d: 'Gain of function: the protein becomes more active or gets a new activity. Loss of function: it works less or not at all.',
+      s: 'A loss-of-function variant in this gene lowers the protein\'s activity, which mimics the effect of the drug.' },
+    { t: 'PCR, primer', k: 'word', l: 'lecture2.qmd#t2-6',
+      d: 'PCR copies a chosen DNA region millions of times. Primers are short single-stranded DNA pieces that bind on each side of the region and give the polymerase a starting point.',
+      s: 'We used PCR with primers flanking the variant to amplify that region before sequencing.' },
+    { t: 'Genotyping', k: 'word', l: 'lecture3.qmd#t3-5',
+      d: 'Determining which alleles a person carries at known, pre-selected positions (e.g. with a SNP array).',
+      s: 'When we genotype the patient, we check which alleles they carry at positions already known to vary.' },
+    { t: 'Sequencing', k: 'word', l: 'lecture3.qmd#t3-5',
+      d: 'Reading the actual order of bases in a DNA region, so new or unknown variants can also be found.',
+      s: 'Sequencing the whole gene can reveal a rare variant that a genotyping array would miss.' },
+    { t: 'dbSNP, rs numbers', k: 'word', l: 'lecture3.qmd#t3-3c',
+      d: 'dbSNP is the public database of genetic variants; each variant gets an rs number, a stable ID that does not change between genome builds.',
+      s: 'The report lists the variant by its rs number, so we can look it up in dbSNP.' },
+    { t: 'Germline and somatic mutations', k: 'word', l: 'lecture3.qmd#t3-4',
+      d: 'Germline: in egg or sperm, present in every cell and heritable. Somatic: arises in one tissue during life, not inherited.',
+      s: 'The variant was found in the tumour but not in the blood, so it is somatic rather than germline.' },
+    { t: 'Allele frequency', k: 'word', l: 'lecture4.qmd#t4-2',
+      d: 'The proportion of all copies of a gene in a population that are a given allele.',
+      s: 'The risk allele has a frequency of about 20% in Europeans, so it is common.' },
+    { t: 'Random mating, HWE', k: 'word', l: 'lecture3.qmd#t3-9',
+      d: 'Under random mating (and no selection, migration or mutation), genotype frequencies are p², 2pq and q²: Hardy–Weinberg equilibrium.',
+      s: 'The genotype counts fit Hardy–Weinberg equilibrium, which suggests the genotyping worked well.' },
+    { t: 'Linkage disequilibrium', k: 'word', l: 'lecture3.qmd#t3-7',
+      d: 'Non-random association of alleles at nearby positions: they are inherited together more often than chance predicts.',
+      s: 'Because of linkage disequilibrium, the SNP we tested may only be a marker for the causal variant nearby.' },
+    { t: 'SNP arrays', k: 'word', l: 'lecture3.qmd#t3-5',
+      d: 'Chips that genotype hundreds of thousands of pre-selected SNPs at once, cheaply.',
+      s: 'The cohort was genotyped on a SNP array, so only known common variants were measured.' },
+    { t: 'DNA polymerase', k: 'word', l: 'lecture1.qmd#t1-4',
+      d: 'The enzyme that builds new DNA 5′→3′ from a template; it needs a primer to start.',
+      s: 'In PCR a heat-stable DNA polymerase copies the region between the primers.' },
+    { t: 'RNA polymerase', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'The enzyme that transcribes DNA into RNA; it does not need a primer.',
+      s: 'RNA polymerase binds at the promoter and starts transcribing the gene.' },
+    { t: 'Transcription factors', k: 'word', l: 'lecture2.qmd#t2-2',
+      d: 'Proteins that bind DNA and increase or decrease how much a gene is transcribed.',
+      s: 'A variant in the binding site of a transcription factor can change how much of the gene is expressed.' },
+    { t: 'Ribosome', k: 'word', l: 'lecture2.qmd#t2-1',
+      d: 'The RNA–protein machine that translates mRNA into protein.',
+      s: 'The ribosome reads the mRNA codon by codon and joins the amino acids.' },
+    { t: 'Chromosomal alterations', k: 'word', l: 'lecture2.qmd#t2-4b',
+      d: 'Large structural changes: deletion, duplication, inversion, insertion or translocation of chromosome segments.',
+      s: 'The leukaemia carries a translocation that joins parts of two chromosomes.' },
+    { t: 'Lipids, including phospholipids', k: 'word', l: 'lecture1.qmd#t1-4d',
+      d: 'Fat-soluble molecules (fatty acids, triglycerides, cholesterol). Phospholipids have a water-loving head and fat-loving tails and form cell membranes.',
+      s: 'Blood lipids such as cholesterol and triglycerides are transported in lipoprotein particles.' },
+    { t: 'Metabolism, metabolites', k: 'word', l: 'lecture1.qmd#t1-3',
+      d: 'Metabolism: all chemical reactions in the body. Metabolites: the small molecules involved (e.g. glucose, amino acids, fatty acids).',
+      s: 'Metabolites in plasma reflect both the patient\'s genes and their recent diet.' },
+    { t: 'Reference genome', k: 'word', l: 'lecture3.qmd#t3-3c',
+      d: 'A standard assembled human genome sequence (e.g. GRCh37/hg19, GRCh38/hg38) that positions and variants are described against.',
+      s: 'Positions differ between reference genome builds, so we state that we use GRCh38.' },
+    { t: 'Central dogma of molecular biology', k: 'concept', l: 'lecture1.qmd#t1-4',
+      d: 'Information flows DNA → RNA (transcription) → protein (translation); DNA is copied by replication.',
+      s: 'Following the central dogma, a DNA variant can change the mRNA and in turn the protein.' },
+    { t: 'Regulation of gene expression', k: 'concept', l: 'lecture2.qmd#t2-3',
+      d: 'Cells control which genes are used and how much, at several levels: DNA/chromatin, transcription (transcription factors), RNA processing, mRNA degradation, translation and protein modification.',
+      s: 'All cells carry the same genes, but regulation of gene expression explains why liver and muscle make different proteins.' },
+    { t: 'Nomenclature for mutations', k: 'concept', l: 'lecture3.qmd#t3-3b',
+      d: 'HGVS notation: reference sequence (NM_, NC_), c. for coding DNA, p. for protein, g. for genomic, e.g. c.451C>T, p.Arg151Trp.',
+      s: 'The report writes c.451C>T, p.Arg151Trp: a C-to-T change at coding position 451 that swaps arginine for tryptophan.' },
+    { t: 'Mendel\'s law of independent assortment', k: 'concept', l: 'lecture3.qmd#t3-6',
+      d: 'Alleles of different genes are passed on independently of each other, if the genes are on different chromosomes or far apart.',
+      s: 'The two traits follow independent assortment because their genes lie on different chromosomes.' },
+    { t: 'Test crosses, recombination frequency, linked and unlinked genes', k: 'concept', l: 'lecture3.qmd#t3-7',
+      d: 'A test cross (with a homozygous recessive) reveals the gametes. Recombination frequency = recombinant offspring / total; close to 50% for unlinked genes, lower for linked genes close together.',
+      s: 'A recombination frequency of 5% shows the two genes are linked and lie close together.' },
+    { t: 'How to check for HWE', k: 'unsure', l: 'lecture3.qmd#t3-9',
+      d: 'Estimate allele frequencies p and q from the genotype counts, compute expected counts p²N, 2pqN, q²N, and compare with the observed counts (chi-square test).',
+      s: 'We checked HWE by comparing the observed genotype counts with those expected from the allele frequencies.' },
+    { t: 'How to check for association between SNP and phenotype', k: 'unsure', l: 'lecture4.qmd#t4-4',
+      d: 'Regress the phenotype on the number of effect alleles (0/1/2): linear regression for a continuous trait, logistic for disease; β, SE and p per SNP.',
+      s: 'Each extra copy of the allele was associated with 0.1 mmol/L higher LDL cholesterol in the regression.' }
+  ];
+
+  var KIND_LABEL = { word: 'Word', concept: 'Concept', unsure: 'Uncertain about use' };
+  var KEY = 'sta520_vocab';
+  var marks = {};
+  try { marks = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { marks = {}; }
+  function saveMarks() { try { localStorage.setItem(KEY, JSON.stringify(marks)); } catch (e) {} }
+  function href(l) { return l ? l.replace('.qmd', '.html') : ''; }
+
+  var order = CARDS.map(function (_, i) { return i; });
+  var pos = 0;
+  var $ = function (id) { return document.getElementById(id); };
+
+  function visible() {
+    var f = $('vocab-filter').value;
+    return order.filter(function (i) {
+      var c = CARDS[i];
+      if (f === 'all') return true;
+      if (f === 'todo') return marks[c.t] !== 'know';
+      return c.k === f;
+    });
+  }
+
+  function show() {
+    var list = visible();
+    var known = CARDS.filter(function (c) { return marks[c.t] === 'know'; }).length;
+    $('vocab-progress').textContent = known + ' of ' + CARDS.length + ' marked "I can use it"';
+    if (!list.length) {
+      $('vocab-term').textContent = 'No cards left in this view 🎉';
+      $('vocab-kind').textContent = ''; $('vocab-pos').textContent = '';
+      $('vocab-back').hidden = true; return;
+    }
+    if (pos >= list.length) pos = 0;
+    if (pos < 0) pos = list.length - 1;
+    var c = CARDS[list[pos]];
+    $('vocab-kind').textContent = KIND_LABEL[c.k] + (marks[c.t] === 'know' ? ' · ✓' : '');
+    $('vocab-kind').className = 'vocab-kind vocab-kind-' + c.k;
+    $('vocab-pos').textContent = (pos + 1) + ' / ' + list.length;
+    $('vocab-term').textContent = c.t;
+    $('vocab-def').textContent = c.d;
+    $('vocab-sentence').textContent = c.s;
+    if (c.l) { $('vocab-link').href = href(c.l); $('vocab-link-row').hidden = false; }
+    else { $('vocab-link-row').hidden = true; }
+    $('vocab-back').hidden = true;
+    $('vocab-own').value = '';
+  }
+
+  function mark(v) {
+    var list = visible(); if (!list.length) return;
+    marks[CARDS[list[pos]].t] = v; saveMarks();
+    if ($('vocab-filter').value !== 'todo' || v !== 'know') pos++;
+    show(); renderList();
+  }
+
+  function renderList() {
+    var s = '<' + 'table class="table table-sm"><thead><tr><th>Word or concept</th><th>Meaning</th><th></th></tr></thead><tbody>';
+    CARDS.forEach(function (c) {
+      s += '<tr><td><b>' + c.t + '</b>' + (c.k !== 'word' ? '<br><small>' + KIND_LABEL[c.k] + '</small>' : '') + '</td><td>' + c.d +
+        '<br><i>' + c.s + '</i></td><td>' + (marks[c.t] === 'know' ? '✓' : '') +
+        (c.l ? ' <a href="' + href(c.l) + '">→</a>' : '') + '</td></tr>';
+    });
+    $('vocab-list').innerHTML = s + '</tbody></' + 'table>';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    $('vocab-flip').addEventListener('click', function () { $('vocab-back').hidden = !$('vocab-back').hidden; });
+    $('vocab-next').addEventListener('click', function () { pos++; show(); });
+    $('vocab-prev').addEventListener('click', function () { pos--; show(); });
+    $('vocab-know').addEventListener('click', function () { mark('know'); });
+    $('vocab-again').addEventListener('click', function () { mark('again'); });
+    $('vocab-filter').addEventListener('change', function () { pos = 0; show(); });
+    $('vocab-shuffle').addEventListener('click', function () {
+      for (var i = order.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1)); var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+      }
+      pos = 0; show();
+    });
+    show(); renderList();
+  });
+})();
+</script>
+```
+
+::: {.callout-note collapse="true"}
+## Source of the list
+From the lecture notes of 29 September: "Words to be able to use in a sentence (from the first three lectures)", the words and concepts noted from the professor's list, and two items listed as "uncertain about use". The definitions and model sentences are written for this app. "Intron, exon" is on the list but not covered in the slides the app is built from, so its card has no lecture link.
+:::

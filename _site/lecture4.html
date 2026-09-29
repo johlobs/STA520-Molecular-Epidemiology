@@ -1689,6 +1689,10 @@ window.Quarto = {
 <span class="menu-text">Exam practice</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./vocabulary.html"> 
+<span class="menu-text">Flashcards</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./glossary.html"> 
 <span class="menu-text">Glossary</span></a>
   </li>  
@@ -1756,6 +1760,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./exam-practice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exam practice</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vocabulary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Words to use in a sentence</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -2258,13 +2268,13 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>None of the Lecture 4 slides carry the “EXAM” marker. The 📌 flags below are inferred: the lecture is built around worked calculations (MAF → genotype frequencies, log β → OR, allele frequency → genotype frequency for rs11591147), so being able to redo them with other numbers is high-priority prep.</p>
 </div>
 </div>
-<section id="t4-1" class="level2 topic">
-<h2 class="topic anchored" data-anchor-id="t4-1">4.1 Genotype → phenotype, and why association is not causation</h2>
+<section id="t4-1" class="level2 topic" data-flag="unclear">
+<h2 class="topic anchored" data-flag="unclear" data-anchor-id="t4-1">4.1 Genotype → phenotype, and why association is not causation</h2>
 <p>DNA variation can plausibly <strong>cause</strong> a phenotype (disease status, a biomarker level). The reverse is logically impossible: a phenotype or disease <strong>cannot change your inherited DNA sequence</strong>, which was fixed at conception, long before any adult disease.</p>
 <p>This directional certainty is exactly why genetic variants are useful for causal inference (Mendelian randomization, Lecture 6). But finding a variant <em>associated</em> with a phenotype is still only an association: <strong>confounding, chance and linkage</strong> can all produce a spurious-looking association, so causality still has to be investigated.</p>
 </section>
-<section id="t4-2" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t4-2">4.2 SNPs, alleles, MAF and genotype frequencies</h2>
+<section id="t4-2" class="level2 topic" data-flag="professor">
+<h2 class="topic anchored" data-flag="professor" data-anchor-id="t4-2">4.2 SNPs, alleles, MAF and genotype frequencies</h2>
 <p>At a given position, the nucleotide is sometimes A and sometimes C across people: a <strong>SNP</strong>. You can refer to it by base-pair position or by its rs number. The two possible nucleotides are its <strong>alleles</strong>.</p>
 <p><strong>MAF (minor allele frequency)</strong> is the frequency of the <em>less common</em> allele. By convention the minor allele is often called “the mutant”, but that is a labeling choice: the rarer allele is not necessarily the harmful one.</p>
 <p>With C as reference, each person carries 0, 1 or 2 copies of the non-reference allele A:</p>
@@ -2395,8 +2405,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   <div class="q-exp">P(minor homozygote) = MAF² = 0.2² = 0.04, and 0.04 × 5,000 = 200. For comparison, heterozygotes are 2 × 0.2 × 0.8 = 0.32, i.e.&nbsp;1,600 people, and 1,000 is MAF × 5,000, which is not a genotype count.</div>
 </div>
 </section>
-<section id="t4-3" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t4-3">4.3 Phenotype types and the per-allele effect</h2>
+<section id="t4-3" class="level2 topic" data-flag="unclear">
+<h2 class="topic anchored" data-flag="unclear" data-anchor-id="t4-3">4.3 Phenotype types and the per-allele effect</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -2510,8 +2520,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   <div class="q-exp">Two copies → 2 × 0.10 = 0.20 on the log-odds scale → OR = e^0.20 ≈ 1.22 (= 1.105²). The per-allele OR is e^0.10 ≈ 1.105.</div>
 </div>
 </section>
-<section id="t4-4" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t4-4">4.4 The additive model: β, SE and p</h2>
+<section id="t4-4" class="level2 topic" data-flag="professor_unsure">
+<h2 class="topic anchored" data-flag="professor_unsure" data-anchor-id="t4-4">4.4 The additive model: β, SE and p</h2>
 <p><strong>The additive model</strong> (used for both phenotype types): compare the phenotype across the 0/1/2 groups, with each extra copy one unit of <strong>genotype dosage</strong> (the X variable).</p>
 <div class="worked">
 <table class="caption-top table">
@@ -2559,8 +2569,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <p><strong>“Worth noting” 2: additive, dominant and recessive describe the genotype–phenotype relationship, not the allele.</strong> The same allele can act dominant for one phenotype and recessive for another. Most GWAS use <strong>additive</strong> models because they test many SNPs at once and the additive model is the simplest, most tractable default that works reasonably across all of them. Dominant/recessive models are more useful when studying <strong>one specific SNP or gene</strong> in depth.</p>
 </section>
-<section id="t4-5" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t4-5">4.5 Covariates</h2>
+<section id="t4-5" class="level2 topic" data-flag="unclear">
+<h2 class="topic anchored" data-flag="unclear" data-anchor-id="t4-5">4.5 Covariates</h2>
 <p><span class="math display">\[y = \beta_0 + \beta_1 G + \beta_2 X_1 + \dots + \beta_n X_{n-1} + \varepsilon\]</span></p>
 <p><span class="math inline">\(G\)</span> is genotype dosage; the <span class="math inline">\(X\)</span>s are covariates such as <strong>age, sex, BMI and genetic principal components (PC1, PC2, …)</strong>.</p>
 <p><strong>Why covariates are needed</strong></p>
@@ -2583,8 +2593,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 </div>
 </section>
-<section id="t4-6" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t4-6">4.6 The GWAS scan and summary statistics</h2>
+<section id="t4-6" class="level2 topic" data-flag="seminar">
+<h2 class="topic anchored" data-flag="seminar" data-anchor-id="t4-6">4.6 The GWAS scan and summary statistics</h2>
 <p><strong>GWAS</strong> = repeat the single-SNP regression separately for about <strong>1,000,000 SNPs</strong>, one model per SNP, each adjusted, giving β, SE and p for every SNP. Conceptually simple but <strong>computationally heavy</strong>. Software: <strong>PLINK</strong> and <strong>regenie</strong>.</p>
 <p>Practical notes: <strong>HG18 and HG19</strong> are older reference genome versions (compare GRCh37/GRCh38 in Lecture 3). <strong>rsIDs</strong> refer to fixed variants but are <em>not</em> in genomic-position order, so sorting by rsID does not give positional order.</p>
 <p><strong>Standard columns in GWAS summary statistics</strong></p>
@@ -2674,8 +2684,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   <div class="q-exp">β is the per-effect-allele (A1) difference. A1 = T, so each extra T is associated with 0.05 SD lower LDL-C. Relative to C the direction is reversed, which is why knowing the effect allele matters.</div>
 </div>
 </section>
-<section id="t4-7" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t4-7">4.7 Multiple testing, Manhattan and QQ plots</h2>
+<section id="t4-7" class="level2 topic" data-flag="seminar">
+<h2 class="topic anchored" data-flag="seminar" data-anchor-id="t4-7">4.7 Multiple testing, Manhattan and QQ plots</h2>
 <p>Testing ~1,000,000 SNPs at <span class="math inline">\(p &lt; 0.05\)</span> would give about <span class="math inline">\(1{,}000{,}000 \times 0.05 = 50{,}000\)</span> <strong>false positives</strong> by chance. The field’s standard threshold is:</p>
 <p><span class="math display">\[p &lt; 5 \times 10^{-8} \approx \frac{0.05}{1{,}000{,}000}\]</span></p>
 <p>a Bonferroni-style correction for ~1 million independent tests (Bonferroni is formalized in Lecture 7). Significance at this level means a SNP is <strong>statistically</strong> robust, not that it is <strong>biologically</strong> important or has a large effect.</p>
@@ -2725,8 +2735,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   <div class="q-exp">A tiny p-value in a huge sample only says the association is unlikely to be chance. Effect size, causality and variance explained are separate questions (see rs11591147 in Section 4.10).</div>
 </div>
 </section>
-<section id="t4-8" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t4-8">4.8 Why one signal gives a cluster: lead SNP and r²</h2>
+<section id="t4-8" class="level2 topic" data-flag="seminar">
+<h2 class="topic anchored" data-flag="seminar" data-anchor-id="t4-8">4.8 Why one signal gives a cluster: lead SNP and r²</h2>
 <p>Nearby SNPs are correlated (in LD) because they are inherited together. So <strong>one</strong> true causal variant appears as <strong>many</strong> associated SNPs: every SNP in LD with it shows an association, not because it is independently causal but because it is correlated. If two SNPs are in LD, knowing one tells you about the other. The result is one peak in the Manhattan plot.</p>
 <p>From the cluster you pick a representative, the <strong>lead SNP</strong>: usually the one with the smallest p-value. <strong>The lead SNP is not guaranteed to be the causal variant</strong>; it may just be a good proxy.</p>
 <p><strong>Quantifying LD: <span class="math inline">\(r^2\)</span></strong>, the squared correlation between two SNPs’ genotypes (0 to 1).</p>
@@ -2758,8 +2768,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </table>
 <p>Downstream analyses usually need <strong>independent</strong> variables, which raises the questions of how to find independent signals and the causal variant in a correlated cluster (Lecture 5), and the complication that the causal variant might not even be measured on the array.</p>
 </section>
-<section id="t4-9" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t4-9">4.9 Population structure and confounding</h2>
+<section id="t4-9" class="level2 topic" data-flag="unclear">
+<h2 class="topic anchored" data-flag="unclear" data-anchor-id="t4-9">4.9 Population structure and confounding</h2>
 <p><strong>The problem.</strong> If ancestry-related differences in allele frequency coincide with differences in the phenotype across subpopulations (different countries, or distinct communities such as the Amish), a SNP can look associated with the phenotype <strong>even with no biological effect at all</strong>.</p>
 <div class="worked">
 <table class="caption-top table">
@@ -2809,8 +2819,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   <div class="q-exp">Stratification is confounding; a different p-value threshold does not remove it. The standard tools are homogeneous samples, PC adjustment, mixed models (e.g.&nbsp;regenie) and QQ/inflation checks.</div>
 </div>
 </section>
-<section id="t4-10" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t4-10">4.10 From hit to biology: locus, lead SNP, QTLs</h2>
+<section id="t4-10" class="level2 topic" data-flag="unclear">
+<h2 class="topic anchored" data-flag="unclear" data-anchor-id="t4-10">4.10 From hit to biology: locus, lead SNP, QTLs</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -3074,7 +3084,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": "inferred"
+  "flag": "example"
 
  },
 
@@ -3088,7 +3098,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3116,7 +3126,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3130,7 +3140,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3144,7 +3154,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3158,7 +3168,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": null
+  "flag": "professor"
 
  },
 
@@ -3172,7 +3182,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3186,7 +3196,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3200,7 +3210,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3214,7 +3224,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3228,7 +3238,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3242,7 +3252,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3256,7 +3266,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": null
+  "flag": "example"
 
  },
 
@@ -3270,7 +3280,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3284,7 +3294,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": null
+  "flag": "professor"
 
  },
 
@@ -3298,7 +3308,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3312,7 +3322,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "example"
 
  },
 
@@ -3326,7 +3336,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3340,7 +3350,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3354,7 +3364,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3368,7 +3378,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3382,7 +3392,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": null
+  "flag": "professor"
 
  },
 
@@ -3396,7 +3406,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3410,7 +3420,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3424,7 +3434,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3438,7 +3448,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3452,7 +3462,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": null
+  "flag": "unclear"
 
  },
 
@@ -3466,7 +3476,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3480,7 +3490,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3494,7 +3504,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "professor_unsure"
 
  },
 
@@ -3508,7 +3518,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3522,7 +3532,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3536,7 +3546,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3550,7 +3560,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3564,7 +3574,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3578,7 +3588,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3592,7 +3602,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": null
+  "flag": "seminar"
 
  },
 
@@ -3606,7 +3616,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": null
+  "flag": "seminar"
 
  },
 
@@ -3620,7 +3630,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3634,7 +3644,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3648,7 +3658,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3662,7 +3672,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3676,7 +3686,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3690,7 +3700,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3704,7 +3714,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3718,7 +3728,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3732,7 +3742,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": null
+  "flag": "unclear"
 
  },
 
@@ -3746,7 +3756,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3760,7 +3770,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3774,7 +3784,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3788,7 +3798,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3802,7 +3812,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4208,7 +4218,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture8.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4222,7 +4232,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture8.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4236,7 +4246,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture8.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4264,7 +4274,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4278,7 +4288,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4292,7 +4302,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4306,7 +4316,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4320,7 +4330,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4334,7 +4344,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4348,7 +4358,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4362,7 +4372,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4376,7 +4386,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4390,7 +4400,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4404,7 +4414,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4418,7 +4428,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4432,7 +4442,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4477,11 +4487,36 @@ window.STA520_TOPICS = [
       text: '🎯 Instructor-flagged EXAM',
       title: 'This slide carried the literal "EXAM" marker from the instructor.'
     },
+    professor: {
+      text: '🎓 On the professor\'s list',
+      title: 'Covers words or concepts on the professor\'s exam list (lecture notes, 29 Sep).'
+    },
+    professor_unsure: {
+      text: '🎓 On the professor\'s list (use uncertain)',
+      title: 'On the professor\'s list, under "uncertain about use".'
+    },
     inferred: {
       text: '📌 Likely exam-relevant (AI-inferred)',
       title: 'Inferred from definitions, formulas and worked examples. Not confirmed by the instructor.'
+    },
+    unclear: {
+      text: '❔ Exam status unclear',
+      title: 'GWAS/MR theory that is not part of computer exercises 1–2. Not confirmed as seminar or written exam.'
+    },
+    seminar: {
+      text: '🗣️ Seminar: not on the written exam',
+      title: 'Covered by computer exercises 1–2, which are examined at the seminar, not on the written exam.'
+    },
+    example: {
+      text: 'Example, not exam focus',
+      title: 'Running example of the course. The lecturer said not to learn specific medicines, mutations or running examples.'
     }
   };
+
+  var EXAM_FLAGS = ['instructor', 'professor', 'professor_unsure', 'inferred'];
+  var FLAG_ORDER = { instructor: 0, professor: 1, professor_unsure: 2, inferred: 3, unclear: 4 };
+  var FLAG_ICON = { instructor: '🎯', professor: '🎓', professor_unsure: '🎓', inferred: '📌', unclear: '❔', seminar: '🗣️' };
+  function isExam(t) { return EXAM_FLAGS.indexOf(t.flag) !== -1; }
 
   var LECTURE_TITLES = {
     1: 'Biological language of molecular epidemiology',
@@ -4645,12 +4680,20 @@ window.STA520_TOPICS = [
     /* Rollup cards */
     var cards = el('div', 'dash-cards');
     cards.appendChild(statCard('All topics', summarise(TOPICS)));
+    cards.appendChild(statCard('✍️ Written exam (🎯 🎓 📌)',
+      summarise(TOPICS.filter(isExam)), 'card-exam'));
     cards.appendChild(statCard('🎯 Instructor-flagged EXAM',
       summarise(TOPICS.filter(function (t) { return t.flag === 'instructor'; })), 'card-instructor'));
+    cards.appendChild(statCard('🎓 Professor\'s list',
+      summarise(TOPICS.filter(function (t) { return t.flag === 'professor' || t.flag === 'professor_unsure'; })), 'card-professor'));
     cards.appendChild(statCard('📌 Likely relevant (AI-inferred)',
       summarise(TOPICS.filter(function (t) { return t.flag === 'inferred'; })), 'card-inferred'));
-    cards.appendChild(statCard('Unflagged',
-      summarise(TOPICS.filter(function (t) { return !t.flag; }))));
+    cards.appendChild(statCard('❔ Exam status unclear',
+      summarise(TOPICS.filter(function (t) { return t.flag === 'unclear'; })), 'card-unclear'));
+    cards.appendChild(statCard('🗣️ Seminar (exercises 1–2)',
+      summarise(TOPICS.filter(function (t) { return t.flag === 'seminar'; })), 'card-seminar'));
+    cards.appendChild(statCard('Unflagged or example',
+      summarise(TOPICS.filter(function (t) { return !t.flag || t.flag === 'example'; }))));
     root.appendChild(cards);
 
     var legend = el('p', 'dash-legend');
@@ -4663,7 +4706,7 @@ window.STA520_TOPICS = [
     var table = el('table', 'dash-table table');
     var thead = el('thead');
     var hr = el('tr');
-    ['Lecture', 'Topics', '🎯', 'Reviewed', 'Confident'].forEach(function (h) { hr.appendChild(el('th', null, h)); });
+    ['Lecture', 'Topics', '✍️ Exam', '❔', '🗣️', 'Reviewed', 'Confident'].forEach(function (h) { hr.appendChild(el('th', null, h)); });
     thead.appendChild(hr); table.appendChild(thead);
     var tbody = el('tbody');
     for (var n = 1; n <= 9; n++) {
@@ -4677,8 +4720,11 @@ window.STA520_TOPICS = [
       tdName.appendChild(a);
       tr.appendChild(tdName);
       tr.appendChild(el('td', 'num', String(s.total)));
-      var nInstr = list.filter(function (t) { return t.flag === 'instructor'; }).length;
-      tr.appendChild(el('td', 'num', nInstr ? String(nInstr) : '–'));
+      [list.filter(isExam).length,
+       list.filter(function (t) { return t.flag === 'unclear'; }).length,
+       list.filter(function (t) { return t.flag === 'seminar'; }).length].forEach(function (k) {
+        tr.appendChild(el('td', 'num', k ? String(k) : '–'));
+      });
       [['reviewed', s.reviewed], ['confident', s.confident]].forEach(function (pair) {
         var td = el('td');
         var bar = el('div', 'dash-bar small');
@@ -4694,12 +4740,15 @@ window.STA520_TOPICS = [
     root.appendChild(table);
 
     /* To-do list: flagged topics that are not yet confident */
-    root.appendChild(el('h2', null, 'Flagged topics not yet confident'));
+    root.appendChild(el('h2', null, 'Written exam topics not yet confident'));
     root.appendChild(el('p', 'dash-note',
-      'Instructor-flagged topics first, then AI-inferred ones, in course order. Click a topic to jump to it.'));
-    var todo = TOPICS.filter(function (t) { return t.flag && statusOf(t.id) !== 'confident'; });
+      'Written-exam topics first (🎯 instructor EXAM slides, 🎓 professor\'s list, 📌 AI-inferred), then ❔ topics whose exam status is unclear. ' +
+      'Seminar topics are listed separately below. Click a topic to jump to it.'));
+    var todo = TOPICS.filter(function (t) {
+      return (t.flag in FLAG_ORDER) && statusOf(t.id) !== 'confident';
+    });
     todo.sort(function (a, b) {
-      if (a.flag !== b.flag) return a.flag === 'instructor' ? -1 : 1;
+      if (FLAG_ORDER[a.flag] !== FLAG_ORDER[b.flag]) return FLAG_ORDER[a.flag] - FLAG_ORDER[b.flag];
       return a.lecture - b.lecture;
     });
     if (!todo.length) {
@@ -4709,7 +4758,7 @@ window.STA520_TOPICS = [
       todo.forEach(function (t) {
         var li = el('li');
         li.appendChild(el('span', 'dot dot-' + (statusOf(t.id) || 'none')));
-        li.appendChild(el('span', 'todo-flag', t.flag === 'instructor' ? '🎯' : '📌'));
+        li.appendChild(el('span', 'todo-flag', FLAG_ICON[t.flag] || ''));
         var link = el('a', null, 'L' + t.lecture + ' · ' + t.title);
         link.href = t.page + '#' + t.id;
         li.appendChild(link);
@@ -4718,6 +4767,22 @@ window.STA520_TOPICS = [
       });
       root.appendChild(ul);
     }
+
+    /* Seminar topics */
+    root.appendChild(el('h2', null, '🗣️ Seminar topics (computer exercises 1–2)'));
+    root.appendChild(el('p', 'dash-note',
+      'Examined at the seminar, so according to the lecturer they will not come on the written exam.'));
+    var ulSem = el('ul', 'dash-todo');
+    TOPICS.filter(function (t) { return t.flag === 'seminar'; }).forEach(function (t) {
+      var li = el('li');
+      li.appendChild(el('span', 'dot dot-' + (statusOf(t.id) || 'none')));
+      var link = el('a', null, 'L' + t.lecture + ' · ' + t.title);
+      link.href = t.page + '#' + t.id;
+      li.appendChild(link);
+      li.appendChild(el('span', 'todo-status', STATUS_LABELS[statusOf(t.id)]));
+      ulSem.appendChild(li);
+    });
+    root.appendChild(ulSem);
 
     /* Backup / reset */
     root.appendChild(el('h2', null, 'Backup and reset'));

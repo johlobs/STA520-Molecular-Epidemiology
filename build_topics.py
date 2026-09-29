@@ -7,13 +7,19 @@
 #   ## 7.4 Observed variation = biology + noise {#t7-4 .topic flag="instructor"}
 #   ## 3.6 Mendelian genetics vocabulary {#t3-6 .topic flag="inferred"}
 #   ## 5.1 Data structures {#t5-1 .topic}
+#
+# Flags: instructor (EXAM slide), professor (on the professor's word/concept
+# list), professor_unsure (on the list, marked "uncertain about use"),
+# inferred (AI-inferred), unclear (GWAS/MR theory not in the computer
+# exercises), seminar (examined at the seminar, not on the written exam),
+# example (running example, not exam focus).
 
 import glob
 import json
 import os
 import re
 
-HEADING = re.compile(r'^## (.+?)\s*\{#(\S+)\s+\.topic(?:\s+flag="(instructor|inferred)")?\s*\}\s*$')
+HEADING = re.compile(r'^## (.+?)\s*\{#(\S+)\s+\.topic(?:\s+flag="(instructor|professor|professor_unsure|inferred|unclear|seminar|example)")?\s*\}\s*$')
 
 here = os.path.dirname(os.path.abspath(__file__))
 topics = []

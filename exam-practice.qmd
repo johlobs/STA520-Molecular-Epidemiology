@@ -1,15 +1,21 @@
 ---
 title: "Exam practice"
-subtitle: "The instructor's Lecture 7 exam questions, calculation drills with new numbers every time, and written questions with model answers"
+subtitle: "The instructor's Lecture 7 exam questions, then drills and written questions sorted into written exam, exam status unclear, and seminar"
 ---
 
-This page collects everything you can **practise** rather than read. It starts with **the instructor's own example exam questions** for Lecture 7. Then come calculation drills that draw new numbers each time you press **New problem ↻**: work on paper, type your answers, press **Check**, then open the full solution. Last are written questions in the style of the definitions, comparisons and "explain why" material the slides emphasize. Try answering out loud or on paper before you open a model answer.
+This page collects everything you can **practise** rather than read. It starts with **the instructor's own example exam questions** for Lecture 7. The rest is sorted by what the lecturer said about the exam (lecture notes, 29 September):
+
+- **Part 1: ✍️ Written exam**: Lecture 7 (🎯 EXAM slides), the words and concepts on the professor's list for Lectures 1–3 (🎓), and other likely exam topics (📌).
+- **Part 2: ❔ Exam status unclear**: GWAS/MR theory that is not part of the computer exercises, polygenic risk scores and protein MR.
+- **Part 3: 🗣️ Seminar**: what computer exercises 1–2 cover. Examined at the seminar, so not on the written exam.
+
+Drills draw new numbers each time you press **New problem ↻**: work on paper, type your answers, press **Check**, then open the full solution. For written questions, answer out loud or on paper before you open a model answer. Specific medicines, mutations and the course's running examples are left out, since the lecturer said not to focus on them.
 
 ::: {.callout-note collapse="true"}
 ## Where the questions come from
 **Instructor's questions:** the 11 questions in the first section are from **"Lecture 7 - questions.pdf"**, described on Canvas as "examples (but not an exhaustive list) of exercises and possible exam questions". The questions are the instructor's; the **model answers are written for this app** and are not an official answer key.
 
-**Drills and written questions:** the drills cover every numerical worked example in the course. The written questions further down are **inferred** from the slides (🎯 marks topics the instructor tagged EXAM in Lecture 7; the rest are 📌 AI-inferred).
+**Drills and written questions:** the drills cover every numerical worked example in the course. The written questions are written for this app. Their grouping follows the lecturer's guidance: 🎯 topics the instructor tagged EXAM in Lecture 7, 🎓 the professor's word and concept list, 🗣️ seminar content (computer exercises 1–2), ❔ unclear, 📌 AI-inferred. Q17 (a running-example question) was removed, and Q19 now uses a made-up variant; the other numbers are unchanged.
 :::
 
 # 🎯 Instructor's example questions: Lecture 7
@@ -146,9 +152,14 @@ Given: M1 had more high-grade tumours (P = 0.0011), more Ki67 > 3% (P = 0.00023)
 **Implications:** the p-values are **not valid**. They are biased toward zero because the null distribution assumed by the test does not account for the groups having been selected from the data, and the multiple-testing correction does not fix this. The list of differentially expressed miRNAs (76 up, 65 down) mainly **describes what separates the clusters**; it is not independent evidence of biological differences. It should be treated as descriptive or hypothesis-generating, and **validated in an independent cohort** (or analysed with methods that account for the selection). The associations with *clinical* variables (grade, Ki67, survival) are more informative, because those variables were not used to build the clusters. [→ 7.16b](lecture7.qmd#t7-16b)
 :::
 
-# Calculation drills
 
-## 🎯 Multiple testing (Lecture 7)
+# Part 1: ✍️ Written exam
+
+Everything in this part is on the written exam: 🎯 instructor EXAM slides (Lecture 7), 🎓 words and concepts on the professor's list (Lectures 1–3), and 📌 AI-inferred topics (Lectures 1, 7, 8).
+
+## Calculation drills
+
+### 🎯 Multiple testing (Lecture 7)
 
 Benjamini–Hochberg and Bonferroni side by side. Do several: the "largest k" rule and the running minimum for adjusted p-values are where mistakes happen.
 
@@ -169,7 +180,7 @@ Benjamini–Hochberg and Bonferroni side by side. Do several: the "largest k" ru
 7. State the interpretation: BH controls the **FDR** (expected share of false hits among hits); Bonferroni controls the **FWER** (probability of any false hit).
 :::
 
-## 🎯 Preprocessing and moderated statistics (Lecture 7)
+### 🎯 Preprocessing and moderated statistics (Lecture 7)
 
 <div class="drill" data-drill="qnorm"></div>
 
@@ -177,7 +188,9 @@ Benjamini–Hochberg and Bonferroni side by side. Do several: the "largest k" ru
 
 <div class="drill" data-drill="log2fc"></div>
 
-## 📌 Genetics calculations (Lectures 3–4)
+### 🎓 Genetics calculations (Lecture 3)
+
+HWE and recombination frequency are on the professor's list ("how to check for HWE" is under "uncertain about use").
 
 <div class="drill" data-drill="hwe"></div>
 
@@ -187,29 +200,11 @@ Benjamini–Hochberg and Bonferroni side by side. Do several: the "largest k" ru
 
 <div class="drill" data-drill="recomb"></div>
 
-<div class="drill" data-drill="or"></div>
-
-<div class="drill" data-drill="logbeta"></div>
-
-## 📌 Mendelian randomization (Lectures 6, 8 and 9)
-
-<div class="drill" data-drill="wald"></div>
-
-<div class="drill" data-drill="ivw"></div>
-
-<div class="drill" data-drill="fstat"></div>
-
-<div class="drill" data-drill="allele"></div>
-
-## 📌 Polygenic risk scores (Lecture 9)
-
-<div class="drill" data-drill="prs"></div>
-
-# More written questions (AI-inferred)
+## Written questions
 
 Each question links to the section it comes from. Open the model answer only after you have tried.
 
-## 🎯 Lecture 7: high-dimensional data
+### 🎯 Lecture 7: high-dimensional data
 
 ::: {.callout-tip collapse="true" icon="false"}
 ## Q1. Explain why the ordinary t-test is problematic for omics data with few samples, and how the moderated t-statistic solves it.
@@ -250,62 +245,7 @@ For omics screens **FDR/BH** is preferred: (1) with thousands of tests Bonferron
 **Model answer.** Two samples from the same patient are not independent. Including both would double-weight those patients and violate the independence assumption of the test, biasing variance estimates and p-values. [→ 7.9b](lecture7.qmd#t7-9b)
 :::
 
-## 📌 Lectures 4–6: GWAS and Mendelian randomization
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q8. State the three assumptions of Mendelian randomization and give a threat to each.
-**Model answer.**
-1. **Relevance**: the variant is robustly associated with the exposure (genome-wide significant). Threat: **weak instruments**, which bias and destabilize the estimate.
-2. **Independence**: the variant is not associated with confounders of the exposure–outcome relationship. Threats: **population stratification**, **assortative mating**, **selection effects**.
-3. **Exclusion restriction**: the variant affects the outcome only through the exposure. Threat: **horizontal pleiotropy** (another pathway, e.g. SNP → inflammation → CHD). [→ 6.5](lecture6.qmd#t6-5)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q9. Distinguish vertical and horizontal pleiotropy. Which one is a problem for MR and why?
-**Model answer.** **Vertical**: the SNP affects the outcome *through* the exposure (SNP → PCSK9 → LDLR → LDL-C → CHD); this is the causal chain MR measures, not a problem. **Horizontal**: the SNP also affects the outcome through a pathway **independent** of the exposure (SNP → inflammation → CHD); this violates the exclusion restriction and biases the MR estimate, because part of the SNP–outcome association is wrongly attributed to the exposure. [→ 6.6](lecture6.qmd#t6-6)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q10. Explain the Wald ratio, IVW, weighted median and MR-Egger. When would you trust a causal conclusion?
-**Model answer.** **Wald ratio** (one instrument): $\beta_{\text{outcome}}/\beta_{\text{exposure}}$, change in outcome per genetically predicted unit of exposure (log-odds for binary outcomes). **IVW**: weighted regression of β-outcome on β-exposure through the origin = precision-weighted average of the Wald ratios; assumes all instruments valid. **Weighted median**: consistent if at least ~50% of the instrument weight is valid, so robust to a minority of bad instruments. **MR-Egger**: free intercept; a non-zero intercept indicates directional horizontal pleiotropy; less precise and more sensitive to weak instruments, relies on the InSIDE assumption. Trust grows when **all methods point in the same direction**, since their weaknesses differ. Always state the exposure unit and the direction. [→ 6.7–6.9](lecture6.qmd#t6-7)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q11. Why are genetic variants useful for causal inference? Compare MR with an RCT.
-**Model answer.** Genotype is fixed at conception, so it precedes the disease: no reverse causation. Alleles are allocated randomly at meiosis, like treatment in an RCT, so they are (under the independence assumption) unrelated to confounders such as smoking. An allele that lowers LDL-C is a lifelong "natural trial" of lower LDL-C. MR is cheaper and possible where RCTs are not, but relies on the three instrument assumptions. [→ 6.3–6.4](lecture6.qmd#t6-4)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q12. A Manhattan plot shows a tall peak with dozens of significant SNPs. Explain why, and what "lead SNP" and "locus" mean. Is the lead SNP causal?
-**Model answer.** Nearby SNPs are correlated (in LD) because they are inherited together, so one causal variant makes all SNPs in LD with it look associated. The **locus** is the region containing the associated signal; the **lead SNP** is the one with the smallest p-value there. It is **not necessarily causal**: it may be a proxy, and the causal variant may not even be on the array. Ways forward: conditional analysis, credible sets, functional annotation, protein folding models, pQTL evidence, experiments (knock-in mice). [→ 4.8, 5.3–5.4](lecture5.qmd#t5-4)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q13. What is population stratification and how is it handled in a GWAS?
-**Model answer.** If allele frequencies and the phenotype both differ between ancestry groups, pooling them creates a spurious SNP–phenotype association even without any biological effect. Handling: restrict to genetically homogeneous ancestry groups; adjust for genetic principal components; use mixed models that account for relatedness (e.g. regenie); check the QQ plot and genomic inflation. [→ 4.9](lecture4.qmd#t4-9)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q14. Why is the genome-wide significance threshold 5×10⁻⁸? Does p < 5×10⁻⁸ mean the SNP matters?
-**Model answer.** About 1 million independent tests: $0.05/10^6 = 5 \times 10^{-8}$ (Bonferroni); at 0.05 you would get ~50,000 false positives. Significance means statistical robustness only. It says nothing about effect size (huge samples make tiny effects significant), causality or public-health relevance (rs11591147 has a big effect but is rare, 1.5%). [→ 4.7, 4.10](lecture4.qmd#t4-7)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q15. What must you always know when using GWAS summary statistics?
-**Model answer.** Which allele is the **effect allele** (A1/EA); whether β is an **OR or log(OR)** for binary outcomes; the **scale** of the phenotype (log? SD units?); the **genome build** (GRCh37/hg19 vs GRCh38). When combining datasets also check SNP coverage, allele/strand alignment and ancestry of the LD reference panel. rsIDs help avoid mismatches. [→ 4.6, 5.6](lecture5.qmd#t5-6)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q16. List the Bradford Hill criteria.
-**Model answer.** Strength, Consistency, Specificity, Temporality, Biological gradient (dose–response), Plausibility, Coherence, Experiment, Analogy. [→ 6.2](lecture6.qmd#t6-2)
-:::
-
-## 📌 Lectures 1–3: biology and genetics
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q17. Explain the LDLR–PCSK9–LDL-C pathway, and how Leqvio and Repatha lower LDL-C differently.
-**Model answer.** The LDL receptor on hepatocytes clears LDL from the blood. PCSK9 promotes LDLR degradation, so more PCSK9 → fewer receptors → higher LDL-C → more atherosclerosis. **Leqvio (inclisiran)** is an siRNA linked to GalNAc, which binds ASGPR on liver cells; inside, it degrades PCSK9 **mRNA**, so less PCSK9 is **made**. **Repatha/Praluent** are monoclonal antibodies binding free PCSK9 **protein** in blood, **blocking its action**. Both leave more LDLR and lower LDL-C: two druggable points on one pathway. D374Y (GoF) raises LDL-C; PCSK9 LoF lowers it, as the drugs mimic. [→ 1.2, 3.2b, 3.3](lecture3.qmd#t3-2b)
-:::
+### 🎓 Lectures 1–3: biology and genetics
 
 ::: {.callout-tip collapse="true" icon="false"}
 ## Q18. Compare germline and somatic mutations.
@@ -313,13 +253,13 @@ For omics screens **FDR/BH** is preferred: (1) with thousands of tests Bonferron
 :::
 
 ::: {.callout-tip collapse="true" icon="false"}
-## Q19. Read this variant: NM_174936.4(PCSK9):c.1120G>T, p.Asp374Tyr, rs137852912.
-**Model answer.** In PCSK9 transcript NM_174936 version 4 (NM_ = mRNA reference), coding DNA position 1120 has G replaced by T. At the protein level (p.) aspartic acid 374 becomes tyrosine (D374Y): a missense, gain-of-function SNV. rs137852912 is its dbSNP identifier; its genomic position is chr1:55057454 in GRCh38 and 55523127 in GRCh37 (NC_ prefix, g. coordinates). [→ 3.3b–3.3c](lecture3.qmd#t3-3b)
+## Q19. Read this (made-up) variant: NM_000999.3(GENEX):c.451C>T, p.Arg151Trp, rs123456789. What would p.Arg151Ter, p.Arg151= and c.451del mean?
+**Model answer.** In the reference transcript NM_000999, version 3 (**NM_** = mRNA/coding reference), **c.** position 451 of the coding DNA has C replaced by T. At the protein level (**p.**) arginine 151 becomes tryptophan: a single-base **substitution** that changes the amino acid, i.e. a **missense** variant (codon 151 spans c.451–453, so c.451 is its first base). **rs123456789** would be its dbSNP identifier, the same across genome builds, whereas genomic positions (**g.**, on an **NC_** chromosome reference) differ between GRCh37 and GRCh38. **p.Arg151Ter** (also written p.Arg151\*): the codon becomes a stop codon, a **nonsense** variant. **p.Arg151=**: the amino acid is unchanged, a **silent** variant. **c.451del**: one base deleted, which shifts the reading frame, a **frameshift** (written e.g. p.Arg151fs). [→ 2.4, 3.3b–3.3c](lecture3.qmd#t3-3b)
 :::
 
 ::: {.callout-tip collapse="true" icon="false"}
 ## Q20. Compare miRNA and siRNA.
-**Model answer.** miRNA: ~22 nt, genome-encoded, binds targets imperfectly, inhibits translation or promotes degradation, regulates many mRNAs (why it is widely dysregulated in cancer). siRNA: ~21–23 nt, from double-stranded RNA, binds with near-perfect complementarity, cleaves one specific mRNA, used as designed drugs (Leqvio). [→ 3.2](lecture3.qmd#t3-2)
+**Model answer.** miRNA: ~22 nt, genome-encoded, binds targets imperfectly, inhibits translation or promotes degradation, regulates many mRNAs (why it is widely dysregulated in cancer). siRNA: ~21–23 nt, from double-stranded RNA, binds with near-perfect complementarity, cleaves one specific mRNA, used as designed drugs. [→ 3.2](lecture3.qmd#t3-2)
 :::
 
 ::: {.callout-tip collapse="true" icon="false"}
@@ -327,22 +267,14 @@ For omics screens **FDR/BH** is preferred: (1) with thousands of tests Bonferron
 **Model answer.** Linkage: loci close on the same chromosome tend to be inherited together. Recombination frequency $r$ = recombinant offspring / total, 0% (complete linkage) to 50% (unlinked). LD: non-random association of alleles at different loci in a population. Detected by comparing observed haplotype frequency with the expected product of allele frequencies (e.g. expected AB = 0.5 × 0.4 = 0.20); a difference indicates LD. Quantified with $r^2$ (> 0.8 very strong; < 0.01 treated as independent). [→ 3.7](lecture3.qmd#t3-7)
 :::
 
+### 📌 Lecture 1: biomarkers
+
 ::: {.callout-tip collapse="true" icon="false"}
 ## Q22. Give the five categories of biomarker with an example each. Is a biomarker causal?
 **Model answer.** Exposure (cotinine for tobacco), biological process (CRP for inflammation), disease/tissue injury (troponin for myocardial injury), future risk (LDL-C for atherosclerosis), treatment response (LDL-C change on lipid-lowering therapy). Being a biomarker does not imply causality. [→ 1.3b](lecture1.qmd#t1-3b)
 :::
 
-## 📌 Lecture 8: proteomics
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q23. What is a cis-pQTL vs a trans-pQTL, and why are cis-pQTLs preferred as MR instruments?
-**Model answer.** A pQTL is a SNP associated with a protein's abundance. **cis**: near the encoding gene (mechanisms: transcription, splicing, stability, secretion). **trans**: far away, > 500 kb or another chromosome (mechanisms: transcription factors, receptors, signalling). cis-pQTLs are preferred because the link to the protein is direct and there is **less risk of horizontal pleiotropy**; they still need all three MR assumptions. Protein MR: $\beta_{MR} = \beta_{GO}/\beta_{GP}$. [→ 8.9–8.10](lecture8.qmd#t8-9)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q24. List challenges specific to protein MR.
-**Model answer.** Horizontal pleiotropy (especially trans-pQTLs); assay binding artifacts (coding variants change the epitope, fake lower abundance); amount ≠ function (variants changing activity without abundance are invisible); LD creating false appearance of causality (different SNPs in LD for protein and disease), checked by colocalization; one pQTL affecting several proteins. [→ 8.11](lecture8.qmd#t8-11)
-:::
+### 📌 Lecture 8: proteomics
 
 ::: {.callout-tip collapse="true" icon="false"}
 ## Q25. How do you prevent and correct batch effects in a large proteomics study?
@@ -354,21 +286,65 @@ For omics screens **FDR/BH** is preferred: (1) with thousands of tests Bonferron
 **Model answer.** **Antibody-based** (ELISA, immunoassays, Western blot): targeted, quantitative with standards, clinical routine. **Mass spectrometry**: trypsin digestion → LC → electrospray → masses; detects isoforms, allows discovery; complex, dynamic-range problems, labelled peptides for calibration. **High-throughput affinity** (Olink, SomaScan): thousands of proteins in large cohorts (UKBB: ~50,000 people, ~3,000 proteins), relative abundance in NPX (log₂; 1 NPX = doubling). [→ 8.4–8.5](lecture8.qmd#t8-4)
 :::
 
-## 📌 Lecture 9: two-sample MR and polygenic risk scores
+# Part 2: ❔ Exam status unclear
+
+GWAS and MR theory that is **not** part of computer exercises 1–2, plus polygenic risk scores and protein MR. The lecturer said GWAS and MR are examined at the seminar, but it is not confirmed whether this theory can also appear on the written exam.
+
+## Calculation drills
+
+### ❔ GWAS effect sizes (Lecture 4)
+
+"How to check for association between SNP and phenotype" is on the professor's list under "uncertain about use".
+
+<div class="drill" data-drill="or"></div>
+
+<div class="drill" data-drill="logbeta"></div>
+
+### ❔ Polygenic risk scores (Lecture 9)
+
+<div class="drill" data-drill="prs"></div>
+
+## Written questions
+
+### ❔ Lectures 4–6: GWAS and MR theory
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q9. Distinguish vertical and horizontal pleiotropy. Which one is a problem for MR and why?
+**Model answer.** **Vertical**: the SNP affects the outcome *through* the exposure (SNP → PCSK9 → LDLR → LDL-C → CHD); this is the causal chain MR measures, not a problem. **Horizontal**: the SNP also affects the outcome through a pathway **independent** of the exposure (SNP → inflammation → CHD); this violates the exclusion restriction and biases the MR estimate, because part of the SNP–outcome association is wrongly attributed to the exposure. [→ 6.6](lecture6.qmd#t6-6)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q11. Why are genetic variants useful for causal inference? Compare MR with an RCT.
+**Model answer.** Genotype is fixed at conception, so it precedes the disease: no reverse causation. Alleles are allocated randomly at meiosis, like treatment in an RCT, so they are (under the independence assumption) unrelated to confounders such as smoking. An allele that lowers LDL-C is a lifelong "natural trial" of lower LDL-C. MR is cheaper and possible where RCTs are not, but relies on the three instrument assumptions. [→ 6.3–6.4](lecture6.qmd#t6-4)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q13. What is population stratification and how is it handled in a GWAS?
+**Model answer.** If allele frequencies and the phenotype both differ between ancestry groups, pooling them creates a spurious SNP–phenotype association even without any biological effect. Handling: restrict to genetically homogeneous ancestry groups; adjust for genetic principal components; use mixed models that account for relatedness (e.g. regenie); check the QQ plot and genomic inflation. [→ 4.9](lecture4.qmd#t4-9)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q16. List the Bradford Hill criteria.
+**Model answer.** Strength, Consistency, Specificity, Temporality, Biological gradient (dose–response), Plausibility, Coherence, Experiment, Analogy. [→ 6.2](lecture6.qmd#t6-2)
+:::
+
+### ❔ Lecture 8: protein MR
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q23. What is a cis-pQTL vs a trans-pQTL, and why are cis-pQTLs preferred as MR instruments?
+**Model answer.** A pQTL is a SNP associated with a protein's abundance. **cis**: near the encoding gene (mechanisms: transcription, splicing, stability, secretion). **trans**: far away, > 500 kb or another chromosome (mechanisms: transcription factors, receptors, signalling). cis-pQTLs are preferred because the link to the protein is direct and there is **less risk of horizontal pleiotropy**; they still need all three MR assumptions. Protein MR: $\beta_{MR} = \beta_{GO}/\beta_{GP}$. [→ 8.9–8.10](lecture8.qmd#t8-9)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q24. List challenges specific to protein MR.
+**Model answer.** Horizontal pleiotropy (especially trans-pQTLs); assay binding artifacts (coding variants change the epitope, fake lower abundance); amount ≠ function (variants changing activity without abundance are invisible); LD creating false appearance of causality (different SNPs in LD for protein and disease), checked by colocalization; one pQTL affecting several proteins. [→ 8.11](lecture8.qmd#t8-11)
+:::
+
+### ❔ Lecture 9: two-sample MR theory and PRS
 
 ::: {.callout-tip collapse="true" icon="false"}
 ## Q27. What makes MR "two-sample", what data does it need, and which assumptions still apply?
 **Model answer.** The SNP → exposure effects come from one GWAS and the SNP → outcome effects from another, in different people. It needs only **summary statistics** per instrument: rsID, effect allele (and other allele, EAF for harmonisation), β and SE for the exposure, β and SE for the outcome; no individual-level data. All three MR assumptions still apply (relevance, independence, exclusion restriction); two-sample MR adds practical requirements: the SNPs must be found in both GWAS, the alleles harmonised, and the two samples comparable (ancestry, sex, age) but not overlapping. [→ 9.1–9.2](lecture9.qmd#t9-1)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q28. Describe the six steps of a two-sample MR analysis. Where is the difficulty?
-**Model answer.** (1) **Select instruments** for X: P < 5×10⁻⁸, sufficiently strong (F = (β/SE)² > 10), independent (LD clumping). (2) **Look up** the same SNPs in the outcome GWAS (use a proxy SNP in high LD if one is missing). (3) **Harmonise** alleles so both β's refer to the same effect allele; flip the sign when swapped, handle strand, exclude ambiguous palindromic SNPs. (4) **Estimate**: Wald ratio per SNP, IVW over SNPs. (5) **Sensitivity analyses**: weighted median, MR-Egger (intercept), leave-one-out, heterogeneity. (6) **Interpret**, stating the exposure unit. The slides stress that the difficulty lies in steps 1–3. [→ 9.3–9.6](lecture9.qmd#t9-3)
-:::
-
-::: {.callout-tip collapse="true" icon="false"}
-## Q29. Exposure GWAS: effect allele A, other allele G, β = +0.08. Outcome GWAS: effect allele G, other allele A, β = −0.03. Harmonise and compute the Wald ratio. What happens if you forget?
-**Model answer.** The outcome β is per G; per A it is **+0.03**. Wald ratio = 0.03 / 0.08 = **0.375**: Y increases 0.375 units per unit of genetically predicted X. Without harmonising: −0.03 / 0.08 = −0.375, the opposite conclusion (X looks protective). [→ 9.5](lecture9.qmd#t9-5)
 :::
 
 ::: {.callout-tip collapse="true" icon="false"}
@@ -395,6 +371,64 @@ For omics screens **FDR/BH** is preferred: (1) with thousands of tests Bonferron
 ## Q34. What does a PRS value mean, and how do you evaluate whether it is useful?
 **Model answer.** A PRS has **no unit**; it is a relative, roughly normally distributed measure and does **not** translate directly into a probability of disease. It is usually less predictive than age, sex or SBP. Evaluate: **discrimination** (AUC; does it rise when the PRS is added?), **calibration** (do predicted risks match observed?), and **added prediction**: compare `age + sex + smoking + SBP` with the same model `+ PRS` (incremental R² or AUC). A strong OR per SD does not guarantee good screening; reclassification measures are more clinically relevant, and accuracy drops in ancestries unlike the discovery GWAS. [→ 9.13](lecture9.qmd#t9-13)
 :::
+
+# Part 3: 🗣️ Seminar (computer exercises 1–2)
+
+According to the lecturer, what is examined at the seminar will **not** come on the written exam. These cover what computer exercises 1 and 2 do: GWAS output, lead SNPs and clumping, matching summary statistics, harmonising alleles, and IVW, MR-Egger and weighted median. See also [Computer exercises: concepts](computer-exercises.qmd).
+
+## Calculation drills
+
+<div class="drill" data-drill="wald"></div>
+
+<div class="drill" data-drill="ivw"></div>
+
+<div class="drill" data-drill="fstat"></div>
+
+<div class="drill" data-drill="allele"></div>
+
+## Written questions
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q8. State the three assumptions of Mendelian randomization and give a threat to each.
+**Model answer.**
+1. **Relevance**: the variant is robustly associated with the exposure (genome-wide significant). Threat: **weak instruments**, which bias and destabilize the estimate.
+2. **Independence**: the variant is not associated with confounders of the exposure–outcome relationship. Threats: **population stratification**, **assortative mating**, **selection effects**.
+3. **Exclusion restriction**: the variant affects the outcome only through the exposure. Threat: **horizontal pleiotropy** (another pathway, e.g. SNP → inflammation → CHD). [→ 6.5](lecture6.qmd#t6-5)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q10. Explain the Wald ratio, IVW, weighted median and MR-Egger. When would you trust a causal conclusion?
+**Model answer.** **Wald ratio** (one instrument): $\beta_{\text{outcome}}/\beta_{\text{exposure}}$, change in outcome per genetically predicted unit of exposure (log-odds for binary outcomes). **IVW**: weighted regression of β-outcome on β-exposure through the origin = precision-weighted average of the Wald ratios; assumes all instruments valid. **Weighted median**: consistent if at least ~50% of the instrument weight is valid, so robust to a minority of bad instruments. **MR-Egger**: free intercept; a non-zero intercept indicates directional horizontal pleiotropy; less precise and more sensitive to weak instruments, relies on the InSIDE assumption. Trust grows when **all methods point in the same direction**, since their weaknesses differ. Always state the exposure unit and the direction. [→ 6.7–6.9](lecture6.qmd#t6-7)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q12. A Manhattan plot shows a tall peak with dozens of significant SNPs. Explain why, and what "lead SNP" and "locus" mean. Is the lead SNP causal?
+**Model answer.** Nearby SNPs are correlated (in LD) because they are inherited together, so one causal variant makes all SNPs in LD with it look associated. The **locus** is the region containing the associated signal; the **lead SNP** is the one with the smallest p-value there. It is **not necessarily causal**: it may be a proxy, and the causal variant may not even be on the array. Ways forward: conditional analysis, credible sets, functional annotation, protein folding models, pQTL evidence, experiments (knock-in mice). [→ 4.8, 5.3–5.4](lecture5.qmd#t5-4)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q14. Why is the genome-wide significance threshold 5×10⁻⁸? Does p < 5×10⁻⁸ mean the SNP matters?
+**Model answer.** About 1 million independent tests: $0.05/10^6 = 5 \times 10^{-8}$ (Bonferroni); at 0.05 you would get ~50,000 false positives. Significance means statistical robustness only. It says nothing about effect size (huge samples make tiny effects significant), causality or public-health relevance (rs11591147 has a big effect but is rare, 1.5%). [→ 4.7, 4.10](lecture4.qmd#t4-7)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q15. What must you always know when using GWAS summary statistics?
+**Model answer.** Which allele is the **effect allele** (A1/EA); whether β is an **OR or log(OR)** for binary outcomes; the **scale** of the phenotype (log? SD units?); the **genome build** (GRCh37/hg19 vs GRCh38). When combining datasets also check SNP coverage, allele/strand alignment and ancestry of the LD reference panel. rsIDs help avoid mismatches. [→ 4.6, 5.6](lecture5.qmd#t5-6)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q28. Describe the six steps of a two-sample MR analysis. Where is the difficulty?
+**Model answer.** (1) **Select instruments** for X: P < 5×10⁻⁸, sufficiently strong (F = (β/SE)² > 10), independent (LD clumping). (2) **Look up** the same SNPs in the outcome GWAS (use a proxy SNP in high LD if one is missing). (3) **Harmonise** alleles so both β's refer to the same effect allele; flip the sign when swapped, handle strand, exclude ambiguous palindromic SNPs. (4) **Estimate**: Wald ratio per SNP, IVW over SNPs. (5) **Sensitivity analyses**: weighted median, MR-Egger (intercept), leave-one-out, heterogeneity. (6) **Interpret**, stating the exposure unit. The slides stress that the difficulty lies in steps 1–3. [→ 9.3–9.6](lecture9.qmd#t9-3)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q29. Exposure GWAS: effect allele A, other allele G, β = +0.08. Outcome GWAS: effect allele G, other allele A, β = −0.03. Harmonise and compute the Wald ratio. What happens if you forget?
+**Model answer.** The outcome β is per G; per A it is **+0.03**. Wald ratio = 0.03 / 0.08 = **0.375**: Y increases 0.375 units per unit of genetically predicted X. Without harmonising: −0.03 / 0.08 = −0.375, the opposite conclusion (X looks protective). [→ 9.5](lecture9.qmd#t9-5)
+:::
+
+# Extra material
+
+Not required reading; see [Section 9.14](lecture9.qmd#t9-14).
 
 ::: {.callout-tip collapse="true" icon="false"}
 ## Q35. (Extra material) Björnson et al. (2023) report OR 2.59 per 1 mmol/L remnant cholesterol and OR 1.37 per 1 mmol/L LDL-C (multivariable MR, UK Biobank). Interpret, and name two limitations of the design.

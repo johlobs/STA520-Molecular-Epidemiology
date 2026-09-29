@@ -47,7 +47,7 @@ This page covers what makes MR "two-sample", the data it needs, the workflow (se
 
 # Part 1: Two-sample Mendelian randomization
 
-## 9.1 What makes MR "two-sample"? {#t9-1 .topic flag="inferred"}
+## 9.1 What makes MR "two-sample"? {#t9-1 .topic flag="unclear"}
 
 ::: {.worked}
 | | **One-sample MR** | **Two-sample MR** |
@@ -81,7 +81,7 @@ The SNP–exposure effects come from one GWAS and the SNP–outcome effects from
 :::
 ::::
 
-## 9.2 The data you actually need {#t9-2 .topic flag="inferred"}
+## 9.2 The data you actually need {#t9-2 .topic flag="seminar"}
 
 For each genetic instrument you need: **rsID, effect allele, β and SE for the exposure, β and SE for the outcome.** The other allele and the effect allele frequency are needed to harmonise (Section 9.5). **Individual-level data is not needed.**
 
@@ -97,7 +97,7 @@ The slides' example table:
 
 This is exactly what computer exercise 2 builds: β for LDL-C from the GLGC file, β for CAD from the CAD summary file, joined SNP by SNP.
 
-## 9.3 Step 1: selecting instruments and the F-statistic {#t9-3 .topic flag="inferred"}
+## 9.3 Step 1: selecting instruments and the F-statistic {#t9-3 .topic flag="seminar"}
 
 **The workflow** (the slides stress that "the difficulty is in step 1–3"):
 
@@ -141,7 +141,7 @@ z = 0.03 / 0.012 = 2.5, so F = 2.5² = 6.25 < 10: a weak instrument.
 :::
 ::::
 
-## 9.4 Step 2: finding the same variants in the outcome GWAS {#t9-4 .topic flag="inferred"}
+## 9.4 Step 2: finding the same variants in the outcome GWAS {#t9-4 .topic flag="seminar"}
 
 For every selected exposure SNP, look up in the outcome GWAS: **effect allele, other allele, effect estimate for the outcome, its SE, and the effect allele frequency** if available.
 
@@ -152,7 +152,7 @@ Things that go wrong here, all raised on the slides:
 - **Are the two samples comparable?** Two-sample MR assumes both GWAS sample the *same underlying population*, just different people.
 - **Genome build** *(tutorial)*: if you match on position rather than rsID, both files must use the same build (e.g. both hg19). Positions differ between builds.
 
-## 9.5 Step 3: harmonisation {#t9-5 .topic flag="inferred"}
+## 9.5 Step 3: harmonisation {#t9-5 .topic flag="seminar"}
 
 **Why it is needed.** A β means "change per copy of *the effect allele*". Each GWAS chooses its own effect allele. Before dividing β_GY by β_GX, both must refer to the **same allele**.
 
@@ -197,7 +197,7 @@ The outcome β is per T; per C it is −0.02. C/T is not palindromic (the comple
 :::
 ::::
 
-## 9.6 Step 4: the Wald ratio and IVW {#t9-6 .topic flag="inferred"}
+## 9.6 Step 4: the Wald ratio and IVW {#t9-6 .topic flag="seminar"}
 
 **One SNP: the Wald ratio.**
 
@@ -258,7 +258,7 @@ ggplot(slide_snps, aes(beta_exposure, beta_outcome)) +
 
 <div class="drill" data-drill="ivw"></div>
 
-## 9.7 Interpreting an MR estimate: units, and "genetically predicted ≠ intervention" {#t9-7 .topic flag="inferred"}
+## 9.7 Interpreting an MR estimate: units, and "genetically predicted ≠ intervention" {#t9-7 .topic flag="unclear"}
 
 **The unit of the exposure decides what the number means.** The slides use systolic blood pressure (SBP) as the exposure and pulse wave velocity (PWV, m/s) as the outcome:
 
@@ -279,7 +279,7 @@ The slide continues "per 10 mmHg, PWV increase 50%". That is the *additive appro
 Highlighted in red on the slides. Genotype acts **from conception**, so an MR estimate reflects a **lifelong** difference in the exposure, and **lifetime exposure builds risk**. A drug started at age 60 changes the exposure for a much shorter time. MR estimates are therefore often *larger* than what an intervention in adulthood achieves, and the *direction* is the more reliable part.
 :::
 
-## 9.8 Pleiotropy, sensitivity analyses and practical pitfalls {#t9-8 .topic flag="inferred"}
+## 9.8 Pleiotropy, sensitivity analyses and practical pitfalls {#t9-8 .topic flag="unclear"}
 
 **Horizontal pleiotropy does not disappear in two-sample MR.** Add sensitivity estimates next to the main IVW result:
 
@@ -336,7 +336,7 @@ SNPs that pass the threshold tend to be the ones whose β happened to come out h
 
 # Part 2: Polygenic risk scores
 
-## 9.9 PRS vs MR: same GWAS, different question {#t9-9 .topic flag="inferred"}
+## 9.9 PRS vs MR: same GWAS, different question {#t9-9 .topic flag="unclear"}
 
 | | **Mendelian randomization** | **Polygenic risk score** |
 |---|---|---|
@@ -351,7 +351,7 @@ SNPs that pass the threshold tend to be the ones whose β happened to come out h
 
 **Why many variants?** Most complex traits are **polygenic** (the LDL exercise found > 100 SNPs acting through many genes), and most SNPs have a **tiny** effect by themselves. Most people carry *some* risk alleles. Only the sum separates people meaningfully.
 
-## 9.10 The PRS formula {#t9-10 .topic flag="inferred"}
+## 9.10 The PRS formula {#t9-10 .topic flag="unclear"}
 
 A PRS is calculated **for an individual** $i$ as the sum over $M$ SNPs of allele dosage × estimated effect:
 
@@ -376,7 +376,7 @@ For a binary disease the β's are **log-odds ratios**, so the PRS is on the log-
 
 <div class="drill" data-drill="prs"></div>
 
-## 9.11 Two datasets: discovery and target {#t9-11 .topic flag="inferred"}
+## 9.11 Two datasets: discovery and target {#t9-11 .topic flag="unclear"}
 
 A PRS analysis (preferably) needs **two** data sets:
 
@@ -391,7 +391,7 @@ The course book describes the same split as **base data** (GWAS summary statisti
 
 **Other checks from the tutorial's QC list:** confirm which allele is the effect allele in the base GWAS (otherwise the score points the wrong way), remove ambiguous (palindromic) and duplicated SNPs, use the same genome build, and prefer target samples of ≥ 100 individuals.
 
-## 9.12 Choosing SNPs: clumping + thresholding, and shrinkage {#t9-12 .topic flag="inferred"}
+## 9.12 Choosing SNPs: clumping + thresholding, and shrinkage {#t9-12 .topic flag="unclear"}
 
 **Two problems with using raw GWAS output directly:**
 
@@ -419,7 +419,7 @@ C+T *includes* a SNP at its full β or *excludes* it (β set to 0). Shrinkage me
 If you try 10 thresholds in the target data and report the best one, that "best" R² or AUC is optimistic. Choose the threshold in one part of the data and report performance in another (a validation set or cross-validation) *(tutorial)*.
 :::
 
-## 9.13 Interpreting and evaluating a PRS {#t9-13 .topic flag="inferred"}
+## 9.13 Interpreting and evaluating a PRS {#t9-13 .topic flag="unclear"}
 
 **What a PRS means** *(slides)*:
 

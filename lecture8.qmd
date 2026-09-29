@@ -251,7 +251,7 @@ Troponin is a readout of cardiomyocyte damage. Lowering it would not undo the da
 :::
 ::::
 
-## 8.9 pQTLs: connecting genetics and proteomics {#t8-9 .topic flag="inferred"}
+## 8.9 pQTLs: connecting genetics and proteomics {#t8-9 .topic flag="unclear"}
 
 For a given SNP, do genotype groups (AA = 0, AG = 1, GG = 2) differ in protein abundance?
 
@@ -290,7 +290,7 @@ cis = near the encoding gene; trans = far away (> 500 kb) or on another chromoso
 :::
 ::::
 
-## 8.10 Protein Mendelian randomization {#t8-10 .topic flag="inferred"}
+## 8.10 Protein Mendelian randomization {#t8-10 .topic flag="unclear"}
 
 Genetic variant → protein abundance → disease risk. With $\beta_{GP}$ = SNP effect on **P**rotein and $\beta_{GO}$ = SNP effect on **O**utcome:
 
@@ -313,7 +313,7 @@ A cis-pQTL raises plasma protein X by 0.5 SD per allele and raises the log-odds 
 :::
 ::::
 
-## 8.11 Challenges specific to protein MR {#t8-11 .topic flag="inferred"}
+## 8.11 Challenges specific to protein MR {#t8-11 .topic flag="unclear"}
 
 | Challenge | Why it matters |
 |---|---|

@@ -23,7 +23,7 @@ This page covers RNA vs DNA, transcription and strand terminology, translation a
 **Rough plan:** Week 1, day 2. DNA–RNA–Protein.
 :::
 
-## 2.1 RNA vs DNA, and the types of RNA {#t2-1 .topic flag="inferred"}
+## 2.1 RNA vs DNA, and the types of RNA {#t2-1 .topic flag="professor"}
 
 RNA is chemically similar to DNA but differs in three ways:
 
@@ -56,7 +56,7 @@ Each tRNA carries one specific amino acid and has an anticodon that base-pairs w
 :::
 ::::
 
-## 2.2 Transcription, strands and directionality {#t2-2 .topic flag="inferred"}
+## 2.2 Transcription, strands and directionality {#t2-2 .topic flag="professor"}
 
 Protein synthesis has two steps: **transcription** and **translation**. In transcription a gene (a defined stretch of DNA) is copied into mRNA; the mature mRNA is exported from the nucleus and translated in the cytoplasm.
 
@@ -77,7 +77,7 @@ Protein synthesis has two steps: **transcription** and **translation**. In trans
 - **DNA polymerase needs a primer** to start. **RNA polymerase does not.**
 :::
 
-## 2.2b Worked example: strand, transcribe, translate {#t2-2b .topic flag="inferred"}
+## 2.2b Worked example: strand, transcribe, translate {#t2-2b .topic flag="professor"}
 
 This example is from Lecture 3 but tests exactly the concepts above. Be able to do it from scratch.
 
@@ -100,7 +100,7 @@ This example is from Lecture 3 but tests exactly the concepts above. Be able to 
 
 The practice section at the bottom of the page lets you run the same steps in R.
 
-## 2.3 Translation and the genetic code {#t2-3 .topic flag="inferred"}
+## 2.3 Translation and the genetic code {#t2-3 .topic flag="professor"}
 
 **Translation**: the ribosome reads the code in the mRNA and builds a protein. It takes place at ribosomes. The genetic code maps three-nucleotide **codons** to amino acids and has three properties:
 
@@ -141,7 +141,7 @@ The stop codons are UAA, UAG and UGA. AUG is the start codon (methionine); UGG c
 :::
 ::::
 
-## 2.4 Mutations: substitutions {#t2-4 .topic flag="inferred"}
+## 2.4 Mutations: substitutions {#t2-4 .topic flag="professor"}
 
 A **mutation** is a change in a DNA sequence. The lecture shows near-identical mRNA sequences, each with one letter changed from the reference, to show how small the physical change can be:
 
@@ -172,7 +172,7 @@ Worked on the sequences above (codons `AUG ACU CCU UGU GGC UCU ACA UAA` = Met–
 | 4 | GGC → GCC (Gly → Ala) | Missense |
 | 5 | UGU → UGA (Cys → stop) | Nonsense |
 
-## 2.4b Mutations: indels and chromosomal changes {#t2-4b .topic flag="inferred"}
+## 2.4b Mutations: indels and chromosomal changes {#t2-4b .topic flag="professor"}
 
 **Indels (insertions and deletions)** add or remove one or more nucleotides. The effect depends on *how many*, because the ribosome reads in fixed groups of three:
 
@@ -196,7 +196,7 @@ Three nucleotides is one codon. The frame downstream is preserved, so the protei
 :::
 ::::
 
-## 2.5 The PCSK9 mutation D374Y {#t2-5 .topic}
+## 2.5 The PCSK9 mutation D374Y {#t2-5 .topic flag="example"}
 
 The specific PCSK9 mutation used as the running example is **D374Y**, written at three levels:
 
@@ -208,7 +208,7 @@ The specific PCSK9 mutation used as the running example is **D374Y**, written at
 
 Lecture 3 (Section 3.3) covers the full HGVS rules for reading and writing this notation, and explains why D374Y is a *gain-of-function* mutation.
 
-## 2.6 PCR: polymerase chain reaction {#t2-6 .topic flag="inferred"}
+## 2.6 PCR: polymerase chain reaction {#t2-6 .topic flag="professor"}
 
 **PCR** amplifies (makes many copies of) a specific region of DNA ***in vitro*** (in a test tube). "Worth a Nobel Prize": Kary Mullis won the 1993 Nobel Prize in Chemistry for it.
 

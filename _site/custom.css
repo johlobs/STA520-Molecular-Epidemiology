@@ -38,6 +38,33 @@ table {
   border: 2px solid #d9480f;
   box-shadow: 0 1px 3px rgba(217, 72, 15, 0.35);
 }
+/* Professor's word/concept list: solid purple */
+.flag-professor, .flag-professor_unsure {
+  background: #6f42c1;
+  color: #ffffff;
+  border: 2px solid #6f42c1;
+}
+.flag-professor_unsure { background: #ffffff; color: #6f42c1; }
+/* Exam status unclear: grey, dotted */
+.flag-unclear {
+  background: #f8f9fa;
+  color: #495057;
+  border: 1.5px dotted #adb5bd;
+  font-weight: 500;
+}
+/* Seminar: green, not on the written exam */
+.flag-seminar {
+  background: #e6f4ea;
+  color: #1e6b34;
+  border: 1.5px solid #2f9e44;
+}
+/* Running example: plain, quiet */
+.flag-example {
+  background: transparent;
+  color: #6c757d;
+  border: 1px solid #ced4da;
+  font-weight: 500;
+}
 /* AI-inferred: outlined, quiet */
 .flag-inferred {
   background: transparent;
@@ -126,6 +153,10 @@ section.topic[data-flag="instructor"] > h2 {
 }
 .dash-card.card-instructor { border: 2px solid #d9480f; }
 .dash-card.card-inferred   { border: 1.5px dashed #6c8fb3; }
+.dash-card.card-exam       { border: 2px solid #212529; }
+.dash-card.card-professor  { border: 2px solid #6f42c1; }
+.dash-card.card-unclear    { border: 1.5px dotted #adb5bd; }
+.dash-card.card-seminar    { border: 1.5px solid #2f9e44; }
 .dash-card-label { font-size: 0.82rem; color: #495057; font-weight: 600; }
 .dash-card-value { font-size: 1.9rem; font-weight: 700; line-height: 1.2; }
 .dash-card-sub   { font-size: 0.78rem; color: #6c757d; margin-bottom: 0.5rem; }
@@ -228,3 +259,23 @@ section.topic[data-flag="instructor"] > h2 {
   font-size: 0.88rem;
   overflow-x: auto;
 }
+
+/* ── Vocabulary flashcards ─────────────────────────────────────────── */
+.vocab-app { max-width: 720px; margin: 1rem 0 1.5rem; }
+.vocab-controls { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; margin-bottom: 0.75rem; }
+.vocab-controls label { display: flex; gap: 0.4rem; align-items: center; margin: 0; }
+.vocab-controls select { width: auto; }
+.vocab-progress { font-size: 0.85rem; color: #495057; }
+.vocab-card { background: #ffffff; border: 1px solid #dee2e6; border-radius: 10px; padding: 1.1rem 1.2rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.vocab-meta { display: flex; justify-content: space-between; font-size: 0.8rem; color: #6c757d; margin-bottom: 0.3rem; }
+.vocab-kind { font-weight: 600; }
+.vocab-kind-concept { color: #6f42c1; }
+.vocab-kind-unsure { color: #6c757d; font-style: italic; }
+.vocab-term { font-size: 1.6rem; font-weight: 700; margin: 0.2rem 0 0.8rem; line-height: 1.25; }
+.vocab-card textarea { margin-bottom: 0.6rem; }
+.vocab-back { margin-top: 0.9rem; padding-top: 0.8rem; border-top: 1px dashed #ced4da; }
+.vocab-back p { margin-bottom: 0.5rem; }
+.vocab-mark { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.vocab-nav { display: flex; justify-content: space-between; margin-top: 0.6rem; }
+.vocab-all { margin-top: 1rem; }
+.vocab-all summary { cursor: pointer; font-weight: 600; }

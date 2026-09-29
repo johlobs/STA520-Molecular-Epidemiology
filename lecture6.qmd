@@ -32,7 +32,7 @@ This page covers imputation and proxy SNPs, the Bradford Hill criteria, why gene
 **Rough plan:** Week 3, day 1. From GWAS to Mendelian randomisation.
 :::
 
-## 6.1 Imputation and proxy SNPs {#t6-1 .topic flag="inferred"}
+## 6.1 Imputation and proxy SNPs {#t6-1 .topic flag="unclear"}
 
 **The problem.** You want to know whether a specific variant (rsXY) affects a phenotype, but it was not measured in your data. Or: your data has SNPs + SBP, another dataset tested the same region against stroke, but the SNP overlap is poor: your lead SNPs are missing in the other dataset and vice versa. Dead end?
 
@@ -45,7 +45,7 @@ This page covers imputation and proxy SNPs, the Bradford Hill criteria, why gene
 
 Both bridge the gap between studies (or a study and a reference panel) that did not measure exactly the same SNPs.
 
-## 6.2 The Bradford Hill criteria {#t6-2 .topic flag="inferred"}
+## 6.2 The Bradford Hill criteria {#t6-2 .topic flag="unclear"}
 
 Classical epidemiology's considerations for judging whether an association is likely causal (predates genetic methods). **Nine criteria**, likely a list-recall item:
 
@@ -63,7 +63,7 @@ Classical epidemiology's considerations for judging whether an association is li
 
 Memory aid: **S-C-S-T-B-P-C-E-A**, "*Strong Consistent Specific Timing, Biological Plausible Coherent Experimental Analogy*".
 
-## 6.3 Genetic variants as instruments {#t6-3 .topic flag="inferred"}
+## 6.3 Genetic variants as instruments {#t6-3 .topic flag="unclear"}
 
 **Key insight:** genetic variants are natural **instrumental variables**. Genotype is fixed at conception, so it comes first in any causal chain: **no reverse causation** (adult disease cannot change the genotype you were born with).
 
@@ -73,7 +73,7 @@ Genetic variant (SNP) ──▶ Exposure ──▶ Outcome
 
 To use a SNP to study the causal effect of an exposure on an outcome, three core assumptions must hold: **relevance, independence, exclusion restriction** (Section 6.5 gives them in full).
 
-## 6.4 Why we need MR: confounding {#t6-4 .topic}
+## 6.4 Why we need MR: confounding {#t6-4 .topic flag="unclear"}
 
 **Motivating problem.** Does LDL-C cause coronary heart disease (CHD)? Observationally, high LDL-C precedes CHD, but how do you rule out:
 
@@ -97,7 +97,7 @@ The classical gold standard is the **randomized controlled trial (RCT)**: interv
 
 **Why is a GWAS association with CHD not enough?** It says a SNP is associated with CHD (or LDL-C), not *which pathway* or *which gene*. The SNP could act through LDL-C, or through inflammation or blood pressure (SBP). MR is designed to resolve this.
 
-## 6.5 Instruments and the three MR assumptions {#t6-5 .topic flag="inferred"}
+## 6.5 Instruments and the three MR assumptions {#t6-5 .topic flag="seminar"}
 
 **Selecting instruments.** Choose SNPs **strongly associated with the exposure** (e.g. LDL-C), typically $P < 5 \times 10^{-8}$ in the exposure GWAS, and **independent** of each other (low LD, e.g. $r^2 < 0.01$, via LD clumping, Lecture 5). At this stage you **do not look at the SNP → outcome relationship at all**; that comes in later.
 
@@ -146,7 +146,7 @@ Population stratification links the SNP to confounders (ancestry-related factors
 :::
 ::::
 
-## 6.6 Multiple instruments, dose–response and pleiotropy {#t6-6 .topic flag="inferred"}
+## 6.6 Multiple instruments, dose–response and pleiotropy {#t6-6 .topic flag="unclear"}
 
 With **several independent instruments**, each shifting the exposure by a different amount, plot each SNP's effect on the exposure (β-exposure, e.g. β-LDL-C) against its effect on the outcome (β-outcome, e.g. β-CHD). Example SNPs: **SNP1 (LDLR), SNP2 (LDLR), SNP3 (PCSK9), SNP4 (APOE), SNP5 (APOB)**, all genes with known roles in LDL metabolism. A consistent **dose–response line** (larger effect on exposure → proportionally larger effect on outcome) strengthens confidence in causality.
 
@@ -160,7 +160,7 @@ With **several independent instruments**, each shifting the exposure by a differ
 | For MR | **Not a problem**: this is the causal chain MR is looking for | **Bad**: violates the exclusion restriction |
 :::
 
-## 6.7 The Wald ratio and IVW {#t6-7 .topic flag="inferred"}
+## 6.7 The Wald ratio and IVW {#t6-7 .topic flag="seminar"}
 
 **One instrument: the Wald ratio**
 
@@ -240,7 +240,7 @@ A SNP raises LDL-C by 0.4 mmol/L per allele and raises CHD log-odds by 0.2 per a
 :::
 ::::
 
-## 6.8 Sensitivity analyses: weighted median and MR-Egger {#t6-8 .topic flag="inferred"}
+## 6.8 Sensitivity analyses: weighted median and MR-Egger {#t6-8 .topic flag="seminar"}
 
 ::: {.worked}
 | | **IVW** | **Weighted median** | **MR-Egger** |
@@ -283,7 +283,7 @@ The weighted median is consistent if at least ~50% of the weight comes from vali
 :::
 ::::
 
-## 6.9 Interpreting an MR result {#t6-9 .topic flag="inferred"}
+## 6.9 Interpreting an MR result {#t6-9 .topic flag="seminar"}
 
 An MR estimate is the **expected change in outcome per genetically predicted change in exposure.** Always check:
 

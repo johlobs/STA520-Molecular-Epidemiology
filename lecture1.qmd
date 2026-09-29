@@ -36,7 +36,7 @@ Does a statistical association between a molecule and a disease reflect **causal
 
 **Formal definition** (the synthesis at the end of the lecture): *molecular epidemiology studies how molecular variation across individuals relates to exposures, traits and disease in populations.* In practice the field measures molecular variation across many individuals, links it to exposures, risk factors, disease, prognosis or treatment response, and then asks whether the associations are **reproducible, predictive, mechanistically informative and potentially causal**.
 
-## 1.2 The running example: cardiovascular disease, LDL and PCSK9 {#t1-2 .topic flag="inferred"}
+## 1.2 The running example: cardiovascular disease, LDL and PCSK9 {#t1-2 .topic flag="example"}
 
 **Why cardiovascular disease?** Cardiovascular disease (CVD) is *not one disease* but a family of clinical phenotypes with overlapping biology:
 
@@ -90,7 +90,7 @@ PCSK9 promotes LDLR degradation. Reducing PCSK9 (by blocking the protein or redu
 :::
 ::::
 
-## 1.3 Molecular measurement layers {#t1-3 .topic flag="inferred"}
+## 1.3 Molecular measurement layers {#t1-3 .topic flag="professor"}
 
 The course organizes "what can we measure" into layers with different properties. **Memorize this table**; Lecture 8 relies on the contrast between fixed DNA and dynamic RNA/protein.
 
@@ -144,7 +144,7 @@ Troponin is released when cardiomyocytes are damaged. It signals injury that has
 :::
 ::::
 
-## 1.4 Central dogma and proteins {#t1-4 .topic flag="inferred"}
+## 1.4 Central dogma and proteins {#t1-4 .topic flag="professor"}
 
 **The central dogma** describes the (mostly) one-way flow of genetic information in a cell: **DNA → RNA → protein**. DNA is the durable, inherited information store; RNA is a transient working copy transcribed from specific genes; proteins are the functional molecules translated from that RNA. **Gene expression** is the umbrella term for the two steps, transcription (DNA → RNA) and translation (RNA → protein). Lecture 2 covers both mechanically.
 
@@ -185,7 +185,7 @@ Quaternary structure is the arrangement of multiple folded polypeptide chains in
 :::
 ::::
 
-## 1.4b DNA structure and complementary base pairing {#t1-4b .topic flag="inferred"}
+## 1.4b DNA structure and complementary base pairing {#t1-4b .topic flag="professor"}
 
 **Genes**, the basic physical and functional units of heredity, are made of DNA. DNA is a polymer of **nucleotides**; there are four types: **A (adenine), C (cytosine), G (guanine), T (thymine)**. DNA normally forms a **double helix**: two strands wound around each other, held together by comparatively weak **hydrogen bonds** between complementary bases. Because these bonds are weak, the strands can be separated for replication and transcription without breaking the covalent backbone.
 
@@ -208,7 +208,7 @@ A pairs with T and C pairs with G, and the strands are antiparallel. Under 5′-
 :::
 ::::
 
-## 1.4c Chromosomes, mitosis and meiosis {#t1-4c .topic flag="inferred"}
+## 1.4c Chromosomes, mitosis and meiosis {#t1-4c .topic flag="professor"}
 
 Human DNA is organized into **23 different types of chromosomes**, each containing many genes. Most human cells have **46 chromosomes in 23 pairs**, one of each pair from the mother and one from the father. DNA replicates before cell division so each daughter cell gets a complete genome.
 
@@ -237,7 +237,7 @@ Meiosis produces four genetically different gametes, each with half the chromoso
 :::
 ::::
 
-## 1.4d Lipids {#t1-4d .topic}
+## 1.4d Lipids {#t1-4d .topic flag="professor"}
 
 **Lipids** are a diverse group of molecules that dissolve poorly in water: fats, phospholipids, cholesterol and steroid hormones. **Phospholipids and cholesterol build cell membranes.** This is the bridge to the cardiovascular theme: cholesterol and LDL biology (Section 1.2) is fundamentally a story of lipid transport and membrane biology.
 
