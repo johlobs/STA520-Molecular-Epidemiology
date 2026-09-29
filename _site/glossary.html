@@ -274,12 +274,29 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Reference</span></a>
+ <span class="menu-text">Week 5: Two-sample MR and PRS</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 9 — Two-sample MR and polygenic risk scores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./about.html" class="sidebar-item-text sidebar-link">
@@ -376,6 +393,10 @@ A coding variant changes the protein’s structure so the antibody/aptamer binds
 <dd>
 Non-random mate choice related to a trait; a threat to the MR independence assumption. <a href="./lecture6.html#t6-5">L6 §6.5</a>
 </dd>
+<dt>AUC (area under the ROC curve)</dt>
+<dd>
+Probability that a random case gets a higher predicted risk than a random control; 0.5 = chance, 1 = perfect. Used to ask whether a PRS adds discrimination. <a href="./lecture9.html#t9-13">L9 §9.13</a>
+</dd>
 <dt>Background correction (normexp)</dt>
 <dd>
 Within-array correction modelling observed intensity as exponential signal + normal background noise; gives positive values and better low-intensity estimates. <a href="./lecture7.html#t7-5">L7 §7.5</a>
@@ -400,6 +421,10 @@ FWER control: reject if p ≤ α/m (p_adj = p × m). Valid under any dependence 
 <dd>
 Strength, Consistency, Specificity, Temporality, Biological gradient, Plausibility, Coherence, Experiment, Analogy. <a href="./lecture6.html#t6-2">L6 §6.2</a>
 </dd>
+<dt>Calibration</dt>
+<dd>
+Agreement between predicted and observed risks (predicted 10% → about 10% get the disease). <a href="./lecture9.html#t9-13">L9 §9.13</a>
+</dd>
 <dt>Central dogma</dt>
 <dd>
 The flow of genetic information DNA → RNA → protein. <a href="./lecture1.html#t1-4">L1 §1.4</a> · <a href="./lecture2.html#t2-2">L2 §2.2</a>
@@ -415,6 +440,10 @@ Using the same data to define groups (e.g.&nbsp;clusters) and then to test diffe
 <dt>cis-pQTL</dt>
 <dd>
 A pQTL located near the gene encoding the protein; direct interpretation, preferred MR instrument. <a href="./lecture8.html#t8-9">L8 §8.9</a> · <a href="./lecture4.html#t4-10">L4 §4.10</a>
+</dd>
+<dt>Clumping + thresholding (C+T)</dt>
+<dd>
+Classical PRS method (“pruning and thresholding”): keep one lead SNP per locus, include SNPs with P below a threshold. <a href="./lecture9.html#t9-12">L9 §9.12</a>
 </dd>
 <dt>Codon</dt>
 <dd>
@@ -457,6 +486,10 @@ A set of candidate causal SNPs chosen from association strength and LD structure
 <dd>
 NCBI database of short variants; each gets a stable rs identifier (e.g.&nbsp;rs137852912 = PCSK9 D374Y). <a href="./lecture3.html#t3-3c">L3 §3.3c</a>
 </dd>
+<dt>Discovery (base) and target sample</dt>
+<dd>
+In PRS analysis: the discovery GWAS supplies the β estimates; the independent target sample supplies genotypes, phenotype and covariates. <a href="./lecture9.html#t9-11">L9 §9.11</a>
+</dd>
 <dt>Dominant / recessive allele</dt>
 <dd>
 Dominant affects the phenotype with at least one copy; recessive only with two. <a href="./lecture3.html#t3-6">L3 §3.6</a>
@@ -468,6 +501,10 @@ Sharing information across features: each variance is pulled toward a common val
 <dt>Exclusion restriction</dt>
 <dd>
 MR assumption 3: the variant affects the outcome only through the exposure. Broken by horizontal pleiotropy. <a href="./lecture6.html#t6-5">L6 §6.5</a>
+</dd>
+<dt>F-statistic (instrument strength)</dt>
+<dd>
+F = (β_GX / SE)² for one SNP; F &lt; 10 marks a weak instrument. <a href="./lecture9.html#t9-3">L9 §9.3</a>
 </dd>
 <dt>FDR (false discovery rate)</dt>
 <dd>
@@ -525,6 +562,10 @@ A combination of alleles at two or more loci on the same chromosome copy. <a hre
 <dd>
 With allele frequencies p and q: P(AA) = p², P(Aa) = 2pq, P(aa) = q². Deviations are a genotyping QC check. <a href="./lecture3.html#t3-9">L3 §3.9</a> · <a href="./lecture4.html#t4-2">L4 §4.2</a>
 </dd>
+<dt>Harmonisation</dt>
+<dd>
+Aligning alleles so the exposure and outcome β refer to the same effect allele (flip the sign when swapped; handle strand and palindromic SNPs). <a href="./lecture9.html#t9-5">L9 §9.5</a>
+</dd>
 <dt>HGVS nomenclature</dt>
 <dd>
 Standard variant notation: reference (NM_ mRNA, NC_ genomic, NP_ protein) + coordinate type (c., g., p.) + change (e.g.&nbsp;c.1120G&gt;T, p.Asp374Tyr). <a href="./lecture3.html#t3-3b">L3 §3.3b</a>
@@ -560,11 +601,11 @@ A variable affecting the exposure but related to the outcome only through it; ge
 </dd>
 <dt>IVW (inverse-variance weighted) MR</dt>
 <dd>
-Weighted regression of β-outcome on β-exposure through the origin = weighted average of Wald ratios. <a href="./lecture6.html#t6-7">L6 §6.7</a>
+Weighted regression of β-outcome on β-exposure through the origin = weighted average of Wald ratios. <a href="./lecture6.html#t6-7">L6 §6.7</a> · <a href="./lecture9.html#t9-6">L9 §9.6</a>
 </dd>
 <dt>LD clumping</dt>
 <dd>
-Reducing each locus to one approximately independent lead SNP (e.g.&nbsp;r² &lt; 0.01); done before MR. <a href="./lecture5.html#t5-4b">L5 §5.4b</a>
+Reducing each locus to one approximately independent lead SNP (e.g.&nbsp;r² &lt; 0.01); done before MR. <a href="./lecture5.html#t5-4b">L5 §5.4b</a> · <a href="./lecture9.html#t9-3">L9 §9.3</a>
 </dd>
 <dt>LDL / LDLR</dt>
 <dd>
@@ -638,6 +679,10 @@ MR regression with a free intercept; a non-zero intercept signals directional ho
 <dd>
 Messenger RNA carries the code; ribosomal RNA builds ribosomes; transfer RNA brings amino acids. <a href="./lecture2.html#t2-1">L2 §2.1</a>
 </dd>
+<dt>Multivariable MR</dt>
+<dd>
+MR with several related exposures in one model (e.g.&nbsp;apoB, LDL-C and remnant cholesterol), so each causal estimate is adjusted for the others. <a href="./lecture9.html#t9-14">L9 §9.14</a>
+</dd>
 <dt>Mutation</dt>
 <dd>
 A change in the DNA sequence (L2’s definition). Point mutations (silent, missense, nonsense), indels (frameshift, in-frame) and chromosomal alterations; germline or somatic; gain or loss of function. In practice largely interchangeable with <em>variant</em>, which is the more neutral term. <a href="./lecture2.html#t2-4">L2 §2.4</a> · <a href="./lecture2.html#t2-4b">L2 §2.4b</a> · <a href="./lecture3.html#t3-3">L3 §3.3</a> · <a href="./lecture3.html#t3-4">L3 §3.4</a>
@@ -671,6 +716,10 @@ A miRNA that promotes cancer (e.g.&nbsp;miR-1246, miR-663a). <a href="./lecture7
 <dd>
 OR = exp(β) from logistic regression; β = −0.16 → OR 0.85 (one copy), 0.73 (two copies). <a href="./lecture4.html#t4-3">L4 §4.3</a>
 </dd>
+<dt>Palindromic SNP</dt>
+<dd>
+A/T or C/G SNP whose complement is the same allele pair, so strand cannot be read from the letters; resolved by allele frequency or excluded. <a href="./lecture9.html#t9-5">L9 §9.5</a>
+</dd>
 <dt>PCR</dt>
 <dd>
 Polymerase chain reaction: in vitro amplification of a DNA region using heat-stable Taq polymerase and primers. <a href="./lecture2.html#t2-6">L2 §2.6</a>
@@ -678,6 +727,10 @@ Polymerase chain reaction: in vitro amplification of a DNA region using heat-sta
 <dt>PCSK9</dt>
 <dd>
 Protein promoting LDLR degradation; the course’s running drug-target example. <a href="./lecture1.html#t1-2">L1 §1.2</a> · <a href="./lecture3.html#t3-3">L3 §3.3</a> · <a href="./lecture8.html#t8-12">L8 §8.12</a>
+</dd>
+<dt>Polygenic risk score (PRS)</dt>
+<dd>
+Sum over SNPs of allele dosage × GWAS effect size for one individual; a relative measure of genetic liability, not a probability. <a href="./lecture9.html#t9-10">L9 §9.10</a>
 </dd>
 <dt>Population stratification</dt>
 <dd>
@@ -739,11 +792,19 @@ Exchange of segments between homologous chromosomes in meiosis; r = recombinants
 <dd>
 MR assumption 1: the variant is strongly associated with the exposure; threat: weak instruments. <a href="./lecture6.html#t6-5">L6 §6.5</a>
 </dd>
+<dt>Remnant cholesterol (TRL/remnant-C)</dt>
+<dd>
+Cholesterol in triglyceride-rich lipoproteins and their partly lipolysed remnants; computed as non-HDL-C − LDL-C. <a href="./lecture9.html#t9-14">L9 §9.14</a>
+</dd>
 </dl>
 </section>
 <section id="sz" class="level2">
 <h2 class="anchored" data-anchor-id="sz">S–Z</h2>
 <dl>
+<dt>Sample overlap</dt>
+<dd>
+Individuals present in both GWAS (MR) or in both discovery and target data (PRS); biases MR toward the observational estimate and inflates PRS accuracy. <a href="./lecture9.html#t9-8">L9 §9.8</a> · <a href="./lecture9.html#t9-11">L9 §9.11</a>
+</dd>
 <dt>Sanger sequencing</dt>
 <dd>
 The original sequencing method: accurate, lower throughput. <a href="./lecture3.html#t3-5">L3 §3.5</a>
@@ -770,7 +831,7 @@ Acquired during life, confined to a tissue, not heritable. <a href="./lecture3.h
 </dd>
 <dt>Summary statistics</dt>
 <dd>
-Per-SNP GWAS results (SNP, CHR, BP, A1, A2, EAF, β, SE, P, N) with no individual-level data. <a href="./lecture4.html#t4-6">L4 §4.6</a>
+Per-SNP GWAS results (SNP, CHR, BP, A1, A2, EAF, β, SE, P, N) with no individual-level data. <a href="./lecture4.html#t4-6">L4 §4.6</a> · <a href="./lecture9.html#t9-2">L9 §9.2</a>
 </dd>
 <dt>Supervised / unsupervised analysis</dt>
 <dd>
@@ -800,6 +861,10 @@ pQTL far (&gt; 500 kb or other chromosome) from the encoding gene; indirect, mor
 <dd>
 Released by damaged heart muscle; a marker of injury, predictive but not causal. <a href="./lecture1.html#t1-3b">L1 §1.3b</a> · <a href="./lecture8.html#t8-8">L8 §8.8</a>
 </dd>
+<dt>Two-sample MR</dt>
+<dd>
+MR with SNP → exposure and SNP → outcome effects taken from two different GWAS; needs only summary statistics. <a href="./lecture9.html#t9-1">L9 §9.1</a>
+</dd>
 <dt>VAF (variant allele frequency)</dt>
 <dd>
 Fraction of reads/cells in one patient’s sample carrying a mutation. <a href="./lecture3.html#t3-4">L3 §3.4</a>
@@ -814,11 +879,19 @@ The variant affects the outcome through the exposure itself; not a problem for M
 </dd>
 <dt>Wald ratio</dt>
 <dd>
-MR estimate with one instrument: β_outcome / β_exposure (β_GO / β_GP in protein MR). <a href="./lecture6.html#t6-7">L6 §6.7</a> · <a href="./lecture8.html#t8-10">L8 §8.10</a>
+MR estimate with one instrument: β_outcome / β_exposure (β_GO / β_GP in protein MR). <a href="./lecture6.html#t6-7">L6 §6.7</a> · <a href="./lecture8.html#t8-10">L8 §8.10</a> · <a href="./lecture9.html#t9-6">L9 §9.6</a>
+</dd>
+<dt>Weak instrument</dt>
+<dd>
+A SNP explaining little of the exposure (F &lt; 10); biases MR toward the null (no overlap) or toward the confounded estimate (overlap). <a href="./lecture9.html#t9-8">L9 §9.8</a>
 </dd>
 <dt>Weighted median</dt>
 <dd>
 MR estimator valid if at least ~50% of instrument weight is valid. <a href="./lecture6.html#t6-8">L6 §6.8</a>
+</dd>
+<dt>Winner’s curse</dt>
+<dd>
+Effect sizes of newly discovered variants tend to be overestimated in the GWAS that found them; in MR this biases toward the null. <a href="./lecture9.html#t9-8">L9 §9.8</a>
 </dd>
 <dt>z-score</dt>
 <dd>
@@ -2037,6 +2110,202 @@ window.STA520_TOPICS = [
 
   "flag": "inferred"
 
+ },
+
+ {
+
+  "id": "t9-1",
+
+  "title": "9.1 What makes MR \"two-sample\"?",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-2",
+
+  "title": "9.2 The data you actually need",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-3",
+
+  "title": "9.3 Step 1: selecting instruments and the F-statistic",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-4",
+
+  "title": "9.4 Step 2: finding the same variants in the outcome GWAS",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-5",
+
+  "title": "9.5 Step 3: harmonisation",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-6",
+
+  "title": "9.6 Step 4: the Wald ratio and IVW",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-7",
+
+  "title": "9.7 Interpreting an MR estimate: units, and \"genetically predicted ≠ intervention\"",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-8",
+
+  "title": "9.8 Pleiotropy, sensitivity analyses and practical pitfalls",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-9",
+
+  "title": "9.9 PRS vs MR: same GWAS, different question",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-10",
+
+  "title": "9.10 The PRS formula",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-11",
+
+  "title": "9.11 Two datasets: discovery and target",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-12",
+
+  "title": "9.12 Choosing SNPs: clumping + thresholding, and shrinkage",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-13",
+
+  "title": "9.13 Interpreting and evaluating a PRS",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-14",
+
+  "title": "9.14 Extra material: remnant cholesterol, LDL and CHD in UK Biobank",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": null
+
  }
 
 ];
@@ -2080,7 +2349,8 @@ window.STA520_TOPICS = [
     5: 'GWAS and computer exercise 1',
     6: 'From GWAS to Mendelian randomization',
     7: 'High-dimensional molecular data',
-    8: 'Proteomics'
+    8: 'Proteomics',
+    9: 'Two-sample MR and polygenic risk scores'
   };
 
   /* ── storage ───────────────────────────────────────────────────────── */
@@ -2254,7 +2524,7 @@ window.STA520_TOPICS = [
     ['Lecture', 'Topics', '🎯', 'Reviewed', 'Confident'].forEach(function (h) { hr.appendChild(el('th', null, h)); });
     thead.appendChild(hr); table.appendChild(thead);
     var tbody = el('tbody');
-    for (var n = 1; n <= 8; n++) {
+    for (var n = 1; n <= 9; n++) {
       var list = TOPICS.filter(function (t) { return t.lecture === n; });
       if (!list.length) continue;
       var s = summarise(list);
@@ -3317,6 +3587,108 @@ window.STA520_TOPICS = [
       solution: '<p>' + why + '</p>' + (action === 2 ? '' : '<p>Aligned outcome β = <b>' + fmt(alignedY, 3) + '</b> per copy of ' + ea + ', the exposure-raising allele.</p>') +
 
         '<p><b>Checklist:</b> same alleles → keep · swapped → flip β · complementary letters → other strand (complement, then compare) · A/T or C/G → palindromic, decide with EAF or exclude · anything else → incompatible, exclude.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.fstat = function () {
+
+    var rows = [];
+
+    for (var i = 0; i < 4; i++) {
+
+      var se = rnd(0.005, 0.02, 3);
+
+      var z = pick([rnd(1.5, 3.1, 1), rnd(3.3, 9, 1)]);
+
+      var b = Math.round(z * se * 1000) / 1000;
+
+      if (b === 0) b = 0.01;
+
+      rows.push([b, se]);
+
+    }
+
+    var F = rows.map(function (r) { return Math.pow(r[0] / r[1], 2); });
+
+    var nWeak = F.filter(function (f) { return f < 10; }).length;
+
+    return {
+
+      title: 'Instrument strength: the F-statistic',
+
+      question: '<p>Four candidate instruments from an exposure GWAS (made-up numbers):</p>' +
+
+        table(['SNP', 'β exposure', 'SE exposure'], rows.map(function (r, i) { return ['SNP' + (i + 1)].concat(r); })),
+
+      inputs: [
+
+        { label: 'F for SNP1', answer: F[0], tol: Math.max(0.2, F[0] * 0.03) },
+
+        { label: 'Number of weak instruments (F < 10)', answer: nWeak, tol: 0 }
+
+      ],
+
+      solution: '<p>F = (β / SE)²: ' + F.map(function (f, i) { return 'SNP' + (i + 1) + ' = (' + rows[i][0] + ' / ' + rows[i][1] + ')² = <b>' + fmt(f, 1) + '</b>'; }).join('; ') + '.</p>' +
+
+        '<p><b>' + nWeak + '</b> SNP(s) have F < 10 and count as weak instruments: their Wald ratios are unstable and, in two non-overlapping samples, biased toward the null. ' +
+
+        'A genome-wide significant SNP (P < 5×10⁻⁸, |z| ≥ 5.45) always has F ≥ 29.7.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.prs = function () {
+
+    var betas = [];
+
+    for (var j = 0; j < 4; j++) betas.push(pick([-1, 1]) * rnd(0.05, 0.20, 2));
+
+    var people = [];
+
+    for (var i = 0; i < 2; i++) people.push([0, 0, 0, 0].map(function () { return pick([0, 0, 1, 1, 2]); }));
+
+    var prs = people.map(function (g) {
+
+      return g.reduce(function (s, d, j) { return s + d * betas[j]; }, 0);
+
+    });
+
+    function workings(g) {
+
+      return g.map(function (d, j) { return d + '·(' + fmt(betas[j], 2) + ')'; }).join(' + ');
+
+    }
+
+    return {
+
+      title: 'Polygenic risk score for two individuals',
+
+      question: '<p>GWAS effect sizes (per effect allele): ' + betas.map(function (b, j) { return 'β̂<sub>' + (j + 1) + '</sub> = ' + fmt(b, 2); }).join(', ') +
+
+        '. Genotypes are the number of effect alleles (0, 1, 2).</p>' +
+
+        table(['ID', 'SNP1', 'SNP2', 'SNP3', 'SNP4'], people.map(function (g, i) { return [i + 1].concat(g); })),
+
+      inputs: [
+
+        { label: 'PRS for ID 1', answer: prs[0], tol: 0.0005 },
+
+        { label: 'PRS for ID 2', answer: prs[1], tol: 0.0005 }
+
+      ],
+
+      solution: '<p>PRS<sub>i</sub> = Σ<sub>j</sub> G<sub>ij</sub> β̂<sub>j</sub>.</p>' +
+
+        '<p>ID 1: ' + workings(people[0]) + ' = <b>' + fmt(prs[0], 2) + '</b><br>ID 2: ' + workings(people[1]) + ' = <b>' + fmt(prs[1], 2) + '</b></p>' +
+
+        '<p>ID ' + (prs[0] >= prs[1] ? 1 : 2) + ' has the higher genetic liability <i>relative</i> to the other. The score has no unit of its own and is not a probability of disease.</p>'
 
     };
 

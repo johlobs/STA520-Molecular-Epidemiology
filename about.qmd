@@ -9,6 +9,8 @@ The app is built from a study guide (`sta520-study-app-guide_1.md`) synthesized 
 
 The quizzes, drills, R exercises, figures, written model answers and the illustrative MR numbers in Lecture 6 were added for this app.
 
+**Added later (Lecture 9):** the Lecture 9 slides plus the course's **reading material**: the PRS tutorial (Choi et al. 2020), the GWAS paper (Uffelmann et al. 2021) and chapter 12 of the course book (the "Polygenic Risk Scores" section, pp. 138–139). They are cited where they add to the slides, and each such passage is labelled with its source. The book is summarized and cited, not reproduced. Björnson et al. (2023, *European Heart Journal*), the UK Biobank study of remnant cholesterol, LDL and CHD, is **extra material** (not required reading); Section 9.14 is a worked reading of it and carries no exam flag.
+
 **Added later:** "Lecture 7 - questions.pdf", the instructor's example exercises and possible exam questions. Its 11 questions are on the [Exam practice](exam-practice.qmd) page. The questions are the instructor's; the model answers are written for this app and are not an official answer key. The survival result by cluster (M1 shorter survival, log-rank P = 0.029) in Lecture 7 comes from this document.
 
 ## How to read the exam flags
@@ -48,6 +50,7 @@ STA520 Molecular Epidemiology, 4 credits, Sahlgrenska Academy, University of Got
 | [6](lecture6.qmd) | Lecture 6 from GWAS to MR.pdf |
 | [7](lecture7.qmd) | Lecture 7 part 1 PRELIMINARY.pdf |
 | [8](lecture8.qmd) | Lecture 8 proteomics.pdf |
+| [9](lecture9.qmd) | Lecture 9 PRS and 2sample MR.pdf. Reading material: "Tutorial a guide to performing polygenic risk score analyses.pdf" (Choi et al. 2020); "Genome- wide association studies.pdf" (Uffelmann et al. 2021); course book ch. 12. Extra material: "Triglyceride-rich lipoprotein remnants,.pdf" (Björnson et al. 2023) |
 
 ## What is missing
 

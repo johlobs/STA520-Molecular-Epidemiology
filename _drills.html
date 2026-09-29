@@ -414,6 +414,57 @@
     };
   };
 
+  DRILLS.fstat = function () {
+    var rows = [];
+    for (var i = 0; i < 4; i++) {
+      var se = rnd(0.005, 0.02, 3);
+      var z = pick([rnd(1.5, 3.1, 1), rnd(3.3, 9, 1)]);
+      var b = Math.round(z * se * 1000) / 1000;
+      if (b === 0) b = 0.01;
+      rows.push([b, se]);
+    }
+    var F = rows.map(function (r) { return Math.pow(r[0] / r[1], 2); });
+    var nWeak = F.filter(function (f) { return f < 10; }).length;
+    return {
+      title: 'Instrument strength: the F-statistic',
+      question: '<p>Four candidate instruments from an exposure GWAS (made-up numbers):</p>' +
+        table(['SNP', 'β exposure', 'SE exposure'], rows.map(function (r, i) { return ['SNP' + (i + 1)].concat(r); })),
+      inputs: [
+        { label: 'F for SNP1', answer: F[0], tol: Math.max(0.2, F[0] * 0.03) },
+        { label: 'Number of weak instruments (F < 10)', answer: nWeak, tol: 0 }
+      ],
+      solution: '<p>F = (β / SE)²: ' + F.map(function (f, i) { return 'SNP' + (i + 1) + ' = (' + rows[i][0] + ' / ' + rows[i][1] + ')² = <b>' + fmt(f, 1) + '</b>'; }).join('; ') + '.</p>' +
+        '<p><b>' + nWeak + '</b> SNP(s) have F < 10 and count as weak instruments: their Wald ratios are unstable and, in two non-overlapping samples, biased toward the null. ' +
+        'A genome-wide significant SNP (P < 5×10⁻⁸, |z| ≥ 5.45) always has F ≥ 29.7.</p>'
+    };
+  };
+
+  DRILLS.prs = function () {
+    var betas = [];
+    for (var j = 0; j < 4; j++) betas.push(pick([-1, 1]) * rnd(0.05, 0.20, 2));
+    var people = [];
+    for (var i = 0; i < 2; i++) people.push([0, 0, 0, 0].map(function () { return pick([0, 0, 1, 1, 2]); }));
+    var prs = people.map(function (g) {
+      return g.reduce(function (s, d, j) { return s + d * betas[j]; }, 0);
+    });
+    function workings(g) {
+      return g.map(function (d, j) { return d + '·(' + fmt(betas[j], 2) + ')'; }).join(' + ');
+    }
+    return {
+      title: 'Polygenic risk score for two individuals',
+      question: '<p>GWAS effect sizes (per effect allele): ' + betas.map(function (b, j) { return 'β̂<sub>' + (j + 1) + '</sub> = ' + fmt(b, 2); }).join(', ') +
+        '. Genotypes are the number of effect alleles (0, 1, 2).</p>' +
+        table(['ID', 'SNP1', 'SNP2', 'SNP3', 'SNP4'], people.map(function (g, i) { return [i + 1].concat(g); })),
+      inputs: [
+        { label: 'PRS for ID 1', answer: prs[0], tol: 0.0005 },
+        { label: 'PRS for ID 2', answer: prs[1], tol: 0.0005 }
+      ],
+      solution: '<p>PRS<sub>i</sub> = Σ<sub>j</sub> G<sub>ij</sub> β̂<sub>j</sub>.</p>' +
+        '<p>ID 1: ' + workings(people[0]) + ' = <b>' + fmt(prs[0], 2) + '</b><br>ID 2: ' + workings(people[1]) + ' = <b>' + fmt(prs[1], 2) + '</b></p>' +
+        '<p>ID ' + (prs[0] >= prs[1] ? 1 : 2) + ' has the higher genetic liability <i>relative</i> to the other. The score has no unit of its own and is not a probability of disease.</p>'
+    };
+  };
+
   /* ── rendering ─────────────────────────────────────────────────────── */
   function render(box) {
     var name = box.getAttribute('data-drill');

@@ -59,6 +59,9 @@ Assay binding artifact
 Assortative mating
 : Non-random mate choice related to a trait; a threat to the MR independence assumption. [L6 §6.5](lecture6.qmd#t6-5)
 
+AUC (area under the ROC curve)
+: Probability that a random case gets a higher predicted risk than a random control; 0.5 = chance, 1 = perfect. Used to ask whether a PRS adds discrimination. [L9 §9.13](lecture9.qmd#t9-13)
+
 Background correction (normexp)
 : Within-array correction modelling observed intensity as exponential signal + normal background noise; gives positive values and better low-intensity estimates. [L7 §7.5](lecture7.qmd#t7-5)
 
@@ -77,6 +80,9 @@ Bonferroni correction
 Bradford Hill criteria
 : Strength, Consistency, Specificity, Temporality, Biological gradient, Plausibility, Coherence, Experiment, Analogy. [L6 §6.2](lecture6.qmd#t6-2)
 
+Calibration
+: Agreement between predicted and observed risks (predicted 10% → about 10% get the disease). [L9 §9.13](lecture9.qmd#t9-13)
+
 Central dogma
 : The flow of genetic information DNA → RNA → protein. [L1 §1.4](lecture1.qmd#t1-4) · [L2 §2.2](lecture2.qmd#t2-2)
 
@@ -88,6 +94,9 @@ Circular reasoning (double dipping)
 
 cis-pQTL
 : A pQTL located near the gene encoding the protein; direct interpretation, preferred MR instrument. [L8 §8.9](lecture8.qmd#t8-9) · [L4 §4.10](lecture4.qmd#t4-10)
+
+Clumping + thresholding (C+T)
+: Classical PRS method ("pruning and thresholding"): keep one lead SNP per locus, include SNPs with P below a threshold. [L9 §9.12](lecture9.qmd#t9-12)
 
 Codon
 : Three nucleotides specifying one amino acid (or stop). 64 codons for 20 amino acids. [L1 §1.4b](lecture1.qmd#t1-4b) · [L2 §2.3](lecture2.qmd#t2-3)
@@ -118,6 +127,9 @@ Credible set
 dbSNP / rs number
 : NCBI database of short variants; each gets a stable rs identifier (e.g. rs137852912 = PCSK9 D374Y). [L3 §3.3c](lecture3.qmd#t3-3c)
 
+Discovery (base) and target sample
+: In PRS analysis: the discovery GWAS supplies the β estimates; the independent target sample supplies genotypes, phenotype and covariates. [L9 §9.11](lecture9.qmd#t9-11)
+
 Dominant / recessive allele
 : Dominant affects the phenotype with at least one copy; recessive only with two. [L3 §3.6](lecture3.qmd#t3-6)
 
@@ -126,6 +138,9 @@ Empirical Bayes / variance shrinkage
 
 Exclusion restriction
 : MR assumption 3: the variant affects the outcome only through the exposure. Broken by horizontal pleiotropy. [L6 §6.5](lecture6.qmd#t6-5)
+
+F-statistic (instrument strength)
+: F = (β_GX / SE)² for one SNP; F < 10 marks a weak instrument. [L9 §9.3](lecture9.qmd#t9-3)
 
 FDR (false discovery rate)
 : Expected proportion of false positives among the tests called significant. Controlled by BH. [L7 §7.11](lecture7.qmd#t7-11)
@@ -169,6 +184,9 @@ Haplotype
 Hardy–Weinberg equilibrium (HWE)
 : With allele frequencies p and q: P(AA) = p², P(Aa) = 2pq, P(aa) = q². Deviations are a genotyping QC check. [L3 §3.9](lecture3.qmd#t3-9) · [L4 §4.2](lecture4.qmd#t4-2)
 
+Harmonisation
+: Aligning alleles so the exposure and outcome β refer to the same effect allele (flip the sign when swapped; handle strand and palindromic SNPs). [L9 §9.5](lecture9.qmd#t9-5)
+
 HGVS nomenclature
 : Standard variant notation: reference (NM_ mRNA, NC_ genomic, NP_ protein) + coordinate type (c., g., p.) + change (e.g. c.1120G>T, p.Asp374Tyr). [L3 §3.3b](lecture3.qmd#t3-3b)
 
@@ -193,10 +211,10 @@ Instrumental variable
 : A variable affecting the exposure but related to the outcome only through it; genetic variants are natural instruments. [L6 §6.3](lecture6.qmd#t6-3)
 
 IVW (inverse-variance weighted) MR
-: Weighted regression of β-outcome on β-exposure through the origin = weighted average of Wald ratios. [L6 §6.7](lecture6.qmd#t6-7)
+: Weighted regression of β-outcome on β-exposure through the origin = weighted average of Wald ratios. [L6 §6.7](lecture6.qmd#t6-7) · [L9 §9.6](lecture9.qmd#t9-6)
 
 LD clumping
-: Reducing each locus to one approximately independent lead SNP (e.g. r² < 0.01); done before MR. [L5 §5.4b](lecture5.qmd#t5-4b)
+: Reducing each locus to one approximately independent lead SNP (e.g. r² < 0.01); done before MR. [L5 §5.4b](lecture5.qmd#t5-4b) · [L9 §9.3](lecture9.qmd#t9-3)
 
 LDL / LDLR
 : Low-density lipoprotein carries cholesterol; the LDL receptor on hepatocytes clears it. [L1 §1.2](lecture1.qmd#t1-2)
@@ -252,6 +270,9 @@ MR-Egger
 mRNA / rRNA / tRNA
 : Messenger RNA carries the code; ribosomal RNA builds ribosomes; transfer RNA brings amino acids. [L2 §2.1](lecture2.qmd#t2-1)
 
+Multivariable MR
+: MR with several related exposures in one model (e.g. apoB, LDL-C and remnant cholesterol), so each causal estimate is adjusted for the others. [L9 §9.14](lecture9.qmd#t9-14)
+
 Mutation
 : A change in the DNA sequence (L2's definition). Point mutations (silent, missense, nonsense), indels (frameshift, in-frame) and chromosomal alterations; germline or somatic; gain or loss of function. In practice largely interchangeable with *variant*, which is the more neutral term. [L2 §2.4](lecture2.qmd#t2-4) · [L2 §2.4b](lecture2.qmd#t2-4b) · [L3 §3.3](lecture3.qmd#t3-3) · [L3 §3.4](lecture3.qmd#t3-4)
 
@@ -275,11 +296,17 @@ OncomiR
 Odds ratio (per allele)
 : OR = exp(β) from logistic regression; β = −0.16 → OR 0.85 (one copy), 0.73 (two copies). [L4 §4.3](lecture4.qmd#t4-3)
 
+Palindromic SNP
+: A/T or C/G SNP whose complement is the same allele pair, so strand cannot be read from the letters; resolved by allele frequency or excluded. [L9 §9.5](lecture9.qmd#t9-5)
+
 PCR
 : Polymerase chain reaction: in vitro amplification of a DNA region using heat-stable Taq polymerase and primers. [L2 §2.6](lecture2.qmd#t2-6)
 
 PCSK9
 : Protein promoting LDLR degradation; the course's running drug-target example. [L1 §1.2](lecture1.qmd#t1-2) · [L3 §3.3](lecture3.qmd#t3-3) · [L8 §8.12](lecture8.qmd#t8-12)
+
+Polygenic risk score (PRS)
+: Sum over SNPs of allele dosage × GWAS effect size for one individual; a relative measure of genetic liability, not a probability. [L9 §9.10](lecture9.qmd#t9-10)
 
 Population stratification
 : Allele frequency and phenotype both differ between ancestry groups, creating spurious associations. [L4 §4.9](lecture4.qmd#t4-9)
@@ -326,7 +353,13 @@ Recombination / recombination frequency
 Relevance (MR assumption)
 : MR assumption 1: the variant is strongly associated with the exposure; threat: weak instruments. [L6 §6.5](lecture6.qmd#t6-5)
 
+Remnant cholesterol (TRL/remnant-C)
+: Cholesterol in triglyceride-rich lipoproteins and their partly lipolysed remnants; computed as non-HDL-C − LDL-C. [L9 §9.14](lecture9.qmd#t9-14)
+
 ## S–Z
+
+Sample overlap
+: Individuals present in both GWAS (MR) or in both discovery and target data (PRS); biases MR toward the observational estimate and inflates PRS accuracy. [L9 §9.8](lecture9.qmd#t9-8) · [L9 §9.11](lecture9.qmd#t9-11)
 
 Sanger sequencing
 : The original sequencing method: accurate, lower throughput. [L3 §3.5](lecture3.qmd#t3-5)
@@ -347,7 +380,7 @@ Somatic mutation
 : Acquired during life, confined to a tissue, not heritable. [L3 §3.4](lecture3.qmd#t3-4)
 
 Summary statistics
-: Per-SNP GWAS results (SNP, CHR, BP, A1, A2, EAF, β, SE, P, N) with no individual-level data. [L4 §4.6](lecture4.qmd#t4-6)
+: Per-SNP GWAS results (SNP, CHR, BP, A1, A2, EAF, β, SE, P, N) with no individual-level data. [L4 §4.6](lecture4.qmd#t4-6) · [L9 §9.2](lecture9.qmd#t9-2)
 
 Supervised / unsupervised analysis
 : Using predefined group labels (differential expression) vs finding groups from the data (clustering). [L7 §7.6](lecture7.qmd#t7-6)
@@ -370,6 +403,9 @@ trans-pQTL
 Troponin
 : Released by damaged heart muscle; a marker of injury, predictive but not causal. [L1 §1.3b](lecture1.qmd#t1-3b) · [L8 §8.8](lecture8.qmd#t8-8)
 
+Two-sample MR
+: MR with SNP → exposure and SNP → outcome effects taken from two different GWAS; needs only summary statistics. [L9 §9.1](lecture9.qmd#t9-1)
+
 VAF (variant allele frequency)
 : Fraction of reads/cells in one patient's sample carrying a mutation. [L3 §3.4](lecture3.qmd#t3-4)
 
@@ -380,10 +416,16 @@ Vertical pleiotropy
 : The variant affects the outcome through the exposure itself; not a problem for MR. [L6 §6.6](lecture6.qmd#t6-6)
 
 Wald ratio
-: MR estimate with one instrument: β_outcome / β_exposure (β_GO / β_GP in protein MR). [L6 §6.7](lecture6.qmd#t6-7) · [L8 §8.10](lecture8.qmd#t8-10)
+: MR estimate with one instrument: β_outcome / β_exposure (β_GO / β_GP in protein MR). [L6 §6.7](lecture6.qmd#t6-7) · [L8 §8.10](lecture8.qmd#t8-10) · [L9 §9.6](lecture9.qmd#t9-6)
+
+Weak instrument
+: A SNP explaining little of the exposure (F < 10); biases MR toward the null (no overlap) or toward the confounded estimate (overlap). [L9 §9.8](lecture9.qmd#t9-8)
 
 Weighted median
 : MR estimator valid if at least ~50% of instrument weight is valid. [L6 §6.8](lecture6.qmd#t6-8)
+
+Winner's curse
+: Effect sizes of newly discovered variants tend to be overestimated in the GWAS that found them; in MR this biases toward the null. [L9 §9.8](lecture9.qmd#t9-8)
 
 z-score
 : (x − mean) / SD; puts proteins on a common scale, β per SD. [L8 §8.6](lecture8.qmd#t8-6) · [L8 §8.7](lecture8.qmd#t8-7)

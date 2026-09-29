@@ -1,6 +1,6 @@
 ---
 title: "Exam-prep dashboard"
-subtitle: "Your review status across all eight lectures"
+subtitle: "Your review status across all nine lectures"
 toc: false
 ---
 

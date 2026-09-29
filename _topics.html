@@ -35,7 +35,8 @@
     5: 'GWAS and computer exercise 1',
     6: 'From GWAS to Mendelian randomization',
     7: 'High-dimensional molecular data',
-    8: 'Proteomics'
+    8: 'Proteomics',
+    9: 'Two-sample MR and polygenic risk scores'
   };
 
   /* ── storage ───────────────────────────────────────────────────────── */
@@ -209,7 +210,7 @@
     ['Lecture', 'Topics', '🎯', 'Reviewed', 'Confident'].forEach(function (h) { hr.appendChild(el('th', null, h)); });
     thead.appendChild(hr); table.appendChild(thead);
     var tbody = el('tbody');
-    for (var n = 1; n <= 8; n++) {
+    for (var n = 1; n <= 9; n++) {
       var list = TOPICS.filter(function (t) { return t.lecture === n; });
       if (!list.length) continue;
       var s = summarise(list);

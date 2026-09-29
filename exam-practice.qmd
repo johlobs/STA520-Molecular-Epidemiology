@@ -191,11 +191,19 @@ Benjamini–Hochberg and Bonferroni side by side. Do several: the "largest k" ru
 
 <div class="drill" data-drill="logbeta"></div>
 
-## 📌 Mendelian randomization (Lectures 6 and 8)
+## 📌 Mendelian randomization (Lectures 6, 8 and 9)
 
 <div class="drill" data-drill="wald"></div>
 
 <div class="drill" data-drill="ivw"></div>
+
+<div class="drill" data-drill="fstat"></div>
+
+<div class="drill" data-drill="allele"></div>
+
+## 📌 Polygenic risk scores (Lecture 9)
+
+<div class="drill" data-drill="prs"></div>
 
 # More written questions (AI-inferred)
 
@@ -344,4 +352,51 @@ For omics screens **FDR/BH** is preferred: (1) with thousands of tests Bonferron
 ::: {.callout-tip collapse="true" icon="false"}
 ## Q26. Compare the three families of protein measurement technology.
 **Model answer.** **Antibody-based** (ELISA, immunoassays, Western blot): targeted, quantitative with standards, clinical routine. **Mass spectrometry**: trypsin digestion → LC → electrospray → masses; detects isoforms, allows discovery; complex, dynamic-range problems, labelled peptides for calibration. **High-throughput affinity** (Olink, SomaScan): thousands of proteins in large cohorts (UKBB: ~50,000 people, ~3,000 proteins), relative abundance in NPX (log₂; 1 NPX = doubling). [→ 8.4–8.5](lecture8.qmd#t8-4)
+:::
+
+## 📌 Lecture 9: two-sample MR and polygenic risk scores
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q27. What makes MR "two-sample", what data does it need, and which assumptions still apply?
+**Model answer.** The SNP → exposure effects come from one GWAS and the SNP → outcome effects from another, in different people. It needs only **summary statistics** per instrument: rsID, effect allele (and other allele, EAF for harmonisation), β and SE for the exposure, β and SE for the outcome; no individual-level data. All three MR assumptions still apply (relevance, independence, exclusion restriction); two-sample MR adds practical requirements: the SNPs must be found in both GWAS, the alleles harmonised, and the two samples comparable (ancestry, sex, age) but not overlapping. [→ 9.1–9.2](lecture9.qmd#t9-1)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q28. Describe the six steps of a two-sample MR analysis. Where is the difficulty?
+**Model answer.** (1) **Select instruments** for X: P < 5×10⁻⁸, sufficiently strong (F = (β/SE)² > 10), independent (LD clumping). (2) **Look up** the same SNPs in the outcome GWAS (use a proxy SNP in high LD if one is missing). (3) **Harmonise** alleles so both β's refer to the same effect allele; flip the sign when swapped, handle strand, exclude ambiguous palindromic SNPs. (4) **Estimate**: Wald ratio per SNP, IVW over SNPs. (5) **Sensitivity analyses**: weighted median, MR-Egger (intercept), leave-one-out, heterogeneity. (6) **Interpret**, stating the exposure unit. The slides stress that the difficulty lies in steps 1–3. [→ 9.3–9.6](lecture9.qmd#t9-3)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q29. Exposure GWAS: effect allele A, other allele G, β = +0.08. Outcome GWAS: effect allele G, other allele A, β = −0.03. Harmonise and compute the Wald ratio. What happens if you forget?
+**Model answer.** The outcome β is per G; per A it is **+0.03**. Wald ratio = 0.03 / 0.08 = **0.375**: Y increases 0.375 units per unit of genetically predicted X. Without harmonising: −0.03 / 0.08 = −0.375, the opposite conclusion (X looks protective). [→ 9.5](lecture9.qmd#t9-5)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q30. Name four practical problems in two-sample MR and the direction of bias each causes.
+**Model answer.** **Weak instruments** with non-overlapping samples → bias toward the **null**. **Sample overlap** (people in both GWAS) → bias toward the **confounded observational** estimate. **Winner's curse** (SNP effects overestimated in the discovery GWAS that selected them) → β_GX too large → estimate too small (toward the null); corrected by estimating effects in an independent replication sample. **Different populations** → associations may not transport; direction unpredictable. Also: horizontal pleiotropy is still possible, so report sensitivity analyses. [→ 9.8](lecture9.qmd#t9-8)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q31. Why is a genetically predicted exposure not the same as an intervention effect?
+**Model answer.** Genotype acts from conception, so MR estimates the effect of a **lifelong** difference in exposure; lifetime exposure builds risk. A treatment in adulthood changes the exposure for a shorter period, so its effect is usually smaller. MR is most reliable about the **direction** of a causal effect. [→ 9.7](lecture9.qmd#t9-7)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q32. Contrast a PRS with MR. How is a PRS calculated, and what data does it need?
+**Model answer.** MR asks whether X **causes** Y (population level, a few valid instruments). A PRS asks **who is at higher risk** (individual level, many SNPs, weak and pleiotropic SNPs allowed). $PRS_i = \sum_j G_{ij}\hat\beta_j$: allele dosage (0/1/2) times GWAS effect size, summed over SNPs. It needs a **discovery (base) sample** giving the β's and an **independent target sample** with individual genotypes, phenotype and covariates; overlap between them inflates the apparent accuracy. [→ 9.9–9.11](lecture9.qmd#t9-9)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q33. How are SNPs selected for a PRS, and why can it include weak instruments?
+**Model answer.** Classical **clumping + thresholding (C+T, "pruning and thresholding")**: keep the lead SNP per locus, include SNPs with P below a threshold, trying several thresholds and validating the choice out of sample. Alternatives from statistical learning: model the LD between SNPs instead of clumping, and use **LASSO/ridge or Bayesian shrinkage** with a train/test split, which pulls noisy large effects toward zero (counters winner's curse). Weak SNPs are allowed because a PRS only needs to **predict**: each adds a little signal, like weak learners; validity as a causal instrument is not required. [→ 9.12](lecture9.qmd#t9-12)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q34. What does a PRS value mean, and how do you evaluate whether it is useful?
+**Model answer.** A PRS has **no unit**; it is a relative, roughly normally distributed measure and does **not** translate directly into a probability of disease. It is usually less predictive than age, sex or SBP. Evaluate: **discrimination** (AUC; does it rise when the PRS is added?), **calibration** (do predicted risks match observed?), and **added prediction**: compare `age + sex + smoking + SBP` with the same model `+ PRS` (incremental R² or AUC). A strong OR per SD does not guarantee good screening; reclassification measures are more clinically relevant, and accuracy drops in ancestries unlike the discovery GWAS. [→ 9.13](lecture9.qmd#t9-13)
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Q35. (Extra material) Björnson et al. (2023) report OR 2.59 per 1 mmol/L remnant cholesterol and OR 1.37 per 1 mmol/L LDL-C (multivariable MR, UK Biobank). Interpret, and name two limitations of the design.
+**Model answer.** Each is the OR for CHD per 1 mmol/L genetically higher level, **adjusted for the other exposure** (multivariable MR, IVW). Per mmol/L remnant-C looks much more harmful, but the SDs differ (0.30 vs 0.82 mmol/L): per SD the ORs are 1.36 vs 1.29, so always compare on a stated unit. Per apoB particle, the lipolysis SNP cluster gave OR 1.76 vs 1.33 for the receptor cluster, suggesting remnants are more atherogenic per particle. **Limitations:** exposure and outcome largely from the **same cohort** (sample overlap, winner's curse; addressed by a two-sample replication in CARDIoGRAMplusC4D); IVW assumes all 1125 SNPs valid (checked with MR-Egger, robust IVW, MR-Lasso); mainly **European** ancestry; remnant-C computed indirectly and remnant apoB not measured; MR reflects **lifelong** differences, not a drug effect. [→ 9.14](lecture9.qmd#t9-14)
 :::

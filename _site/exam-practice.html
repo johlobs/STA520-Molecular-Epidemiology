@@ -303,12 +303,29 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Reference</span></a>
+ <span class="menu-text">Week 5: Two-sample MR and PRS</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 9 — Two-sample MR and polygenic risk scores</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./about.html" class="sidebar-item-text sidebar-link">
@@ -333,7 +350,8 @@ window.Quarto = {
   <li><a href="#multiple-testing-lecture-7" id="toc-multiple-testing-lecture-7" class="nav-link" data-scroll-target="#multiple-testing-lecture-7">🎯 Multiple testing (Lecture 7)</a></li>
   <li><a href="#preprocessing-and-moderated-statistics-lecture-7" id="toc-preprocessing-and-moderated-statistics-lecture-7" class="nav-link" data-scroll-target="#preprocessing-and-moderated-statistics-lecture-7">🎯 Preprocessing and moderated statistics (Lecture 7)</a></li>
   <li><a href="#genetics-calculations-lectures-34" id="toc-genetics-calculations-lectures-34" class="nav-link" data-scroll-target="#genetics-calculations-lectures-34">📌 Genetics calculations (Lectures 3–4)</a></li>
-  <li><a href="#mendelian-randomization-lectures-6-and-8" id="toc-mendelian-randomization-lectures-6-and-8" class="nav-link" data-scroll-target="#mendelian-randomization-lectures-6-and-8">📌 Mendelian randomization (Lectures 6 and 8)</a></li>
+  <li><a href="#mendelian-randomization-lectures-6-8-and-9" id="toc-mendelian-randomization-lectures-6-8-and-9" class="nav-link" data-scroll-target="#mendelian-randomization-lectures-6-8-and-9">📌 Mendelian randomization (Lectures 6, 8 and 9)</a></li>
+  <li><a href="#polygenic-risk-scores-lecture-9" id="toc-polygenic-risk-scores-lecture-9" class="nav-link" data-scroll-target="#polygenic-risk-scores-lecture-9">📌 Polygenic risk scores (Lecture 9)</a></li>
   </ul></li>
   <li><a href="#more-written-questions-ai-inferred" id="toc-more-written-questions-ai-inferred" class="nav-link" data-scroll-target="#more-written-questions-ai-inferred">More written questions (AI-inferred)</a>
   <ul class="collapse">
@@ -341,6 +359,7 @@ window.Quarto = {
   <li><a href="#lectures-46-gwas-and-mendelian-randomization" id="toc-lectures-46-gwas-and-mendelian-randomization" class="nav-link" data-scroll-target="#lectures-46-gwas-and-mendelian-randomization">📌 Lectures 4–6: GWAS and Mendelian randomization</a></li>
   <li><a href="#lectures-13-biology-and-genetics" id="toc-lectures-13-biology-and-genetics" class="nav-link" data-scroll-target="#lectures-13-biology-and-genetics">📌 Lectures 1–3: biology and genetics</a></li>
   <li><a href="#lecture-8-proteomics" id="toc-lecture-8-proteomics" class="nav-link" data-scroll-target="#lecture-8-proteomics">📌 Lecture 8: proteomics</a></li>
+  <li><a href="#lecture-9-two-sample-mr-and-polygenic-risk-scores" id="toc-lecture-9-two-sample-mr-and-polygenic-risk-scores" class="nav-link" data-scroll-target="#lecture-9-two-sample-mr-and-polygenic-risk-scores">📌 Lecture 9: two-sample MR and polygenic risk scores</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -840,12 +859,24 @@ window.Quarto = {
 
 </div>
 </section>
-<section id="mendelian-randomization-lectures-6-and-8" class="level2">
-<h2 class="anchored" data-anchor-id="mendelian-randomization-lectures-6-and-8">📌 Mendelian randomization (Lectures 6 and 8)</h2>
+<section id="mendelian-randomization-lectures-6-8-and-9" class="level2">
+<h2 class="anchored" data-anchor-id="mendelian-randomization-lectures-6-8-and-9">📌 Mendelian randomization (Lectures 6, 8 and 9)</h2>
 <div class="drill" data-drill="wald">
 
 </div>
 <div class="drill" data-drill="ivw">
+
+</div>
+<div class="drill" data-drill="fstat">
+
+</div>
+<div class="drill" data-drill="allele">
+
+</div>
+</section>
+<section id="polygenic-risk-scores-lecture-9" class="level2">
+<h2 class="anchored" data-anchor-id="polygenic-risk-scores-lecture-9">📌 Polygenic risk scores (Lecture 9)</h2>
+<div class="drill" data-drill="prs">
 
 </div>
 </section>
@@ -1279,6 +1310,153 @@ window.Quarto = {
 <div id="callout-39" class="callout-39-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Model answer.</strong> <strong>Antibody-based</strong> (ELISA, immunoassays, Western blot): targeted, quantitative with standards, clinical routine. <strong>Mass spectrometry</strong>: trypsin digestion → LC → electrospray → masses; detects isoforms, allows discovery; complex, dynamic-range problems, labelled peptides for calibration. <strong>High-throughput affinity</strong> (Olink, SomaScan): thousands of proteins in large cohorts (UKBB: ~50,000 people, ~3,000 proteins), relative abundance in NPX (log₂; 1 NPX = doubling). <a href="./lecture8.html#t8-4">→ 8.4–8.5</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-9-two-sample-mr-and-polygenic-risk-scores" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-9-two-sample-mr-and-polygenic-risk-scores">📌 Lecture 9: two-sample MR and polygenic risk scores</h2>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q27. What makes MR “two-sample”, what data does it need, and which assumptions still apply?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-40" class="callout-40-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Model answer.</strong> The SNP → exposure effects come from one GWAS and the SNP → outcome effects from another, in different people. It needs only <strong>summary statistics</strong> per instrument: rsID, effect allele (and other allele, EAF for harmonisation), β and SE for the exposure, β and SE for the outcome; no individual-level data. All three MR assumptions still apply (relevance, independence, exclusion restriction); two-sample MR adds practical requirements: the SNPs must be found in both GWAS, the alleles harmonised, and the two samples comparable (ancestry, sex, age) but not overlapping. <a href="./lecture9.html#t9-1">→ 9.1–9.2</a></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q28. Describe the six steps of a two-sample MR analysis. Where is the difficulty?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-41" class="callout-41-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Model answer.</strong> (1) <strong>Select instruments</strong> for X: P &lt; 5×10⁻⁸, sufficiently strong (F = (β/SE)² &gt; 10), independent (LD clumping). (2) <strong>Look up</strong> the same SNPs in the outcome GWAS (use a proxy SNP in high LD if one is missing). (3) <strong>Harmonise</strong> alleles so both β’s refer to the same effect allele; flip the sign when swapped, handle strand, exclude ambiguous palindromic SNPs. (4) <strong>Estimate</strong>: Wald ratio per SNP, IVW over SNPs. (5) <strong>Sensitivity analyses</strong>: weighted median, MR-Egger (intercept), leave-one-out, heterogeneity. (6) <strong>Interpret</strong>, stating the exposure unit. The slides stress that the difficulty lies in steps 1–3. <a href="./lecture9.html#t9-3">→ 9.3–9.6</a></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-42-contents" aria-controls="callout-42" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q29. Exposure GWAS: effect allele A, other allele G, β = +0.08. Outcome GWAS: effect allele G, other allele A, β = −0.03. Harmonise and compute the Wald ratio. What happens if you forget?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-42" class="callout-42-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Model answer.</strong> The outcome β is per G; per A it is <strong>+0.03</strong>. Wald ratio = 0.03 / 0.08 = <strong>0.375</strong>: Y increases 0.375 units per unit of genetically predicted X. Without harmonising: −0.03 / 0.08 = −0.375, the opposite conclusion (X looks protective). <a href="./lecture9.html#t9-5">→ 9.5</a></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-43-contents" aria-controls="callout-43" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q30. Name four practical problems in two-sample MR and the direction of bias each causes.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-43" class="callout-43-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Model answer.</strong> <strong>Weak instruments</strong> with non-overlapping samples → bias toward the <strong>null</strong>. <strong>Sample overlap</strong> (people in both GWAS) → bias toward the <strong>confounded observational</strong> estimate. <strong>Winner’s curse</strong> (SNP effects overestimated in the discovery GWAS that selected them) → β_GX too large → estimate too small (toward the null); corrected by estimating effects in an independent replication sample. <strong>Different populations</strong> → associations may not transport; direction unpredictable. Also: horizontal pleiotropy is still possible, so report sensitivity analyses. <a href="./lecture9.html#t9-8">→ 9.8</a></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-44-contents" aria-controls="callout-44" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q31. Why is a genetically predicted exposure not the same as an intervention effect?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-44" class="callout-44-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Model answer.</strong> Genotype acts from conception, so MR estimates the effect of a <strong>lifelong</strong> difference in exposure; lifetime exposure builds risk. A treatment in adulthood changes the exposure for a shorter period, so its effect is usually smaller. MR is most reliable about the <strong>direction</strong> of a causal effect. <a href="./lecture9.html#t9-7">→ 9.7</a></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-45-contents" aria-controls="callout-45" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q32. Contrast a PRS with MR. How is a PRS calculated, and what data does it need?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-45" class="callout-45-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Model answer.</strong> MR asks whether X <strong>causes</strong> Y (population level, a few valid instruments). A PRS asks <strong>who is at higher risk</strong> (individual level, many SNPs, weak and pleiotropic SNPs allowed). <span class="math inline">\(PRS_i = \sum_j G_{ij}\hat\beta_j\)</span>: allele dosage (0/1/2) times GWAS effect size, summed over SNPs. It needs a <strong>discovery (base) sample</strong> giving the β’s and an <strong>independent target sample</strong> with individual genotypes, phenotype and covariates; overlap between them inflates the apparent accuracy. <a href="./lecture9.html#t9-9">→ 9.9–9.11</a></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-46-contents" aria-controls="callout-46" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q33. How are SNPs selected for a PRS, and why can it include weak instruments?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-46" class="callout-46-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Model answer.</strong> Classical <strong>clumping + thresholding (C+T, “pruning and thresholding”)</strong>: keep the lead SNP per locus, include SNPs with P below a threshold, trying several thresholds and validating the choice out of sample. Alternatives from statistical learning: model the LD between SNPs instead of clumping, and use <strong>LASSO/ridge or Bayesian shrinkage</strong> with a train/test split, which pulls noisy large effects toward zero (counters winner’s curse). Weak SNPs are allowed because a PRS only needs to <strong>predict</strong>: each adds a little signal, like weak learners; validity as a causal instrument is not required. <a href="./lecture9.html#t9-12">→ 9.12</a></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-47-contents" aria-controls="callout-47" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q34. What does a PRS value mean, and how do you evaluate whether it is useful?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-47" class="callout-47-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Model answer.</strong> A PRS has <strong>no unit</strong>; it is a relative, roughly normally distributed measure and does <strong>not</strong> translate directly into a probability of disease. It is usually less predictive than age, sex or SBP. Evaluate: <strong>discrimination</strong> (AUC; does it rise when the PRS is added?), <strong>calibration</strong> (do predicted risks match observed?), and <strong>added prediction</strong>: compare <code>age + sex + smoking + SBP</code> with the same model <code>+ PRS</code> (incremental R² or AUC). A strong OR per SD does not guarantee good screening; reclassification measures are more clinically relevant, and accuracy drops in ancestries unlike the discovery GWAS. <a href="./lecture9.html#t9-13">→ 9.13</a></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-48-contents" aria-controls="callout-48" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q35. (Extra material) Björnson et al.&nbsp;(2023) report OR 2.59 per 1 mmol/L remnant cholesterol and OR 1.37 per 1 mmol/L LDL-C (multivariable MR, UK Biobank). Interpret, and name two limitations of the design.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-48" class="callout-48-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Model answer.</strong> Each is the OR for CHD per 1 mmol/L genetically higher level, <strong>adjusted for the other exposure</strong> (multivariable MR, IVW). Per mmol/L remnant-C looks much more harmful, but the SDs differ (0.30 vs 0.82 mmol/L): per SD the ORs are 1.36 vs 1.29, so always compare on a stated unit. Per apoB particle, the lipolysis SNP cluster gave OR 1.76 vs 1.33 for the receptor cluster, suggesting remnants are more atherogenic per particle. <strong>Limitations:</strong> exposure and outcome largely from the <strong>same cohort</strong> (sample overlap, winner’s curse; addressed by a two-sample replication in CARDIoGRAMplusC4D); IVW assumes all 1125 SNPs valid (checked with MR-Egger, robust IVW, MR-Lasso); mainly <strong>European</strong> ancestry; remnant-C computed indirectly and remnant apoB not measured; MR reflects <strong>lifelong</strong> differences, not a drug effect. <a href="./lecture9.html#t9-14">→ 9.14</a></p>
 </div>
 </div>
 </div>
@@ -2494,6 +2672,202 @@ window.STA520_TOPICS = [
 
   "flag": "inferred"
 
+ },
+
+ {
+
+  "id": "t9-1",
+
+  "title": "9.1 What makes MR \"two-sample\"?",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-2",
+
+  "title": "9.2 The data you actually need",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-3",
+
+  "title": "9.3 Step 1: selecting instruments and the F-statistic",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-4",
+
+  "title": "9.4 Step 2: finding the same variants in the outcome GWAS",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-5",
+
+  "title": "9.5 Step 3: harmonisation",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-6",
+
+  "title": "9.6 Step 4: the Wald ratio and IVW",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-7",
+
+  "title": "9.7 Interpreting an MR estimate: units, and \"genetically predicted ≠ intervention\"",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-8",
+
+  "title": "9.8 Pleiotropy, sensitivity analyses and practical pitfalls",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-9",
+
+  "title": "9.9 PRS vs MR: same GWAS, different question",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-10",
+
+  "title": "9.10 The PRS formula",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-11",
+
+  "title": "9.11 Two datasets: discovery and target",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-12",
+
+  "title": "9.12 Choosing SNPs: clumping + thresholding, and shrinkage",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-13",
+
+  "title": "9.13 Interpreting and evaluating a PRS",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": "inferred"
+
+ },
+
+ {
+
+  "id": "t9-14",
+
+  "title": "9.14 Extra material: remnant cholesterol, LDL and CHD in UK Biobank",
+
+  "lecture": 9,
+
+  "page": "lecture9.html",
+
+  "flag": null
+
  }
 
 ];
@@ -2537,7 +2911,8 @@ window.STA520_TOPICS = [
     5: 'GWAS and computer exercise 1',
     6: 'From GWAS to Mendelian randomization',
     7: 'High-dimensional molecular data',
-    8: 'Proteomics'
+    8: 'Proteomics',
+    9: 'Two-sample MR and polygenic risk scores'
   };
 
   /* ── storage ───────────────────────────────────────────────────────── */
@@ -2711,7 +3086,7 @@ window.STA520_TOPICS = [
     ['Lecture', 'Topics', '🎯', 'Reviewed', 'Confident'].forEach(function (h) { hr.appendChild(el('th', null, h)); });
     thead.appendChild(hr); table.appendChild(thead);
     var tbody = el('tbody');
-    for (var n = 1; n <= 8; n++) {
+    for (var n = 1; n <= 9; n++) {
       var list = TOPICS.filter(function (t) { return t.lecture === n; });
       if (!list.length) continue;
       var s = summarise(list);
@@ -3774,6 +4149,108 @@ window.STA520_TOPICS = [
       solution: '<p>' + why + '</p>' + (action === 2 ? '' : '<p>Aligned outcome β = <b>' + fmt(alignedY, 3) + '</b> per copy of ' + ea + ', the exposure-raising allele.</p>') +
 
         '<p><b>Checklist:</b> same alleles → keep · swapped → flip β · complementary letters → other strand (complement, then compare) · A/T or C/G → palindromic, decide with EAF or exclude · anything else → incompatible, exclude.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.fstat = function () {
+
+    var rows = [];
+
+    for (var i = 0; i < 4; i++) {
+
+      var se = rnd(0.005, 0.02, 3);
+
+      var z = pick([rnd(1.5, 3.1, 1), rnd(3.3, 9, 1)]);
+
+      var b = Math.round(z * se * 1000) / 1000;
+
+      if (b === 0) b = 0.01;
+
+      rows.push([b, se]);
+
+    }
+
+    var F = rows.map(function (r) { return Math.pow(r[0] / r[1], 2); });
+
+    var nWeak = F.filter(function (f) { return f < 10; }).length;
+
+    return {
+
+      title: 'Instrument strength: the F-statistic',
+
+      question: '<p>Four candidate instruments from an exposure GWAS (made-up numbers):</p>' +
+
+        table(['SNP', 'β exposure', 'SE exposure'], rows.map(function (r, i) { return ['SNP' + (i + 1)].concat(r); })),
+
+      inputs: [
+
+        { label: 'F for SNP1', answer: F[0], tol: Math.max(0.2, F[0] * 0.03) },
+
+        { label: 'Number of weak instruments (F < 10)', answer: nWeak, tol: 0 }
+
+      ],
+
+      solution: '<p>F = (β / SE)²: ' + F.map(function (f, i) { return 'SNP' + (i + 1) + ' = (' + rows[i][0] + ' / ' + rows[i][1] + ')² = <b>' + fmt(f, 1) + '</b>'; }).join('; ') + '.</p>' +
+
+        '<p><b>' + nWeak + '</b> SNP(s) have F < 10 and count as weak instruments: their Wald ratios are unstable and, in two non-overlapping samples, biased toward the null. ' +
+
+        'A genome-wide significant SNP (P < 5×10⁻⁸, |z| ≥ 5.45) always has F ≥ 29.7.</p>'
+
+    };
+
+  };
+
+
+
+  DRILLS.prs = function () {
+
+    var betas = [];
+
+    for (var j = 0; j < 4; j++) betas.push(pick([-1, 1]) * rnd(0.05, 0.20, 2));
+
+    var people = [];
+
+    for (var i = 0; i < 2; i++) people.push([0, 0, 0, 0].map(function () { return pick([0, 0, 1, 1, 2]); }));
+
+    var prs = people.map(function (g) {
+
+      return g.reduce(function (s, d, j) { return s + d * betas[j]; }, 0);
+
+    });
+
+    function workings(g) {
+
+      return g.map(function (d, j) { return d + '·(' + fmt(betas[j], 2) + ')'; }).join(' + ');
+
+    }
+
+    return {
+
+      title: 'Polygenic risk score for two individuals',
+
+      question: '<p>GWAS effect sizes (per effect allele): ' + betas.map(function (b, j) { return 'β̂<sub>' + (j + 1) + '</sub> = ' + fmt(b, 2); }).join(', ') +
+
+        '. Genotypes are the number of effect alleles (0, 1, 2).</p>' +
+
+        table(['ID', 'SNP1', 'SNP2', 'SNP3', 'SNP4'], people.map(function (g, i) { return [i + 1].concat(g); })),
+
+      inputs: [
+
+        { label: 'PRS for ID 1', answer: prs[0], tol: 0.0005 },
+
+        { label: 'PRS for ID 2', answer: prs[1], tol: 0.0005 }
+
+      ],
+
+      solution: '<p>PRS<sub>i</sub> = Σ<sub>j</sub> G<sub>ij</sub> β̂<sub>j</sub>.</p>' +
+
+        '<p>ID 1: ' + workings(people[0]) + ' = <b>' + fmt(prs[0], 2) + '</b><br>ID 2: ' + workings(people[1]) + ' = <b>' + fmt(prs[1], 2) + '</b></p>' +
+
+        '<p>ID ' + (prs[0] >= prs[1] ? 1 : 2) + ' has the higher genetic liability <i>relative</i> to the other. The score has no unit of its own and is not a probability of disease.</p>'
 
     };
 
