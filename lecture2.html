@@ -1660,6 +1660,10 @@ globalThis.qwebrExecuteCode = async function (
 <span class="menu-text">Exam practice</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./vocabulary.html"> 
+<span class="menu-text">Flashcards</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./glossary.html"> 
 <span class="menu-text">Glossary</span></a>
   </li>  
@@ -1727,6 +1731,12 @@ globalThis.qwebrExecuteCode = async function (
   <div class="sidebar-item-container"> 
   <a href="./exam-practice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exam practice</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vocabulary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Words to use in a sentence</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -2212,8 +2222,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 </div>
 </div>
-<section id="t2-1" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t2-1">2.1 RNA vs DNA, and the types of RNA</h2>
+<section id="t2-1" class="level2 topic" data-flag="professor">
+<h2 class="topic anchored" data-flag="professor" data-anchor-id="t2-1">2.1 RNA vs DNA, and the types of RNA</h2>
 <p>RNA is chemically similar to DNA but differs in three ways:</p>
 <table class="caption-top table">
 <thead>
@@ -2284,8 +2294,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   <div class="q-exp">Each tRNA carries one specific amino acid and has an anticodon that base-pairs with the codon on the mRNA. mRNA is the message, rRNA is part of the ribosome, miRNA regulates expression.</div>
 </div>
 </section>
-<section id="t2-2" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t2-2">2.2 Transcription, strands and directionality</h2>
+<section id="t2-2" class="level2 topic" data-flag="professor">
+<h2 class="topic anchored" data-flag="professor" data-anchor-id="t2-2">2.2 Transcription, strands and directionality</h2>
 <p>Protein synthesis has two steps: <strong>transcription</strong> and <strong>translation</strong>. In transcription a gene (a defined stretch of DNA) is copied into mRNA; the mature mRNA is exported from the nucleus and translated in the cytoplasm.</p>
 <p><strong>Transcription factors</strong> are proteins that bind DNA and increase or decrease the rate of transcription. They are one of the main controls over which genes are “on” in which cell type.</p>
 <p><strong>Strand terminology</strong> (a frequent source of confusion, be precise):</p>
@@ -2338,8 +2348,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 </div>
 </section>
-<section id="t2-2b" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t2-2b">2.2b Worked example: strand, transcribe, translate</h2>
+<section id="t2-2b" class="level2 topic" data-flag="professor">
+<h2 class="topic anchored" data-flag="professor" data-anchor-id="t2-2b">2.2b Worked example: strand, transcribe, translate</h2>
 <p>This example is from Lecture 3 but tests exactly the concepts above. Be able to do it from scratch.</p>
 <p><strong>Task.</strong> Given the double-stranded DNA below, and told that <strong>RNA polymerase moves right to left</strong>, find the coding strand, write it 5′→3′, derive the mRNA and translate it.</p>
 <pre><code>5′–ATG TTA GGC TAA CCG AAT GGC CAT TCG TAC–3′
@@ -2389,8 +2399,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 <p>The practice section at the bottom of the page lets you run the same steps in R.</p>
 </section>
-<section id="t2-3" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t2-3">2.3 Translation and the genetic code</h2>
+<section id="t2-3" class="level2 topic" data-flag="professor">
+<h2 class="topic anchored" data-flag="professor" data-anchor-id="t2-3">2.3 Translation and the genetic code</h2>
 <p><strong>Translation</strong>: the ribosome reads the code in the mRNA and builds a protein. It takes place at ribosomes. The genetic code maps three-nucleotide <strong>codons</strong> to amino acids and has three properties:</p>
 <table class="caption-top table">
 <colgroup>
@@ -2442,8 +2452,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   <div class="q-exp">The stop codons are UAA, UAG and UGA. AUG is the start codon (methionine); UGG codes for tryptophan.</div>
 </div>
 </section>
-<section id="t2-4" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t2-4">2.4 Mutations: substitutions</h2>
+<section id="t2-4" class="level2 topic" data-flag="professor">
+<h2 class="topic anchored" data-flag="professor" data-anchor-id="t2-4">2.4 Mutations: substitutions</h2>
 <p>A <strong>mutation</strong> is a change in a DNA sequence. The lecture shows near-identical mRNA sequences, each with one letter changed from the reference, to show how small the physical change can be:</p>
 <pre><code>5' - AUGACUCCUUGUGGCUCUACAUAA - 3'   (reference)
 5' - AUGACCCCUUGUGGCUCUACAUAA - 3'
@@ -2517,8 +2527,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </tbody>
 </table>
 </section>
-<section id="t2-4b" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t2-4b">2.4b Mutations: indels and chromosomal changes</h2>
+<section id="t2-4b" class="level2 topic" data-flag="professor">
+<h2 class="topic anchored" data-flag="professor" data-anchor-id="t2-4b">2.4b Mutations: indels and chromosomal changes</h2>
 <p><strong>Indels (insertions and deletions)</strong> add or remove one or more nucleotides. The effect depends on <em>how many</em>, because the ribosome reads in fixed groups of three:</p>
 <table class="caption-top table">
 <colgroup>
@@ -2555,8 +2565,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   <div class="q-exp">Three nucleotides is one codon. The frame downstream is preserved, so the protein simply lacks one amino acid (in-frame deletion). PCSK9 c.290_292delGCC (p.Arg97del) in Lecture 3 is exactly this.</div>
 </div>
 </section>
-<section id="t2-5" class="level2 topic">
-<h2 class="topic anchored" data-anchor-id="t2-5">2.5 The PCSK9 mutation D374Y</h2>
+<section id="t2-5" class="level2 topic" data-flag="example">
+<h2 class="topic anchored" data-flag="example" data-anchor-id="t2-5">2.5 The PCSK9 mutation D374Y</h2>
 <p>The specific PCSK9 mutation used as the running example is <strong>D374Y</strong>, written at three levels:</p>
 <table class="caption-top table">
 <colgroup>
@@ -2586,8 +2596,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </table>
 <p>Lecture 3 (Section 3.3) covers the full HGVS rules for reading and writing this notation, and explains why D374Y is a <em>gain-of-function</em> mutation.</p>
 </section>
-<section id="t2-6" class="level2 topic" data-flag="inferred">
-<h2 class="topic anchored" data-flag="inferred" data-anchor-id="t2-6">2.6 PCR: polymerase chain reaction</h2>
+<section id="t2-6" class="level2 topic" data-flag="professor">
+<h2 class="topic anchored" data-flag="professor" data-anchor-id="t2-6">2.6 PCR: polymerase chain reaction</h2>
 <p><strong>PCR</strong> amplifies (makes many copies of) a specific region of DNA <strong><em>in vitro</em></strong> (in a test tube). “Worth a Nobel Prize”: Kary Mullis won the 1993 Nobel Prize in Chemistry for it.</p>
 <table class="caption-top table">
 <colgroup>
@@ -2800,7 +2810,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": "inferred"
+  "flag": "example"
 
  },
 
@@ -2814,7 +2824,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -2842,7 +2852,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -2856,7 +2866,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -2870,7 +2880,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -2884,7 +2894,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture1.html",
 
-  "flag": null
+  "flag": "professor"
 
  },
 
@@ -2898,7 +2908,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -2912,7 +2922,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -2926,7 +2936,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -2940,7 +2950,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -2954,7 +2964,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -2968,7 +2978,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -2982,7 +2992,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": null
+  "flag": "example"
 
  },
 
@@ -2996,7 +3006,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture2.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3010,7 +3020,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": null
+  "flag": "professor"
 
  },
 
@@ -3024,7 +3034,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3038,7 +3048,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "example"
 
  },
 
@@ -3052,7 +3062,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3066,7 +3076,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3080,7 +3090,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3094,7 +3104,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3108,7 +3118,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": null
+  "flag": "professor"
 
  },
 
@@ -3122,7 +3132,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3136,7 +3146,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3150,7 +3160,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3164,7 +3174,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture3.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3178,7 +3188,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": null
+  "flag": "unclear"
 
  },
 
@@ -3192,7 +3202,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "professor"
 
  },
 
@@ -3206,7 +3216,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3220,7 +3230,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "professor_unsure"
 
  },
 
@@ -3234,7 +3244,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3248,7 +3258,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3262,7 +3272,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3276,7 +3286,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3290,7 +3300,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3304,7 +3314,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture4.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3318,7 +3328,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": null
+  "flag": "seminar"
 
  },
 
@@ -3332,7 +3342,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": null
+  "flag": "seminar"
 
  },
 
@@ -3346,7 +3356,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3360,7 +3370,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3374,7 +3384,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3388,7 +3398,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3402,7 +3412,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture5.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3416,7 +3426,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3430,7 +3440,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3444,7 +3454,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3458,7 +3468,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": null
+  "flag": "unclear"
 
  },
 
@@ -3472,7 +3482,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3486,7 +3496,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3500,7 +3510,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3514,7 +3524,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3528,7 +3538,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture6.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -3934,7 +3944,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture8.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3948,7 +3958,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture8.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3962,7 +3972,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture8.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -3990,7 +4000,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4004,7 +4014,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4018,7 +4028,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4032,7 +4042,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4046,7 +4056,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4060,7 +4070,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "seminar"
 
  },
 
@@ -4074,7 +4084,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4088,7 +4098,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4102,7 +4112,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4116,7 +4126,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4130,7 +4140,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4144,7 +4154,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4158,7 +4168,7 @@ window.STA520_TOPICS = [
 
   "page": "lecture9.html",
 
-  "flag": "inferred"
+  "flag": "unclear"
 
  },
 
@@ -4203,11 +4213,36 @@ window.STA520_TOPICS = [
       text: '🎯 Instructor-flagged EXAM',
       title: 'This slide carried the literal "EXAM" marker from the instructor.'
     },
+    professor: {
+      text: '🎓 On the professor\'s list',
+      title: 'Covers words or concepts on the professor\'s exam list (lecture notes, 29 Sep).'
+    },
+    professor_unsure: {
+      text: '🎓 On the professor\'s list (use uncertain)',
+      title: 'On the professor\'s list, under "uncertain about use".'
+    },
     inferred: {
       text: '📌 Likely exam-relevant (AI-inferred)',
       title: 'Inferred from definitions, formulas and worked examples. Not confirmed by the instructor.'
+    },
+    unclear: {
+      text: '❔ Exam status unclear',
+      title: 'GWAS/MR theory that is not part of computer exercises 1–2. Not confirmed as seminar or written exam.'
+    },
+    seminar: {
+      text: '🗣️ Seminar: not on the written exam',
+      title: 'Covered by computer exercises 1–2, which are examined at the seminar, not on the written exam.'
+    },
+    example: {
+      text: 'Example, not exam focus',
+      title: 'Running example of the course. The lecturer said not to learn specific medicines, mutations or running examples.'
     }
   };
+
+  var EXAM_FLAGS = ['instructor', 'professor', 'professor_unsure', 'inferred'];
+  var FLAG_ORDER = { instructor: 0, professor: 1, professor_unsure: 2, inferred: 3, unclear: 4 };
+  var FLAG_ICON = { instructor: '🎯', professor: '🎓', professor_unsure: '🎓', inferred: '📌', unclear: '❔', seminar: '🗣️' };
+  function isExam(t) { return EXAM_FLAGS.indexOf(t.flag) !== -1; }
 
   var LECTURE_TITLES = {
     1: 'Biological language of molecular epidemiology',
@@ -4371,12 +4406,20 @@ window.STA520_TOPICS = [
     /* Rollup cards */
     var cards = el('div', 'dash-cards');
     cards.appendChild(statCard('All topics', summarise(TOPICS)));
+    cards.appendChild(statCard('✍️ Written exam (🎯 🎓 📌)',
+      summarise(TOPICS.filter(isExam)), 'card-exam'));
     cards.appendChild(statCard('🎯 Instructor-flagged EXAM',
       summarise(TOPICS.filter(function (t) { return t.flag === 'instructor'; })), 'card-instructor'));
+    cards.appendChild(statCard('🎓 Professor\'s list',
+      summarise(TOPICS.filter(function (t) { return t.flag === 'professor' || t.flag === 'professor_unsure'; })), 'card-professor'));
     cards.appendChild(statCard('📌 Likely relevant (AI-inferred)',
       summarise(TOPICS.filter(function (t) { return t.flag === 'inferred'; })), 'card-inferred'));
-    cards.appendChild(statCard('Unflagged',
-      summarise(TOPICS.filter(function (t) { return !t.flag; }))));
+    cards.appendChild(statCard('❔ Exam status unclear',
+      summarise(TOPICS.filter(function (t) { return t.flag === 'unclear'; })), 'card-unclear'));
+    cards.appendChild(statCard('🗣️ Seminar (exercises 1–2)',
+      summarise(TOPICS.filter(function (t) { return t.flag === 'seminar'; })), 'card-seminar'));
+    cards.appendChild(statCard('Unflagged or example',
+      summarise(TOPICS.filter(function (t) { return !t.flag || t.flag === 'example'; }))));
     root.appendChild(cards);
 
     var legend = el('p', 'dash-legend');
@@ -4389,7 +4432,7 @@ window.STA520_TOPICS = [
     var table = el('table', 'dash-table table');
     var thead = el('thead');
     var hr = el('tr');
-    ['Lecture', 'Topics', '🎯', 'Reviewed', 'Confident'].forEach(function (h) { hr.appendChild(el('th', null, h)); });
+    ['Lecture', 'Topics', '✍️ Exam', '❔', '🗣️', 'Reviewed', 'Confident'].forEach(function (h) { hr.appendChild(el('th', null, h)); });
     thead.appendChild(hr); table.appendChild(thead);
     var tbody = el('tbody');
     for (var n = 1; n <= 9; n++) {
@@ -4403,8 +4446,11 @@ window.STA520_TOPICS = [
       tdName.appendChild(a);
       tr.appendChild(tdName);
       tr.appendChild(el('td', 'num', String(s.total)));
-      var nInstr = list.filter(function (t) { return t.flag === 'instructor'; }).length;
-      tr.appendChild(el('td', 'num', nInstr ? String(nInstr) : '–'));
+      [list.filter(isExam).length,
+       list.filter(function (t) { return t.flag === 'unclear'; }).length,
+       list.filter(function (t) { return t.flag === 'seminar'; }).length].forEach(function (k) {
+        tr.appendChild(el('td', 'num', k ? String(k) : '–'));
+      });
       [['reviewed', s.reviewed], ['confident', s.confident]].forEach(function (pair) {
         var td = el('td');
         var bar = el('div', 'dash-bar small');
@@ -4420,12 +4466,15 @@ window.STA520_TOPICS = [
     root.appendChild(table);
 
     /* To-do list: flagged topics that are not yet confident */
-    root.appendChild(el('h2', null, 'Flagged topics not yet confident'));
+    root.appendChild(el('h2', null, 'Written exam topics not yet confident'));
     root.appendChild(el('p', 'dash-note',
-      'Instructor-flagged topics first, then AI-inferred ones, in course order. Click a topic to jump to it.'));
-    var todo = TOPICS.filter(function (t) { return t.flag && statusOf(t.id) !== 'confident'; });
+      'Written-exam topics first (🎯 instructor EXAM slides, 🎓 professor\'s list, 📌 AI-inferred), then ❔ topics whose exam status is unclear. ' +
+      'Seminar topics are listed separately below. Click a topic to jump to it.'));
+    var todo = TOPICS.filter(function (t) {
+      return (t.flag in FLAG_ORDER) && statusOf(t.id) !== 'confident';
+    });
     todo.sort(function (a, b) {
-      if (a.flag !== b.flag) return a.flag === 'instructor' ? -1 : 1;
+      if (FLAG_ORDER[a.flag] !== FLAG_ORDER[b.flag]) return FLAG_ORDER[a.flag] - FLAG_ORDER[b.flag];
       return a.lecture - b.lecture;
     });
     if (!todo.length) {
@@ -4435,7 +4484,7 @@ window.STA520_TOPICS = [
       todo.forEach(function (t) {
         var li = el('li');
         li.appendChild(el('span', 'dot dot-' + (statusOf(t.id) || 'none')));
-        li.appendChild(el('span', 'todo-flag', t.flag === 'instructor' ? '🎯' : '📌'));
+        li.appendChild(el('span', 'todo-flag', FLAG_ICON[t.flag] || ''));
         var link = el('a', null, 'L' + t.lecture + ' · ' + t.title);
         link.href = t.page + '#' + t.id;
         li.appendChild(link);
@@ -4444,6 +4493,22 @@ window.STA520_TOPICS = [
       });
       root.appendChild(ul);
     }
+
+    /* Seminar topics */
+    root.appendChild(el('h2', null, '🗣️ Seminar topics (computer exercises 1–2)'));
+    root.appendChild(el('p', 'dash-note',
+      'Examined at the seminar, so according to the lecturer they will not come on the written exam.'));
+    var ulSem = el('ul', 'dash-todo');
+    TOPICS.filter(function (t) { return t.flag === 'seminar'; }).forEach(function (t) {
+      var li = el('li');
+      li.appendChild(el('span', 'dot dot-' + (statusOf(t.id) || 'none')));
+      var link = el('a', null, 'L' + t.lecture + ' · ' + t.title);
+      link.href = t.page + '#' + t.id;
+      li.appendChild(link);
+      li.appendChild(el('span', 'todo-status', STATUS_LABELS[statusOf(t.id)]));
+      ulSem.appendChild(li);
+    });
+    root.appendChild(ulSem);
 
     /* Backup / reset */
     root.appendChild(el('h2', null, 'Backup and reset'));
