@@ -13,9 +13,13 @@ The quizzes, drills, R exercises, figures, written model answers and the illustr
 
 **Added later:** "Lecture 7 - questions.pdf", the instructor's example exercises and possible exam questions. Its 11 questions are on the [Exam practice](exam-practice.qmd) page. The questions are the instructor's; the model answers are written for this app and are not an official answer key. The survival result by cluster (M1 shorter survival, log-rank P = 0.029) in Lecture 7 comes from this document.
 
+**Added 2 October:** "Martins part key_concepts.docx", a list of 20 key concepts for GWAS, MR and proteomics, now on [Martin's key concepts](key-concepts.qmd) with one module per concept; "Lecture Seminar (1).pdf", the lecturer's seminar questions, now on [Seminar questions](seminar-questions.qmd) with model answers written for this app; and the Lecture 8 reading material, Kirsher et al. (2025, *Communications Chemistry*), a comparison of eight plasma proteomics platforms, worked through in [Section 8.13](lecture8.qmd#t8-13). The PRS tutorial uploaded again as "lecture 9" reading is the same file as the Choi et al. (2020) tutorial already used in Lecture 9.
+
 ## How to read the exam flags
 
 The 🎓, ❔, 🗣️ and "example" labels were added on 29 September from the lecturer's guidance, recorded in the lecture notes: a list of words and concepts from Lectures 1–3 (partial; the full list will be uploaded), "GWAS" and "Mendelian randomization" as seminar content, and "don't focus on a specific medicine or mutation". Which sections count as seminar was decided from what computer exercises 1–2 actually do. Where the professor's list and the seminar mapping overlap (e.g. allele frequency, dbSNP), the professor's list wins.
+
+**Updated 2 October.** Seminar content can also come on the written exam, so 🗣️ topics now count as exam-relevant. The 🔑 label was added for sections that cover Martin's key concepts; it replaced ❔ or 🗣️ on those sections (🎓 was kept where it applied). Order of priority on the dashboard: 🎯, 🎓, 🔑, 🗣️, 📌, then ❔.
 
 | Badge | Meaning |
 |---|---|
@@ -23,8 +27,9 @@ The 🎓, ❔, 🗣️ and "example" labels were added on 29 September from the 
 | <span class="flag-badge flag-inferred">📌 Likely exam-relevant (AI-inferred)</span> | An **inference** from what the slides present as a definition, formula, worked numerical example or something repeated across lectures. **Not confirmed by the instructor.** |
 | <span class="flag-badge flag-professor">🎓 On the professor's list</span> | The section covers words or concepts on the professor's exam list for Lectures 1–3 (lecture notes, 29 September). Practise them with the [flashcards](vocabulary.qmd). **On the written exam.** |
 | <span class="flag-badge flag-professor_unsure">🎓 On the professor's list (use uncertain)</span> | On the professor's list, under "uncertain about use" (checking HWE, checking SNP–phenotype association). |
-| <span class="flag-badge flag-unclear">❔ Exam status unclear</span> | GWAS/MR theory that is **not** part of computer exercises 1–2, plus polygenic risk scores and protein MR. Not confirmed as seminar or written-exam content. |
-| <span class="flag-badge flag-seminar">🗣️ Seminar: not on the written exam</span> | Covered by computer exercises 1–2. The lecturer said GWAS and MR are examined at the seminar, and what is examined there will **not** come on the written exam. |
+| <span class="flag-badge flag-unclear">❔ Exam status unclear</span> | GWAS/MR/PRS theory that is neither on Martin's key-concepts list nor part of the computer exercises and seminar questions (for example covariates, Bradford Hill, polygenic risk scores, protein MR). Not confirmed either way. |
+| <span class="flag-badge flag-keyconcept">🔑 Martin's key concepts</span> | The section covers one of the 20 concepts on Martin's key-concepts list for GWAS, MR and proteomics (2 October). Each has its own short module on [Martin's key concepts](key-concepts.qmd). **Exam-relevant.** |
+| <span class="flag-badge flag-seminar">🗣️ Seminar topic (can also come on the exam)</span> | Covered by computer exercises 1–2 and the [seminar questions](seminar-questions.qmd). Examined at the seminar, and seminar content **can also come on the written exam**. |
 | <span class="flag-badge flag-example">Example, not exam focus</span> | The course's running examples (PCSK9, LDLR, specific medicines and mutations). The lecturer said not to learn them specifically. |
 | (no badge) | Background or context. Still course content. |
 

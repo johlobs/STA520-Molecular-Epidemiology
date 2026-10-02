@@ -197,7 +197,7 @@ The outcome β is per T; per C it is −0.02. C/T is not palindromic (the comple
 :::
 ::::
 
-## 9.6 Step 4: the Wald ratio and IVW {#t9-6 .topic flag="seminar"}
+## 9.6 Step 4: the Wald ratio and IVW {#t9-6 .topic flag="keyconcept"}
 
 **One SNP: the Wald ratio.**
 

@@ -63,7 +63,7 @@ Classical epidemiology's considerations for judging whether an association is li
 
 Memory aid: **S-C-S-T-B-P-C-E-A**, "*Strong Consistent Specific Timing, Biological Plausible Coherent Experimental Analogy*".
 
-## 6.3 Genetic variants as instruments {#t6-3 .topic flag="unclear"}
+## 6.3 Genetic variants as instruments {#t6-3 .topic flag="keyconcept"}
 
 **Key insight:** genetic variants are natural **instrumental variables**. Genotype is fixed at conception, so it comes first in any causal chain: **no reverse causation** (adult disease cannot change the genotype you were born with).
 
@@ -97,7 +97,7 @@ The classical gold standard is the **randomized controlled trial (RCT)**: interv
 
 **Why is a GWAS association with CHD not enough?** It says a SNP is associated with CHD (or LDL-C), not *which pathway* or *which gene*. The SNP could act through LDL-C, or through inflammation or blood pressure (SBP). MR is designed to resolve this.
 
-## 6.5 Instruments and the three MR assumptions {#t6-5 .topic flag="seminar"}
+## 6.5 Instruments and the three MR assumptions {#t6-5 .topic flag="keyconcept"}
 
 **Selecting instruments.** Choose SNPs **strongly associated with the exposure** (e.g. LDL-C), typically $P < 5 \times 10^{-8}$ in the exposure GWAS, and **independent** of each other (low LD, e.g. $r^2 < 0.01$, via LD clumping, Lecture 5). At this stage you **do not look at the SNP → outcome relationship at all**; that comes in later.
 
@@ -146,7 +146,7 @@ Population stratification links the SNP to confounders (ancestry-related factors
 :::
 ::::
 
-## 6.6 Multiple instruments, dose–response and pleiotropy {#t6-6 .topic flag="unclear"}
+## 6.6 Multiple instruments, dose–response and pleiotropy {#t6-6 .topic flag="keyconcept"}
 
 With **several independent instruments**, each shifting the exposure by a different amount, plot each SNP's effect on the exposure (β-exposure, e.g. β-LDL-C) against its effect on the outcome (β-outcome, e.g. β-CHD). Example SNPs: **SNP1 (LDLR), SNP2 (LDLR), SNP3 (PCSK9), SNP4 (APOE), SNP5 (APOB)**, all genes with known roles in LDL metabolism. A consistent **dose–response line** (larger effect on exposure → proportionally larger effect on outcome) strengthens confidence in causality.
 
@@ -160,7 +160,7 @@ With **several independent instruments**, each shifting the exposure by a differ
 | For MR | **Not a problem**: this is the causal chain MR is looking for | **Bad**: violates the exclusion restriction |
 :::
 
-## 6.7 The Wald ratio and IVW {#t6-7 .topic flag="seminar"}
+## 6.7 The Wald ratio and IVW {#t6-7 .topic flag="keyconcept"}
 
 **One instrument: the Wald ratio**
 

@@ -1,6 +1,6 @@
 ---
 title: "Lecture 8 — Proteomics"
-subtitle: "Why proteins · sample types · the plasma proteome · measurement technologies · NPX · QC and batch effects · PWAS · pQTLs · protein MR · colocalization · from association to mechanism"
+subtitle: "Why proteins · sample types · the plasma proteome · measurement technologies · NPX · QC and batch effects · PWAS · pQTLs · protein MR · colocalization · from association to mechanism · reading: eight platforms compared"
 engine: knitr
 ---
 
@@ -18,14 +18,16 @@ This page covers why and where to measure proteins, the three technology familie
 
 ::: {.callout-note collapse="true"}
 ## Sources and session
-**Slides:** "Lecture 8 proteomics.pdf", delivered in two parts. No additional reading listed.
+**Slides:** "Lecture 8 proteomics.pdf", delivered in two parts.
+
+**Reading material** (added 2 October; marked *(reading)* in the text): Kirsher et al. (2025), "Current landscape of plasma proteomics from technical innovations to biological insights and biomarker discovery", *Communications Chemistry* 8:279. Worked through in [8.13](#t8-13).
 
 **Rough plan:** Week 4, day 1. High-dimensional data, proteomics.
 :::
 
 # Part 1: Proteomics fundamentals
 
-## 8.1 Why study the proteome? {#t8-1 .topic flag="inferred"}
+## 8.1 Why study the proteome? {#t8-1 .topic flag="keyconcept"}
 
 Contrast from the molecular-layer table (Lecture 1): **DNA is fixed**, while **RNA and proteins are dynamic**, affected by diet, disease, drugs, environment and age. Proteins matter because they **carry out cellular functions**, act as **signalling molecules**, **respond** to disease/environment/diet/drugs/age, and are **the targets of most drugs** (Leqvio and Repatha in Lecture 3).
 
@@ -124,7 +126,7 @@ Antibody and affinity methods measure predefined targets. Mass spectrometry meas
 :::
 ::::
 
-## 8.5 What a protein measurement means: units and NPX {#t8-5 .topic flag="inferred"}
+## 8.5 What a protein measurement means: units and NPX {#t8-5 .topic flag="keyconcept"}
 
 | Kind | Meaning | Units |
 |---|---|---|
@@ -226,7 +228,7 @@ If the protein is standardized (z-score), $\beta$ is the effect of a **1-SD** hi
 
 **Multiple testing in PWAS.** ~3,000 proteins → about $3{,}000 \times 0.05 = 150$ false positives at uncorrected $p < 0.05$. In discovery, control the **FDR** (usually BH, Lecture 7). Unlike GWAS, there is **no single conventional threshold** like 5×10⁻⁸: it depends on the number of proteins, their correlation and the strategy.
 
-## 8.8 Association is still not causation {#t8-8 .topic flag="inferred"}
+## 8.8 Association is still not causation {#t8-8 .topic flag="keyconcept"}
 
 Three explanations for a protein–disease association:
 
@@ -251,7 +253,7 @@ Troponin is a readout of cardiomyocyte damage. Lowering it would not undo the da
 :::
 ::::
 
-## 8.9 pQTLs: connecting genetics and proteomics {#t8-9 .topic flag="unclear"}
+## 8.9 pQTLs: connecting genetics and proteomics {#t8-9 .topic flag="keyconcept"}
 
 For a given SNP, do genotype groups (AA = 0, AG = 1, GG = 2) differ in protein abundance?
 
@@ -313,7 +315,7 @@ A cis-pQTL raises plasma protein X by 0.5 SD per allele and raises the log-odds 
 :::
 ::::
 
-## 8.11 Challenges specific to protein MR {#t8-11 .topic flag="unclear"}
+## 8.11 Challenges specific to protein MR {#t8-11 .topic flag="keyconcept"}
 
 | Challenge | Why it matters |
 |---|---|
@@ -368,6 +370,66 @@ protein association → pQTL evidence → MR / colocalization
 ## Closing statement of the course's method arc
 A protein can be **statistically associated**, **genetically supported** (pQTL/MR) and **still need experimental validation** before you understand the mechanism. This echoes Lecture 1: molecular epidemiology is not biology.
 :::
+
+## 8.13 Reading material: eight plasma proteomics platforms on the same samples {#t8-13 .topic flag="inferred"}
+
+*(reading)* Kirsher et al. (2025), "Current landscape of plasma proteomics from technical innovations to biological insights and biomarker discovery", *Communications Chemistry* 8:279. This is the course's reading material for Lecture 8. It puts numbers on the slides' warnings: platforms measure different things, technical noise differs a lot, and "the same protein" on two platforms is often not the same measurement.
+
+**Design.** Plasma from **78 healthy people** (40 aged 55–65, 38 aged 18–22, half women) was measured on **eight platforms**: five affinity-based (SomaScan 7K and 11K with aptamers; Olink Explore 3072 and Explore HT with paired antibodies; NULISA, a small high-sensitivity antibody panel) and three mass spectrometry (MS) workflows (two discovery workflows that enrich low-abundance proteins with nanoparticles or remove high-abundance ones, and one **targeted MS with internal standards**, used as the reference because it gives absolute amounts).
+
+::: {.worked}
+**Main results** (numbers from the paper)
+
+| What was compared | Finding |
+|---|---|
+| **Coverage** | 13,011 proteins in total; SomaScan 11K found the most (9,645). Only **36 proteins** were measured by all eight platforms, **259** by all except NULISA |
+| **Technical CV** (same sample measured repeatedly) | SomaScan about 5–6%, NULISA 6.6%, targeted MS 8.3%, Olink 3K 11.4%; Olink 5K 26.8% and the discovery MS workflows 26–30% |
+| **Data completeness** (share of values above the detection limit) | SomaScan about 96%, Olink 3K 60%, Olink 5K 36% |
+| **Agreement between platforms** (Spearman correlation for the same protein) | Two versions of one platform: about 0.75–0.8. Across technologies: often much lower, and **bimodal**: one group of proteins that agrees and one that does not |
+| **Age markers** | Effect estimates of *significant* age proteins agreed well across platforms (correlation 0.66–0.95), much better than for all shared proteins (0.34–0.75) |
+:::
+
+**Four lessons that link to the rest of the course**
+
+1. **Technical vs biological variation** (Lecture 7, [7.4](lecture7.qmd#t7-4)). The paper compares the **technical CV** (replicates of the same sample) with the **total CV** across people. Where technical variation is a large share of the total, real biological differences are hard to see. Filtering Olink 5K to values above the detection limit lowered its CV from 26.8% to 12.4%, but removed about 40% of the analytes: **precision is bought with coverage**.
+2. **Missing values and noise go together.** Proteins with many values below the detection limit, usually low-abundance proteins, also had the highest CVs. Plasma spans about **10 orders of magnitude** in concentration, which is why low-abundance proteins are hardest.
+3. **Same name, different measurement.** Affinity assays measure a binding **epitope**, not "the protein". Most platforms measure total ApoE, but SomaScan's "ApoE4" assay also binds ApoE2 and ApoE3 with similar affinity, so it is not isoform-specific; MS peptides unique to ApoE4 confirmed that NULISA's ApoE4 assay is. This is the assay-binding issue of [8.11](#t8-11) in practice, and one reason why two platforms disagree.
+4. **Multiple testing changes the hit list.** Each protein was regressed on age, sex, BMI and other factors, with significance by raw p < 0.05 and by **Benjamini–Hochberg** adjusted p < 0.05 (Lecture 7, [7.13](lecture7.qmd#t7-13)). How many markers survived BH depended on each platform's p-value distribution, not only on how many proteins it measured.
+
+**Pre-analytical factors.** The introduction lists what can shift plasma protein levels apart from the biology of interest: age, sex, BMI and fasting status, and technical factors such as storage time, temperature, time of day, anticoagulant and processing protocol. Nanoparticle enrichment added **platelet contamination**. This is [8.6](#t8-6)'s QC and pre-analytical variation with concrete examples.
+
+**Take-home.** No platform is best at everything: affinity platforms give the broadest coverage and best precision, targeted MS gives absolute quantification, discovery MS can see proteoforms. Choose by study goal, and treat a protein measured on one platform as that platform's measurement, not as a universal value.
+
+::: {.callout-note collapse="true"}
+## Read critically: a detail in Table 1
+The footnote of Table 1 says that the Wilcoxon rank-sum test was used for categorical variables and the chi-squared test for continuous variables. That is reversed: Wilcoxon is a test for continuous (or ordinal) variables, chi-squared for categorical ones. Probably a typo, but the kind of thing worth noticing when reading a paper.
+:::
+
+:::: {.quiz}
+In the paper, filtering Olink 5K to values above the detection limit improved its technical CV. What was the cost?
+
+- The remaining proteins correlated worse with targeted MS
+- **About 40% of the analytes dropped out of the comparison**
+- Differences between people could no longer be estimated
+- Low-abundance proteins had to be remeasured on SomaScan
+
+::: {.exp}
+CV fell from 26.8% to 12.4%, but only because the noisy, mostly low-abundance analytes were removed: precision was bought with coverage.
+:::
+::::
+
+:::: {.quiz}
+Why can the "same protein" correlate poorly between an aptamer platform and an antibody platform?
+
+- Because one platform reports NPX and the other log₂ units
+- **Because each binds its own epitope and may see other forms**
+- Because plasma proteins change too fast to measure twice
+- Because correlation needs absolute, not relative, amounts
+
+::: {.exp}
+Affinity assays measure whatever their binder recognises. Different epitopes, isoform selectivity (the ApoE example) and binding artifacts make two assays for one protein into two different measurements.
+:::
+::::
 
 # Practice
 
@@ -444,7 +506,13 @@ LDL-C is the course's example of a marker of future risk; its change after stati
 
 # Further reading {#further-reading}
 
-No additional reading listed beyond the lecture slides.
+**Reading material**
+
+- Kirsher DY, Chand S, Phong A, Nguyen B, Szoke BG, Ahadi S (2025). [Current landscape of plasma proteomics from technical innovations to biological insights and biomarker discovery](https://doi.org/10.1038/s42004-025-01665-1){target="_blank"}. *Communications Chemistry* 8:279 (open access). Compares eight plasma proteomics platforms on the same 78 people. Summarised in [8.13](#t8-13).
+
+**In this app**
+
+- [Martin's key concepts](key-concepts.qmd): K.17 proteomics and protein abundance, K.18 pQTLs, K.19 colocalization, K.20 biomarker vs causal protein.
 
 ::: {.callout-note collapse="true"}
 ## Course files on Canvas (GU login required)

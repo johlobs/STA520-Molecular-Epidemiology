@@ -52,11 +52,17 @@ table {
   border: 1.5px dotted #adb5bd;
   font-weight: 500;
 }
-/* Seminar: green, not on the written exam */
+/* Seminar topic: green, can also come on the written exam */
 .flag-seminar {
   background: #e6f4ea;
   color: #1e6b34;
   border: 1.5px solid #2f9e44;
+}
+/* Martin's key-concepts list: solid teal */
+.flag-keyconcept {
+  background: #0c7c8c;
+  color: #ffffff;
+  border: 2px solid #0c7c8c;
 }
 /* Running example: plain, quiet */
 .flag-example {
@@ -157,6 +163,7 @@ section.topic[data-flag="instructor"] > h2 {
 .dash-card.card-professor  { border: 2px solid #6f42c1; }
 .dash-card.card-unclear    { border: 1.5px dotted #adb5bd; }
 .dash-card.card-seminar    { border: 1.5px solid #2f9e44; }
+.dash-card.card-keyconcept { border: 2px solid #0c7c8c; }
 .dash-card-label { font-size: 0.82rem; color: #495057; font-weight: 600; }
 .dash-card-value { font-size: 1.9rem; font-weight: 700; line-height: 1.2; }
 .dash-card-sub   { font-size: 0.78rem; color: #6c757d; margin-bottom: 0.5rem; }

@@ -34,6 +34,8 @@ website:
         contents:
           - dashboard.qmd
           - exam-practice.qmd
+          - key-concepts.qmd
+          - seminar-questions.qmd
           - vocabulary.qmd
           - computer-exercises.qmd
           - glossary.qmd

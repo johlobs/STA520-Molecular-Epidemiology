@@ -7,7 +7,9 @@ Quarto + WebR study reference and exam-prep tracker for STA520 Molecular Epidemi
 - **Stack**: Quarto website, knitr engine (every lecture page sets `engine: knitr`, otherwise pages without `{r}` chunks try Jupyter), WebR for `{webr-r}` cells, plain JS includes.
 
 ## Pages
-- `lecture1.qmd` … `lecture8.qmd`: one page per lecture
+- `lecture1.qmd` … `lecture9.qmd`: one page per lecture
+- `key-concepts.qmd`: one module per concept on Martin's key-concepts list (IDs `k-1` … `k-20`, flag `keyconcept`)
+- `seminar-questions.qmd`: the lecturer's seminar questions with concept-level model answers (IDs `s-1` … `s-8`, flag `seminar`). No course-data results or exercise code (public site)
 - `dashboard.qmd`: progress per lecture, instructor-flagged rollup, to-do list, export/import/reset
 - `exam-practice.qmd`: randomised calculation drills + written exam-style questions with model answers
 - `glossary.qmd`: all terms with links to `lectureN.qmd#tN-M`
@@ -24,6 +26,8 @@ Every checklist item is a level-2 heading in a lecture file:
 
 - `flag="instructor"` only for slides that carried the literal "EXAM" marker (Lecture 7 only). Never use it for inferred relevance.
 - `flag="inferred"` = AI-inferred exam relevance.
+- Other flags: `professor`, `professor_unsure`, `keyconcept` (Martin's key-concepts list), `seminar` (seminar content, can also come on the written exam), `unclear`, `example`.
+- `build_topics.py` also scans `key-concepts.qmd` (group 10, label KC) and `seminar-questions.qmd` (group 11, label Sem); see `EXTRA_PAGES`.
 - `build_topics.py` (pre-render) scans these headings and writes `_topics-data.html` (`window.STA520_TOPICS`). Do not edit that file by hand.
 - IDs must stay stable: status is stored per ID in localStorage key `sta520_topic_status`. Renaming an ID loses that topic's saved status.
 
@@ -31,7 +35,7 @@ Every checklist item is a level-2 heading in a lecture file:
 - `_topics-data.html` generated registry
 - `_topics.html` status buttons, badges, sidebar counters, dashboard
 - `_quiz.html` + `_quiz-filter.lua` quizzes (same format as STA240: `:::: {.quiz}`, bold = correct)
-- `_drills.html` randomised drills: `<div class="drill" data-drill="NAME"></div>`, names: `bh, hwe, hwecount, or, logbeta, wald, ivw, log2fc, recomb, ld, qnorm, modt`
+- `_drills.html` randomised drills: `<div class="drill" data-drill="NAME"></div>`, names: `bh, hwe, hwecount, or, logbeta, wald, ivw, log2fc, recomb, ld, qnorm, modt, clump, allele, fstat, prs`
 
 ## Writing rules
 - English content; define abbreviations on first use per page.

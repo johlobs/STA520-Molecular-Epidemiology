@@ -1,0 +1,281 @@
+---
+title: "Seminar questions"
+subtitle: "The lecturer's seminar questions on computer exercises 1–2, with concept-level model answers"
+engine: knitr
+---
+
+```{=html}
+<script>document.body.classList.add("block-gwas");</script>
+```
+
+The seminar discusses computer exercises 1 and 2: GWAS on a synthetic phenotype, LD clumping, summary statistics from two GWAS, palindromic SNPs and two-sample MR. The focus is expected to be **less on code and more on the concepts**: why the numbers came out as they did and what you would do differently. **Seminar content can also come on the written exam**, so each question here is a module you can mark as reviewed.
+
+Each module gives the lecturer's question, then a **model answer at the level of concepts**. Questions that ask for your own numbers ("how many SNPs did you find?") are answered with the reasoning only: fill in your own results from the exercises. The site is public, so it contains no results from the course data and no code for the exercises.
+
+::: {.callout-note collapse="true"}
+## Source
+**Questions:** "Lecture Seminar (1).pdf" (course material, uploaded 2 October), 9 slides. The questions are the lecturer's. The **model answers are written for this app** and are not an official answer key. The figures on the slides (overlapping circles for the exposure GWAS and outcome GWAS) are described in words.
+:::
+
+## S.1 Two causal variants, but more significant SNPs {#s-1 .topic flag="seminar"}
+
+::: {.callout-important icon="false"}
+## The lecturer's question
+In exercise 1 you worked with a synthetic phenotype, generated from **2 variants**. How many variants did you find before LD clumping? After clumping? Discuss how this could happen: how come more than two SNPs were significant before clumping, and how come more than two were left after clumping?
+:::
+
+**Your numbers:** fill in from exercise 1.
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**More than two significant before clumping.** A causal variant's signal is carried by every SNP in LD with it. If the causal variant changes the phenotype, any SNP whose alleles are correlated with it (r² well above 0) also shows a difference in mean phenotype, and with enough people that difference passes 5 × 10⁻⁸. Each causal variant therefore produces a **tower** of significant SNPs, not one SNP. A causal variant that was not itself genotyped is seen only through its tags.
+
+**More than two left after clumping.** Clumping keeps SNPs that are not correlated with an already-kept SNP above the r² threshold within the window. Extra SNPs can survive when:
+
+- a SNP is in **moderate LD** with a causal variant (enough to be significant, below the r² threshold to the index SNP), so it survives as a "separate" signal although it tags the same variant;
+- SNPs tag the **causal variant in different ways**: two SNPs can each be correlated with the causal variant but only weakly with each other;
+- the SNPs lie **outside the clumping window**, so they are never compared with the index SNP, even if long-range LD links them;
+- the **LD estimates** come from a sample that differs from the GWAS sample (other ancestry, small reference), so r² is misestimated;
+- with a strong signal and a large sample, the tail of weakly correlated SNPs still reaches significance;
+- **chance**: a false positive passing 5 × 10⁻⁸ is rare but possible.
+
+The general lesson: **independent signals ≠ causal variants**. Clumping gives a set of low-correlated SNPs, not the true causal variants, and the result depends on the r² threshold, the window and the LD reference. (If the two causal variants were themselves in LD, clumping could also give *fewer* than two.)
+
+[→ K.8 LD](key-concepts.qmd#k-8) · [→ K.10 Clumping](key-concepts.qmd#k-10) · [→ 5.3 Why neighbouring SNPs show up together](lecture5.qmd#t5-3)
+:::
+
+:::: {.quiz}
+Why can more than one SNP per causal variant survive LD clumping?
+
+- Because clumping keeps every SNP below p = 5 × 10⁻⁸
+- **Because tags in weak LD with the index SNP are not removed**
+- Because clumping only removes SNPs on other chromosomes
+- Because the additive model creates extra causal variants
+
+::: {.exp}
+Clumping only removes SNPs whose r² with the index SNP is above the threshold inside the window. A tag of the same causal variant with lower r² to the index SNP survives as an apparently independent signal.
+:::
+::::
+
+## S.2 Testing an exposure SNP in the outcome GWAS {#s-2 .topic flag="seminar"}
+
+::: {.callout-important icon="false"}
+## The lecturer's question
+From the exposure GWAS you found a set of SNPs, and after LD clumping two SNPs remain: **purple** and **black**. The figure shows two overlapping sets: variants only in the exposure GWAS, variants only in the outcome GWAS, and variants in both. The purple SNP lies in the overlap; the black SNP lies in the exposure-only part. Explain how you would test whether the purple SNP also has an effect on the outcome, and how you could test the black SNP.
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**Purple SNP (in both GWAS).** Look it up directly in the outcome summary statistics. First **harmonise**: make sure β-exposure and β-outcome refer to the same effect allele (flip the sign of the outcome β if the alleles are swapped; check strand; handle palindromic SNPs, S.4). Then read the outcome β, SE and p, and compute the **Wald ratio** β-outcome / β-exposure with its SE.
+
+**Black SNP (only in the exposure GWAS).** It cannot be looked up, so:
+
+1. **Use a proxy SNP**: find a SNP in **strong LD** with the black SNP (for example r² ≥ 0.8) that **is** present in the outcome GWAS. LD must come from a **reference panel** of matching ancestry (for example 1000 Genomes EUR), since summary statistics contain no genotypes. Align the proxy's alleles to the black SNP's alleles through the haplotype (which proxy allele travels with the black SNP's effect allele).
+2. **Impute** the black SNP in the outcome data, if you have individual-level data or summary-statistic imputation.
+3. **Drop** the instrument if no good proxy exists, and report that.
+
+A proxy estimate is only as good as the LD: with r² < 1 the proxy's association is diluted, and the LD in the reference panel may differ from the outcome population.
+
+[→ 6.1 Imputation and proxy SNPs](lecture6.qmd#t6-1) · [→ 9.4 Finding the same variants](lecture9.qmd#t9-4) · [→ 9.5 Harmonisation](lecture9.qmd#t9-5)
+:::
+
+:::: {.quiz}
+An instrument is missing from the outcome GWAS. What is the usual first solution?
+
+- Use the exposure β in place of the outcome β
+- Pick the nearest SNP in base pairs, whatever its LD
+- **Use a proxy SNP in strong LD that is in both files**
+- Lower the significance threshold for the outcome GWAS
+
+::: {.exp}
+A proxy with high r² in a matching reference panel carries nearly the same information. Physical closeness alone is not enough; LD is what matters.
+:::
+::::
+
+## S.3 Drawing the SNPs in linkage with each instrument {#s-3 .topic flag="seminar"}
+
+::: {.callout-important icon="false"}
+## The lecturer's question
+In the same figure (variants only in the exposure GWAS, only in the outcome GWAS, in both), with the **black** SNP (only in the exposure GWAS), the **purple** SNP (in both) and an **orange** SNP (only in the outcome GWAS): how would you picture the SNPs that are in linkage with each of them?
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+Draw each marked SNP as the centre of a **cloud of SNPs in LD** with it, with the strongest LD (highest r²) closest. The cloud is defined by the genome and the population, **not** by which file the SNPs happen to be in, so each cloud **crosses the borders** of the sets:
+
+- **Purple** (in both GWAS): its LD partners are spread over all three areas. You do not need them, since purple itself can be used.
+- **Black** (only in the exposure GWAS): the useful part of its cloud is the part that falls **inside the overlap**. Any SNP there with high r² to black is a candidate **proxy**. If the cloud does not reach the overlap, no proxy exists.
+- **Orange** (only in the outcome GWAS): the mirror image of black. Its cloud can reach into the overlap and the exposure-only area. If the orange SNP is in strong LD with black, it is effectively the same signal measured in the other study, and it (or a SNP in both) can serve as black's proxy. If it is not in LD with black or purple, it says nothing about those instruments.
+
+A good way to draw it: concentric rings around each SNP for r² > 0.8, r² > 0.5 and r² > 0.1, overlaid on the circles. The rings show that "in which file" and "in LD" are two different properties.
+
+[→ K.8 LD](key-concepts.qmd#k-8) · [→ 4.8 Why one signal gives a cluster](lecture4.qmd#t4-8)
+:::
+
+## S.4 Palindromic SNPs {#s-4 .topic flag="seminar"}
+
+::: {.callout-important icon="false"}
+## The lecturer's question
+SNPs with alleles **A/T** and **C/G** are called palindromic. Can you guess why? Can you find out why they could be problematic in a two-sample GWAS analysis? Suggest ways to overcome the problem.
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**Why "palindromic".** The complement of A is T and of C is G. For an A/T SNP the other DNA strand reads T/A, which is the **same pair of letters**; read on either strand it looks the same, like a word that reads the same backwards. For a non-palindromic SNP such as A/G, the other strand reads T/C, so a strand difference is visible.
+
+**Why it is a problem.** Two GWAS can report alleles on **different strands** (forward vs reverse, different arrays or builds). For A/G vs T/C you can detect and fix this. For A/T you cannot tell from the letters whether "A" in file 1 is the same allele as "A" in file 2 or its complement. If you guess wrong, the outcome β gets the **wrong sign**, and the Wald ratio and IVW estimate are biased, possibly toward zero or in the wrong direction.
+
+**Ways to handle it:**
+
+1. **Use allele frequencies.** If the effect allele frequency is clearly away from 0.5 (for example below 0.4 or above 0.6), compare the EAF in both files: similar → same allele; mirrored (f vs 1 − f) → flipped. Requires similar ancestry in both studies.
+2. **Exclude** palindromic SNPs with frequency **close to 0.5**, where the frequency cannot tell the alleles apart.
+3. **Replace** the SNP with a non-palindromic **proxy** in strong LD.
+4. **Check strand information** in the files (many GWAS report everything on the forward strand of a stated build), and report how many SNPs were excluded and whether results change without them.
+
+[→ B2 Allele alignment](computer-exercises.qmd#allele-alignment) · [→ 9.5 Harmonisation](lecture9.qmd#t9-5)
+:::
+
+<div class="drill" data-drill="allele"></div>
+
+:::: {.quiz}
+An A/T SNP has effect allele frequency 0.49 in one GWAS and 0.51 in the other. What should you do?
+
+- Keep it and assume both files use the same strand
+- Flip the sign of the outcome β to be on the safe side
+- **Exclude it, since the strand cannot be resolved**
+- Keep it, since palindromic SNPs need no harmonising
+
+::: {.exp}
+Near 0.5 the frequencies cannot tell "same allele" from "complement". The safe choice is to exclude the SNP or use a non-palindromic proxy.
+:::
+::::
+
+## S.5 The clumping window: narrower or wider {#s-5 .topic flag="seminar"}
+
+::: {.callout-important icon="false"}
+## The lecturer's question
+In PLINK we used a window of **1,000 kb** around the lead SNP. What do you expect to happen if the window is narrower or wider, for computation time and for the number of SNPs in linkage?
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+The window sets **which SNP pairs are compared** with the index SNP. Only SNPs inside it can be removed for being in LD.
+
+::: {.worked}
+| | **Narrower window** (e.g. 250 kb) | **Wider window** (e.g. 5,000 kb) |
+|---|---|---|
+| Computation time | **Shorter**: fewer pairs to compute r² for | **Longer**: many more pairs (grows with the number of SNPs in the window) |
+| SNPs found in linkage with the index SNP | **Fewer**: SNPs in LD beyond the window are never checked | **More**, up to the limit of real LD; far beyond the LD range, extra SNPs have r² ≈ 0 and are not removed anyway |
+| Independent signals left | **More**, some of which may be the same signal (long-range LD missed) | **Fewer**, closer to truly independent; a little risk of removing a real second signal only if it is in LD above the threshold |
+:::
+
+Because LD usually decays within a few hundred kb, widening the window beyond the LD range adds computation but changes the result little. The **r² threshold** has a larger effect on the number of SNPs kept than the window, once the window covers the LD range. Regions with long-range LD (for example the HLA region on chromosome 6) are where a narrow window fails most.
+
+[→ K.10 LD clumping](key-concepts.qmd#k-10) · [→ 5.4b r² bands and LD clumping](lecture5.qmd#t5-4b)
+:::
+
+:::: {.quiz}
+You widen the clumping window from 1,000 kb to 10,000 kb. What is the most likely result?
+
+- **Longer run time and the same or fewer independent SNPs**
+- Shorter run time and more independent SNPs left
+- More SNPs pass the genome-wide significance threshold
+- The r² values between the SNP pairs become larger
+
+::: {.exp}
+More pairs are compared, so it takes longer; SNPs in LD beyond 1,000 kb can now be removed, so the number left stays the same or drops. r² values and p-values do not change.
+:::
+::::
+
+## S.6 Two-sample MR: matching the files and the reference cohort {#s-6 .topic flag="seminar"}
+
+::: {.callout-important icon="false"}
+## The lecturer's question
+In the two-sample MR (exercise 2): how many SNPs did you start with, and how many did you end up with? The lecturer pre-processed the data: can you guess how the two files were matched? How would you draw the **reference cohort's coverage** in the figure (variants only in the exposure GWAS, only in the outcome GWAS, in both)?
+:::
+
+**Your numbers:** fill in from exercise 2, and note at which step SNPs were lost (significance, clumping, matching, harmonisation).
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**Why the number drops.** At each step SNPs fall out: not genome-wide significant for the exposure; removed by clumping; **missing in the outcome GWAS**; **missing in the LD reference**, so they cannot be clumped; incompatible or ambiguous alleles (palindromic near 0.5) removed during harmonisation.
+
+**How the files could be matched.** Most likely on the **rsID**, which identifies the variant independently of genome build, or on **chromosome + position** after making sure both files use the same build (hg19/GRCh37 vs hg38/GRCh38, lifting over one of them if needed). Then: keep only SNPs present in both, check that the alleles are the same pair (possibly on the other strand), align the effect allele and flip β where needed, and remove duplicates and multiallelic variants.
+
+**The reference cohort in the figure.** Draw it as a **third circle** overlapping the other two. A SNP can be used as a clumped instrument only if it is in the **exposure GWAS**, the **outcome GWAS** (or has a proxy there) **and** the **reference panel** (to compute LD). The usable instruments are the **intersection of all three**. A SNP in the exposure–outcome overlap but outside the reference cannot be clumped and is usually dropped. The reference circle should match the ancestry of the GWAS (European reference for European GWAS).
+
+[→ 9.2 The data you need](lecture9.qmd#t9-2) · [→ B1 Why an external reference is needed](computer-exercises.qmd) · [→ K.11 Summary statistics](key-concepts.qmd#k-11)
+:::
+
+:::: {.quiz}
+Which SNPs can be used as clumped instruments in a two-sample MR with a reference panel for LD?
+
+- Every SNP that is significant in the exposure GWAS
+- SNPs present in both the exposure and the outcome GWAS
+- **SNPs present in both GWAS and in the reference panel**
+- SNPs present in the reference panel and the outcome GWAS
+
+::: {.exp}
+You need the exposure β (exposure GWAS), the outcome β (outcome GWAS) and LD for clumping (reference). All three must contain the SNP or a proxy.
+:::
+::::
+
+## S.7 The code: problems and a more efficient version {#s-7 .topic flag="seminar"}
+
+::: {.callout-important icon="false"}
+## The lecturer's question
+Which part of the code did you have the most problems with? How did you solve it? Could you together come up with a more efficient code?
+:::
+
+This is a discussion question about your own code, so there is no model answer. Prepare by noting **one problem you hit and how you solved it**. Points that usually come up, as concepts:
+
+- **Reading large files:** the GWAS file is large (around 200 MB); read only the needed columns, and filter on p before doing anything else.
+- **Loops vs whole-column operations:** looping SNP by SNP over harmonisation or Wald ratios is slow and error-prone; the same operations work on whole columns at once after the two files are **joined** on SNP ID.
+- **Letting PLINK do the heavy work:** clumping and LD are faster with PLINK's built-in functions than with your own pairwise r² code.
+- **Checks at every step:** count SNPs after each filter, and check allele alignment on a few SNPs by hand before trusting the totals.
+- **Reproducibility:** one script from raw files to result, with fixed thresholds stated at the top, so the numbers in S.1 and S.6 can be regenerated.
+
+## S.8 GLGC vs 1000 Genomes: allele frequencies and reference allele {#s-8 .topic flag="seminar"}
+
+::: {.callout-important icon="false"}
+## The lecturer's question
+Discuss similarities and differences in the **allele frequencies** and the **reference allele** between GLGC (the Global Lipids Genetics Consortium summary statistics) and 1000 Genomes.
+:::
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**What each dataset is.** GLGC is a **meta-analysis of GWAS of blood lipids**: summary statistics per SNP from many cohorts, mostly of European ancestry. 1000 Genomes is a **reference panel** of individual genotypes from a few thousand people in 26 populations, used here for LD.
+
+**Similarities.** For the same SNP (same rsID) in European-ancestry samples, allele frequencies are usually **close**, because both mainly describe European populations. Large disagreement is a warning sign.
+
+**Differences in allele frequency:**
+
+- **Ancestry mix:** GLGC pools cohorts of different composition; 1000 Genomes EUR is about 500 people, all-population 1000 Genomes is much more diverse. The frequency in the full 1000 Genomes can differ a lot from GLGC.
+- **Sample size and precision:** a frequency from about 500 people is much noisier than one from a large meta-analysis.
+- **Imputation and QC:** GLGC frequencies may be averages over cohorts with different arrays and imputation quality.
+- **Which allele the frequency refers to:** GLGC gives the frequency of its A1 (effect) allele; 1000 Genomes files give the frequency of the ALT allele. The same SNP can show f in one and 1 − f in the other without any real difference.
+
+**Differences in the reference allele:**
+
+- In 1000 Genomes (VCF/PLINK files) the **REF** allele is the base in the **reference genome sequence** at that position, and ALT is the other one. REF is **not necessarily the major allele**.
+- In GLGC, **A1 is the effect allele** chosen by the analysis, not tied to the reference genome. It is neither "the reference" nor necessarily the minor allele.
+- **Genome build:** GLGC files use older builds (hg18/hg19 positions), the 1000 Genomes data in the exercises use hg38, so positions differ while rsIDs stay the same.
+- **Strand:** alleles may be reported on different strands, which is invisible for palindromic SNPs (S.4).
+
+**Practical consequence:** always align on the actual alleles, not on "A1" or "REF" labels, and use the allele frequencies as a check for flips and palindromic SNPs.
+
+[→ K.3 MAF](key-concepts.qmd#k-3) · [→ 3.3c Genome builds](lecture3.qmd#t3-3c) · [→ B2 Allele alignment](computer-exercises.qmd#allele-alignment)
+:::
+
+:::: {.quiz}
+In a 1000 Genomes file, what is the REF allele?
+
+- The minor allele in the European population
+- The effect allele from the published GWAS
+- **The base found in the reference genome sequence**
+- The allele that raises the trait being studied
+
+::: {.exp}
+REF is defined by the reference genome assembly. It can be the major or the minor allele, and it has nothing to do with which allele a GWAS reports effects for.
+:::
+::::

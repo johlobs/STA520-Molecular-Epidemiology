@@ -1,13 +1,15 @@
 ---
 title: "Exam practice"
-subtitle: "The instructor's Lecture 7 exam questions, then drills and written questions sorted into written exam, exam status unclear, and seminar"
+subtitle: "The instructor's Lecture 7 exam questions, then drills and written questions sorted into written exam, exam status unclear, and seminar topics"
 ---
 
 This page collects everything you can **practise** rather than read. It starts with **the instructor's own example exam questions** for Lecture 7. The rest is sorted by what the lecturer said about the exam (lecture notes, 29 September):
 
 - **Part 1: ✍️ Written exam**: Lecture 7 (🎯 EXAM slides), the words and concepts on the professor's list for Lectures 1–3 (🎓), and other likely exam topics (📌).
 - **Part 2: ❔ Exam status unclear**: GWAS/MR theory that is not part of the computer exercises, polygenic risk scores and protein MR.
-- **Part 3: 🗣️ Seminar**: what computer exercises 1–2 cover. Examined at the seminar, so not on the written exam.
+- **Part 3: 🗣️ Seminar topics**: what computer exercises 1–2 cover. Examined at the seminar and **can also come on the written exam**. The lecturer's own seminar questions are on [Seminar questions](seminar-questions.qmd).
+
+For the 20 concepts on Martin's key-concepts list (GWAS, MR, proteomics), see [Martin's key concepts](key-concepts.qmd): one module with a quick check per concept.
 
 Drills draw new numbers each time you press **New problem ↻**: work on paper, type your answers, press **Check**, then open the full solution. For written questions, answer out loud or on paper before you open a model answer. Specific medicines, mutations and the course's running examples are left out, since the lecturer said not to focus on them.
 
@@ -288,7 +290,7 @@ For omics screens **FDR/BH** is preferred: (1) with thousands of tests Bonferron
 
 # Part 2: ❔ Exam status unclear
 
-GWAS and MR theory that is **not** part of computer exercises 1–2, plus polygenic risk scores and protein MR. The lecturer said GWAS and MR are examined at the seminar, but it is not confirmed whether this theory can also appear on the written exam.
+GWAS and MR theory that is **not** part of computer exercises 1–2, plus polygenic risk scores and protein MR. Several of these questions touch concepts on Martin's key-concepts list (🔑): those concepts are exam-relevant; see [Martin's key concepts](key-concepts.qmd).
 
 ## Calculation drills
 
@@ -372,9 +374,9 @@ GWAS and MR theory that is **not** part of computer exercises 1–2, plus polyge
 **Model answer.** A PRS has **no unit**; it is a relative, roughly normally distributed measure and does **not** translate directly into a probability of disease. It is usually less predictive than age, sex or SBP. Evaluate: **discrimination** (AUC; does it rise when the PRS is added?), **calibration** (do predicted risks match observed?), and **added prediction**: compare `age + sex + smoking + SBP` with the same model `+ PRS` (incremental R² or AUC). A strong OR per SD does not guarantee good screening; reclassification measures are more clinically relevant, and accuracy drops in ancestries unlike the discovery GWAS. [→ 9.13](lecture9.qmd#t9-13)
 :::
 
-# Part 3: 🗣️ Seminar (computer exercises 1–2)
+# Part 3: 🗣️ Seminar topics (computer exercises 1–2)
 
-According to the lecturer, what is examined at the seminar will **not** come on the written exam. These cover what computer exercises 1 and 2 do: GWAS output, lead SNPs and clumping, matching summary statistics, harmonising alleles, and IVW, MR-Egger and weighted median. See also [Computer exercises: concepts](computer-exercises.qmd).
+Examined at the seminar, and seminar content **can also come on the written exam** (corrected 2 October). The lecturer's own seminar questions, with model answers, are on [Seminar questions](seminar-questions.qmd). These cover what computer exercises 1 and 2 do: GWAS output, lead SNPs and clumping, matching summary statistics, harmonising alleles, and IVW, MR-Egger and weighted median. See also [Computer exercises: concepts](computer-exercises.qmd).
 
 ## Calculation drills
 

@@ -107,7 +107,7 @@ Conditional analysis separates independent signals from LD shadows. Associations
 :::
 ::::
 
-## 5.4b r² bands and LD clumping {#t5-4b .topic flag="seminar"}
+## 5.4b r² bands and LD clumping {#t5-4b .topic flag="keyconcept"}
 
 ::: {.worked}
 | SNP | $r^2$ with lead SNP | LD strength |
