@@ -72,6 +72,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -444,9 +447,22 @@ window.Quarto = {
 <h2 class="topic anchored" data-flag="keyconcept" data-anchor-id="t8-1">8.1 Why study the proteome?</h2>
 <p>Contrast from the molecular-layer table (Lecture 1): <strong>DNA is fixed</strong>, while <strong>RNA and proteins are dynamic</strong>, affected by diet, disease, drugs, environment and age. Proteins matter because they <strong>carry out cellular functions</strong>, act as <strong>signalling molecules</strong>, <strong>respond</strong> to disease/environment/diet/drugs/age, and are <strong>the targets of most drugs</strong> (Leqvio and Repatha in Lecture 3).</p>
 <p><strong>Worked example: insulin biosynthesis.</strong> “One gene” does not always mean “one direct protein”:</p>
-<pre><code>INS gene ─transcription─▶ INS mRNA ─translation─▶ preproinsulin
-   ─signal peptide removed─▶ proinsulin
-   ─folds, forms disulfide bonds, C-peptide cleaved out─▶ insulin + C-peptide</code></pre>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A["INS gene (DNA)"] --&gt;|"transcription"| B["INS mRNA"]
+  B --&gt;|"translation"| C["preproinsulin"]
+  C --&gt;|"signal peptide removed"| D["proinsulin"]
+  D --&gt;|"folds, forms disulfide bonds,&lt;br/&gt;C-peptide cut out"| E["insulin + C-peptide"]
+</pre>
+</div>
+<p></p><figcaption> Biological process: each arrow is one step that happens in the cell or body, and the text on the arrow names that step. Read top to bottom: each product is made from the one above it.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
 <p>(Insulin is a signalling molecule central to metabolism, obesity and diabetes; compare the glucose/insulin example in Lecture 1.)</p>
 <p><strong>Proteins are not 1-to-1 with genes.</strong> Processes that multiply protein products:</p>
 <table class="caption-top table">
@@ -806,9 +822,51 @@ window.Quarto = {
 <section id="t8-8" class="level2 topic" data-flag="keyconcept">
 <h2 class="topic anchored" data-flag="keyconcept" data-anchor-id="t8-8">8.8 Association is still not causation</h2>
 <p>Three explanations for a protein–disease association:</p>
-<pre><code>protein ──▶ disease            causal
-disease ──▶ protein            reverse causation (disease changes the protein)
-protein ◀── confounder ──▶ disease   confounding</code></pre>
+<p>Causal diagrams (each arrow means “directly affects”): three different structures that all produce the same protein–disease association.</p>
+<div class="quarto-layout-panel" data-layout-ncol="3">
+<div class="quarto-layout-row">
+<div class="cell quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  P1["protein"] --&gt; D1["disease"]
+</pre>
+</div>
+<p></p><figcaption> 1. Causal: the protein affects the disease.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  D2["disease"] --&gt; P2["protein"]
+</pre>
+</div>
+<p></p><figcaption> 2. Reverse causation: the disease changes the protein.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  C3["confounder"] --&gt; P3["protein"]
+  C3 --&gt; D3["disease"]
+</pre>
+</div>
+<p></p><figcaption> 3. Confounding: a third factor affects both.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
 <p><strong>A protein can be a good biomarker/predictor without being causal.</strong> Troponin marks cardiac injury, but <strong>lowering troponin would not treat an MI</strong>: it is a readout of injury that already happened. <strong>Prediction and causation are different properties</strong>; only some proteins have both.</p>
 <div class="sta520-quiz" data-question="Troponin predicts myocardial infarction very well. Why is it not a drug target?">
   <div class="q-opt" data-correct="false">Troponin cannot be measured in plasma with current assays</div>
@@ -946,8 +1004,23 @@ protein ◀── confounder ──▶ disease   confounding</code></pre>
 <section id="t8-12" class="level2 topic" data-flag="inferred">
 <h2 class="topic anchored" data-flag="inferred" data-anchor-id="t8-12">8.12 From association to confirmed mechanism</h2>
 <p>The lecture’s pipeline:</p>
-<pre><code>protein association → pQTL evidence → MR / colocalization
-   → candidate causal protein → mechanistic experiments → biological pathway</code></pre>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A["protein associated with disease"] --&gt; B["pQTL evidence"]
+  B --&gt; C["MR and colocalization"]
+  C --&gt; D["candidate causal protein"]
+  D --&gt; E["mechanistic experiments"]
+  E --&gt; F["biological pathway"]
+</pre>
+</div>
+<p></p><figcaption> Workflow: each arrow means “then”, the next step of the procedure. Not a causal diagram. Each step adds a stronger kind of evidence that the protein is causal.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
 <p><strong>Follow-up questions</strong> once a protein is genetically implicated: Which cell or tissue produces it? Which receptor or pathway does it act through? Does changing its level or activity change cell function? Does it reproduce in an experimental model? Can the pathway be modified by a drug (is it druggable)?</p>
 <p><strong>Experimental validation approaches:</strong> CRISPR knock-out or knock-in; protein overexpression or targeted inhibition; cultured cells; organoids; animal models; receptor-binding experiments; enzyme activity assays.</p>
 <div class="worked">

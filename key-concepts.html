@@ -72,6 +72,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -936,9 +939,22 @@ window.Quarto = {
 <p>An <strong>instrumental variable</strong> is a variable that shifts the exposure, shares no causes with the outcome, and affects the outcome only through the exposure; it lets you estimate a causal effect even when the exposure–outcome relationship is confounded.</p>
 </div>
 </div>
-<pre><code>   Z (instrument) ───▶ X (exposure) ───▶ Y (outcome)
-                          ▲                ▲
-                          └──── U (confounders) ┘</code></pre>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  Z["Z (instrument)"] --&gt; X["X (exposure)"]
+  X --&gt; Y["Y (outcome)"]
+  U["U (confounders)"] --&gt; X
+  U --&gt; Y
+</pre>
+</div>
+<p></p><figcaption> Causal diagram: each arrow means “directly affects”. Z must have no arrow to U and no arrow straight to Y; its only route to Y goes through X.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
 <ul>
 <li>The idea comes from econometrics. The classic example is the <strong>randomization</strong> in an RCT: the coin flip shifts treatment and is independent of everything else.</li>
 <li>In MR the instrument is a <strong>genetic variant</strong>: alleles are allocated at conception, before the exposure and the disease, and independently of most lifestyle confounders.</li>
@@ -1064,10 +1080,43 @@ window.Quarto = {
 <p><strong>Pleiotropy</strong> is one variant affecting several traits. It is <strong>vertical</strong> when the variant affects the outcome <em>through</em> the exposure (fine for MR), and <strong>horizontal</strong> when it affects the outcome through a separate pathway that bypasses the exposure (violates the exclusion restriction).</p>
 </div>
 </div>
-<pre><code>Vertical (OK):     SNP ──▶ LDL-C ──▶ atherosclerosis ──▶ CHD
-
-Horizontal (bad):  SNP ──▶ LDL-C ──────────────────────▶ CHD
-                     └──▶ inflammation ────────────────▶ CHD</code></pre>
+<p>Causal diagrams (each arrow means “directly affects”):</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  S1["SNP"] --&gt; L1["LDL-C"]
+  L1 --&gt; A1["atherosclerosis"]
+  A1 --&gt; C1["CHD"]
+</pre>
+</div>
+<p></p><figcaption> Vertical pleiotropy (fine for MR): everything runs through the exposure, LDL-C.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  S2["SNP"] --&gt; L2["LDL-C"]
+  L2 --&gt; C2["CHD"]
+  S2 --&gt; I2["inflammation"]
+  I2 --&gt; C2
+  linkStyle 2,3 stroke:#c92a2a,stroke-width:2px,stroke-dasharray:6 4,color:#c92a2a
+</pre>
+</div>
+<p></p><figcaption> Horizontal pleiotropy (breaks the exclusion restriction): the red dashed path reaches CHD without going through LDL-C.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
 <ul>
 <li>Horizontal pleiotropy shows up as instruments whose Wald ratios disagree with the rest, an MR-Egger intercept away from zero, or IVW and weighted median giving different answers.</li>
 <li><strong>trans-pQTLs</strong> and SNPs in genes with many functions are the usual suspects. <strong>cis</strong> instruments in the exposure’s own gene reduce the risk.</li>
@@ -1273,7 +1322,7 @@ Horizontal (bad):  SNP ──▶ LDL-C ─────────────�
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="key-concepts_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="720"></p>
+<p><img src="key-concepts_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="720"></p>
 <figcaption>Simulated regional association plots. Left: one shared causal variant, so the protein and disease peaks have the same shape and the same top SNP. Right: two different causal variants 60 kb apart; the peaks overlap in the region but do not line up.</figcaption>
 </figure>
 </div>
