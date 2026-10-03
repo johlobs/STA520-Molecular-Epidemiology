@@ -69,10 +69,15 @@ Single-gene, strong-effect mutations like this are **uncommon** causes of CVD in
 
 **The LDLR–PCSK9 pathway.** PCSK9 (Proprotein Convertase Subtilisin/Kexin type 9) is a protein that **promotes degradation of the LDL receptor**. More LDLR would clear more LDL-C, but drugs that *increase* expression of a target are hard to make, while drugs that *decrease* synthesis or *block* a protein are much easier. So drugs target PCSK9 and reduce its activity. That leaves more LDLR available and lowers LDL-C.
 
-```
-PCSK9 ──promotes degradation of──▶ LDLR ──clears──▶ LDL-C ──▶ atherosclerosis ──▶ CHD
-   ▲
-   └── drugs block or reduce PCSK9  ⇒  more LDLR  ⇒  lower LDL-C
+```{mermaid}
+%%| fig-cap: "Biological process: each arrow is one step that happens in the cell or body, and the text on the arrow names that step. This is also a causal chain: changing one box changes the boxes below it. Green dashed arrows show what the drugs do."
+flowchart TD
+  P["PCSK9 protein"] -->|"breaks down<br/>(less LDLR)"| R["LDL receptors (LDLR)<br/>on liver cells"]
+  R -->|"clear LDL from the blood<br/>(less LDL-C)"| L["LDL-C in blood"]
+  L -->|"builds up in artery walls"| A["atherosclerosis"]
+  A -->|"narrows coronary arteries"| C["coronary heart disease (CHD)"]
+  Drug["PCSK9 drugs"] -.->|"block or reduce PCSK9,<br/>so more LDLR and lower LDL-C"| P
+  linkStyle 4 stroke:#2f9e44,stroke-width:2px,stroke-dasharray:6 4,color:#1e6b34
 ```
 
 This single pathway (LDLR–PCSK9–LDL-C) anchors gene regulation (L2), siRNA and antibody drugs (L3), Mendelian randomization (L6) and protein MR (L8). Know it well.

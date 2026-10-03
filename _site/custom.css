@@ -286,3 +286,8 @@ section.topic[data-flag="instructor"] > h2 {
 .vocab-nav { display: flex; justify-content: space-between; margin-top: 0.6rem; }
 .vocab-all { margin-top: 1rem; }
 .vocab-all summary { cursor: pointer; font-weight: 600; }
+
+/* Flow diagrams (Mermaid): darker connectors so the arrows read clearly */
+svg .flowchart-link { stroke: #343a40; stroke-width: 1.6px; }
+svg marker path, svg .arrowheadPath { fill: #343a40; stroke: #343a40; }
+.mr-dag figcaption { margin-top: 0.4rem; }

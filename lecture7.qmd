@@ -40,10 +40,11 @@ This page follows that study from sample to result. The BH and Bonferroni calcul
 
 Classical epidemiology asks one question: is exposure X associated with outcome Y? Omics-scale molecular epidemiology asks: **which of hundreds or thousands of molecular features are associated with phenotype Y**, all in the same analysis.
 
-```
-High dimensionality  ──▶  Noisy measurements  ──▶  Multiple testing
-   (many features,          (technical noise,         (many tests →
-    few samples)             unstable variances)        many false hits)
+```{mermaid}
+%%| fig-cap: "Lecture map: the arrows show how the problems lead into each other in the lecture. Not a causal diagram. "
+flowchart TD
+  A["High dimensionality<br/>(many features, few samples)"] --> B["Noisy measurements<br/>(technical noise,<br/>unstable variances)"]
+  B --> C["Multiple testing<br/>(many tests, many false hits)"]
 ```
 
 Each link has its own section below. This chain is the opening framework and also the lecture's take-home message.

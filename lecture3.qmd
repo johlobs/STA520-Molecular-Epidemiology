@@ -349,8 +349,11 @@ Expected under independence: 0.3 × 0.6 = 0.18. Observed equals expected, so the
 
 **Where LD comes in.** A SNP that is significant in a GWAS is **not necessarily the causal variant**. Nearby variants are often in LD, so a significant SNP may simply be correlated with ("tag") the real causal variant:
 
-```
-GWAS SNP  ⟷ (LD) ⟷  causal variant  ──▶  phenotype
+```{mermaid}
+%%| fig-cap: "Causal diagram: each arrow means \"directly affects\". The dotted line without arrowheads is correlation (LD), not cause. The GWAS SNP has no arrow to the phenotype: its association is borrowed from the causal variant."
+flowchart TD
+  G["GWAS SNP (tag)"] -.-|"LD: inherited together"| C["causal variant"]
+  C -->|"affects"| P["phenotype"]
 ```
 
 A GWAS can show a strong association for "SNP A" even though "SNP B" does the biological work, just because A and B are inherited together.
@@ -359,8 +362,13 @@ A GWAS can show a strong association for "SNP A" even though "SNP B" does the bi
 
 Mechanism: the array holds many short DNA **probes**, each recognizing DNA with one particular allele. The person's DNA is fragmented and allowed to **hybridize** (bind) to the probes; **fluorescent** signals show which probes bound.
 
-```
-DNA sample → fragment DNA → bind to SNP array → detect which probes light up → genotype
+```{mermaid}
+%%| fig-cap: "Workflow: each arrow means \"then\", the next step of the procedure. Not a causal diagram. The lab steps of genotyping on a SNP array."
+flowchart TD
+  A["DNA sample"] --> B["fragment the DNA"]
+  B --> C["let fragments bind (hybridize)<br/>to probes on the SNP array"]
+  C --> D["detect which probes light up"]
+  D --> E["genotype (e.g. AA, AG or GG)"]
 ```
 
 If both the "A signal" and the "G signal" light up at a position, the person is an AG heterozygote.

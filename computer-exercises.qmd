@@ -23,17 +23,33 @@ This page is **not a solution to the exercises**. It uses its own made-up tables
 
 ## The workflow
 
+```{mermaid}
+%%| fig-cap: "Workflow: each arrow means \"then\", the next step of the procedure. Not a causal diagram. Exercise 1, part 1: individual-level data."
+flowchart TD
+  A["genotypes"] --> B["QC"]
+  B --> C["GWAS"]
+  C --> D["significant SNPs"]
+  D --> E["LD between them"]
+  E --> F["independent signals"]
 ```
-Individual-level data (Exercise 1, part 1)
-  genotypes ─▶ QC ─▶ GWAS ─▶ significant SNPs ─▶ LD ─▶ independent signals
 
-Summary-level data (Exercise 1, part 2)
-  GWAS summary statistics + external genotype reference
-      ─▶ match variants and alleles ─▶ LD in the reference ─▶ independent signals
+```{mermaid}
+%%| fig-cap: "Workflow: each arrow means \"then\", the next step of the procedure. Not a causal diagram. Exercise 1, part 2: summary-level data."
+flowchart TD
+  A["GWAS summary statistics"] --> C["match variants and alleles"]
+  B["external genotype reference"] --> C
+  C --> D["LD in the reference"]
+  D --> E["independent signals"]
+```
 
-Mendelian randomization (Exercise 2)
-  independent exposure SNPs ─▶ look up in outcome GWAS ─▶ align alleles
-      ─▶ Wald ratios ─▶ IVW + MR-Egger + weighted median ─▶ interpretation
+```{mermaid}
+%%| fig-cap: "Workflow: each arrow means \"then\", the next step of the procedure. Not a causal diagram. Exercise 2: Mendelian randomization."
+flowchart TD
+  A["independent exposure SNPs"] --> B["look up in outcome GWAS"]
+  B --> C["align alleles"]
+  C --> D["Wald ratios"]
+  D --> E["IVW + MR-Egger + weighted median"]
+  E --> F["interpretation"]
 ```
 
 | Step | Theory in the lectures |

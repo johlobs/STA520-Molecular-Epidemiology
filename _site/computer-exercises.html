@@ -72,6 +72,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -433,16 +436,56 @@ window.Quarto = {
 </div>
 <section id="the-workflow" class="level2">
 <h2 class="anchored" data-anchor-id="the-workflow">The workflow</h2>
-<pre><code>Individual-level data (Exercise 1, part 1)
-  genotypes ─▶ QC ─▶ GWAS ─▶ significant SNPs ─▶ LD ─▶ independent signals
-
-Summary-level data (Exercise 1, part 2)
-  GWAS summary statistics + external genotype reference
-      ─▶ match variants and alleles ─▶ LD in the reference ─▶ independent signals
-
-Mendelian randomization (Exercise 2)
-  independent exposure SNPs ─▶ look up in outcome GWAS ─▶ align alleles
-      ─▶ Wald ratios ─▶ IVW + MR-Egger + weighted median ─▶ interpretation</code></pre>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A["genotypes"] --&gt; B["QC"]
+  B --&gt; C["GWAS"]
+  C --&gt; D["significant SNPs"]
+  D --&gt; E["LD between them"]
+  E --&gt; F["independent signals"]
+</pre>
+</div>
+<p></p><figcaption> Workflow: each arrow means “then”, the next step of the procedure. Not a causal diagram. Exercise 1, part 1: individual-level data.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A["GWAS summary statistics"] --&gt; C["match variants and alleles"]
+  B["external genotype reference"] --&gt; C
+  C --&gt; D["LD in the reference"]
+  D --&gt; E["independent signals"]
+</pre>
+</div>
+<p></p><figcaption> Workflow: each arrow means “then”, the next step of the procedure. Not a causal diagram. Exercise 1, part 2: summary-level data.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A["independent exposure SNPs"] --&gt; B["look up in outcome GWAS"]
+  B --&gt; C["align alleles"]
+  C --&gt; D["Wald ratios"]
+  D --&gt; E["IVW + MR-Egger + weighted median"]
+  E --&gt; F["interpretation"]
+</pre>
+</div>
+<p></p><figcaption> Workflow: each arrow means “then”, the next step of the procedure. Not a causal diagram. Exercise 2: Mendelian randomization.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -573,7 +616,7 @@ Mendelian randomization (Exercise 2)
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="computer-exercises_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="computer-exercises_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Approximate SE of β (phenotype SD = 1) against MAF, for 2,500 and 100,000 people. SE explodes as MAF approaches zero; the dashed line marks MAF = 0.01.</figcaption>
 </figure>
 </div>
@@ -666,7 +709,7 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="computer-exercises_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="computer-exercises_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Simulated r² with a lead SNP against distance. LD decays on average, but some nearby SNPs have r² ≈ 0 (different allele frequencies, a recombination hotspot) and some distant ones remain correlated.</figcaption>
 </figure>
 </div>
@@ -876,7 +919,7 @@ Ignoring unknown parameters: `label.size`</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="computer-exercises_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="computer-exercises_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Simulated MR scatter. Orange points are the four pleiotropic instruments. IVW (green) is forced through the origin; MR-Egger (orange, dashed) has a free intercept; the dotted line shows the true effect 0.5.</figcaption>
 </figure>
 </div>

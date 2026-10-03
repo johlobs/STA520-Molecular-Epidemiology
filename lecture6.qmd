@@ -67,8 +67,11 @@ Memory aid: **S-C-S-T-B-P-C-E-A**, "*Strong Consistent Specific Timing, Biologic
 
 **Key insight:** genetic variants are natural **instrumental variables**. Genotype is fixed at conception, so it comes first in any causal chain: **no reverse causation** (adult disease cannot change the genotype you were born with).
 
-```
-Genetic variant (SNP) ──▶ Exposure ──▶ Outcome
+```{mermaid}
+%%| fig-cap: "Causal diagram: each arrow means \"directly affects\". MR uses the first arrow to learn about the second."
+flowchart TD
+  G["genetic variant (SNP)"] --> X["exposure"]
+  X --> Y["outcome"]
 ```
 
 To use a SNP to study the causal effect of an exposure on an outcome, three core assumptions must hold: **relevance, independence, exclusion restriction** (Section 6.5 gives them in full).
@@ -111,13 +114,50 @@ The classical gold standard is the **randomized controlled trial (RCT)**: interv
 | 3 | **Exclusion restriction** | The variant affects the outcome **only through the exposure** | **Horizontal pleiotropy**: another pathway. Ask: "does this SNP affect the outcome through another pathway entirely?" |
 :::
 
-```
-                    Confounders
-                   ╱          ╲
-       (2) ✗      ╱            ╲
-SNP ──(1)──▶ Exposure ─────────▶ Outcome
-  ╲                                 ▲
-   ╲───────────── (3) ✗ ────────────╱
+```{=html}
+<figure class="figure mr-dag">
+<svg viewBox="0 0 640 265" role="img" aria-labelledby="mrdag-title" style="width:100%;max-width:640px;height:auto;font-size:13px">
+  <title id="mrdag-title">The three MR assumptions: SNP to exposure must exist, SNP to confounders and SNP directly to outcome must not exist</title>
+  <defs>
+    <marker id="mrdag-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#343a40"/></marker>
+    <marker id="mrdag-arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c92a2a"/></marker>
+  </defs>
+  <!-- paths that exist -->
+  <line x1="130" y1="150" x2="248" y2="150" stroke="#343a40" stroke-width="1.8" marker-end="url(#mrdag-arrow)"/>
+  <line x1="360" y1="150" x2="498" y2="150" stroke="#343a40" stroke-width="1.8" marker-end="url(#mrdag-arrow)"/>
+  <line x1="415" y1="60" x2="335" y2="128" stroke="#343a40" stroke-width="1.8" marker-end="url(#mrdag-arrow)"/>
+  <line x1="465" y1="60" x2="540" y2="128" stroke="#343a40" stroke-width="1.8" marker-end="url(#mrdag-arrow)"/>
+  <!-- paths that must not exist -->
+  <line x1="110" y1="130" x2="373" y2="48" stroke="#c92a2a" stroke-width="2" stroke-dasharray="6 4"/>
+  <path d="M75,172 C75,245 555,245 555,174" fill="none" stroke="#c92a2a" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#mrdag-arrow-red)"/>
+  <!-- nodes -->
+  <g fill="#f1f3f5" stroke="#495057" stroke-width="1.2">
+    <rect x="20" y="130" width="110" height="40" rx="3"/>
+    <rect x="250" y="130" width="110" height="40" rx="3"/>
+    <rect x="500" y="130" width="110" height="40" rx="3"/>
+    <rect x="375" y="20" width="130" height="40" rx="3"/>
+  </g>
+  <g fill="#212529" text-anchor="middle">
+    <text x="75" y="155">SNP</text>
+    <text x="305" y="155">exposure</text>
+    <text x="555" y="155">outcome</text>
+    <text x="440" y="45">confounders</text>
+  </g>
+  <!-- labels -->
+  <g text-anchor="middle" fill="#212529">
+    <text x="190" y="172">(1) relevance:</text>
+    <text x="190" y="186">must exist</text>
+    <text x="430" y="172">causal effect</text>
+    <text x="430" y="186">to estimate</text>
+  </g>
+  <g text-anchor="middle" fill="#c92a2a">
+    <text x="205" y="68">(2) independence:</text>
+    <text x="205" y="82">must NOT exist</text>
+    <text x="315" y="255">(3) exclusion restriction: must NOT exist</text>
+  </g>
+</svg>
+<figcaption>Causal diagram: each arrow means "directly affects". Black arrows are effects that exist. The red dashed lines are paths that must NOT exist for MR to work: (2) a link between the SNP and the confounders, (3) a direct path from the SNP to the outcome that bypasses the exposure.</figcaption>
+</figure>
 ```
 
 :::: {.quiz}

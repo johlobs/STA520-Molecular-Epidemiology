@@ -415,10 +415,13 @@ r² needs the genotypes of individuals. Summary statistics have none, so LD come
 An **instrumental variable** is a variable that shifts the exposure, shares no causes with the outcome, and affects the outcome only through the exposure; it lets you estimate a causal effect even when the exposure–outcome relationship is confounded.
 :::
 
-```
-   Z (instrument) ───▶ X (exposure) ───▶ Y (outcome)
-                          ▲                ▲
-                          └──── U (confounders) ┘
+```{mermaid}
+%%| fig-cap: "Causal diagram: each arrow means \"directly affects\". Z must have no arrow to U and no arrow straight to Y; its only route to Y goes through X."
+flowchart TD
+  Z["Z (instrument)"] --> X["X (exposure)"]
+  X --> Y["Y (outcome)"]
+  U["U (confounders)"] --> X
+  U --> Y
 ```
 
 - The idea comes from econometrics. The classic example is the **randomization** in an RCT: the coin flip shifts treatment and is independent of everything else.
@@ -510,12 +513,27 @@ Relevance is visible in the exposure GWAS (p-value, F-statistic). Independence a
 **Pleiotropy** is one variant affecting several traits. It is **vertical** when the variant affects the outcome *through* the exposure (fine for MR), and **horizontal** when it affects the outcome through a separate pathway that bypasses the exposure (violates the exclusion restriction).
 :::
 
-```
-Vertical (OK):     SNP ──▶ LDL-C ──▶ atherosclerosis ──▶ CHD
+Causal diagrams (each arrow means "directly affects"):
 
-Horizontal (bad):  SNP ──▶ LDL-C ──────────────────────▶ CHD
-                     └──▶ inflammation ────────────────▶ CHD
+:::: {layout-ncol=2}
+```{mermaid}
+%%| fig-cap: "Vertical pleiotropy (fine for MR): everything runs through the exposure, LDL-C."
+flowchart TD
+  S1["SNP"] --> L1["LDL-C"]
+  L1 --> A1["atherosclerosis"]
+  A1 --> C1["CHD"]
 ```
+
+```{mermaid}
+%%| fig-cap: "Horizontal pleiotropy (breaks the exclusion restriction): the red dashed path reaches CHD without going through LDL-C."
+flowchart TD
+  S2["SNP"] --> L2["LDL-C"]
+  L2 --> C2["CHD"]
+  S2 --> I2["inflammation"]
+  I2 --> C2
+  linkStyle 2,3 stroke:#c92a2a,stroke-width:2px,stroke-dasharray:6 4,color:#c92a2a
+```
+::::
 
 - Horizontal pleiotropy shows up as instruments whose Wald ratios disagree with the rest, an MR-Egger intercept away from zero, or IVW and weighted median giving different answers.
 - **trans-pQTLs** and SNPs in genes with many functions are the usual suspects. **cis** instruments in the exposure's own gene reduce the risk.

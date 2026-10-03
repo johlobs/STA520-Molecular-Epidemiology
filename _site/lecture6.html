@@ -107,6 +107,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/editor/editor.main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   
@@ -2398,7 +2401,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <section id="t6-3" class="level2 topic" data-flag="keyconcept">
 <h2 class="topic anchored" data-flag="keyconcept" data-anchor-id="t6-3">6.3 Genetic variants as instruments</h2>
 <p><strong>Key insight:</strong> genetic variants are natural <strong>instrumental variables</strong>. Genotype is fixed at conception, so it comes first in any causal chain: <strong>no reverse causation</strong> (adult disease cannot change the genotype you were born with).</p>
-<pre><code>Genetic variant (SNP) ──▶ Exposure ──▶ Outcome</code></pre>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  G["genetic variant (SNP)"] --&gt; X["exposure"]
+  X --&gt; Y["outcome"]
+</pre>
+</div>
+<p></p><figcaption> Causal diagram: each arrow means “directly affects”. MR uses the first arrow to learn about the second.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
 <p>To use a SNP to study the causal effect of an exposure on an outcome, three core assumptions must hold: <strong>relevance, independence, exclusion restriction</strong> (Section 6.5 gives them in full).</p>
 </section>
 <section id="t6-4" class="level2 topic" data-flag="unclear">
@@ -2503,12 +2519,49 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </table>
 </div>
 </div>
-<pre><code>                    Confounders
-                   ╱          ╲
-       (2) ✗      ╱            ╲
-SNP ──(1)──▶ Exposure ─────────▶ Outcome
-  ╲                                 ▲
-   ╲───────────── (3) ✗ ────────────╱</code></pre>
+<figure class="figure mr-dag">
+<svg viewbox="0 0 640 265" role="img" aria-labelledby="mrdag-title" style="width:100%;max-width:640px;height:auto;font-size:13px">
+  <title id="mrdag-title">The three MR assumptions: SNP to exposure must exist, SNP to confounders and SNP directly to outcome must not exist</title>
+  <defs>
+    <marker id="mrdag-arrow" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="8" markerheight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#343a40"></path></marker>
+    <marker id="mrdag-arrow-red" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="8" markerheight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c92a2a"></path></marker>
+  </defs>
+  <!-- paths that exist -->
+  <line x1="130" y1="150" x2="248" y2="150" stroke="#343a40" stroke-width="1.8" marker-end="url(#mrdag-arrow)"></line>
+  <line x1="360" y1="150" x2="498" y2="150" stroke="#343a40" stroke-width="1.8" marker-end="url(#mrdag-arrow)"></line>
+  <line x1="415" y1="60" x2="335" y2="128" stroke="#343a40" stroke-width="1.8" marker-end="url(#mrdag-arrow)"></line>
+  <line x1="465" y1="60" x2="540" y2="128" stroke="#343a40" stroke-width="1.8" marker-end="url(#mrdag-arrow)"></line>
+  <!-- paths that must not exist -->
+  <line x1="110" y1="130" x2="373" y2="48" stroke="#c92a2a" stroke-width="2" stroke-dasharray="6 4"></line>
+  <path d="M75,172 C75,245 555,245 555,174" fill="none" stroke="#c92a2a" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#mrdag-arrow-red)"></path>
+  <!-- nodes -->
+  <g fill="#f1f3f5" stroke="#495057" stroke-width="1.2">
+    <rect x="20" y="130" width="110" height="40" rx="3"></rect>
+    <rect x="250" y="130" width="110" height="40" rx="3"></rect>
+    <rect x="500" y="130" width="110" height="40" rx="3"></rect>
+    <rect x="375" y="20" width="130" height="40" rx="3"></rect>
+  </g>
+  <g fill="#212529" text-anchor="middle">
+    <text x="75" y="155">SNP</text>
+    <text x="305" y="155">exposure</text>
+    <text x="555" y="155">outcome</text>
+    <text x="440" y="45">confounders</text>
+  </g>
+  <!-- labels -->
+  <g text-anchor="middle" fill="#212529">
+    <text x="190" y="172">(1) relevance:</text>
+    <text x="190" y="186">must exist</text>
+    <text x="430" y="172">causal effect</text>
+    <text x="430" y="186">to estimate</text>
+  </g>
+  <g text-anchor="middle" fill="#c92a2a">
+    <text x="205" y="68">(2) independence:</text>
+    <text x="205" y="82">must NOT exist</text>
+    <text x="315" y="255">(3) exclusion restriction: must NOT exist</text>
+  </g>
+</svg>
+<figcaption>Causal diagram: each arrow means "directly affects". Black arrows are effects that exist. The red dashed lines are paths that must NOT exist for MR to work: (2) a link between the SNP and the confounders, (3) a direct path from the SNP to the outcome that bypasses the exposure.</figcaption>
+</figure>
 <div class="sta520-quiz" data-question="An LDL-C instrument SNP turns out to also raise blood pressure, and blood pressure raises CHD risk independently of LDL-C. Which MR assumption is violated?">
   <div class="q-opt" data-correct="false">Relevance, because the SNP is only weakly linked to LDL-C</div>
   <div class="q-opt" data-correct="false">Independence, because blood pressure confounds the SNP</div>
@@ -2650,7 +2703,7 @@ SNP ──(1)──▶ Exposure ─────────▶ Outcome
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="lecture6_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="624"></p>
+<p><img src="lecture6_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="624"></p>
 <figcaption>The MR scatter plot for the worked example. Each point is one SNP (±1 SE of the outcome). IVW is a weighted line through the origin; MR-Egger lets the intercept be free. SNP5 (APOB) sits far above the line.</figcaption>
 </figure>
 </div>
@@ -2791,9 +2844,9 @@ SNP ──(1)──▶ Exposure ─────────▶ Outcome
 <ol type="1">
 <li>SNP5 (APOB): Wald ratio 1.20 vs about 0.45–0.53 for the others. IVW drops from about 0.54 to about 0.50 (OR from ≈ 1.71 to ≈ 1.65).</li>
 <li>The intercept is small either way (about +0.011 with SNP5 and −0.010 without) and its SE is large, so Egger cannot tell you much with only 4–5 SNPs. That is exactly its known weakness: low precision. A single outlying SNP is better picked up by comparing Wald ratios and by the weighted median.</li>
-<li><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> mr<span class="sc">$</span>bx<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> mr<span class="sc">$</span>se<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>o <span class="ot">&lt;-</span> <span class="fu">order</span>(mr<span class="sc">$</span>wald)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">wald =</span> mr<span class="sc">$</span>wald[o], <span class="at">cum_weight =</span> <span class="fu">cumsum</span>(w[o]) <span class="sc">/</span> <span class="fu">sum</span>(w))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<li><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> mr<span class="sc">$</span>bx<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> mr<span class="sc">$</span>se<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>o <span class="ot">&lt;-</span> <span class="fu">order</span>(mr<span class="sc">$</span>wald)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">wald =</span> mr<span class="sc">$</span>wald[o], <span class="at">cum_weight =</span> <span class="fu">cumsum</span>(w[o]) <span class="sc">/</span> <span class="fu">sum</span>(w))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 The 50% point falls on one of the valid SNPs (around 0.50), not on SNP5, so the weighted median barely notices the outlier.</li>
 </ol>
 </div>

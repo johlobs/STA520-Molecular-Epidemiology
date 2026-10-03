@@ -72,6 +72,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -500,9 +503,24 @@ window.Quarto = {
 </div>
 </div>
 <p><strong>The LDLR–PCSK9 pathway.</strong> PCSK9 (Proprotein Convertase Subtilisin/Kexin type 9) is a protein that <strong>promotes degradation of the LDL receptor</strong>. More LDLR would clear more LDL-C, but drugs that <em>increase</em> expression of a target are hard to make, while drugs that <em>decrease</em> synthesis or <em>block</em> a protein are much easier. So drugs target PCSK9 and reduce its activity. That leaves more LDLR available and lowers LDL-C.</p>
-<pre><code>PCSK9 ──promotes degradation of──▶ LDLR ──clears──▶ LDL-C ──▶ atherosclerosis ──▶ CHD
-   ▲
-   └── drugs block or reduce PCSK9  ⇒  more LDLR  ⇒  lower LDL-C</code></pre>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  P["PCSK9 protein"] --&gt;|"breaks down&lt;br/&gt;(less LDLR)"| R["LDL receptors (LDLR)&lt;br/&gt;on liver cells"]
+  R --&gt;|"clear LDL from the blood&lt;br/&gt;(less LDL-C)"| L["LDL-C in blood"]
+  L --&gt;|"builds up in artery walls"| A["atherosclerosis"]
+  A --&gt;|"narrows coronary arteries"| C["coronary heart disease (CHD)"]
+  Drug["PCSK9 drugs"] -.-&gt;|"block or reduce PCSK9,&lt;br/&gt;so more LDLR and lower LDL-C"| P
+  linkStyle 4 stroke:#2f9e44,stroke-width:2px,stroke-dasharray:6 4,color:#1e6b34
+</pre>
+</div>
+<p></p><figcaption> Biological process: each arrow is one step that happens in the cell or body, and the text on the arrow names that step. This is also a causal chain: changing one box changes the boxes below it. Green dashed arrows show what the drugs do.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
 <p>This single pathway (LDLR–PCSK9–LDL-C) anchors gene regulation (L2), siRNA and antibody drugs (L3), Mendelian randomization (L6) and protein MR (L8). Know it well.</p>
 <div class="sta520-quiz" data-question="A drug lowers LDL cholesterol by acting on PCSK9. What does the drug do to PCSK9, and why?">
   <div class="q-opt" data-correct="false">It raises PCSK9 so that LDL receptors are built faster on liver cells</div>

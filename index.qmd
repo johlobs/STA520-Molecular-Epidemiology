@@ -65,6 +65,19 @@ What is known about the exam: the **written exam** covers Lecture 7 (🎯) and t
 | <span class="flag-badge flag-seminar">🗣️ Seminar topic (can also come on the exam)</span> | Covered by computer exercises 1–2 and the [seminar questions](seminar-questions.qmd). Examined at the seminar, and seminar content **can also come on the written exam**. |
 | <span class="flag-badge flag-example">Example, not exam focus</span> | The course's running examples (PCSK9, LDLR, specific medicines and mutations). The lecturer said not to learn them specifically. |
 
+## How to read the diagrams
+
+Arrows mean different things in different diagrams, so every flow diagram in the app starts its caption with its kind:
+
+| Caption starts with | An arrow means | Example |
+|---|---|---|
+| **Biological process** | One step that happens in the cell or body; the text on the arrow names the step | Gene → mRNA → protein ([8.1](lecture8.qmd#t8-1)) |
+| **Causal diagram** | "Directly affects". A line **without** arrowheads is correlation (for example LD), not cause. Red dashed lines are paths that must be absent | The three MR assumptions ([6.5](lecture6.qmd#t6-5)) |
+| **Workflow** | "Then": the next step of an analysis or lab procedure. Not causal | The GWAS and MR pipelines ([Computer exercises](computer-exercises.qmd)) |
+| **Lecture map** | How the lecture's problems lead into each other. Not causal | The three themes of Lecture 7 ([7.1](lecture7.qmd#t7-1)) |
+
+A biological process is often also a causal chain (changing an earlier step changes the later ones), but the diagrams that test or assume causality, as in Mendelian randomization, are the ones labelled **causal diagram**.
+
 ::: {.callout-important}
 ## Instructor's example exam questions included
 The 11 questions from **"Lecture 7 - questions.pdf"** are on the [Exam practice](exam-practice.qmd) page, with model answers written for this app. The computer exercise instructions are still missing; see [About the content](about.qmd).

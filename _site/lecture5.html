@@ -72,6 +72,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -492,19 +495,27 @@ window.Quarto = {
 <h2 class="topic anchored" data-flag="seminar" data-anchor-id="t5-2">5.2 From one SNP to the full GWAS pipeline</h2>
 <p>Repeat the model for all SNPs (~1,000,000), apply the genome-wide threshold, make Manhattan and QQ plots. You get candidate significant SNPs, which must be <strong>grouped into loci</strong> and reduced to <strong>lead SNPs</strong>.</p>
 <p><strong>Where GWAS data comes from, end to end</strong></p>
-<pre><code>Study participants: visits and follow-up
-        │
-Blood drawn and analyzed → DNA extracted
-        │
- ┌──────────────┬──────────────────┬───────────────────────────┐
- Phenotype data   Covariate data     Genotype data
- (by subject ID,  (by subject ID,    (by subject ID, binary file:
-  text/CSV)        text/CSV)          millions of SNPs per person)
- └──────────────┴────────┬─────────┴───────────────────────────┘
-                         │  + external QC and PCA (population structure)
-                       PLINK
-                         │
-          GWAS summary data (by SNP ID, text/CSV)</code></pre>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A["Study participants:&lt;br/&gt;visits and follow-up"] --&gt; B["blood drawn and analyzed,&lt;br/&gt;DNA extracted"]
+  B --&gt; Ph["phenotype data&lt;br/&gt;(by subject ID, text/CSV)"]
+  B --&gt; Co["covariate data&lt;br/&gt;(by subject ID, text/CSV)"]
+  B --&gt; Ge["genotype data&lt;br/&gt;(by subject ID, binary file:&lt;br/&gt;millions of SNPs per person)"]
+  Ph --&gt; PL["PLINK"]
+  Co --&gt; PL
+  Ge --&gt; PL
+  QC["external QC and PCA&lt;br/&gt;(population structure)"] --&gt; PL
+  PL --&gt; S["GWAS summary data&lt;br/&gt;(by SNP ID, text/CSV)"]
+</pre>
+</div>
+<p></p><figcaption> Workflow: each arrow means “then”, the next step of the procedure. Not a causal diagram. Where GWAS data come from: three data types, joined by subject ID, go into PLINK; the output is one row per SNP.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
 </section>
 <section id="t5-3" class="level2 topic" data-flag="seminar">
 <h2 class="topic anchored" data-flag="seminar" data-anchor-id="t5-3">5.3 Why neighbouring SNPs show up together</h2>

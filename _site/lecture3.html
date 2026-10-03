@@ -72,6 +72,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/editor/editor.main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   
@@ -2912,11 +2915,39 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <h2 class="topic anchored" data-flag="professor" data-anchor-id="t3-8">3.8 First look at GWAS, and SNP arrays</h2>
 <p><strong>GWAS (genome-wide association study)</strong> searches the <em>entire</em> genome for variants associated with a trait or disease. Millions of SNPs are compared between individuals with different phenotypes; for each SNP you ask: is one allele more common among people with the trait?</p>
 <p><strong>Where LD comes in.</strong> A SNP that is significant in a GWAS is <strong>not necessarily the causal variant</strong>. Nearby variants are often in LD, so a significant SNP may simply be correlated with (“tag”) the real causal variant:</p>
-<pre><code>GWAS SNP  ⟷ (LD) ⟷  causal variant  ──▶  phenotype</code></pre>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  G["GWAS SNP (tag)"] -.-|"LD: inherited together"| C["causal variant"]
+  C --&gt;|"affects"| P["phenotype"]
+</pre>
+</div>
+<p></p><figcaption> Causal diagram: each arrow means “directly affects”. The dotted line without arrowheads is correlation (LD), not cause. The GWAS SNP has no arrow to the phenotype: its association is borrowed from the causal variant.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
 <p>A GWAS can show a strong association for “SNP A” even though “SNP B” does the biological work, just because A and B are inherited together.</p>
 <p><strong>SNP arrays (SNP chips)</strong> genotype hundreds of thousands to millions of <strong>known</strong> SNP positions at once. At a SNP such as rs12345 with alleles A or G, the array determines whether a person is AA, AG or GG.</p>
 <p>Mechanism: the array holds many short DNA <strong>probes</strong>, each recognizing DNA with one particular allele. The person’s DNA is fragmented and allowed to <strong>hybridize</strong> (bind) to the probes; <strong>fluorescent</strong> signals show which probes bound.</p>
-<pre><code>DNA sample → fragment DNA → bind to SNP array → detect which probes light up → genotype</code></pre>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A["DNA sample"] --&gt; B["fragment the DNA"]
+  B --&gt; C["let fragments bind (hybridize)&lt;br/&gt;to probes on the SNP array"]
+  C --&gt; D["detect which probes light up"]
+  D --&gt; E["genotype (e.g. AA, AG or GG)"]
+</pre>
+</div>
+<p></p><figcaption> Workflow: each arrow means “then”, the next step of the procedure. Not a causal diagram. The lab steps of genotyping on a SNP array.</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
 <p>If both the “A signal” and the “G signal” light up at a position, the person is an AG heterozygote.</p>
 </section>
 <section id="t3-9" class="level2 topic" data-flag="professor">
@@ -2967,7 +2998,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="lecture3_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="lecture3_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Expected genotype frequencies under HWE as the frequency of allele a changes. Heterozygotes peak at q = 0.5; the rare homozygote (q²) shrinks fast.</figcaption>
 </figure>
 </div>

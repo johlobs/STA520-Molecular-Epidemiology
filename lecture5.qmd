@@ -51,20 +51,18 @@ Repeat the model for all SNPs (~1,000,000), apply the genome-wide threshold, mak
 
 **Where GWAS data comes from, end to end**
 
-```
-Study participants: visits and follow-up
-        │
-Blood drawn and analyzed → DNA extracted
-        │
- ┌──────────────┬──────────────────┬───────────────────────────┐
- Phenotype data   Covariate data     Genotype data
- (by subject ID,  (by subject ID,    (by subject ID, binary file:
-  text/CSV)        text/CSV)          millions of SNPs per person)
- └──────────────┴────────┬─────────┴───────────────────────────┘
-                         │  + external QC and PCA (population structure)
-                       PLINK
-                         │
-          GWAS summary data (by SNP ID, text/CSV)
+```{mermaid}
+%%| fig-cap: "Workflow: each arrow means \"then\", the next step of the procedure. Not a causal diagram. Where GWAS data come from: three data types, joined by subject ID, go into PLINK; the output is one row per SNP."
+flowchart TD
+  A["Study participants:<br/>visits and follow-up"] --> B["blood drawn and analyzed,<br/>DNA extracted"]
+  B --> Ph["phenotype data<br/>(by subject ID, text/CSV)"]
+  B --> Co["covariate data<br/>(by subject ID, text/CSV)"]
+  B --> Ge["genotype data<br/>(by subject ID, binary file:<br/>millions of SNPs per person)"]
+  Ph --> PL["PLINK"]
+  Co --> PL
+  Ge --> PL
+  QC["external QC and PCA<br/>(population structure)"] --> PL
+  PL --> S["GWAS summary data<br/>(by SNP ID, text/CSV)"]
 ```
 
 ## 5.3 Why neighbouring SNPs show up together {#t5-3 .topic flag="seminar"}

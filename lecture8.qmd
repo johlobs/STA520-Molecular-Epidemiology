@@ -33,10 +33,13 @@ Contrast from the molecular-layer table (Lecture 1): **DNA is fixed**, while **R
 
 **Worked example: insulin biosynthesis.** "One gene" does not always mean "one direct protein":
 
-```
-INS gene ─transcription─▶ INS mRNA ─translation─▶ preproinsulin
-   ─signal peptide removed─▶ proinsulin
-   ─folds, forms disulfide bonds, C-peptide cleaved out─▶ insulin + C-peptide
+```{mermaid}
+%%| fig-cap: "Biological process: each arrow is one step that happens in the cell or body, and the text on the arrow names that step. Read top to bottom: each product is made from the one above it."
+flowchart TD
+  A["INS gene (DNA)"] -->|"transcription"| B["INS mRNA"]
+  B -->|"translation"| C["preproinsulin"]
+  C -->|"signal peptide removed"| D["proinsulin"]
+  D -->|"folds, forms disulfide bonds,<br/>C-peptide cut out"| E["insulin + C-peptide"]
 ```
 
 (Insulin is a signalling molecule central to metabolism, obesity and diabetes; compare the glucose/insulin example in Lecture 1.)
@@ -232,11 +235,28 @@ If the protein is standardized (z-score), $\beta$ is the effect of a **1-SD** hi
 
 Three explanations for a protein–disease association:
 
+Causal diagrams (each arrow means "directly affects"): three different structures that all produce the same protein–disease association.
+
+:::: {layout-ncol=3}
+```{mermaid}
+%%| fig-cap: "1. Causal: the protein affects the disease."
+flowchart TD
+  P1["protein"] --> D1["disease"]
 ```
-protein ──▶ disease            causal
-disease ──▶ protein            reverse causation (disease changes the protein)
-protein ◀── confounder ──▶ disease   confounding
+
+```{mermaid}
+%%| fig-cap: "2. Reverse causation: the disease changes the protein."
+flowchart TD
+  D2["disease"] --> P2["protein"]
 ```
+
+```{mermaid}
+%%| fig-cap: "3. Confounding: a third factor affects both."
+flowchart TD
+  C3["confounder"] --> P3["protein"]
+  C3 --> D3["disease"]
+```
+::::
 
 **A protein can be a good biomarker/predictor without being causal.** Troponin marks cardiac injury, but **lowering troponin would not treat an MI**: it is a readout of injury that already happened. **Prediction and causation are different properties**; only some proteins have both.
 
@@ -344,9 +364,14 @@ Coding variants can alter the epitope the antibody or aptamer binds, producing a
 
 The lecture's pipeline:
 
-```
-protein association → pQTL evidence → MR / colocalization
-   → candidate causal protein → mechanistic experiments → biological pathway
+```{mermaid}
+%%| fig-cap: "Workflow: each arrow means \"then\", the next step of the procedure. Not a causal diagram. Each step adds a stronger kind of evidence that the protein is causal."
+flowchart TD
+  A["protein associated with disease"] --> B["pQTL evidence"]
+  B --> C["MR and colocalization"]
+  C --> D["candidate causal protein"]
+  D --> E["mechanistic experiments"]
+  E --> F["biological pathway"]
 ```
 
 **Follow-up questions** once a protein is genetically implicated: Which cell or tissue produces it? Which receptor or pathway does it act through? Does changing its level or activity change cell function? Does it reproduce in an experimental model? Can the pathway be modified by a drug (is it druggable)?
