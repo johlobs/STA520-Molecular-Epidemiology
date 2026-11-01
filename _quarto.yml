@@ -2,6 +2,8 @@ project:
   type: website
   output-dir: _site
   pre-render: build_topics.py
+  resources:
+    - podcast/*.mp3
 
 website:
   title: "STA520 — Molecular Epidemiology"
@@ -15,6 +17,8 @@ website:
         href: dashboard.qmd
       - text: "Exam practice"
         href: exam-practice.qmd
+      - text: "Podcast"
+        href: podcast.qmd
       - text: "Flashcards"
         href: vocabulary.qmd
       - text: "Glossary"
@@ -36,6 +40,7 @@ website:
           - exam-practice.qmd
           - key-concepts.qmd
           - seminar-questions.qmd
+          - podcast.qmd
           - vocabulary.qmd
           - computer-exercises.qmd
           - glossary.qmd
@@ -73,6 +78,8 @@ format:
       - _topics.html
       - _quiz.html
       - _drills.html
+      - _podcast-data.html
+      - _podcast.html
 
 engine: knitr
 

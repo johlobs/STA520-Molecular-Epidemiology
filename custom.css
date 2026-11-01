@@ -291,3 +291,21 @@ section.topic[data-flag="instructor"] > h2 {
 svg .flowchart-link { stroke: #343a40; stroke-width: 1.6px; }
 svg marker path, svg .arrowheadPath { fill: #343a40; stroke: #343a40; }
 .mr-dag figcaption { margin-top: 0.4rem; }
+
+/* Podcast player (_podcast.html) */
+.podcast-box { margin: 0 0 1.5rem; }
+.podcast-player { background: #f4f6f8; border: 1px solid #d5dbe1; border-radius: 8px; padding: .75rem 1rem; }
+.podcast-head { font-weight: 600; margin-bottom: .4rem; }
+.podcast-icon { margin-right: .4rem; }
+.podcast-player audio { width: 100%; }
+.podcast-controls { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin-top: .4rem; font-size: .9rem; }
+.podcast-controls button { border: 1px solid #b8c2cc; background: #fff; border-radius: 4px; padding: .15rem .55rem; }
+.podcast-controls button.active { background: #2c3e50; color: #fff; border-color: #2c3e50; }
+.podcast-rates { display: inline-flex; gap: .25rem; }
+.podcast-download { margin-left: auto; }
+.podcast-note { font-size: .85rem; color: #6c757d; margin: .4rem 0 0; }
+.podcast-list { padding-left: 1.2rem; margin-top: 1rem; }
+.podcast-list li { margin: .35rem 0; }
+.podcast-list li.playing span:first-of-type { font-weight: 600; }
+.podcast-list button { border: 1px solid #b8c2cc; background: #fff; border-radius: 4px; padding: 0 .45rem; }
+.podcast-meta { color: #6c757d; font-size: .85rem; }

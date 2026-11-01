@@ -1,0 +1,13 @@
+---
+title: "Podcast"
+subtitle: "One audio episode per lecture, for listening on the go"
+engine: knitr
+---
+
+Each episode is a two-host conversation that walks through one lecture page: the main ideas, the running examples and what to take away. The scripts are written by AI from this site's own content, and the voices are synthetic (Kokoro text-to-speech, generated locally).
+
+**On a phone:** start an episode and lock the screen; it keeps playing, and the lock screen shows play/pause and skip buttons. When an episode ends, the next one starts automatically. Your position in each episode is saved in this browser. For offline listening, use *Download mp3*.
+
+The audio follows the lecture pages, so flags and exam relevance work the same way: listen for the overview, then use the page, the dashboard and exam practice to check yourself.
+
+<div id="sta520-podcast"></div>
