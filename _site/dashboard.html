@@ -107,6 +107,10 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Exam practice</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./podcast.html"> 
+<span class="menu-text">Podcast</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./vocabulary.html"> 
 <span class="menu-text">Flashcards</span></a>
   </li>  
@@ -190,6 +194,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="./seminar-questions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Seminar questions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Podcast</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -4019,6 +4029,354 @@ window.STA520_TOPICS = [
     init();
 
   }
+
+})();
+
+</script>
+
+<script>window.STA520_EPISODES = [{"id": "lecture1", "title": "Lecture 1 — The biological language of molecular epidemiology", "minutes": 13}];</script>
+
+<script>
+
+/* Podcast player for STA520.
+
+   Reads window.STA520_EPISODES (written by build_podcast.py) and:
+
+   1. on lectureN pages with an episode, adds a player under the title,
+
+   2. on podcast.qmd (<div id="sta520-podcast">), lists all episodes with "play all".
+
+   Plain <audio> keeps playing with the phone screen off; Media Session adds
+
+   lock-screen title and skip buttons. Position is saved per episode. */
+
+(function () {
+
+  'use strict';
+
+
+
+  var EPISODES = window.STA520_EPISODES || [];
+
+  var POS_KEY = 'sta520_podcast_pos';
+
+  var RATE_KEY = 'sta520_podcast_rate';
+
+  if (!EPISODES.length) return;
+
+
+
+  function loadPositions() {
+
+    try { return JSON.parse(localStorage.getItem(POS_KEY)) || {}; } catch (e) { return {}; }
+
+  }
+
+  function savePosition(id, seconds, done) {
+
+    var all = loadPositions();
+
+    all[id] = done ? -1 : Math.floor(seconds);
+
+    localStorage.setItem(POS_KEY, JSON.stringify(all));
+
+  }
+
+  function src(ep) { return 'podcast/' + ep.id + '.mp3'; }
+
+
+
+  /* Builds one player. queue = episodes to play in order; index = start. */
+
+  function makePlayer(container, queue, index, onChange) {
+
+    var current = index;
+
+    var wrap = document.createElement('div');
+
+    wrap.className = 'podcast-player';
+
+    wrap.innerHTML =
+
+      '<div class="podcast-head"><span class="podcast-icon">🎧</span>' +
+
+      '<span class="podcast-title"></span></div>' +
+
+      '<audio controls preload="metadata"></audio>' +
+
+      '<div class="podcast-controls">' +
+
+      '<button type="button" data-skip="-15">−15 s</button>' +
+
+      '<button type="button" data-skip="30">+30 s</button>' +
+
+      '<span class="podcast-rates"></span>' +
+
+      '<a class="podcast-download" download>Download mp3</a>' +
+
+      '</div>';
+
+    container.appendChild(wrap);
+
+
+
+    var audio = wrap.querySelector('audio');
+
+    var titleEl = wrap.querySelector('.podcast-title');
+
+    var download = wrap.querySelector('.podcast-download');
+
+    var rates = wrap.querySelector('.podcast-rates');
+
+    var rate = parseFloat(localStorage.getItem(RATE_KEY)) || 1;
+
+
+
+    [1, 1.25, 1.5, 1.75].forEach(function (r) {
+
+      var b = document.createElement('button');
+
+      b.type = 'button';
+
+      b.textContent = r + '×';
+
+      b.dataset.rate = r;
+
+      rates.appendChild(b);
+
+    });
+
+    function showRate() {
+
+      rates.querySelectorAll('button').forEach(function (b) {
+
+        b.classList.toggle('active', parseFloat(b.dataset.rate) === rate);
+
+      });
+
+      audio.playbackRate = rate;
+
+    }
+
+
+
+    function load(i, autoplay) {
+
+      current = i;
+
+      var ep = queue[i];
+
+      titleEl.textContent = ep.title + ' (' + ep.minutes + ' min)';
+
+      audio.src = src(ep);
+
+      download.href = src(ep);
+
+      var saved = loadPositions()[ep.id];
+
+      audio.addEventListener('loadedmetadata', function once() {
+
+        audio.removeEventListener('loadedmetadata', once);
+
+        if (saved > 0 && saved < audio.duration - 5) audio.currentTime = saved;
+
+        showRate();
+
+      });
+
+      if ('mediaSession' in navigator) {
+
+        navigator.mediaSession.metadata = new MediaMetadata({
+
+          title: ep.title, artist: 'STA520 study podcast', album: 'STA520 Molecular Epidemiology'
+
+        });
+
+      }
+
+      if (autoplay) audio.play();
+
+      if (onChange) onChange(i);
+
+    }
+
+
+
+    wrap.querySelectorAll('[data-skip]').forEach(function (b) {
+
+      b.addEventListener('click', function () {
+
+        audio.currentTime = Math.max(0, audio.currentTime + parseFloat(b.dataset.skip));
+
+      });
+
+    });
+
+    rates.addEventListener('click', function (e) {
+
+      if (!e.target.dataset.rate) return;
+
+      rate = parseFloat(e.target.dataset.rate);
+
+      localStorage.setItem(RATE_KEY, rate);
+
+      showRate();
+
+    });
+
+
+
+    var lastSave = 0;
+
+    audio.addEventListener('timeupdate', function () {
+
+      if (Date.now() - lastSave > 5000) {
+
+        lastSave = Date.now();
+
+        savePosition(queue[current].id, audio.currentTime, false);
+
+      }
+
+    });
+
+    audio.addEventListener('pause', function () {
+
+      savePosition(queue[current].id, audio.currentTime, false);
+
+    });
+
+    audio.addEventListener('ended', function () {
+
+      savePosition(queue[current].id, 0, true);
+
+      if (current + 1 < queue.length) load(current + 1, true);
+
+    });
+
+
+
+    if ('mediaSession' in navigator) {
+
+      var ms = navigator.mediaSession;
+
+      ms.setActionHandler('play', function () { audio.play(); });
+
+      ms.setActionHandler('pause', function () { audio.pause(); });
+
+      ms.setActionHandler('seekbackward', function () { audio.currentTime = Math.max(0, audio.currentTime - 15); });
+
+      ms.setActionHandler('seekforward', function () { audio.currentTime += 30; });
+
+      ms.setActionHandler('previoustrack', queue.length > 1 ? function () {
+
+        if (current > 0) load(current - 1, true);
+
+      } : null);
+
+      ms.setActionHandler('nexttrack', queue.length > 1 ? function () {
+
+        if (current + 1 < queue.length) load(current + 1, true);
+
+      } : null);
+
+    }
+
+
+
+    load(index, false);
+
+    return { load: load };
+
+  }
+
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    /* 1. Lecture pages */
+
+    var page = location.pathname.split('/').pop().replace('.html', '');
+
+    var mine = EPISODES.filter(function (e) { return e.id === page; });
+
+    var header = document.querySelector('#title-block-header');
+
+    if (mine.length && header) {
+
+      var box = document.createElement('div');
+
+      box.className = 'podcast-box';
+
+      header.after(box);
+
+      makePlayer(box, mine, 0);
+
+      var note = document.createElement('p');
+
+      note.className = 'podcast-note';
+
+      note.innerHTML = 'Two-host audio summary of this page (AI-written script, synthetic voices). ' +
+
+        'All episodes: <a href="podcast.html">Podcast</a>.';
+
+      box.appendChild(note);
+
+    }
+
+
+
+    /* 2. Podcast page */
+
+    var list = document.getElementById('sta520-podcast');
+
+    if (!list) return;
+
+    var playerBox = document.createElement('div');
+
+    list.appendChild(playerBox);
+
+    var ol = document.createElement('ol');
+
+    ol.className = 'podcast-list';
+
+    list.appendChild(ol);
+
+    var positions = loadPositions();
+
+    var player;
+
+
+
+    function mark(i) {
+
+      ol.querySelectorAll('li').forEach(function (li, j) { li.classList.toggle('playing', i === j); });
+
+    }
+
+    EPISODES.forEach(function (ep, i) {
+
+      var li = document.createElement('li');
+
+      var p = positions[ep.id];
+
+      var status = p === -1 ? ' ✓' : (p > 0 ? ' · started' : '');
+
+      li.innerHTML = '<button type="button">▶</button> <span>' + ep.title +
+
+        '</span> <span class="podcast-meta">' + ep.minutes + ' min' + status + '</span>';
+
+      li.querySelector('button').addEventListener('click', function () { player.load(i, true); });
+
+      ol.appendChild(li);
+
+    });
+
+    var firstUnfinished = EPISODES.findIndex(function (ep) { return positions[ep.id] !== -1; });
+
+    player = makePlayer(playerBox, EPISODES, firstUnfinished < 0 ? 0 : firstUnfinished, mark);
+
+  });
 
 })();
 
