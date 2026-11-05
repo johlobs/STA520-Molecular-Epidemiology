@@ -1,79 +1,115 @@
 # title: Lecture 1 — The biological language of molecular epidemiology
-# Hosts: A = Maya (af_heart), B = Sam (am_michael). One line per turn.
-A: Welcome to the S T A five twenty study podcast. I'm Maya.
-B: And I'm Sam. This is episode one, the biological language of molecular epidemiology.
-A: Let's start with the big picture. Sam, what is molecular epidemiology, in one sentence?
-B: It's epidemiology that looks inside the body. Classical epidemiology links an exposure, like smoking or a drug, to a disease, and treats everything in between as a black box. Molecular epidemiology opens that box.
-A: So instead of only asking "does smoking go with lung cancer", you measure things in between.
-B: Exactly. DNA variants, RNA levels, proteins, metabolites. You measure them across many people, and you ask how they relate to exposures and to disease.
-A: And this is not the same thing as biology.
-B: No, and the course makes a point of that. A molecular epidemiologist works with statistical evidence at the population level. Associations, effect sizes, p-values. A molecular biologist gives the mechanistic answer, how the change actually works inside the cell.
-A: So statistics points to candidates, and the lab confirms or explains the mechanism.
-B: Right. The two fields need each other, and they need a shared vocabulary. That's really what this first lecture is about.
-A: There's one question I'd call the central question of the whole course.
-B: Go on.
-A: When a molecule is statistically associated with a disease, is that causal? Or is the molecule just a consequence of the disease, or confounded by something else?
-B: Yes. A molecule linked to a disease can play three roles. It can cause the disease. It can reflect a disease process that is already running. Or it can simply be associated through some third factor. Most of the course is about telling those three apart, and lecture six, on Mendelian randomization, attacks it head on.
-A: Let's get to the running example, because it comes back again and again.
-B: The heart attack family. A young patient has a myocardial infarction, a heart attack, much earlier than age would explain. The father also had an early heart attack. That suggests something hereditary.
-A: And when you test the family's blood lipids?
-B: The patient and several first degree relatives all have very high L D L cholesterol. So two conclusions. Disease can be inherited, and high L D L cholesterol seems linked to early coronary heart disease.
-A: Quick background on L D L, since it's everywhere in this course.
-B: L D L stands for low density lipoprotein. These are particles of protein and lipid that carry cholesterol in the blood. The liver clears most of them, mainly through the L D L receptor on liver cells. The more receptors on the surface, the faster L D L is removed from the blood.
-A: And if L D L stays high, more of it gets into the artery wall, gets trapped, and plaque starts to build up. That's atherosclerosis.
-B: So in the family, the molecular answer turns out to be a mutation in the gene for the L D L receptor. The receptor binds L D L less well, liver cells clear it more slowly, and blood levels rise.
-A: But the lecture warns against overselling this.
-B: It does. Single genes with strong effects like this are uncommon causes of heart disease in the population. Most cardiovascular disease comes from many small effect variants plus lifestyle and environment. Still, finding the mechanism is valuable, because it points to a drug target.
-A: Which brings us to P C S K nine.
-B: P C S K nine is a protein that promotes degradation of the L D L receptor. It breaks receptors down.
-A: So if you want more receptors, you could try to make the body produce more of them.
-B: But drugs that increase production of a protein are hard to make. Drugs that block a protein, or reduce how much of it is made, are much easier. So instead you target P C S K nine. Block it, fewer receptors get broken down, more receptors stay on the liver cells, and L D L cholesterol goes down.
-A: Let me say the chain out loud. P C S K nine breaks down L D L receptors. Receptors clear L D L from the blood. L D L builds up in artery walls. That narrows the coronary arteries and leads to coronary heart disease.
-B: And the drug acts at the very top, on P C S K nine. Note that this pathway is mainly a running example. Keep it in your head, because it shows up in lectures two, three, six and eight. Gene regulation, R N A drugs and antibodies, Mendelian randomization, and protein M R.
-A: Now a part that was on the professor's list. Molecular measurement layers.
-B: Five layers. First, D N A and genetic variation. It tells you inherited predisposition, and it's stable. It doesn't change over your lifetime.
-A: Second, R N A. Which genes are being expressed right now. It's dynamic, and it depends on the cell and the tissue.
-B: Third, proteins. The functional molecules and the signaling. They reflect abundance and activity.
-A: Fourth, metabolites. Small molecules like glucose. They reflect the ongoing biochemical state, and they change fast.
-B: And fifth, cells and cell markers. Cellular composition and state, which depends on context.
-A: The contrast to remember is fixed D N A versus dynamic R N A and protein. Lecture eight leans on that.
-B: Then there's the causal chain the course uses. Genetic variation, to gene expression, to protein amount or function, to metabolites and cellular processes, to cell behavior, to tissue and organ function, to disease.
-A: With two caveats.
-B: First, it's not always one directional. Disease itself can change R N A, protein and metabolite levels. So a molecular change you observe might be a consequence of disease.
-A: And second, every level can be a cause, an intermediate, or a consequence, depending on the case. That ambiguity is exactly why Mendelian randomization is needed later.
-B: Next, biomarkers. A biomarker is any measurable biological characteristic that gives information about a biological process, an exposure, a disease, or a treatment response.
-A: And being a biomarker does not mean being causal. That's the trap.
-B: The lecture gives five roles. An exposure marker, like cotinine for tobacco. A marker of an ongoing process, like C R P for inflammation. A marker of disease or tissue injury, like troponin for heart muscle damage. A marker of future risk, like L D L cholesterol. And a marker of treatment response, like the drop in L D L after starting a statin.
-A: Troponin is the one to remember. It rises sharply after a heart attack because damaged heart cells release it. It's a great predictor, but lowering troponin would not treat anything.
-B: Useful predictor, not a cause. That example comes back in lecture eight.
-A: Let's do the basic biology, which is all on the professor's list. The central dogma.
-B: D N A to R N A to protein. D N A is the durable information store. R N A is a temporary working copy of a gene. Proteins are the functional molecules made from that copy. The two steps together, transcription and translation, are called gene expression.
-A: Proteins are chains of amino acids. There are twenty standard amino acids, and a typical human protein is a few hundred amino acids long. The median is around three hundred seventy five.
-B: Short chains, roughly two to fifty amino acids, are called peptides.
-A: The lecture lists six things proteins do. Sam, want to run through them?
-B: Catalyzing reactions, that's enzymes. Synthesizing and repairing D N A. Transporting molecules, like hemoglobin carrying oxygen. Sending and receiving signals. Responding to stimuli, like antibodies. And structural support, like collagen.
-A: For signaling, keep the signal and the receptor apart. Insulin is the signal. The insulin receptor is the detector. And the L D L receptor is a receiver.
-B: Then the four levels of protein structure. Primary is the linear sequence of amino acids. Secondary is local folding, helices and sheets. Tertiary is the full three dimensional fold of one chain. And quaternary is several folded chains assembled into one complex.
-A: And not every protein has a quaternary level.
-B: Why does this matter for genetics? The amino acid order determines the fold, and the fold determines the function. Change one amino acid and you can change the function. That's the direct link from a D N A mutation to a changed protein to a changed phenotype.
-A: With one side note. Drugs can bind a protein and change what it does without touching the D N A at all. That's how most medicines work, as opposed to gene therapy.
-B: Now D N A itself. Genes are made of D N A, which is a chain of nucleotides. Four of them. A, adenine. C, cytosine. G, guanine. T, thymine.
+# Hosts: A = Maya (explains, af_nicole), B = Sam (asks, bf_isabella lowered). One line per turn.
+# Acronyms written together (DNA, LDL). Forced pronunciation: [text](/phonemes/), e.g. single base letters.
+B: Welcome to the STA five twenty study podcast. I'm Sam, and I ask the questions.
+A: And I'm Maya. I answer them, and occasionally I say things I then have to defend. This is episode one, the biological language of molecular epidemiology.
+B: Let's start with the big picture. Maya, what is molecular epidemiology, in one sentence?
+A: It's epidemiology that looks inside the body. Classical epidemiology links an exposure, like smoking or a drug, to a disease, and treats everything in between as a black box. Molecular epidemiology opens that box.
+B: So instead of only asking whether smoking goes with lung cancer, you measure the things in between?
+A: Exactly. DNA variants, RNA levels, proteins, metabolites. You measure them across many people, and you ask how they relate to exposures and to disease.
+B: Isn't that just biology, then?
+A: No. And here's my first provocation. A p-value has never cured anyone.
+B: That's a bit harsh on your own field.
+A: It's honest. A molecular epidemiologist works with statistical evidence at the population level. Associations, effect sizes, p-values. That tells you where to look. A molecular biologist gives the mechanistic answer, how the change actually works inside the cell.
+B: So statistics points to candidates, and the lab confirms or explains the mechanism.
+A: Right. The two fields need each other, and they need a shared vocabulary. That's really what this first lecture is about.
+B: You said there is one question that runs through the whole course.
+A: There is. When a molecule is statistically associated with a disease, is that causal? Or is the molecule just a consequence of the disease, or confounded by something else?
+B: So a molecule linked to a disease can play different roles.
+A: Three roles. It can cause the disease. It can reflect a disease process that is already running. Or it can simply be associated through some third factor. Most of the course is about telling those three apart, and lecture six, on Mendelian randomization, attacks it head on.
+B: The lecture has a running example that keeps coming back. Can you tell it?
+A: The heart attack family. A young patient has a myocardial infarction, a heart attack, much earlier than age would explain. The father also had an early heart attack. That suggests something hereditary.
+B: And when they test the family's blood lipids?
+A: The patient and several first degree relatives all have very high LDL cholesterol. So two conclusions. Disease can be inherited, and high LDL cholesterol seems linked to early coronary heart disease.
+B: Remind me what LDL actually is, since it's everywhere in this course.
+A: LDL stands for low density lipoprotein. These are particles of protein and lipid that carry cholesterol in the blood. The liver clears most of them, mainly through the LDL receptor on liver cells. The more receptors on the surface, the faster LDL is removed from the blood.
+B: And if LDL stays high?
+A: More of it gets into the artery wall, gets trapped, and plaque starts to build up. That's atherosclerosis.
+B: So what was wrong in the family?
+A: A mutation in the gene for the LDL receptor. The receptor binds LDL less well, liver cells clear it more slowly, and blood levels rise.
+B: Case closed, then. One gene, one disease.
+A: Careful. Single genes with strong effects like this are uncommon causes of heart disease in the population. Most cardiovascular disease comes from many small effect variants plus lifestyle and environment. Still, finding the mechanism is valuable, because it points to a drug target.
+B: Which brings us to PCSK9.
+A: PCSK9 is a protein that promotes degradation of the LDL receptor. It breaks receptors down.
+B: So if you want more receptors, couldn't you just make the body produce more of them?
+A: You could try. But drugs that increase production of a protein are hard to make. Drugs that block a protein, or reduce how much of it is made, are much easier. Medicine is far better at breaking things than at building them.
+B: So you target PCSK9 instead.
+A: Yes. Block it, fewer receptors get broken down, more receptors stay on the liver cells, and LDL cholesterol goes down.
+B: Let me try to say the chain out loud.
+A: Go ahead.
+B: PCSK9 breaks down LDL receptors. Receptors clear LDL from the blood. LDL builds up in artery walls. That narrows the coronary arteries and leads to coronary heart disease.
+A: Perfect. And the drug acts at the very top, on PCSK9. Keep this pathway in your head as a running example, because it shows up in lectures two, three, six and eight. Gene regulation, RNA drugs and antibodies, Mendelian randomization, and protein Mendelian randomization.
+B: Next is a part that was on the professor's list. Molecular measurement layers.
+A: Five layers. First, DNA and genetic variation. It tells you inherited predisposition, and it's stable. It doesn't change over your lifetime.
+B: And the second?
+A: RNA. Which genes are being expressed right now. It's dynamic, and it depends on the cell and the tissue.
+B: Third and fourth?
+A: Third, proteins. The functional molecules and the signaling. They reflect abundance and activity. Fourth, metabolites. Small molecules like glucose. They reflect the ongoing biochemical state, and they change fast.
+B: And the fifth?
+A: Cells and cell markers. Cellular composition and state, which depends on context.
+B: If I only remember one thing from the layers?
+A: Fixed DNA versus dynamic RNA and protein. Lecture eight leans on that.
+B: The course also has a causal chain from gene to disease. How does it go?
+A: Genetic variation, to gene expression, to protein amount or function, to metabolites and cellular processes, to cell behavior, to tissue and organ function, to disease.
+B: That sounds tidy. Too tidy?
+A: Much too tidy. Two caveats. First, it's not always one directional. Disease itself can change RNA, protein and metabolite levels. So a molecular change you observe might be a consequence of disease.
+B: And the second?
+A: Every level can be a cause, an intermediate, or a consequence, depending on the case. That ambiguity is exactly why Mendelian randomization is needed later.
+B: Next, biomarkers. What counts as a biomarker?
+A: Any measurable biological characteristic that gives information about a biological process, an exposure, a disease, or a treatment response.
+B: So a good biomarker is something you'd want to change?
+A: No, and that's the trap. Being a biomarker does not mean being causal. The lecture gives five roles. An exposure marker, like cotinine for tobacco. A marker of an ongoing process, like CRP for inflammation. A marker of disease or tissue injury, like troponin for heart muscle damage. A marker of future risk, like LDL cholesterol. And a marker of treatment response, like the drop in LDL after starting a statin.
+B: Which one should I remember?
+A: Troponin. And here's my second provocation. Lowering troponin is about as useful as turning off a smoke alarm in a burning house.
+B: Explain that one.
+A: Troponin rises sharply after a heart attack because damaged heart cells release it. It's a great predictor of damage. But it's the alarm, not the fire. Pushing it down would treat nothing.
+B: Useful predictor, not a cause.
+A: Exactly. That example comes back in lecture eight.
+B: Now the basic biology, which is all on the professor's list. Start with the central dogma.
+A: DNA to RNA to protein. DNA is the durable information store. RNA is a temporary working copy of a gene. Proteins are the functional molecules made from that copy. The two steps together, transcription and translation, are called gene expression.
+B: And what is a protein made of?
+A: Chains of amino acids. There are twenty standard amino acids, and a typical human protein is a few hundred amino acids long. The median is around three hundred seventy five.
+B: And shorter chains?
+A: Roughly two to fifty amino acids are called peptides.
+B: The lecture lists six things proteins do. Can you run through them?
+A: Catalyzing reactions, that's enzymes. Synthesizing and repairing DNA. Transporting molecules, like hemoglobin carrying oxygen. Sending and receiving signals. Responding to stimuli, like antibodies. And structural support, like collagen.
+B: For signaling, I always mix up the signal and the receiver.
+A: Keep them apart like this. Insulin is the signal. The insulin receptor is the detector. And the LDL receptor is a receiver too.
+B: Then the four levels of protein structure.
+A: Primary is the linear sequence of amino acids. Secondary is local folding, helices and sheets. Tertiary is the full three dimensional fold of one chain. And quaternary is several folded chains assembled into one complex.
+B: Does every protein have all four?
+A: No. Not every protein has a quaternary level.
+B: Why should a geneticist care about folding at all?
+A: Because the amino acid order determines the fold, and the fold determines the function. Change one amino acid and you can change the function. That's the direct link from a DNA mutation to a changed protein to a changed phenotype.
+B: So to change a protein's function, you have to change the DNA?
+A: Not at all. Drugs can bind a protein and change what it does without touching the DNA. That's how most medicines work, as opposed to gene therapy.
+B: Let's look at DNA itself, then.
+A: Genes are made of DNA, which is a chain of nucleotides. Four of them. [A](/ˈeɪ/), adenine. C, cytosine. G, guanine. T, thymine.
+B: And the famous double helix?
 A: Two strands wind into a double helix, held together by weak hydrogen bonds. Weak on purpose, so the strands can separate for copying and for reading genes.
-B: The information is in the order of the letters. With ten nucleotides there are four to the power ten possible sequences, about a million.
-A: And a teaser for lecture two. How many letters do you need to code for one amino acid?
-B: Two letters only give sixteen combinations, too few for twenty amino acids. Three letters give sixty four. So three letters, a codon, specify one amino acid.
-A: And copying works through complementary base pairing. A pairs with T, C pairs with G. Each strand is a template for a new one.
-B: Quick check. If one strand reads A T G C, what sits opposite?
-A: T A C G. And it runs in the opposite direction, because the strands are antiparallel.
-B: Good. Then chromosomes. Humans have twenty three different chromosomes, and most cells have forty six, in twenty three pairs. One of each pair from the mother, one from the father.
-A: And the classic comparison, mitosis versus meiosis.
-B: Mitosis gives two identical cells with the full forty six chromosomes. That's ordinary growth and repair. Meiosis gives four different cells, sex cells, each with twenty three. Fertilization then restores forty six.
-A: And the four meiosis cells differ because of recombination, which shuffles the parents' variants. That's lecture three, and it's why siblings differ.
-B: Last, lipids. Molecules that dissolve poorly in water. Fats, phospholipids, cholesterol and steroid hormones. Phospholipids and cholesterol build cell membranes.
-A: Which ties back to where we started. The L D L story is really a story about transporting lipids.
-B: Let's wrap up with the three things to take away.
+B: Where is the information, then?
+A: In the order of the letters. With ten nucleotides there are four to the power ten possible sequences, about a million.
+B: A teaser for lecture two. How many letters do you need to code for one amino acid?
+A: Two letters only give sixteen combinations, too few for twenty amino acids. Three letters give sixty four. So three letters, a codon, specify one amino acid.
+B: And how does copying work?
+A: Through complementary base pairing. [A](/ˈeɪ/) pairs with T, C pairs with G. Each strand is a template for a new one.
+B: Let me test you. If one strand reads [A, T, G, C](/ˈeɪ, tˈiː, dʒˈiː, sˈiː/), what sits opposite?
+A: [T, A, C, G](/tˈiː, ˈeɪ, sˈiː, dʒˈiː/). And it runs in the opposite direction, because the strands are antiparallel.
+B: Good. Then chromosomes.
+A: Humans have twenty three different chromosomes, and most cells have forty six, in twenty three pairs. One of each pair from the mother, one from the father.
+B: And the classic comparison, mitosis versus meiosis.
+A: Mitosis gives two identical cells with the full forty six chromosomes. That's ordinary growth and repair. Meiosis gives four different cells, sex cells, each with twenty three. Fertilization then restores forty six.
+B: Why are the four meiosis cells different from each other?
+A: Recombination, which shuffles the parents' variants. That's lecture three. And it's why your siblings are not your clones, however much they act like it.
+B: Last, lipids.
+A: Molecules that dissolve poorly in water. Fats, phospholipids, cholesterol and steroid hormones. Phospholipids and cholesterol build cell membranes.
+B: Which ties back to where we started.
+A: It does. The LDL story is really a story about transporting lipids.
+B: Let's wrap up. What are the three things to take away?
 A: One. A molecule linked to disease can be a cause, a consequence, or just associated. The course is about telling these apart.
-B: Two. The P C S K nine, L D L receptor, L D L cholesterol pathway. Know it well, it keeps coming back.
-A: Three. The five measurement layers, with stable D N A versus dynamic R N A and protein, plus the basic biology. The central dogma, protein structure, base pairing, and mitosis versus meiosis.
+B: Two?
+A: The PCSK9, LDL receptor, LDL cholesterol pathway. Know it well, it keeps coming back.
+B: And three?
+A: The five measurement layers, with stable DNA versus dynamic RNA and protein, plus the basic biology. The central dogma, protein structure, base pairing, and mitosis versus meiosis.
 B: Next episode, lecture two. How genes are actually read and regulated. Thanks for listening.
 A: See you there.

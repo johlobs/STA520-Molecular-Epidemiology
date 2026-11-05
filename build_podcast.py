@@ -12,6 +12,7 @@ Model files (not in the repo): set KOKORO_DIR, default C:/Users/nepet/tools/koko
 with kokoro-v1.0.int8.onnx and voices-v1.0.bin.
 """
 import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -25,7 +26,13 @@ SCRIPTS = ROOT / "podcast" / "scripts"
 AUDIO = ROOT / "podcast"
 KOKORO_DIR = Path(os.environ.get("KOKORO_DIR", "C:/Users/nepet/tools/kokoro"))
 
-VOICES = {"A": "af_heart", "B": "am_michael"}
+# speaker -> (voice, lang, pitch). pitch < 1 lowers the voice at the same tempo.
+VOICES = {
+    "A": ("af_nicole", "en-us", 1.0),     # Maya, explains
+    "B": ("bf_isabella", "en-gb", 0.92),  # Sam, asks (older woman)
+}
+# Inline forced pronunciation in scripts: [text](/phonemes/)
+PHONEME_MARK = re.compile(r"\[([^\]]+)\]\(/([^/]+)/\)")
 SPEED = 1.0
 PAUSE_SECONDS = 0.35
 BITRATE = 64
@@ -42,6 +49,27 @@ def parse(path):
     return turns
 
 
+def speak(kokoro, text, speaker):
+    voice, lang, pitch = VOICES[speaker]
+    factor = 1 / pitch
+    if PHONEME_MARK.search(text):
+        parts, pos = [], 0
+        for m in PHONEME_MARK.finditer(text):
+            if text[pos:m.start()].strip():
+                parts.append(kokoro.tokenizer.phonemize(text[pos:m.start()], lang))
+            parts.append(m.group(2))
+            pos = m.end()
+        if text[pos:].strip():
+            parts.append(kokoro.tokenizer.phonemize(text[pos:], lang))
+        audio, sr = kokoro.create(" ".join(parts), voice=voice, speed=SPEED * factor, lang=lang, is_phonemes=True)
+    else:
+        audio, sr = kokoro.create(text, voice=voice, speed=SPEED * factor, lang=lang)
+    if factor != 1.0:
+        n = int(len(audio) * factor)
+        audio = np.interp(np.linspace(0, len(audio) - 1, n), np.arange(len(audio)), audio).astype(np.float32)
+    return audio, sr
+
+
 def build(name, kokoro, force=False):
     script = SCRIPTS / f"{name}.txt"
     out = AUDIO / f"{name}.mp3"
@@ -52,7 +80,7 @@ def build(name, kokoro, force=False):
     pieces = []
     sample_rate = 24000
     for speaker, text in parse(script):
-        audio, sample_rate = kokoro.create(text, voice=VOICES[speaker], speed=SPEED, lang="en-us")
+        audio, sample_rate = speak(kokoro, text, speaker)
         pieces.append(audio)
         pieces.append(np.zeros(int(sample_rate * PAUSE_SECONDS), dtype=audio.dtype))
     audio = np.concatenate(pieces)
