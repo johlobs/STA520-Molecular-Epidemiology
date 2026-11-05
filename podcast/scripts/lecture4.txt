@@ -13,6 +13,10 @@ A: Not yet.
 # sting
 B: Welcome back to the STA five twenty study podcast. I'm Sam.
 A: And I'm Maya. Episode four. From SNP to GWAS. This is where the course turns into statistics.
+B: Quick, before we start. Last time. What share of people are heterozygotes when q is zero point two?
+A: Zero point three two. Two p q. With the two.
+B: I'll never live that down. I dreamt about that two.
+A: Today, three questions. What does a GWAS actually do? How do you read its output? And why can the most significant result be the least important?
 B: And I already have a theory about that SNP. The p-value is so small because the effect is secretly huge. Small p, big deal.
 A: Noted.
 B: You always say noted when I'm wrong.
@@ -25,7 +29,9 @@ A: It's a compliment. For each SNP you count how many copies of one allele each 
 B: The basics. Alleles and minor allele frequency.
 A: At a SNP, some people have one nucleotide and some another. Those are the alleles. The minor allele frequency is the frequency of the less common one. People sometimes call it the mutant allele, but rarer doesn't mean harmful. Getting genotype frequencies is Hardy Weinberg from last time. If the minor allele has frequency zero point one, the common homozygote is zero point eight one, heterozygotes zero point one eight, and the minor homozygote zero point zero one. Out of ten thousand people, about eight thousand one hundred, one thousand eight hundred, and one hundred. The minor homozygotes are always rare when the allele is rare, because it's the frequency squared.
 B: And how does a genetic effect show up among the sick?
-A: Say each copy of the minor allele doubles the risk of a disease, from a baseline of five percent. Among the ten thousand, you'd get about six hundred cases. And among those cases, the minor allele has a frequency of about eighteen percent, compared with ten in the population.
+A: Say each copy of the minor allele doubles the risk of a disease. The allele has a frequency of ten percent in the population. What do you think its frequency is among the people who get sick?
+B: Twenty percent. It doubles the risk, so double the frequency. Is that wrong? That's wrong, isn't it.
+A: Close, but no. About eighteen percent. Most cases still come from the big group without the allele. But the allele is clearly enriched.
 # slow
 A: The risk allele is enriched among cases. That enrichment is exactly what a GWAS detects.
 # normal
@@ -41,13 +47,17 @@ A: On a log scale, effects multiply. Forty five, not forty.
 B: Three times in a row, Olle. You'll never forget it now.
 A: The logistic model works the same way on the log odds scale. The odds ratio is e to the beta. Beta minus zero point one six gives an odds ratio of about zero point eight five per copy. Two copies, minus zero point three two, about zero point seven three.
 # sting
-B: The lecture calls this the additive model.
-A: Every extra copy adds the same amount, on the model's scale. For every SNP you get beta, its standard error and a p-value testing whether beta is zero. The standard error depends on three things.
+B: Our third listener question is from Johan.
+C: Hi. My grandmother always said I got my curly hair from the dominant side of the family. Does a GWAS assume everything is dominant? Should I tell grandma she's wrong?
+B: Never tell grandma she's wrong, Johan.
+A: Grandma may be right about the hair. But a GWAS usually uses the additive model. Every extra copy adds the same amount, on the model's scale. Hardy Weinberg again, in disguise. Zero, one or two copies, with frequencies p squared, two p q and q squared. For every SNP you get beta, its standard error and a p-value testing whether beta is zero. The standard error depends on three things.
 B: Sample size, allele frequency and how noisy the phenotype is.
 A: Correct. And two things worth noting. First, genetic effects are small. The spread within each genotype group is far bigger than the difference between the group means. Most of what makes your cholesterol high has nothing to do with this one SNP. Second, additive, dominant and recessive describe the genotype phenotype relationship, not the allele. The same allele can be dominant for one trait and recessive for another. GWAS uses additive because it's the simplest default that works reasonably across a million SNPs.
 B: Covariates. What goes in besides the genotype?
 A: Age, sex, sometimes BMI, technical variables like genotyping batch, and genetic principal components. The principal components handle population structure. And because of this, beta depends on what you adjusted for. Compare betas across studies only after checking that.
 # sting
+B: That's question one. Two down, one to go?
+A: One down, two to go.
 B: Then the full scan, and the output.
 A: A million regressions, one per SNP, in software like PLINK or regenie. The output is summary statistics. One row per SNP.
 B: Let me name a column, you tell me what it is.
@@ -63,13 +73,22 @@ A: The p-value.
 B: N?
 A: Sample size.
 # normal
-B: Why are summary statistics shared so freely?
+B: Do I need to memorize all the column names? Because there were a lot of columns. What if they ask about a column I've never seen?
+A: Breathe. Know what beta, its standard error and the effect allele mean. The rest you can read.
+B: Okay. Okay. Why are summary statistics shared so freely?
 A: No individual level data. Only aggregates. But before you use them, know the effect allele, whether you have an odds ratio or a log odds ratio, the scale of the phenotype, and the genome build.
 B: And a second listener question, about exactly that. It's from Ahmed.
 G: Hi. I merged two summary statistics files and half my effects changed direction. Did I discover something, or did I break something?
 B: Ahmed, I think we all know the answer.
-A: You broke something, Ahmed. Flip the effect allele and every estimate flips sign. If the effect allele is T and beta is minus zero point zero five, each T lowers LDL by zero point zero five standard deviations. Relative to the other allele, it's the opposite. Get that wrong and you'll confidently report the exact reverse of the truth.
+A: You broke something, Ahmed. Flip the effect allele and every estimate flips sign. If the effect allele is T and beta is minus zero point zero five, each T lowers LDL by zero point zero five standard deviations. Relative to the other allele, it's the opposite. I once watched a whole research group celebrate a protective effect for a week. It was a flipped allele.
+B: What happened to them?
+A: I don't talk about it.
+A: Always know which allele is the effect allele.
+# whisper
+A: This one's on the exam. Always know which allele is the effect allele.
+# normal
 # sting
+B: Two down, one to go.
 B: Multiple testing.
 A: A million SNPs at p below zero point zero five would give fifty thousand false positives by chance. So the field uses five times ten to the minus eight, roughly zero point zero five divided by a million. Bonferroni style.
 B: Here's my guess for the big idea of the course. Five times ten to the minus eight.
@@ -82,22 +101,29 @@ B: So the tallest skyscraper is the most important gene.
 A: No.
 B: It's the strongest signal. Surely that makes it the most important.
 A: The strongest evidence. Not the biggest effect.
-# pause
+B: Pause with me for a moment, everyone. Why could a tiny effect get a tiny p-value? Think about what a p-value actually measures.
+# think
 A: Now you can have your answer about the SNP.
 B: Finally.
 A: A p-value measures how sure you are that an effect isn't zero. Not how big it is. With a million people, even a tiny effect can be measured very precisely. So it gets a tiny p-value, and a very tall skyscraper.
 B: So my theory, small p, big deal...
 A: Wrong. But it's the answer half the class will write.
-# slow
 A: Tall means certain. Not big, and not causal.
+B: She's reaching for the tea. That means it's important.
+# whisper
+A: This one's on the exam. Tall means certain. Not big. Not causal.
 # normal
+A: Explain it back to me, Sam. In your own words.
+B: A p-value is about how sure we are, not how much it matters. Like a very confident person saying something completely trivial.
+A: Crude. Correct.
 B: And the QQ plot?
 A: Observed p-values against what you'd expect if nothing were associated. Bending away from the diagonal can mean a problem, like population structure or batch effects. Or a highly polygenic trait, with many small effects everywhere. That's why LDL's QQ plot looks a bit off in the lecture. Not a bug. Biology.
 # sting
 B: Why do hits come in clusters?
 A: Linkage disequilibrium. One causal variant drags its correlated neighbors up with it. One signal, many SNPs, one peak. The lead SNP is the one with the smallest p-value, and it may just be a good proxy. Correlation is measured with r squared. Above zero point eight, a close proxy. Below zero point one, weak.
-B: Population structure, in more detail.
-A: Two populations. One has more of allele G and higher LDL. The other has less G and lower LDL. Pool them, and G looks associated with high LDL, whatever G actually does. The standard fixes are four. A homogeneous ancestry group. Adjusting for principal components. Mixed models for relatedness, like regenie. And checking the QQ plot and genomic inflation.
+B: And our fourth listener question. From Fatima.
+H: Hello. My family is spread over three countries, and my cousins in each country have completely different cholesterol. Could a GWAS mistake my family's geography for genetics?
+A: It could, Fatima. That's population structure. Imagine two populations. One has more of allele G and higher LDL. The other has less G and lower LDL. Pool them, and G looks associated with high LDL, whatever G actually does. The standard fixes are four. A homogeneous ancestry group. Adjusting for principal components. Mixed models for relatedness, like regenie. And checking the QQ plot and genomic inflation.
 A: Your turn. If you're worried about population structure, can you just use a stricter p-value threshold?
 B: Stricter means fewer false positives. So yes.
 A: And?
@@ -121,6 +147,12 @@ A: Five times ten to the minus eight. Tall means certain, not big, not causal.
 B: Three?
 A: Know your effect allele, adjust for population structure, and the lead SNP may just stand next to the cause.
 # normal
+B: And something to think about until next time?
+A: A cholesterol GWAS finds a strong hit in a gene that has nothing to do with cholesterol. Give me two reasons why that could happen. Answer next episode.
+B: I'm going to lose sleep over that.
+A: Good.
+B: Also, I've been thinking about who you really are, Maya. The tea, the notebook, the research group you don't talk about. You used to be a spy.
+A: No.
 B: Next episode, lecture five. GWAS in practice.
 A: Next time, two SNPs that live right next to each other. And have almost nothing in common.
 B: That sounds like my neighbors.

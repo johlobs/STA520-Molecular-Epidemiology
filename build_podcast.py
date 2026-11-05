@@ -40,10 +40,15 @@ VOICES = {
 # Script directives (own line):
 #   "# fast"   quicker turn-taking until "# normal"
 #   "# slow"   slightly slower, for key points, until "# normal"
+#   "# whisper" exam whisper: very slow and quieter, until "# normal"
 #   "# sting"  short two-note chime between segments
 #   "# pause"  extra silence before a key point
-PACES = {"normal": (1.0, 0.35), "fast": (1.15, 0.08), "slow": (0.90, 0.6)}
+#   "# think"  reflection pause for the listener: soft cue tone, then THINK_SECONDS of silence
+PACES = {"normal": (1.0, 0.35), "fast": (1.15, 0.08), "slow": (0.90, 0.6), "whisper": (0.72, 0.9)}
+# Volume per pace (the exam whisper is quieter as well as very slow).
+GAINS = {"whisper": 0.6}
 LONG_PAUSE = 0.9
+THINK_SECONDS = 9.0
 # Inline forced pronunciation in scripts: [text](/phonemes/)
 PHONEME_MARK = re.compile(r"\[([^\]]+)\]\(/([^/]+)/\)")
 
@@ -89,7 +94,7 @@ def parse(path):
         if line[2:] in PACES and line.startswith("# "):
             pace = line[2:]
             continue
-        if line in ("# sting", "# pause"):
+        if line in ("# sting", "# pause", "# think"):
             turns.append((line[2:].upper(), "", pace))
             continue
         if not line or line.startswith("#"):
@@ -99,7 +104,15 @@ def parse(path):
     return turns
 
 
-def sting(sample_rate, seconds=1.4):
+def think_cue(sample_rate):
+    """Soft single bell tone that signals 'think now' (own synthesis)."""
+    t = np.arange(int(sample_rate * 1.2)) / sample_rate
+    tone = np.sin(2 * np.pi * 880 * t) + 0.25 * np.sin(2 * np.pi * 2420 * t)
+    out = tone * np.minimum(1, t / 0.01) * np.exp(-t * 3.5)
+    return (out / np.max(np.abs(out)) * 0.16).astype(np.float32)
+
+
+def sting(sample_rate, seconds=3.2):
     """Warm chord swell (C major, own synthesis, no samples) between segments."""
     t = np.arange(int(sample_rate * seconds)) / sample_rate
     env = np.sin(np.pi * t / seconds) ** 2
@@ -150,11 +163,14 @@ def build(name, kokoro, force=False):
         if speaker == "STING":
             pieces += [np.zeros(int(sample_rate * 0.3), np.float32), sting(sample_rate), np.zeros(int(sample_rate * 0.5), np.float32)]
             continue
+        if speaker == "THINK":
+            pieces += [np.zeros(int(sample_rate * 0.4), np.float32), think_cue(sample_rate), np.zeros(int(sample_rate * THINK_SECONDS), np.float32)]
+            continue
         if speaker == "PAUSE":
             pieces.append(np.zeros(int(sample_rate * LONG_PAUSE), np.float32))
             continue
         audio, sample_rate = speak(kokoro, text, speaker, SPEED * speed)
-        pieces.append(audio.astype(np.float32))
+        pieces.append((audio * GAINS.get(pace, 1.0)).astype(np.float32))
         pieces.append(np.zeros(int(sample_rate * pause), np.float32))
     audio = np.concatenate(pieces)
     pcm = (np.clip(audio, -1, 1) * 32767).astype(np.int16).tobytes()
