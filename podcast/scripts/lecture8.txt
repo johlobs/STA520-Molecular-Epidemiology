@@ -1,159 +1,168 @@
 # title: Lecture 8 — Proteomics
 # Hosts: A = Maya (explains), B = Sam (asks), C-H = listener voices (see VOICES in build_podcast.py).
-# Directives: "# fast" / "# slow" ... "# normal" = pace, "# sting" = chime between segments, "# pause" = extra silence.
+# Directives: "# fast" / "# slow" / "# whisper" ... "# normal" = pace, "# sting" = segment sound, "# pause" = extra silence, "# think" = reflection pause.
+# Series: trap counter reaches 7 (adjust for plate). Series-secret guess: causation ("Closer. Not yet.").
 B: A gene variant makes a protein look like it has almost disappeared from the blood.
 A: Sounds like a great drug target.
 B: Except the protein is still there. Same amount as before.
 A: Then the variant didn't change the protein.
 B: It changed something else.
 # pause
-A: The test.
+B: What?
+A: Not yet.
 # sting
 B: Welcome back to the STA five twenty study podcast. I'm Sam.
-A: And I'm Maya. Episode eight. Proteomics. Measuring proteins, and then connecting them back to genetics.
+A: And I'm Maya. Episode eight. Proteomics. Measuring proteins, and connecting them back to genetics.
+B: Last time. Benjamini Hochberg. Where do you stop?
+A: At the largest rank that passes. Not the first failure.
+B: Trap six. It still hurts. And the homework. One hospital measures all its cases on Monday, the other all its controls on Friday. You could discover Monday.
+A: Exactly. Day, hospital and disease are tangled together. Any difference between the days looks like a disease effect. Hold on to that. It comes back today, and it bites.
+A: Today, three questions. What does a protein measurement actually measure? How do you keep the lab out of your results? And how do proteins plug into Mendelian randomization?
+B: And my theory for the vanishing protein. The variant makes the liver clear it faster. It's still made, it just doesn't stay.
+A: Noted.
+B: Of course.
+# sting
 B: Why proteins? We already have DNA.
-A: DNA is fixed for life. Proteins change with diet, disease, drugs and age. And they're what actually does the work in cells. They carry out functions, they send signals, and most drugs act on them.
-B: So the proteome is just the list of proteins my genes make?
-A: Much more than that. One gene doesn't mean one protein. Insulin is the classic example. It's cut out of a larger precursor, proinsulin. And there are other processes that multiply protein products. Alternative splicing, cleavage, chemical modifications after translation like phosphorylation and glycosylation, where the protein ends up in the cell, and proteins assembling into complexes.
-B: So the proteome is more complex than the genome.
-A: And more dynamic. And here's an important warning. Protein amount is not protein function. A gain or loss of function mutation can leave the concentration perfectly normal while the protein works completely differently. Most proteomics methods measure amount, not function.
-B: Where can you measure proteins?
-A: Plasma or serum is easy to access and gives a whole body signal. Tissue needs a biopsy but is closer to the biology. Cells give cell type specific mechanisms. Urine reflects the kidney. Cerebrospinal fluid is relevant for the brain but hard to get. And saliva is accessible but more local.
-B: Let's focus on plasma. What decides a protein's level in the blood?
-A: The net balance of production, release, distribution, degradation, uptake and clearance. So a change in plasma level can reflect a change in any of those. Not necessarily in how much is made.
-B: And troponin comes back.
-A: It does. Troponin is normally very low in plasma. After a heart attack, damaged heart muscle cells release it, so plasma troponin rises. It's not secreted on purpose. It signals damage.
-B: Where would you measure a protein if you study the brain?
+A: DNA is fixed for life. Proteins change with diet, disease, drugs and age, and they do the actual work. They carry out functions, send signals, and most drugs act on them. And one gene doesn't mean one protein. Insulin is cut out of a larger precursor, proinsulin. Alternative splicing, cleavage, chemical modifications after translation like phosphorylation and glycosylation, where the protein ends up, complexes. The proteome is more complex than the genome, and far more dynamic. And a warning that will matter later. Protein amount is not protein function. A mutation can leave the concentration perfectly normal while the protein works completely differently. Most methods measure amount. In plasma, the level is a net balance of production, release, distribution, degradation, uptake and clearance. A change in plasma level can come from any of those. Troponin is the example. Normally very low. After a heart attack, damaged heart muscle releases it. Not secreted on purpose. It signals damage.
+B: Where do you measure?
 # fast
+B: The brain?
 A: Cerebrospinal fluid.
 B: The kidney?
 A: Urine.
-B: The whole body at once?
+B: The whole body?
 A: Plasma.
-B: One cell type?
-A: Isolated cells.
-B: The site of the disease itself?
+B: The disease itself?
 A: Tissue. Bring a biopsy needle.
 # normal
 # sting
 B: How do you actually measure proteins?
-A: Three technology families. One, antibody based methods, like ELISA and Western blot. An antibody binds its target and gives a signal proportional to the amount. Highly targeted, one or a few proteins, quantitative with calibration standards. The basis of routine clinical chemistry.
-B: Two?
-A: Mass spectrometry. Proteins are cut into peptides with an enzyme called trypsin, which cuts after lysine and arginine. The peptides are separated by liquid chromatography, charged, and their masses measured. It can do discovery, finding proteins and forms nobody looked for, and it can detect isoforms. But it's technically complex.
-B: And three?
-A: High throughput affinity platforms. Olink and SomaScan. They measure thousands of proteins per sample and are designed for large cohorts. UK Biobank, for example, measured about three thousand proteins in about fifty thousand people. The catch is that they give relative abundance, not absolute concentrations.
-B: So if I want to discover an isoform nobody has described before?
-A: Mass spectrometry. Antibody and affinity methods only see what they were designed to look for.
-B: What do the numbers mean on these platforms?
-A: Absolute concentrations are real physical amounts, like milligrams per deciliter. Relative abundance means the relationships between samples are meaningful, but the numbers aren't physical concentrations. Olink reports NPX, normalized protein expression, which is on a log two scale.
-B: So one NPX unit is...
-A: A doubling, just like a log two fold change in lecture seven. Two people who differ by three NPX units differ eight fold in relative abundance. It tells you nothing about milligrams.
+A: Three families. Antibody methods, like ELISA and Western blot. An antibody binds its target, signal proportional to amount. Targeted, a few proteins, quantitative with standards. The basis of clinical chemistry. Mass spectrometry. Proteins are cut into peptides by trypsin, which cuts after lysine and arginine, separated by liquid chromatography, and weighed. It can discover forms nobody looked for, isoforms included. Technically complex. And high throughput affinity platforms, Olink and SomaScan. Thousands of proteins per sample, built for large cohorts. UK Biobank measured about three thousand proteins in about fifty thousand people. The catch is relative abundance, not absolute concentration.
+B: So if I want an isoform nobody has described?
+A: Mass spectrometry. The others only see what they were built to look for.
+B: We have a listener question here. It's from Ingrid, who weighs herself every morning.
+H: Hi. Olink gives me NPX values. My bathroom scale gives me kilos. Why can't Olink just give me kilos?
+A: Because it measures relative abundance, Ingrid. NPX, normalized protein expression, is on a log two scale. Differences between samples are meaningful. The number itself isn't milligrams.
+B: Log two. So one unit is...
+A: You tell me.
+B: A doubling. Like lecture seven. Three units apart is eight times.
+A: Correct. And it tells you nothing about milligrams.
 # sting
 B: Then quality control.
-A: The pipeline goes from a person, to a blood sample, to plasma, to the assay, to a protein table. One row per person, one column per protein. Same shape as the GWAS table, with continuous protein values instead of dosages. And quality control happens at two levels.
-B: Sample level and protein level?
-A: Yes. For samples, was it measured successfully, is it an outlier across many proteins, too much missingness, did the technical controls fail? For proteins, is it reliably detected, too much missingness, is the assay reproducible, and is its variation dominated by batch rather than biology?
-B: The lecture also talks about pre analytical variation.
-A: Everything that happens before the sample reaches the lab. Fasting, time of day, posture and exercise, the type of tube, time before centrifugation, storage temperature, the number of freeze thaw cycles, and hemolysis, red cells bursting into the plasma.
+A: Person, blood sample, plasma, assay, protein table. One row per person, one column per protein. Same shape as the GWAS table, with continuous values instead of dosages. QC at two levels. Samples. Measured successfully, outlier across many proteins, too much missingness, failed technical controls? And proteins. Reliably detected, too much missingness, reproducible, or dominated by batch rather than biology?
+B: And pre analytical variation.
+A: Everything before the sample reaches the lab. Fasting, time of day, posture and exercise, tube type, time before centrifugation, storage temperature, freeze thaw cycles, hemolysis, red cells bursting into the plasma.
 B: That sounds like random noise.
 A: My unpopular opinion for today. Your proteomics study might be measuring how nervous the nurse was.
 B: Explain.
-A: Sick patients may be handled differently from controls. More carefully, more slowly, at another center, with another protocol. If handling correlates with disease status, it's not noise anymore. It's systematic bias that looks exactly like biology.
-B: And batch effects.
-A: A batch is any group of samples processed together that may share an artifact. Same plate, reagent lot, run, day, instrument or operator. You detect them with boxplots by plate, principal component analysis to see if samples cluster by batch, technical controls, and replicate samples across plates.
-B: And how do you deal with them?
-A: Two stages. At the design stage, prevent. Randomize samples across plates, balance cases and controls across plates, add replicates and common reference samples. At the analysis stage, correct. Normalize across batches and include plate or batch as a covariate.
-A: Let me turn it around. Sam, your study put all cases on plates one to three and all controls on plates four to six. What do you do?
-B: Easy. Adjust for plate as a covariate.
-A: Try it. Plate one to three means case. Plate four to six means control. What's left to estimate?
-B: Oh. Plate and disease are the same variable.
-A: Exactly. Any plate effect is indistinguishable from the disease effect. No analysis can untangle it.
-# slow
-A: That's why design beats correction. Randomize and balance at the start, because you can't fix it afterwards.
+A: Sick patients may be handled differently. More carefully, more slowly, at another center. If handling correlates with disease, it isn't noise anymore. It's systematic bias that looks exactly like biology.
+B: That's your past, isn't it. You were the nurse.
+A: I was never nervous.
+B: That's not a no either.
+B: Batch effects.
+A: A batch is any group of samples processed together that may share an artifact. Plate, reagent lot, run, day, instrument, operator. You find them with boxplots by plate, principal components that cluster by batch, technical controls, and replicates across plates. And you deal with them in two stages. Design, prevent. Randomize samples across plates, balance cases and controls. Analysis, correct. Normalize across batches and include plate as a covariate.
+A: Your turn. All cases on plates one to three. All controls on plates four to six. What do you do?
+B: Easy. Adjust for plate as a covariate. Like you just said.
+A: Try it. Plates one to three mean case. Four to six mean control. What's left to estimate?
+B: Oh no. Plate and disease are the same variable. It's Monday and Friday.
+A: It's Monday and Friday. No analysis can untangle it.
+B: Trap number seven.
+A: Seven.
+A: Design beats correction. Randomize and balance at the start, because you can't fix it afterwards.
+# whisper
+A: This one's on the exam. Design beats correction.
 # normal
 # sting
-B: Part two. The proteome wide association study.
-A: Same structure as a GWAS, but with a protein as the predictor instead of a SNP. Regress the phenotype on the protein level, adjusted for age, sex and so on. If the protein is standardized, beta is the effect of one standard deviation higher protein.
-B: Can the protein be the outcome instead?
-A: Yes. Two directions. Protein as predictor asks whether this protein predicts the phenotype. Protein as outcome asks whether an exposure predicts the protein level.
-B: And multiple testing?
-A: Three thousand proteins at p below zero point zero five gives about a hundred fifty false positives. So in discovery you control the false discovery rate, usually with Benjamini Hochberg. Unlike GWAS, there's no single conventional threshold.
-B: And a protein associated with disease is causal?
-A: Not necessarily. Three explanations. The protein causes the disease. The disease changes the protein. Or a confounder affects both. And a protein can be an excellent predictor without being a cause.
-B: Troponin again.
-A: Troponin predicts heart attack damage very well. Lowering it wouldn't treat anything. Prediction and causation are different properties, and only some proteins have both.
-B: Now pQTLs. How do we connect genetics and proteins?
-A: For a given SNP, do the genotype groups differ in protein abundance? It's the lecture four model with protein level as the outcome. A SNP associated with a protein's abundance is a protein quantitative trait locus, a pQTL.
-B: Any catch?
-A: A SNP can change function without changing abundance. Since the assays measure amount, such a variant is invisible to a pQTL analysis.
-B: We have a listener question on exactly this. It's from Omar.
-F: Hi both. I keep mixing up cis and trans pQTLs. My study group has started calling every SNP "it's complicated". Is it just about distance, or is there more to it?
-B: Honestly, that's a pretty good relationship status for most SNPs.
-A: It is. But Omar, it's more than distance. A cis pQTL lies close to the gene encoding the protein. It plausibly acts through transcription, splicing, stability or secretion of that gene's own product. The interpretation is fairly direct. A trans pQTL is far away, commonly more than five hundred kilobases, or on another chromosome. It acts indirectly, through transcription factors, receptors or signaling pathways.
-B: So a SNP on chromosome three linked to a protein encoded on chromosome eleven is...
-A: Trans. Different chromosome.
+B: One down, two to go. The proteome wide association study.
+A: A GWAS with a protein instead of a SNP. Regress the phenotype on the protein, adjusted for age, sex and so on. Standardized protein, beta per standard deviation. Or turn it around, with the protein as the outcome. Three thousand proteins at p below zero point zero five is about a hundred fifty false positives, so you control the false discovery rate, usually Benjamini Hochberg. Unlike GWAS, no single conventional threshold.
+B: Second listener question. From Bertil, who is eighty one and has had his troponin measured more times than he can count.
+E: Hello. My troponin predicts everything about my heart, the doctor says. So shouldn't somebody make a pill that lowers it?
+B: Pause with me for a moment, everyone. Troponin predicts heart damage very well. Would lowering it help Bertil? Think about why it's in the blood at all.
+# think
+A: No, Bertil. Troponin is in the blood because the heart muscle was damaged. Lowering it would be like turning off a smoke alarm to put out a fire. A protein linked to disease can cause it, be caused by it, or share a confounder with it. And a protein can predict brilliantly without causing anything.
+A: Prediction is not causation.
+# whisper
+A: This one's on the exam. A protein can predict without causing.
+# normal
+B: Is that the big idea? Causation?
+A: Closer.
+B: Closer!
+A: Not yet. Next episode.
+B: She said next episode. Everyone heard that.
 # sting
+B: Two down, one to go. pQTLs.
+A: For a SNP, do the genotype groups differ in protein abundance? The lecture four model with protein as the outcome. A SNP associated with abundance is a protein quantitative trait locus, a pQTL. But remember the warning. A SNP that changes function without changing amount is invisible here.
+B: Third listener question. From Omar.
+F: Hi both. I keep mixing up cis and trans pQTLs. My study group now calls every SNP "it's complicated". Is it just distance?
+B: That's a pretty good relationship status for most SNPs.
+A: More than distance, Omar. A cis pQTL lies close to the protein's own gene, and plausibly acts through its transcription, splicing, stability or secretion. A direct story. A trans pQTL is far away, commonly more than five hundred kilobases, or on another chromosome, and acts indirectly through transcription factors, receptors or signaling.
+B: A SNP on chromosome three, a protein from chromosome eleven?
+A: Trans.
 B: Then protein Mendelian randomization.
-A: Genetic variant, to protein abundance, to disease risk. The Wald ratio from lecture six with the protein as exposure. The SNP's effect on the outcome divided by its effect on the protein.
-B: An example?
-A: A cis pQTL raises protein X by half a standard deviation per allele and raises disease log odds by zero point one. Zero point one divided by zero point five is zero point two per standard deviation. An odds ratio of about one point two two.
-B: Why prefer cis pQTLs as instruments?
-A: They're close to the encoding gene, so the biological link is direct, and there are fewer alternative pathways, so less risk of horizontal pleiotropy.
+A: Variant, to protein, to disease. The Wald ratio from lecture six, with the protein as exposure. A cis pQTL raises protein X by half a standard deviation and disease log odds by zero point one. Outcome over exposure.
+B: I know this one. Zero point one over zero point five. Zero point two. Not upside down.
+A: Not upside down. An odds ratio of about one point two two per standard deviation. And cis pQTLs are preferred as instruments. A direct link, fewer alternative pathways, less pleiotropy.
 B: So a cis pQTL is a safe instrument.
 # slow
-A: Safer, not safe. Being cis doesn't exempt it from the three assumptions. It reduces the risk. It doesn't remove it.
+A: Safer. Not safe. Cis lowers the risk. The three assumptions still apply.
 # normal
-B: What challenges are special to protein MR?
+B: Challenges special to protein MR. Fast.
 # fast
-A: Five of them. Ready?
-B: Go.
-A: Horizontal pleiotropy.
-B: Worst for?
-A: Trans pQTLs.
+B: One?
+A: Horizontal pleiotropy. Worst for trans.
 B: Two?
 A: Assay binding artifacts.
 B: Three?
 A: Amount is not function.
 B: Four?
 A: LD can fake causality.
-B: And five?
-A: One pQTL, many proteins at once.
-B: Done.
+B: Five?
+A: One pQTL, many proteins.
 # normal
-B: And we have a second listener question, about number two. This one's from Henrik. A different Henrik, he wants us to know.
-D: Hello. Different Henrik. How can a SNP change the measured level of a protein without changing the real amount? That sounds like my bathroom scale after the holidays.
-A: Good question, Henrik. And unlike your bathroom scale, this one has a good excuse. It sounds impossible, but it's fairly unique to protein instruments. A coding variant can change the protein's shape, so the antibody or aptamer binds worse. The platform then reports a lower level, although the real amount hasn't changed. The SNP looks like a strong pQTL, but it's really fooling the assay.
+B: Wait. Number two. Binding artifacts. Is that my vanishing protein?
+A: She's reaching for the tea.
+B: That's my line.
+A: Then say it.
+B: She's reaching for the tea.
+A: A coding variant changes the protein's shape. The antibody, or the aptamer, binds worse. The platform reports a lower level. The real amount hasn't changed. The SNP looks like a strong pQTL, and it's fooling the assay.
+# pause
+B: The variant changed the test.
+A: The variant changed the test.
+B: So my theory, faster clearance...
+A: Wrong. But it's the answer half the class will write. Clearance would really lower the protein. This one only lowers the measurement.
 B: And LD faking causality?
-A: One SNP affects the protein. A different SNP, in LD with the first, affects the disease through a different mechanism. The protein and the disease look linked, but only through LD.
-B: How do you check for that?
-A: Colocalization. Compare the pattern of association across the region for the protein's pQTL and for the disease GWAS. If one shared causal variant drives both, the patterns should match. If they don't line up, the two signals are probably different variants that happen to sit near each other.
+A: One SNP affects the protein. A neighbor in LD affects the disease another way. They look linked, but only through LD. You check with colocalization. Compare the association pattern across the region for the pQTL and for the disease GWAS. One shared variant gives matching patterns. Two different variants don't line up.
+# sting
+B: Fourth listener question. From Lucas. And it's about you again, Maya.
+G: Hi. Has Maya ever been wrong about anything?
+A: Once.
+B: When?
+A: A Tuesday. It was raining.
+B: That's all he gets?
+A: That's all anyone gets. Next.
+B: The reading compared eight platforms on the same samples.
+A: Kirsher and colleagues, twenty twenty five. Seventy eight healthy people, eight platforms, five affinity based and three mass spectrometry. Thirteen thousand proteins in total, only thirty six measured by all eight. Precision varied, SomaScan around five to six percent coefficient of variation, some workflows twenty five to thirty. And agreement for the same protein was often low, and bimodal. One group agreed, another didn't.
+B: Then use the platform with the most proteins and the best precision.
+A: That's choosing a camera by megapixels. Affinity platforms see whatever their binder recognizes. Two platforms can bind different parts or forms of the same protein. Filtering to values above the detection limit improved precision, but only by dropping the low abundance proteins. Precision bought with coverage.
+B: So a protein value is...
+A: That platform's measurement. Not a universal truth. Choose by study goal.
 B: And from association to mechanism?
-A: Once a protein is genetically implicated, you ask follow up questions. Which tissue makes it? Which receptor or pathway? Does changing its level change cell function? Does it replicate in a model? Is it druggable? And then experiments. CRISPR knock outs or knock ins, overexpression or inhibition, cultured cells, organoids, animal models, binding and enzyme assays.
-B: The lecture closes the PCSK9 story.
-A: End to end. Genetic variation in PCSK9 changes PCSK9 protein abundance. PCSK9 promotes degradation of LDL receptors, so fewer receptors on liver cells. LDL is cleared more slowly, LDL cholesterol rises, and atherosclerotic risk goes up. And the drugs are the mirror image. Antibodies block the protein, the small interfering RNA drug silences the messenger RNA, receptors stay, and LDL falls.
-B: And the closing message?
-A: A protein can be statistically associated, genetically supported, and still need experimental validation before you understand the mechanism. Which takes us right back to lecture one.
+A: Which tissue makes it, which pathway, does changing it change cell function, is it druggable. Then experiments. CRISPR knock outs and knock ins, cultured cells, organoids, animal models. PCSK9 is the full story. Variants change PCSK9 abundance. PCSK9 degrades LDL receptors, LDL is cleared slower, risk goes up. And the drugs are the mirror image. Statistically associated, genetically supported, and still needing experiments. Which takes us back to lecture one.
 # pause
 A: Molecular epidemiology is not biology.
 # sting
-B: The reading for this lecture compared eight platforms on the same samples.
-A: Kirsher and colleagues, twenty twenty five. Plasma from seventy eight healthy people measured on eight platforms, five affinity based and three mass spectrometry workflows.
-B: What did they find?
-A: Thirteen thousand proteins in total, but only thirty six measured by all eight. Technical precision differed a lot. SomaScan had a coefficient of variation around five to six percent, while some workflows were around twenty five to thirty. And the agreement between platforms for the same protein was often low, and bimodal. One group of proteins agreed, another didn't.
-B: Then the answer is simple. Use the platform that measures the most proteins with the best precision.
-A: I don't agree. That's like choosing a camera only by megapixels.
-B: But more coverage and less noise is better.
-A: Better at what, though? Affinity platforms measure whatever their binder recognizes. The same protein on two platforms can correlate poorly, because they bind different parts or different forms of it. Mass spectrometry can see protein forms the others miss, and targeted mass spectrometry gives absolute amounts.
-B: So it depends on the question.
-A: Exactly. Treat a protein value as that platform's measurement, not a universal truth.
-B: Anything else from the paper?
-A: Filtering one platform to values above its detection limit improved its precision, but only by throwing away the noisy low abundance proteins. Precision bought with coverage. And no platform is best at everything. Choose by study goal.
-# sting
-B: Let's wrap up. Three things to take away?
-A: One. Proteins are dynamic and complex, and most methods measure amount, not function. Antibody methods, mass spectrometry and high throughput affinity platforms each have their place. NPX is log two, so one unit is a doubling.
+B: Three things.
+# fast
+A: One. Most methods measure amount, not function. NPX is log two, one unit a doubling.
 B: Two?
-A: Quality control, pre analytical variation and batch effects. Prevent by design, randomize and balance across plates. Correct in analysis. And a predictive protein is not necessarily causal.
-B: And three?
-A: pQTLs and protein MR. Cis is preferred over trans. Watch out for assay binding artifacts, amount versus function, LD and pleiotropy, and use colocalization. And even with genetic support, mechanism needs experiments.
-B: Next episode, lecture nine. Two sample MR and polygenic risk scores. Thanks for listening.
-A: See you there.
+A: Design beats correction. A protein can predict without causing.
+B: Three?
+A: Cis pQTLs are safer, not safe. Watch binding artifacts, and colocalize.
+# normal
+B: Something to think about until next time?
+A: A polygenic score is built from a European GWAS. Then it's used in a West African cohort. Will it work as well? Why or why not?
+B: I'm writing that down. On the fridge.
+B: Next episode, lecture nine. The last one. Two sample MR and polygenic risk scores.
+A: Next time, I tell you the idea.
+B: Finally. Wait. Really?
+A: Thanks for listening.

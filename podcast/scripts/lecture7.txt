@@ -1,67 +1,79 @@
 # title: Lecture 7 — High-dimensional molecular data
 # Hosts: A = Maya (explains), B = Sam (asks), C-H = listener voices (see VOICES in build_podcast.py).
-# Directives: "# fast" / "# slow" ... "# normal" = pace, "# sting" = chime between segments, "# pause" = extra silence.
-# This lecture has the instructor's EXAM tags.
+# Directives: "# fast" / "# slow" / "# whisper" ... "# normal" = pace, "# sting" = segment sound, "# pause" = extra silence, "# think" = reflection pause.
+# This lecture has the instructor's EXAM tags. Series: trap counter reaches 6 (BH stop at first failure). Series-secret guess: multiple testing.
 B: Nine hundred fifty five microRNAs. Not a single one truly differs between the groups.
 A: And the analysis finds forty eight significant hits.
 B: Forty eight discoveries.
 # pause
-A: Forty eight discoveries out of nothing.
+A: Out of nothing.
+B: So you make the threshold stricter until they're gone.
+A: That's one way to find nothing at all.
+B: Then what's the other way?
+A: Not yet.
 # sting
 B: Welcome back to the STA five twenty study podcast. I'm Sam.
-A: And I'm Maya. Episode seven. High dimensional molecular data. And listen carefully to this one. It's the only lecture where the instructor marked slides with the word exam.
+A: And I'm Maya. Episode seven. High dimensional molecular data. This is the only lecture where the instructor marked slides with the word exam.
 B: So this is the episode to replay.
 A: Twice. Maybe three times.
+B: I'm already nervous. Okay. Last time. Wald ratio. Which goes on top?
+A: Outcome over exposure.
+B: Trap number five. I know. And your homework. Twenty thousand proteins, p below zero point zero five, nothing real. I said zero.
+A: Twenty thousand times zero point zero five. A thousand discoveries. All of them noise.
+B: A thousand.
+A: Same arithmetic as our cold open. Nine hundred fifty five times zero point zero five is about forty eight.
+A: Today, three questions. Why is omics data so noisy? Why does the ordinary t-test fail? And how do you test a thousand things without fooling yourself?
+B: And my theory for the forty eight is simple. Bonferroni. It fixes everything.
+A: Noted.
+B: I knew it.
+# sting
 B: What changes compared with earlier lectures?
-A: Up to now, each analysis tested one thing. One SNP, one exposure. Omics flips that around. You measure hundreds or thousands of molecules in a few dozen samples and ask which of them differ between groups. Here it's nine hundred fifty five microRNAs.
-B: And that creates problems.
-A: A chain of three. High dimensionality, leading to noisy measurements, leading to multiple testing. That chain is both the opening framework and the take home message.
-B: The lecture is built around a real study.
-A: MicroRNA profiling of small intestinal neuroendocrine tumours. They're often diagnosed only after they've spread, and survival is hard to predict. Biologically they're odd. Very few mutations and no classic driver mutations. They seem to be driven by large chromosomal changes and epigenetics instead.
-B: Why microRNA?
-A: Recap from lecture three. MicroRNAs are short regulators that bind many messenger RNAs imperfectly. One microRNA can regulate hundreds of genes. And altered microRNA expression shows up in virtually every tumour type.
-B: What was the design?
-A: Forty two tumours from thirty seven patients, plus six samples of normal intestinal tissue. Forty eight samples in total. The RNA was labelled with a fluorescent dye and hybridized to an array with nine hundred fifty five probes, each spotted four to eight times. A scanner reads the fluorescence, which is a relative measure of how much of each microRNA is there.
+A: Up to now, each analysis tested one thing. One SNP, one exposure. Omics flips that around. You measure hundreds or thousands of molecules in a few dozen samples. The lecture says it as a chain. High dimensionality leads to noisy measurements leads to multiple testing. That chain is both the opening framework and the take home message. The study behind the lecture is microRNA profiling of small intestinal neuroendocrine tumours. Often diagnosed only after they've spread. Very few mutations, no classic driver mutations, driven instead by chromosomal changes and epigenetics. MicroRNAs, from lecture three, are short regulators. One microRNA can regulate hundreds of genes. The design was forty two tumours from thirty seven patients, plus six normal tissue samples. Forty eight arrays, nine hundred fifty five probes, each spotted four to eight times. A scanner reads fluorescence, a relative measure of how much of each microRNA is there.
 B: First exam topic. Observed variation.
-A: Observed signal equals biological signal plus technical noise. The technical part comes from RNA extraction, labelling, hybridization, the scanner, and batch effects.
-B: So you have to clean the data before you compare anything.
+A: Observed signal equals biological signal plus technical noise. Extraction, labelling, hybridization, the scanner, batch effects.
 A: My unpopular opinion for today. Raw omics data is mostly a recording of what happened in the lab, with a little biology hidden inside.
-B: That's a bit cynical.
-A: Slightly exaggerated, but it's why preprocessing is exam material. Before trusting any biological comparison, remove as much technical noise as possible.
+B: That's cynical.
+A: Slightly. I once saw a freezer full of samples labelled in pencil. Half the labels had rubbed off.
+B: What happened?
+A: I don't talk about it. That's why preprocessing is exam material.
+B: You were a lab technician. That's my new theory.
+A: No.
 # sting
-B: What are the preprocessing steps?
-A: Four, in order. Quality control. Background correction within each array. Normalization between arrays. And averaging the replicate spots for each microRNA.
-B: Background correction first.
-A: The method is called normexp. It models the observed intensity as a true signal plus background noise. The noise is assumed normal and the signal exponential. Then it estimates the expected true signal given what you observed. The advantage over just subtracting the background is that you always get positive values, and low intensity measurements become more reliable.
-B: And quantile normalization?
-A: Three steps. Within each sample, rank all the values from lowest to highest. For each rank position, compute the mean across all samples. Then replace each value with the mean for its rank.
-B: What does that achieve?
-A: Every array ends up with exactly the same set of values, the same distribution. But each array keeps its own order. The highest microRNA in a sample stays the highest.
+B: The preprocessing steps. Quick.
+# fast
+B: First?
+A: Quality control.
+B: Second?
+A: Background correction, within each array.
+B: Third?
+A: Normalization, between arrays.
+B: Fourth?
+A: Average the replicate spots.
+# normal
+B: Background correction.
+A: The method is normexp. Observed intensity is a true signal plus background. The background is normal, the signal exponential. You estimate the expected true signal given what you saw. Unlike just subtracting, you always get positive values, and low intensities become more reliable.
+B: And quantile normalization.
+A: Three steps. Within each sample, rank the values. For each rank, take the mean across all samples. Replace each value with the mean for its rank.
+B: We have a listener question here. It's from Hassan, who teaches high school.
+G: Hi. Isn't quantile normalization just grading on a curve? Because my students hate that.
+A: It's very close, Hassan. Every array ends up with exactly the same set of values. The same distribution. But each array keeps its own order. The best microRNA in a sample stays the best.
 B: So after normalization, a microRNA has the same value on every array?
-A: No, that's the trap. Every array has the same set of values, but a given microRNA can sit at different ranks in different arrays, so it gets different values. And the assumption behind the method is that the overall distribution should be similar across arrays. So any big difference in shape is treated as technical, not biological.
+A: No. Every array has the same set of values. But a given microRNA can sit at different ranks on different arrays, so it gets different values. And the assumption is that the distributions should be similar, so any big difference in shape is treated as technical, not biology.
+B: Supervised versus unsupervised. Ten seconds.
+A: Supervised asks which features differ between groups defined in advance. Unsupervised asks whether samples form groups by themselves. Here, hierarchical clustering.
 # sting
-B: Next, supervised versus unsupervised.
-A: Supervised asks which microRNAs differ between groups you defined in advance, like tumour versus normal. That's differential expression testing. Unsupervised asks whether samples form groups by themselves, without labels. Here, hierarchical clustering.
-# sting
-B: Now the big one. Why does the ordinary t-test fail?
-A: The t-statistic divides the mean difference by a standard error, and the variance in it is estimated separately for every microRNA. With three versus three samples, that's only four degrees of freedom. Very typical for omics.
-B: And with four degrees of freedom?
-A: Three problems compound. The variance estimate is very noisy. Some features get a tiny variance purely by chance, and since it sits in the denominator, t explodes even when the difference is small. That's a false positive. And other features get a randomly large variance, so real effects are missed. Lost power.
-B: So if a microRNA has a huge t-value but a small mean difference?
-A: Suspect a tiny variance by luck, not a big biological effect.
-B: And the solution?
-A: The moderated t-statistic, from the R package limma. Instead of trusting each feature's own noisy variance, limma uses empirical Bayes to share information across all features. Each variance is shrunk towards a common variance estimated from the whole dataset.
-B: In words, how does the shrinkage work?
-A: The moderated variance is a weighted average of the common variance and the feature's own variance. The common one is weighted by prior degrees of freedom, the own one by the feature's residual degrees of freedom.
-B: And how does it behave with more samples?
-A: That's also marked exam. With few replicates, the common prior dominates, and each variance is pulled strongly towards it. That prevents false positives from randomly tiny variances. With many replicates, the feature's own data dominate, and the moderated variance converges to the ordinary sample variance.
-B: We have a listener question here. It's from Viktor, who has a lab meeting tomorrow.
-C: Hi. My supervisor asked why I used limma instead of a normal t-test, and I said "because the tutorial did". That didn't go well. What should I have said?
-B: Viktor, we've all said that at least once.
-A: Here's the model answer, Viktor. It comes in three parts, and it's marked exam.
-A: One, the challenge. Omics measures tens of thousands of features on few replicates. Two, the failure of standard t-tests. Variances estimated from few replicates are unstable. Randomly low ones inflate t and give false positives. Randomly high ones mask real effects. And since this sits under every p-value, it also undermines the multiple testing correction. Three, the solution. Sharing information across the dataset, variance shrinkage or empirical Bayes moderation, stabilizes the variances. That reduces false positives, recovers power, and makes results after correction more reliable.
-B: Next, log two fold change.
-A: The log two transformation makes expression values more symmetric and reduces the influence of very large values. The log two fold change gives the size and direction of a difference. I'll say a value, you say what it means.
+B: Why does the ordinary t-test fail?
+A: The t-statistic divides the mean difference by a standard error, and the variance in it is estimated separately for every microRNA. With three versus three samples, that's four degrees of freedom. Typical for omics. And three things go wrong at once. The variance estimate is very noisy. Some features get a tiny variance purely by chance. It sits in the denominator, so t explodes even when the difference is small. A false positive. Other features get a randomly large variance, so real effects are missed. Lost power. The solution is the moderated t-statistic, from the R package limma. Instead of trusting each feature's own noisy variance, limma uses empirical Bayes to share information across all features. Each variance is shrunk towards a common variance estimated from the whole dataset. In words, the moderated variance is a weighted average of the common variance, weighted by prior degrees of freedom, and the feature's own variance, weighted by its residual degrees of freedom.
+B: Predict first?
+A: Predict first. What happens to the shrinkage with many replicates?
+B: It gets stronger? More data, more sharing.
+A: The other way. With few replicates, the common prior dominates, and each variance is pulled hard towards it. With many replicates, the feature's own data dominate, and the moderated variance converges to the ordinary sample variance. That's marked exam.
+B: Second listener question. From Oskar, who has a lab meeting tomorrow.
+C: Hi. My supervisor asked why I used limma instead of a t-test, and I said "because the tutorial did". That didn't go well. What should I have said?
+B: Oskar, we've all said that at least once.
+A: Three parts, Oskar. Marked exam. One, the challenge. Tens of thousands of features, few replicates. Two, the failure. Variances from few replicates are unstable. Randomly low ones give false positives, randomly high ones hide real effects, and since this sits under every p-value, it undermines the multiple testing correction too. Three, the solution. Sharing information across the dataset, variance shrinkage, stabilizes the variances. Fewer false positives, more power, more reliable results after correction.
+B: Write that on a card, Oskar.
+B: Log two fold change. You say a value, I say what it means.
 # fast
 A: Plus one?
 B: Twice as high.
@@ -74,79 +86,95 @@ B: Eight times higher.
 A: Minus two?
 B: Four times lower.
 # normal
-B: Why is minus two four times lower?
-A: Two to the minus two, a quarter. Four times lower. And this comes back in lecture eight, where one unit of the protein scale is also a doubling.
+A: One unit is a doubling. That comes back in lecture eight.
 # sting
-B: The study's first result was tumour versus normal.
-A: The two most upregulated microRNAs in tumours were micro RNA seven and micro RNA three seventy five. And there's a little puzzle on the slide, marked "why?". Five patients had both a primary tumour and a liver metastasis. In the tumour versus normal comparison, only the primary tumour was used.
-B: Why?
-A: Two samples from the same patient aren't independent. Including both would give that patient double weight and bias the variance estimates and the tests.
-# sting
-B: Now multiple testing, with the study's numbers.
-A: Nine hundred fifty five tests. If nothing truly differed, you'd still expect nine hundred fifty five times zero point zero five, about forty eight, significant hits at p below zero point zero five.
-B: Forty eight discoveries out of nothing.
-A: Each test has a five percent false positive risk from noise alone. Run hundreds, and false hits become nearly guaranteed. The chance of at least one false positive is essentially one. So the slide says it directly. Because this is multiple testing, the significance cutoff itself must change.
-B: Then the two error rates. Family wise error rate and false discovery rate.
-A: Expect to define, distinguish and calculate both. The family wise error rate is the probability of at least one false positive among all tests. Even one false lead counts as failure of the whole experiment. Very strict. Classic method, Bonferroni.
+B: Two down, one to go. The first result was tumour versus normal.
+A: The two most upregulated were micro RNA seven and micro RNA three seventy five. And a puzzle on the slide, marked "why?". Five patients had both a primary tumour and a liver metastasis. Only the primary was used in that comparison.
+B: Because two samples from one person aren't independent.
+A: Correct. Both would give that patient double weight and bias the variance estimates.
+B: Then multiple testing.
+A: Each test has a five percent false positive risk from noise alone. Run nine hundred fifty five, and false hits are nearly guaranteed. So the significance cutoff itself has to change. And there are two ways to define what you're controlling. Expect to define, distinguish and calculate both.
+B: Family wise error rate.
+A: The probability of at least one false positive among all tests. Even one false lead counts as failure. The classic method is Bonferroni. Reject if p is at most alpha divided by the number of tests. Valid for any number of tests, any dependence. Always safe. But here, zero point zero five over nine hundred fifty five is about zero point zero zero zero zero five. Most true effects never get there.
+B: So Bonferroni does fix the forty eight.
+A: It removes the forty eight. And almost everything real along with them. Safe and empty handed.
 B: And the false discovery rate?
-A: The expected proportion of false positives among the hits you call. It accepts a known fraction of wrong hits and controls that fraction. Classic method, Benjamini Hochberg.
-B: So if a screen calls two hundred hits with FDR at five percent?
-A: About ten of them are expected to be false. Not "at most five percent chance of any false hit". That would be family wise control.
-B: And a listener question that fits right here. From Elin.
-H: Hello. I've written FDR and FWER on so many flashcards that they now look like the same word. Is there a simple way to keep them apart?
-A: Elin, think of it as one versus a fraction. Family wise error rate worries about even one false positive. False discovery rate accepts a fraction of false positives and controls how big that fraction is.
+A: The expected proportion of false positives among the hits you call. You accept a known fraction of wrong hits, and you control that fraction.
+# pause
+B: Wait. You're wrong on purpose.
+A: That's the other way. You decide in advance how wrong you're willing to be. Five percent of your hits, not five percent chance of any hit.
+B: So my theory, Bonferroni fixes everything...
+A: Wrong. But it's the answer half the class will write.
+B: If a screen calls two hundred hits with FDR at five percent?
+A: About ten of them are expected to be false.
+A: Family wise error rate is about even one false positive. False discovery rate is about the fraction of false positives among your hits.
+# whisper
+A: This one's on the exam. Family wise. Even one. False discovery. A fraction.
+# normal
+B: Third listener question. From Elin.
+H: Hello. I've written FDR and FWER on so many flashcards that they now look like the same word. Should I be worried?
+A: No, Elin. Use what I just said. One versus a fraction. And maybe fewer flashcards.
 # sting
-B: Bonferroni first.
-A: Reject if the p-value is at most alpha divided by the number of tests. Or equivalently, multiply each p-value by the number of tests, cap it at one, and compare with alpha.
-B: Its properties?
-A: Valid for any number of tests, any test type, regardless of dependence between tests. Always safe. It controls the strictest bar. And for this study, zero point zero five divided by nine hundred fifty five is about zero point zero zero zero zero five. Many true effects won't survive that. Power collapses.
-# sting
-B: Now Benjamini Hochberg. The exam calculation.
-A: Three steps, reproduce them exactly. One. Sort the p-values from smallest to largest. Two. Find the largest rank k where the p-value is at most k over m times Q. Here m is the number of tests and Q is the accepted false discovery rate, often zero point zero five. Three. Call every test with a p-value up to that one significant.
-B: How is that different from Bonferroni?
-A: Bonferroni has one fixed threshold. The Benjamini Hochberg threshold rises with rank. So larger p-values can still be significant if they clear the higher bar for their rank. That's why it finds more true positives.
-B: Walk me through the instructor's example.
-A: Eight tests, Q zero point zero five. The thresholds go up in steps of zero point zero zero six two five. Ranks one to four pass. The fourth p-value is zero point zero two four, against a threshold of zero point zero two five. Ranks five to eight fail. So k is four, and tests one to four are significant.
-B: And Bonferroni on the same data?
-A: Zero point zero five divided by eight is zero point zero zero six two five. Only test one passes.
-B: You said largest k. Why does that matter?
-A: This is the trap that catches people every year. You don't stop at the first p-value that fails. You look for the largest rank that passes. If rank five failed but rank six passed, then all ranks one to six are significant, including rank five.
-A: Your turn. Five sorted p-values. Zero point zero zero four, zero point zero two six, zero point zero three, zero point zero four five and zero point three. Thresholds zero point zero one, zero point zero two, zero point zero three, zero point zero four, zero point zero five. How many are significant?
+B: Benjamini Hochberg. The calculation.
+A: Three steps. Reproduce them exactly. One. Sort the p-values from smallest to largest. Two. Find the largest rank k where the p-value is at most k over m times Q. m is the number of tests, Q the accepted false discovery rate, often zero point zero five. Three. Call every test up to rank k significant. Bonferroni has one fixed threshold. This one rises with rank, so larger p-values can still pass if they clear the higher bar for their rank. That's why it finds more true positives. The instructor's example. Eight tests, Q zero point zero five. Ranks one to four pass. Rank four is zero point zero two four, against zero point zero two five. Bonferroni on the same data, zero point zero five over eight, lets through only rank one.
+A: Your turn. Five sorted p-values. Zero point zero zero four. Zero point zero two six. Zero point zero three. Zero point zero four five. Zero point three. Thresholds zero point zero one, zero point zero two, zero point zero three, zero point zero four, zero point zero five. How many are significant?
 B: Rank one passes. Rank two, zero point zero two six against zero point zero two. Fails. So one.
 A: Keep going.
 B: But it failed.
 A: Look at rank three.
-B: Zero point zero three against zero point zero three. Passes, exactly on the line.
-A: So the largest passing rank is?
-B: Three. So three are significant, including the one that failed. I stopped too early.
-# slow
-A: Everyone does. Never stop at the first failure. Find the largest rank that passes.
+B: Zero point zero three against zero point zero three. Passes. Exactly on the line. Oh no. So three. Including the one that failed.
+A: Including the one that failed.
+B: Trap number six. I stopped too early.
+A: Everyone does.
+A: Never stop at the first failure. Find the largest rank that passes.
+# whisper
+A: This one's on the exam. Never stop at the first failure. Find the largest rank that passes.
 # normal
-B: And adjusted p-values?
-A: Same decision, different format. For each sorted p-value, compute p times m over its rank. Then go from the bottom of the list upwards, and take the running minimum. Each adjusted value is the smaller of its own value and the adjusted value below it. That makes the adjusted p-values never decrease down the list. In R, it's p dot adjust with method B H.
-B: Honestly, I'd still rather use Bonferroni. It's always safe. Nobody can accuse you of false positives.
-A: Safe, and almost useless in omics.
-B: Useless is harsh.
-A: Zero point zero five divided by nine hundred fifty five. Most real effects never get there. You'd be safe and empty handed.
-B: Fine. Then why exactly does the false discovery rate fit omics better?
-A: Four reasons, a likely essay question. One, too many tests for Bonferroni. Its threshold heads towards zero. Two, omics screens are exploratory. The goal is a shortlist of candidates, and a controlled fraction of false leads is an acceptable price. Three, findings are validated afterwards with another method or cohort. And four, features are correlated, so the effective number of independent tests is smaller than m. Bonferroni ignores that and stays needlessly strict.
-B: And the study did validate its findings?
-A: Yes. Micro RNA three seventy five was confirmed with other lab methods in a separate cohort. In the paper, all p-values were adjusted with Benjamini Hochberg. Tumour versus normal gave one hundred fifty five significant microRNAs.
+B: Adjusted p-values?
+A: Same decision, different format. For each sorted p-value, p times m over its rank. Then go from the bottom upwards and take the running minimum, so the adjusted values never decrease down the list. In R, p dot adjust with method B H.
+B: And why exactly does FDR suit omics better?
+A: Four reasons. A likely essay question.
+# fast
+B: One?
+A: Too many tests. Bonferroni's threshold heads to zero.
+B: Two?
+A: Screens are exploratory. A shortlist with some false leads is fine.
+B: Three?
+A: Hits are validated afterwards.
+B: Four?
+A: Features are correlated, so fewer effective tests than m.
+# normal
+B: Did the study validate?
+A: Micro RNA three seventy five was confirmed with other lab methods in a separate cohort. All p-values were adjusted with Benjamini Hochberg. Tumour versus normal gave one hundred fifty five significant microRNAs.
+B: Is this it, then? The big idea of the course? Multiple testing?
+A: It's everywhere in omics.
+B: So?
+A: So is coffee. Still not the idea.
 # sting
 B: Then clustering.
-A: Unsupervised hierarchical clustering of the microRNA profiles. Samples separated into normal, primary and metastatic groups, and the metastases split further into two clusters, M one and M two. M one had higher grade, more proliferation, and gain of chromosome fourteen. And M one patients had shorter survival.
-B: And they compared microRNA expression between M one and M two.
-A: If you build groups from the data and then test the same data between those groups, you're grading your own exam.
-B: Circular reasoning.
-A: Exactly, and it's marked exam. The clusters were created from microRNA expression. Then microRNA expression was tested again between those same clusters. Any clustering produces groups that differ in the variables used to build it, almost by construction. So the significance is inflated.
-B: What's the general rule?
-A: Don't use one dataset to both discover a grouping and test differences across it, without independent validation or a correction for the selection.
-B: And the survival analysis?
+A: Hierarchical clustering separated normal, primary and metastatic samples. The metastases split again, into M one and M two. M one had higher grade, more proliferation, gain of chromosome fourteen, and shorter survival.
+B: Last listener question. From Jonas, who says he sorted his socks this morning.
+F: Hi. I sorted my socks into two piles by colour. Then I tested whether the piles differ in colour. Highly significant. Is that a discovery?
+A: Before I answer, you try, Jonas. And everyone listening. The study clustered the tumours on microRNA expression. Then it tested microRNA expression between those clusters. What's wrong?
+# think
+A: The groups were built from the same variables you then test. Any clustering produces groups that differ in what built them, almost by construction. The significance is inflated. Circular reasoning, and it's marked exam. Don't use one dataset both to discover a grouping and to test differences across it, without independent validation or a correction for the selection.
+B: So the socks are not a discovery.
+A: The socks are a tautology.
+B: And survival?
 A: One Cox regression per microRNA, adjusted for age and gender. Micro RNA three seventy five came out on top. Higher expression, longer survival.
 # sting
-B: Let's wrap up with the lecture's own take home messages.
-A: One. High dimensionality leads to noisy measurements leads to multiple testing. Two. Observed variation is biology plus technical noise, so preprocess, with quantile normalization as the worked example. Three. The ordinary t-test fails with small samples, and the moderated t is the solution.
-B: And the rest?
-A: Four. Family wise error rate versus false discovery rate, and be able to calculate Bonferroni and Benjamini Hochberg by hand. Five. Validate screening hits in an independent cohort with an independent method. And as a bonus, never test clusters with the data that built them.
-B: Next episode, lecture eight. Proteomics. Thanks for listening.
-A: See you there.
+B: Three things.
+# fast
+A: One. High dimensionality, noisy measurements, multiple testing. Preprocess, and use moderated t with few replicates.
+B: Two?
+A: Family wise is even one. False discovery is a fraction. Benjamini Hochberg, largest passing rank.
+B: Three?
+A: Validate independently. Never test clusters with the data that built them.
+# normal
+B: Something to think about until next time?
+A: Two hospitals run the same protein assay. One measures all its cases on Monday. The other measures all its controls on Friday. What could you discover that isn't there?
+B: I'm writing that down.
+B: Next episode, lecture eight. Proteomics.
+A: Next time, a protein that vanishes from the blood. Without going anywhere.
+B: I've had colleagues like that.
+A: Thanks for listening.

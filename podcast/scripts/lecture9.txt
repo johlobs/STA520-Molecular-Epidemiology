@@ -1,142 +1,164 @@
 # title: Lecture 9 — Two-sample MR and polygenic risk scores
 # Hosts: A = Maya (explains), B = Sam (asks), C-H = listener voices (see VOICES in build_podcast.py).
-# Directives: "# fast" / "# slow" ... "# normal" = pace, "# sting" = chime between segments, "# pause" = extra silence.
-A: Same data. Same SNPs. Same people. One analysis says higher LDL protects your heart. The other says it harms it.
+# Directives: "# fast" / "# slow" / "# whisper" ... "# normal" = pace, "# sting" = segment sound, "# pause" = extra silence, "# think" = reflection pause.
+# Series finale: trap counter reaches 8 (winner's curse direction). Series secret revealed: association, causal inference, prediction.
+A: Same SNPs. Same diseases. One analysis says higher LDL protects your heart. The other says it harms it.
 B: That can't both be true.
-A: It isn't. One of them forgot a minus sign.
+A: It isn't.
 # pause
-B: Then let's find out which one.
+B: Which one's wrong?
+A: Not yet.
 # sting
-B: Welcome back to the STA five twenty study podcast. I'm Sam.
-A: And I'm Maya. Episode nine, the last lecture. Two sample Mendelian randomization and polygenic risk scores.
-B: And the lecture's arc sums up the whole course.
-A: Association, then causal inference, then prediction.
-B: So what makes MR two sample?
-A: In lecture six we pretended one study measured everything, genotypes, exposure and outcome, in the same people. That's rare. The big GWAS of LDL and the big GWAS of coronary artery disease were done in different cohorts, and they only publish summary statistics.
-B: So the SNP effects on the exposure come from one GWAS...
-A: And the effects on the outcome from another. No individual level data needed. And you can use the largest published GWAS for each trait.
-B: Then it's just MR with bigger numbers. Easier.
-A: No. My unpopular opinion for today. Two sample MR is regular MR with more paperwork. The three assumptions don't go away. Relevance, independence, exclusion restriction. What changes is only where the numbers come from.
-B: What do you need per SNP?
-A: The rs number, the effect allele, beta and standard error for the exposure, and beta and standard error for the outcome. Plus the other allele and allele frequency, for harmonization.
+B: Welcome back to the STA five twenty study podcast. I'm Sam. And this is the last one.
+A: And I'm Maya. Episode nine. Two sample Mendelian randomization and polygenic risk scores.
+B: Last time. Why are cis pQTLs safer instruments, but not safe?
+A: Direct link, fewer side doors. The three assumptions still apply.
+B: And the homework. A polygenic score built in Europeans, used in a West African cohort. I said it works worse.
+A: It does. LD patterns and allele frequencies differ between populations. The SNPs in the score were picked because they tag the causal variants in European LD. Elsewhere they tag them less well. Accuracy drops with ancestral distance from the discovery GWAS. And most big GWAS are European. That's not a detail. It's a fairness problem.
+A: Today, three questions. How do you do MR without individual data? Which way does each bias push? And what is a polygenic score good for?
+B: And you promised. The idea.
+A: At the end.
+B: I knew it. And my theory for the cold open. The two analyses used different populations. Different LD, different answer.
+A: Noted.
+B: Last noted of the series. I'll miss it.
+# sting
+B: What makes MR two sample?
+A: In lecture six we pretended one study measured everything in the same people. Genotypes, exposure, outcome. That's rare. The big LDL GWAS and the big coronary GWAS come from different cohorts, and they publish only summary statistics. So the SNP effects on the exposure come from one GWAS, and the effects on the outcome from another. No individual data. And you can use the largest GWAS for each trait. Per SNP you need the rs number, the effect allele, the other allele, allele frequency, and beta and standard error for both exposure and outcome.
+B: So it's MR with bigger numbers. Easier.
+A: My unpopular opinion for today. Two sample MR is regular MR with more paperwork. Relevance, independence, exclusion restriction. None of them go away. Only where the numbers come from changes.
 # sting
 B: The slides say the difficulty is in steps one to three. Step one.
-A: Select instruments. Strongly associated with the exposure, usually genome wide significant, and independent after clumping. Then check their strength with the F statistic.
-B: Which is?
-A: For one SNP, the squared z statistic of its exposure association. Beta over standard error, squared. Rule of thumb, F above ten. Below that, it's a weak instrument.
-B: Let's test it quickly.
+A: Select instruments. Genome wide significant for the exposure, clumped to independence. Then check strength with the F statistic. For one SNP, beta over standard error, squared. Rule of thumb, above ten. Below, a weak instrument.
 # fast
 A: Beta zero point zero eight, standard error zero point zero one?
-B: z is eight. F is sixty four.
-A: Strong or weak?
-B: Strong.
+B: z is eight. F sixty four. Strong.
 A: Beta zero point zero three, standard error zero point zero one two?
-B: z is two and a half. F is six and a quarter.
-A: And?
-B: Weak.
+B: z two and a half. F six and a quarter. Weak.
 A: Correct.
 # normal
-B: Do I need to check F for genome wide significant SNPs?
-A: Not really. At five times ten to the minus eight, F is already about thirty. F matters when you use a looser threshold.
-B: Step two is finding the same SNPs in the outcome GWAS. Step three is harmonization.
-A: A beta means change per copy of the effect allele, and each GWAS picks its own effect allele. Before you divide one beta by the other, both must refer to the same allele.
-B: The slide example.
-# slow
-A: The exposure GWAS has effect allele [A](/ˈeɪ/), beta plus zero point zero eight. The outcome GWAS has effect allele G, beta minus zero point zero three. "Each G lowers the outcome by zero point zero three" means exactly the same as "each [A](/ˈeɪ/) raises it by zero point zero three".
-B: So you flip the sign.
-A: Forget it, and you get minus zero point three seven five. The exposure looks protective. Harmonized, it's plus zero point three seven five.
-# normal
+B: Do I have to check F for genome wide significant SNPs? Every single one? What if I forget one on the exam?
+A: Breathe. At five times ten to the minus eight, F is already about thirty. It matters when you use a looser threshold.
+B: Step two, find the same SNPs in the outcome GWAS. Step three, harmonization.
+A: A beta is the change per copy of the effect allele. And each GWAS picks its own effect allele. Before you divide one beta by the other, both must refer to the same allele. The slide example. The exposure GWAS has effect allele [A](/ˈeɪ/), beta plus zero point zero eight. The outcome GWAS has effect allele G, beta minus zero point zero three. Each G lowers the outcome by zero point zero three. That means exactly the same as each [A](/ˈeɪ/) raising it by zero point zero three.
+B: Wait.
+A: Go on.
+B: If you forget to flip it, the outcome effect is negative. LDL looks protective. That's the cold open.
+A: That's the cold open. Forget it, minus zero point three seven five. Harmonized, plus zero point three seven five. One analysis forgot a minus sign.
+B: So my theory, different populations...
+A: Wrong. But it's the answer half the class will write. Same data. One flipped allele. Lecture four, Ahmed and his merged files. The research group that celebrated for a week.
 B: The most expensive minus sign in genetic epidemiology.
-A: That's my line.
-B: The rest of the checklist?
-A: Same alleles, keep beta. Swapped, flip the sign. Complementary letters, other strand, so complement and compare again. Palindromic SNPs, [A](/ˈeɪ/) slash T or C slash G, use allele frequencies if clearly far from one half, otherwise exclude. Completely different variants, exclude.
-B: We have a listener question on this. It's from Erik.
-G: Hi. I just spent three hours harmonizing alleles and I think I've flipped more signs than SNPs. When I flip the sign of a beta, do I also have to change the standard error and the p-value?
-A: Breathe, Erik. The answer is no. Flipping the effect allele only changes the direction. The standard error and p-value stay exactly the same. The allele frequency becomes one minus the frequency.
-# sting
-B: Step four. Estimation.
-A: One SNP, the Wald ratio. Outcome beta over exposure beta. Zero point zero three over zero point zero eight, zero point three seven five. The change in outcome per unit of genetically predicted exposure.
-B: Several SNPs?
-A: Inverse variance weighted. Each SNP's weight is its exposure beta squared, divided by the outcome standard error squared. A SNP that moves the exposure a lot and has a precise outcome estimate counts more. On the slide table, IVW gives about zero point three five.
-B: Then units.
-A: The slides use systolic blood pressure and pulse wave velocity. Per one millimeter of mercury, the estimate is one point zero five. Per one standard deviation, one point two. Same biology, different scale. Always state the unit.
-B: And per ten millimeters, the slide says fifty percent.
-A: That's the additive shortcut. If one point zero five is a ratio, effects multiply. One point zero five to the tenth is about one point six three. Sixty three percent.
-B: And the statement in red on the slides?
-# pause
-# slow
-A: Genetically predicted exposure is not the same as an intervention. Genotype acts from conception, so MR reflects a lifelong difference. A drug started at sixty changes the exposure for a much shorter time.
+A: Harmonize the alleles before you divide.
+# whisper
+A: This one's on the exam. Harmonize the alleles before you divide.
 # normal
-B: Sensitivity analyses, quickly. I'll name them, you explain.
+B: The rest of the checklist. Fast.
+# fast
+B: Same alleles?
+A: Keep beta.
+B: Swapped?
+A: Flip the sign.
+B: Complementary letters?
+A: Other strand. Complement, compare again.
+B: Palindromic?
+A: Frequencies, if far from one half. Otherwise exclude.
+B: Peter from crosswords would be proud.
+# normal
+B: We have a listener question here. It's from Erik.
+G: Hi. I spent three hours harmonizing and I've flipped more signs than SNPs. When I flip a beta, do I flip the standard error and the p-value too?
+A: No, Erik. Flipping the effect allele changes only the direction. Standard error and p-value stay exactly the same. The allele frequency becomes one minus the frequency.
+# sting
+B: One down, two to go. Step four, estimation.
+A: One SNP, the Wald ratio. Outcome over exposure. Zero point zero three over zero point zero eight, zero point three seven five. Several SNPs, inverse variance weighted. Each SNP's weight is its exposure beta squared over the outcome standard error squared. A SNP that moves the exposure a lot, with a precise outcome estimate, counts more. On the slide table, about zero point three five. Then units. Systolic blood pressure and pulse wave velocity. Per millimeter of mercury, one point zero five. Per standard deviation, one point two. Same biology, different scale. And the slide's per ten millimeters, fifty percent, is the additive shortcut. If one point zero five is a ratio, effects multiply. One point zero five to the tenth is about one point six three. Sixty three percent. Lecture four, Olle and his forty five percent, all over again.
+B: And the statement in red.
+# slow
+A: Genetically predicted exposure is not the same as an intervention. Genotype acts from conception, a lifelong difference. A drug started at sixty changes the exposure for far less time.
+# normal
+B: Sensitivity analyses. I name, you explain.
 # fast
 B: IVW?
-A: The main estimate. Assumes all instruments are valid.
+A: Main estimate. All instruments valid.
 B: Weighted median?
-A: Survives some bad instruments. Needs half the weight valid.
+A: Half the weight valid.
 B: MR Egger?
-A: Free intercept. Non zero means directional pleiotropy.
+A: Intercept away from zero, directional pleiotropy.
 B: Leave one out?
-A: Drop one SNP at a time. Is one SNP driving it?
+A: Is one SNP driving it?
 B: Heterogeneity?
-A: Do the Wald ratios differ more than chance allows?
+A: Do the ratios differ more than chance?
 # normal
 # sting
-B: What here is most likely to come up on the exam?
-A: Here's one. Practical problems special to two sample MR, each with a direction of bias.
-# slow
-A: Weak instruments with no sample overlap. Bias towards the null. Sample overlap, people in both GWAS. Bias towards the confounded observational estimate. Different populations. Unpredictable.
-# normal
+B: Two down, one to go. Biases. And their directions.
+A: Practical problems special to two sample MR. Weak instruments with no sample overlap. Bias towards the null. Sample overlap, the same people in both GWAS. Bias towards the confounded observational estimate. Different populations. Unpredictable.
 B: You skipped one.
 A: Your turn. Winner's curse. Which direction?
 B: Winner's curse means the effects are overestimated. So the MR estimate is too big. Away from the null.
-A: That's the trap. The effects on the exposure are overestimated, in the GWAS that discovered them. And the exposure beta sits in the denominator.
-B: Oh. A too large denominator...
-A: Gives a too small ratio. Towards the null.
-B: I walked right into that.
-A: Everyone does.
+A: The exposure effects are overestimated, in the GWAS that discovered them. Where does the exposure beta sit?
+B: In the denominator. Oh no. Too big a denominator...
+A: Gives too small a ratio. Towards the null.
+B: Trap number eight.
+A: Eight.
+B: The final count. Eight traps in nine episodes. The fridge is full.
+A: I have nine in the notebook.
+B: Nine? Which one did I miss?
+A: Not telling.
+B: Second listener question. From Agnes, who says she's a retired pharmacist.
+H: Hello. If MR shows lower LDL is good for a lifetime, can I tell my customers a statin will do exactly that much good?
+A: No, Agnes. That's the statement in red. MR estimates a lifelong genetic difference. A statin from sixty is a shorter, later exposure. The direction carries over. The size usually doesn't.
 # sting
-B: Part two. Polygenic risk scores.
-A: Same GWAS, different question. MR asks, does X cause Y? A risk score asks, who is at higher risk? MR gives one causal estimate for a population. A risk score gives one number per person.
-B: And pleiotropy?
-A: A threat in MR. Fine in a risk score. Any predictive signal helps.
-B: How do you compute one?
-A: For each person, sum over the SNPs the number of effect alleles times the effect size from the GWAS. Someone with two copies of an allele with beta minus zero point one five and one copy of an allele with plus zero point one five gets minus zero point one five. For a disease, the betas are log odds ratios, so the score is on the log odds scale.
-B: What data do you need?
-A: Two independent datasets. A discovery GWAS that gives the betas. And a target sample with genotypes, outcome and covariates, where the score is computed and tested. If the same people are in both, the score looks better than it is.
-B: Which SNPs go in?
-A: Raw GWAS output has two problems. Most betas are imprecise and the top ones inflated by winner's curse. And SNPs in LD carry the same signal. The classical fix is clumping plus thresholding. One SNP per LD region, then keep those below a p-value threshold. The alternative is shrinkage, which keeps more SNPs but pulls each beta towards zero.
-B: Hold on. Weak instruments were the villain ten minutes ago. Now they're welcome?
-A: In MR, every instrument must be valid on its own. In a risk score, no single SNP has to be valid. Only the sum has to predict. The slides say it directly. Remember the weak learners from statistical learning.
-B: We have a second listener question. From Lina.
-H: Hello. I calculated a polygenic risk score for myself as a little practice exercise. It came back at plus two standard deviations. I've now read the discussion section of three papers at midnight. Should I be worried?
-B: Lina, I think we've all been there.
-A: Close the papers, Lina. Not on that number alone. A risk score is relative. Plus two standard deviations puts you in roughly the top two and a half percent of scores. Turning that into an absolute risk needs a calibrated model with the baseline risk and your other risk factors.
+B: Part three. Polygenic risk scores.
+A: Same GWAS, different question. MR asks, does X cause Y? A risk score asks, who is at higher risk? MR gives one causal estimate for a population. A risk score gives one number per person. For each person, the sum over SNPs of the number of effect alleles times the GWAS beta. For a disease, betas are log odds ratios, so the score is on the log odds scale. And you need two independent datasets. A discovery GWAS for the betas, and a target sample to compute and test the score. If the same people are in both, the score looks better than it is. Which SNPs? Raw GWAS output has two problems. Most betas are imprecise, the top ones inflated by winner's curse. And SNPs in LD repeat the same signal. The classic fix is clumping plus thresholding. One SNP per region, then those below a p-value cut off. The alternative is shrinkage, which keeps more SNPs but pulls each beta towards zero.
+A: Predict first. Pleiotropy in a risk score. Villain or friend?
+B: Villain. It was the villain in MR.
+A: Friend. Any predictive signal helps. And weak SNPs are welcome too. In MR, each instrument must be valid on its own. In a score, only the sum has to predict. The weak learners from statistical learning.
+B: Third listener question. From Lina.
+H: Hello. I calculated a risk score for myself, just for practice. Plus two standard deviations. I've now read three discussion sections at midnight. Should I be worried?
+B: Lina, we've all been there.
+A: Close the papers, Lina. A risk score is relative. Plus two standard deviations is roughly the top two and a half percent of scores. Turning that into an absolute risk needs a calibrated model with baseline risk and your other risk factors.
 B: How do you evaluate a score?
-A: Discrimination, with the AUC, the probability that a random case gets a higher predicted risk than a random control. Calibration, do predicted risks match observed ones? And added value. Compare age, sex, smoking and blood pressure, with and without the score.
-B: And the added value is usually?
-A: Small. A coronary score might move the AUC from zero point seven five to zero point seven six. Highly significant, barely useful.
-B: I'm going to push back. If it's barely useful, why is everyone so excited about risk scores?
-A: Because barely useful on average isn't useless. At the extremes, the top few percent, risk can be several times higher. And the score is cheap, it never changes, and you can measure it at birth.
-B: But you just told Lina to close the papers.
-A: Not on its own. That's the point. A score is a piece of information, not a diagnosis. And it partly works through things we already measure, like LDL and blood pressure, so in a full model it adds less than you'd hope.
-B: Fine. Useful at the extremes, modest on average.
+A: Discrimination, the AUC. The probability that a random case scores higher than a random control. Calibration, do predicted risks match observed? And added value. Age, sex, smoking and blood pressure, with and without the score. Usually small. A coronary score might move the AUC from zero point seven five to zero point seven six. Highly significant, barely useful.
+B: Then why is everyone so excited?
+A: Barely useful on average isn't useless. At the extremes, risk can be several times higher. It's cheap, it never changes, and you can measure it at birth. But it partly works through LDL and blood pressure, so in a full model it adds less than you'd hope. And in the obesity example, most people with obesity still have an average or low score. Accuracy is capped by SNP based heritability.
+B: Useful at the extremes, modest on average.
 A: I'll accept that summary.
-B: Anything else from the reading?
-A: Accuracy is capped by the trait's SNP based heritability. It drops with ancestral distance from the discovery GWAS, which is mostly European. And in the obesity example, most people with obesity still have an average or low score.
-B: And the extra paper on remnant cholesterol?
-A: Extra material, not required reading. But it shows the unit lesson in real data. Per millimole, remnant cholesterol looks far more harmful than LDL. Per standard deviation, they're close. Both correct. A millimole is a much bigger step for remnants than for LDL.
+B: Last listener question. From Kim. You may remember Kim.
+F: Hi. It's Kim again. Is Maya a real person? Final answer this time.
+A: Hello again, Kim.
+B: That's still not an answer.
+A: It's the last episode. Some things should stay in the notebook.
 # sting
-B: Let's wrap up. Three things.
-# fast
-A: One. Two sample MR, summary statistics from two GWAS. Same three assumptions.
-B: Two?
-A: Harmonize alleles, check F above ten, and know the direction of every bias.
-B: Three?
-A: Risk scores predict, they don't explain. Sum of dosage times beta, judged by AUC, calibration and added value.
+B: So. The idea. You promised.
+A: You guessed PCSK9. Five times ten to the minus eight. LD. Mendelian randomization. Multiple testing. Causation.
+B: No. So is coffee. So do I. Close. So is coffee. Closer.
+A: Pause with me for a moment.
+B: That's my line.
+A: It's the last episode. I'm borrowing it. Everyone, think back over the nine lectures. The SNP, the GWAS, the Wald ratio, the risk score. What do they have in common? Not a topic. A direction.
+# think
+B: She's reaching for the tea.
+# slow
+A: Association. Then causal inference. Then prediction.
 # normal
-B: And that's the course. Final words?
+A: Every lecture is one step on that road. A GWAS finds associations. Hardy Weinberg, LD and population structure tell you why an association can lie. Mendelian randomization turns associations into causal claims, because a genotype fixed at conception sits on a one way street. And a risk score takes the same associations and uses them to predict, without caring about cause at all. Same data. Three different questions. Knowing which question you're asking is the whole course.
+B: That's why it wasn't PCSK9. PCSK9 is just the example that walks the whole road.
+A: Association, causation, prediction.
+# whisper
+A: This one's on the exam. Association. Causal inference. Prediction.
+# normal
+# sting
+B: Three things. The last three.
+# fast
+A: One. Two sample MR, two GWAS, same three assumptions. Harmonize before you divide.
+B: Two?
+A: Weak instruments and winner's curse, towards the null. Overlap, towards the confounded estimate.
+B: Three?
+A: Risk scores predict, they don't explain. Dosage times beta, judged by AUC, calibration and added value.
+# normal
+B: One last thing. My final theory about you. You're the lecturer.
+A: No.
+B: Then who are you?
+A: Next course.
+B: Next course? There's a next course?
 # pause
-A: Association, causal inference, prediction. And a p-value has still never cured anyone.
-B: You were waiting the whole course to say that again.
-A: I was. Good luck on the exam. Thanks for listening.
+A: A p-value has still never cured anyone. Good luck on the exam.
+B: You've waited nine episodes to say that again.
+A: I have. Thanks for listening.
 B: See you.
