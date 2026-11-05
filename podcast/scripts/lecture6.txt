@@ -1,0 +1,122 @@
+# title: Lecture 6 — From GWAS to Mendelian randomization
+# Hosts: A = Maya (explains), B = Sam (asks), C-H = listener voices (see VOICES in build_podcast.py).
+# Directives: "# fast" / "# slow" ... "# normal" = pace, "# sting" = chime between segments, "# pause" = extra silence.
+A: The best randomized trial in medicine was run by nobody.
+B: Nobody?
+A: It cost nothing. Nobody signed a consent form. And every one of us is enrolled.
+# pause
+B: When did it start?
+A: At the moment you were conceived.
+# sting
+B: Welcome back to the STA five twenty study podcast. I'm Sam.
+A: And I'm Maya. Episode six. Mendelian randomization. This is the lecture that ties the whole course together.
+B: Then let's start with the problem it solves.
+A: My unpopular opinion for today. An observational association, on its own, proves almost nothing. Observational studies keep finding that people with high LDL cholesterol get more heart disease. But that alone can't prove LDL causes it. Smokers might have both. Or early disease might change LDL. The gold standard answer would be a randomized trial.
+B: And Mendelian randomization is a trial?
+A: A natural one. The randomization happens at meiosis.
+A: Exactly. At conception, each of us is randomly dealt alleles that raise or lower LDL a little. If people who inherited LDL raising alleles also get more heart disease, and those alleles do nothing else relevant, the most plausible explanation is that LDL itself causes heart disease.
+B: And reverse causation?
+A: Ruled out from the start. Heart disease can't change the genotype you were born with.
+# sting
+B: Before we get to the method, the lecture starts with imputation and proxy SNPs. Why?
+A: Because of a practical problem. You want to know whether a specific variant affects a phenotype, but it wasn't measured in your data. Or your lead SNPs are missing in the other dataset you want to use.
+B: Dead end?
+A: No, two tools, both based on LD. A proxy SNP is a SNP in very strong LD with the one you want, r squared close to one. It carries essentially the same signal. Imputation goes further. It uses LD patterns and a large reference panel to predict the genotype at a missing SNP from the measured SNPs around it.
+# sting
+B: Next, the Bradford Hill criteria. Classical epidemiology's checklist for judging whether an association is likely causal. Nine of them. Go.
+# fast
+A: Strength.
+B: Two.
+A: Consistency.
+B: Three.
+A: Specificity.
+B: Four.
+A: Temporality.
+B: Five.
+A: Biological gradient.
+B: Six.
+A: Plausibility.
+B: Seven.
+A: Coherence.
+B: Eight.
+A: Experiment.
+B: And nine.
+A: Analogy.
+# normal
+B: That's a lot to remember.
+A: The page has a memory aid. Strong, consistent, specific timing. Biological, plausible, coherent, experimental analogy.
+# slow
+A: And temporality, exposure before outcome, is the only one that's strictly necessary.
+# normal
+B: So why are genes good instruments?
+A: Because genotype is fixed at conception. It comes first in any causal chain. That kills reverse causation. And alleles are allocated randomly at meiosis, much like a trial randomizes treatment.
+B: How does it compare with a real trial?
+A: In a trial, the researcher assigns treatment. In Mendelian randomization, meiosis assigns alleles. In a trial, a drug lowers LDL for a few years. In Mendelian randomization, an allele lowers LDL for a lifetime. Confounding is balanced by randomization in both, if the assumptions hold. And reverse causation is excluded in both.
+B: Why isn't a plain GWAS association with heart disease enough?
+A: Because it says a SNP is associated with heart disease, not which pathway. The SNP might act through LDL. Or through inflammation, or blood pressure. Mendelian randomization is designed to sort that out.
+# sting
+B: How do you pick the instruments?
+A: SNPs strongly associated with the exposure, usually genome wide significant in the exposure GWAS. And independent of each other, so you clump them. At this stage you don't look at the outcome at all.
+B: Why not?
+A: Because choosing instruments by their association with the outcome would bake the answer into the question.
+B: Now the three assumptions. The lecture says this is the most important definitional block in the course.
+# slow
+A: It is. One, relevance. The variant is robustly associated with the exposure. Two, independence. The variant is not associated with confounders of the exposure outcome relationship. Three, exclusion restriction. The variant affects the outcome only through the exposure.
+# normal
+B: And each has its threats.
+A: Relevance is threatened by weak instruments, which bias and destabilize the estimate. Independence is threatened by population stratification, assortative mating, which is non random choice of partner related to the trait, and selection effects, when who participates depends on genotype and outcome.
+B: And exclusion restriction?
+A: Horizontal pleiotropy. The SNP reaches the outcome through another pathway entirely.
+B: Let me test that. An LDL instrument also raises blood pressure, and blood pressure raises heart disease risk on its own. Which assumption breaks?
+A: Exclusion restriction, through horizontal pleiotropy. The SNP sneaks past LDL to the outcome.
+B: And if allele frequency and the outcome both differ between ancestries?
+A: That's independence. Population stratification links the SNP to confounders.
+B: We have a listener question about pleiotropy. It's from Gustav, who writes that he has now read the word pleiotropy so many times that it has stopped sounding like a word.
+D: Hello. Is all pleiotropy bad for Mendelian randomization? My notes say pleiotropy violates the assumptions, full stop.
+A: Your notes are too strict, Gustav. There are two kinds. Pleiotropy means one variant affects more than one trait. Vertical pleiotropy is when the SNP affects the outcome through the exposure. A SNP in PCSK9 changes receptor availability, which changes LDL, which drives atherosclerosis, which causes heart disease. That chain is exactly what Mendelian randomization is looking for. Not a problem.
+B: And horizontal?
+A: The SNP affects the outcome through a pathway that doesn't go through the exposure. Say it raises LDL and also, separately, drives inflammation. That's bad. It violates the exclusion restriction.
+B: The lecture shows several instruments plotted together.
+A: Yes. Several SNPs in genes like LDLR, PCSK9, APOE and APOB. Each shifts LDL by a different amount. Plot each SNP's effect on LDL against its effect on heart disease. If they line up along a dose response line, bigger effect on LDL, proportionally bigger effect on disease, that strengthens the causal case.
+# sting
+B: Now the estimates. Start with one instrument.
+A: The Wald ratio. The SNP's effect on the outcome divided by its effect on the exposure. It's the change in outcome per genetically predicted unit change in exposure.
+A: Your turn. A SNP raises LDL by zero point four millimoles per liter per allele, and raises heart disease log odds by zero point two. What's the Wald ratio?
+B: Zero point four divided by zero point two. Two.
+A: Upside down.
+B: Outcome over exposure. Zero point two over zero point four. Zero point five.
+A: Right. Log odds of heart disease rise by zero point five per millimole of genetically higher LDL. An odds ratio of about one point six five.
+B: And if the outcome is binary, the outcome beta must be...
+A: On the log odds scale. Always.
+B: With many instruments?
+A: You compute a Wald ratio per instrument and combine them. The standard method is inverse variance weighted, IVW. It's a weighted regression of the outcome effects on the exposure effects, through the origin, weighted by precision. Equivalent to a weighted average of the Wald ratios.
+B: And if one instrument gives a very different ratio?
+A: That disagreement is information. An outlier can come from pleiotropy, measurement error, a weak instrument, population differences between the two studies, or chance. In the worked example on the page, four SNPs give Wald ratios around zero point five, and one gives one point two. That one smells of pleiotropy.
+# sting
+B: Which leads to sensitivity analyses.
+A: Two of them. The weighted median and MR Egger. IVW is the most precise, but it's naive. It assumes all instruments are valid, or that pleiotropy cancels out. One bad instrument can drag it.
+B: And another listener question here. From Daniel.
+F: Hi. If IVW is the most precise method, why would anyone report anything else? Isn't the most precise answer the best answer?
+A: Daniel, the most precise answer can also be precisely wrong. The weighted median takes the weighted median of the Wald ratios. It stays valid as long as at least about half the instrument weight comes from valid instruments. So a minority of bad SNPs can't take over. Same reason a median household income isn't ruined by one billionaire moving to town.
+B: And MR Egger?
+A: It's a weighted regression like IVW, but with a free intercept instead of forcing the line through the origin. If the intercept is clearly different from zero, that signals directional horizontal pleiotropy. The SNPs affect the outcome on average even when their effect on the exposure is zero.
+B: What's the catch with Egger?
+A: It's less precise, more sensitive to weak instruments, and it has its own assumption, that pleiotropic effects are independent of instrument strength.
+B: Still, if I had to pick one, I'd pick IVW. It's the main analysis for a reason.
+A: And I'd refuse to pick one.
+B: That's a cop out.
+A: It's the method. None of them alone. That's the point of triangulation. If IVW, weighted median and MR Egger all point in the same direction, your confidence goes up a lot, because they have different weaknesses that are unlikely to all bias the result the same way.
+# sting
+B: Last part. Interpreting a result.
+A: An MR estimate is the expected change in outcome per genetically predicted change in exposure. Always check two things. The unit of the exposure. Per standard deviation? Per millimole per liter? Without the unit, the number means nothing. And the direction. Positive beta, higher exposure increases risk. Negative, it decreases risk.
+B: And for a binary outcome?
+A: Report e to the beta, as an odds ratio per unit of exposure.
+# sting
+B: Let's wrap up. Three things to take away?
+A: One. Mendelian randomization uses alleles as nature's randomization. Genotype is fixed at conception, so no reverse causation.
+B: Two?
+A: The three assumptions and their threats. Relevance, weak instruments. Independence, population stratification, assortative mating and selection. Exclusion restriction, horizontal pleiotropy. And vertical pleiotropy is fine.
+B: And three?
+A: The estimators. The Wald ratio for one SNP, outcome effect over exposure effect. IVW for many. Weighted median and MR Egger as sensitivity checks, and agreement between them as triangulation.
+B: Next episode, lecture seven. High dimensional molecular data. Thanks for listening.
+A: See you there.

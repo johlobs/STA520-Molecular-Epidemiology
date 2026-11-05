@@ -1,0 +1,138 @@
+# title: Lecture 2 — DNA, RNA and protein
+# Hosts: A = Maya (explains), B = Sam (asks), C-H = listener voices (see VOICES in build_podcast.py).
+# Directives: "# fast" / "# slow" ... "# normal" = pace, "# sting" = chime between segments, "# pause" = extra silence.
+A: Take one gene. Delete one single letter.
+B: One letter out of thousands. That's nothing.
+A: Now delete three letters instead.
+B: Three times the damage.
+A: Wrong. The three letter deletion usually does far less harm.
+# pause
+B: That makes no sense.
+A: It will in about ten minutes.
+# sting
+B: Welcome back to the STA five twenty study podcast. I'm Sam.
+A: And I'm Maya. Episode two. DNA, RNA and protein, or how a gene actually becomes a molecule that does something.
+B: Last time the central dogma was a single line. DNA to RNA to protein. What does this lecture add?
+A: The machinery behind that line. How a gene is copied into messenger RNA, how the ribosome reads that RNA three letters at a time, and how a protein comes out the other end. And then what happens when the machinery is fed a typo.
+B: If I remember one idea from today?
+# slow
+A: The reading frame. The ribosome reads in fixed groups of three. Almost every mutation rule in this lecture is that one fact wearing different hats.
+# normal
+B: Let's start with RNA. How is it different from DNA?
+A: Three differences. The sugar is ribose instead of deoxyribose. Thymine is replaced by uracil, so you have U instead of T. And RNA is usually single stranded, while DNA is double stranded.
+B: And there are several kinds of RNA. Let me name the job, you name the RNA.
+# fast
+B: Carries the copied gene?
+A: Messenger RNA.
+B: Part of the ribosome itself?
+A: Ribosomal RNA.
+B: Brings the amino acid?
+A: Transfer RNA.
+B: Splicing?
+A: Small nuclear RNA. That's lecture three.
+B: Regulates gene expression?
+A: MicroRNA. Also lecture three.
+# normal
+B: How does the transfer RNA know which amino acid is needed?
+A: Each one carries one specific amino acid and has an anticodon, three letters that base pair with the matching codon on the messenger RNA.
+# sting
+B: Now transcription. What happens?
+A: A gene, a defined stretch of DNA, is copied into messenger RNA. The mature messenger RNA leaves the nucleus and is translated in the cytoplasm.
+B: And something decides which genes get copied.
+A: Transcription factors. Proteins that bind DNA and speed up or slow down transcription. They're a big part of why a liver cell and a nerve cell, with identical DNA, behave so differently.
+B: We have a listener question here. It's from Jonas, who says he's sending it from the library at two in the morning.
+C: Hi both. Template strand and coding strand. I've drawn them so many times that my notebook has its own double helix now. Which one is actually read?
+A: Go to bed soon, Jonas. But first, my unpopular opinion for today. The coding strand is the one strand that does absolutely nothing.
+B: That can't be right.
+A: It is. The template strand is the one RNA polymerase physically reads. It's also called the non coding strand. The coding strand just sits there. It's called coding because its sequence matches the messenger RNA, with T instead of U. So you can read the codons straight off it. It's useful to us, not to the cell.
+# slow
+B: So the messenger RNA is complementary to the template, and identical to the coding strand.
+A: Exactly, with U for T. Get that sentence right and half the strand questions answer themselves.
+# normal
+B: And the direction rules?
+A: Three rules, and they come back in lecture three. One. DNA and RNA are always built five prime to three prime. New nucleotides go on the three prime end. Two. The new RNA strand is antiparallel to its template. That's what makes base pairing possible. Three. DNA polymerase needs a primer to start. RNA polymerase does not.
+B: There's a worked example on the page that's typical exam material. Talk me through the logic without all the letters.
+A: You get a double stranded piece of DNA and you're told RNA polymerase moves right to left. Step one, which strand is read? The polymerase builds RNA five prime to three prime, antiparallel, so it travels along the template from the template's three prime end. Moving right to left means it starts on the right, so the template is the strand whose three prime end is on the right.
+B: And the other strand is the coding strand.
+A: Yes. Step two, write the coding strand five prime to three prime. Step three, swap T for U, and that's your messenger RNA. Step four, find the first AUG. Step five, translate codon by codon until you hit a stop.
+B: Where do people go wrong?
+A: Reading the wrong strand, or reading the right strand in the wrong direction. Always write five prime and three prime on both ends before you do anything. It takes three seconds and saves the whole question.
+# sting
+B: Translation next. What are the properties of the genetic code?
+A: Three. Universal, essentially the same in all known life. Unambiguous, each codon means exactly one amino acid. And redundant, also called degenerate. Sixty four codons, only twenty amino acids, so most amino acids have several codons.
+B: And the three stages of translation?
+A: Initiation, the ribosome assembles at the start codon, AUG, which codes for methionine. Elongation, amino acids are added one at a time. Termination, at a stop codon.
+B: And the stop codons are?
+# slow
+A: UAA, UAG and UGA. Memorize them. They show up in exam questions.
+# normal
+B: The lecture says human cells have about twenty thousand genes. But every cell has the same genes, right?
+A: Same genes, different expression. Having a gene and using it are completely different things. You have the gene for insulin in your skin cells. They just never make insulin.
+B: Where can expression be regulated?
+A: At several stages. Chemical or structural changes to DNA or chromatin. Transcription. Changes to the RNA after transcription. How fast the messenger RNA is degraded. And modification of the protein after translation. That's why RNA and protein measurements depend so much on tissue.
+# sting
+B: Now mutations. What's a mutation, formally?
+A: A change in the DNA sequence. The lecture shows five messenger RNA sequences that look identical at first glance. Each differs from the reference by exactly one letter. That's how small the physical change can be.
+B: A single letter change has a name.
+A: A point mutation, or substitution. Also called an SNV, a single nucleotide variant. When that change is common in the population, we call it an SNP, a single nucleotide polymorphism. Same type of change. SNP just implies it recurs in the population.
+B: And what can a substitution do to the protein?
+A: Three outcomes. Silent, the codon changes but the amino acid doesn't, thanks to redundancy. Missense, the codon now codes for a different amino acid. And nonsense, the codon becomes a premature stop, so the protein is cut short.
+B: Let me try. Give me some.
+# fast
+A: ACU to ACC. Both threonine.
+B: Silent.
+A: GGC to GAC. Glycine to aspartic acid.
+B: Missense.
+A: UGU to UGA.
+B: Missense again?
+A: Look at the new codon.
+B: UGA. That's a stop. Nonsense!
+A: There you go.
+# normal
+B: I fell for that one.
+A: Everyone does. Always check whether the new codon is one of the three stops before you call it missense.
+B: Why are silent changes so common?
+A: Because the third position of a codon is often wobbly. Many codons that differ only in the last letter mean the same amino acid.
+# sting
+B: Then indels.
+A: Insertions and deletions. Here the reading frame takes over. If you add or remove a number of nucleotides that is not a multiple of three, you get a frameshift. Every codon after that point is read wrong. The rest of the protein is scrambled, often with an early stop.
+B: And if it is a multiple of three?
+A: Then it's in frame. The frame is kept, and you just gain or lose one or a few amino acids.
+B: I'm still not convinced. Deleting three letters removes more DNA. Surely that's worse.
+A: More DNA, yes. But think about what the ribosome sees. Three letters out means one codon out. One amino acid missing, everything after it untouched.
+B: And one letter out?
+A: Every single codon after it is shifted. It's like deleting one letter from a sentence where every word has three letters. The cat ate the rat becomes the ata tet her at. Gibberish from that point on.
+B: Fine. You win.
+# pause
+# slow
+A: Less damage to the DNA, more damage to the protein. The ribosome can't skip and can't think. It just reads in threes.
+# normal
+B: And the bigger changes?
+A: Chromosomal alterations, whole segments. Deletion, duplication, inversion, insertion and translocation.
+B: The running example has a specific mutation. PCSK9 D three seventy four Y.
+A: D three seventy four Y means aspartic acid, letter D, at position three hundred seventy four, is replaced by tyrosine, letter Y. At the DNA level it's written c dot eleven twenty G to T. Lecture three explains the notation and why this one is a gain of function mutation.
+B: Gain of function sounds like a good thing.
+A: Not here. PCSK9 gains more of its function, which is destroying LDL receptors. More function, more destruction, higher LDL cholesterol.
+# sting
+B: Last topic. PCR.
+A: Polymerase chain reaction. It makes many copies of one specific region of DNA, in a test tube. Kary Mullis got the Nobel Prize in chemistry for it in nineteen ninety three.
+B: What are the key ingredients?
+A: Two. Taq polymerase, a DNA polymerase that is heat stable. And primers, short DNA sequences that mark where copying starts, so they decide which region gets amplified.
+B: And a second listener question, about exactly that. From Henrik, who describes himself as a retired engineer who likes to optimize things.
+E: Hello. Why does PCR need a special heat stable polymerase? Surely the efficient solution is to just add fresh enzyme every cycle.
+A: Spoken like a true engineer, Henrik. And early on, people actually did that. It was about as fun as it sounds. But PCR heats the sample over and over to separate the strands, and an ordinary polymerase cooks in the first cycle. Taq comes from a bacterium that lives in hot springs, so it shrugs off the heat and keeps working, cycle after cycle.
+B: And Taq still needs primers?
+A: Yes. Heat stable, not primer independent. That's a classic distractor.
+B: Where does PCR come back?
+A: TaqMan genotyping of SNPs in lecture three, and amplifying a small region around a suspected mutation before sequencing in AML diagnostics.
+# sting
+B: Let's wrap up. Three things.
+# fast
+A: One. The template is read. The coding strand matches the messenger RNA, with T for U. Mark five prime and three prime.
+B: Two?
+A: Start is AUG. Stops are UAA, UAG and UGA. The code is universal, unambiguous and redundant.
+B: Three?
+A: Silent, missense, nonsense. Frameshift versus in frame. Not a multiple of three, and everything after it is chaos.
+# normal
+B: Next episode, lecture three. Gene regulation, genetic variation, and how we read mutations in practice. Thanks for listening.
+A: See you there.

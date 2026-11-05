@@ -1,0 +1,127 @@
+# title: Lecture 4 — From SNP to GWAS
+# Hosts: A = Maya (explains), B = Sam (asks), C-H = listener voices (see VOICES in build_podcast.py).
+# Directives: "# fast" / "# slow" ... "# normal" = pace, "# sting" = chime between segments, "# pause" = extra silence.
+# Series: trap counter reaches 3 here. Series-secret guess: the significance threshold.
+A: One SNP. A million people. A p-value of one times ten to the minus fifteen.
+B: That's a huge finding.
+A: The effect on the trait is almost nothing.
+B: That doesn't make sense. Tiny p-value, tiny effect?
+A: It makes perfect sense.
+# pause
+B: Explain.
+A: Not yet.
+# sting
+B: Welcome back to the STA five twenty study podcast. I'm Sam.
+A: And I'm Maya. Episode four. From SNP to GWAS. This is where the course turns into statistics.
+B: And I already have a theory about that SNP. The p-value is so small because the effect is secretly huge. Small p, big deal.
+A: Noted.
+B: You always say noted when I'm wrong.
+A: I say noted when I'm taking notes.
+B: So what is a genome wide association study?
+A: My unpopular opinion for today. It's one boring regression, repeated a million times.
+B: That sounds like an insult to a whole field.
+A: It's a compliment. For each SNP you count how many copies of one allele each person carries. Zero, one or two. You regress the phenotype on that count. You record the effect size, its standard error and a p-value. That's the whole method. Everything else is about doing it carefully and reading the output correctly. And the lecture starts with a lovely point about direction. DNA can plausibly cause a phenotype. The reverse is impossible. A disease cannot change the DNA you inherited at conception. That one way street is why genetics becomes so useful for causal inference later. But a genetic association is still only an association. Confounding, chance and linkage can all produce one. The direction is certain. The cause isn't.
+# sting
+B: The basics. Alleles and minor allele frequency.
+A: At a SNP, some people have one nucleotide and some another. Those are the alleles. The minor allele frequency is the frequency of the less common one. People sometimes call it the mutant allele, but rarer doesn't mean harmful. Getting genotype frequencies is Hardy Weinberg from last time. If the minor allele has frequency zero point one, the common homozygote is zero point eight one, heterozygotes zero point one eight, and the minor homozygote zero point zero one. Out of ten thousand people, about eight thousand one hundred, one thousand eight hundred, and one hundred. The minor homozygotes are always rare when the allele is rare, because it's the frequency squared.
+B: And how does a genetic effect show up among the sick?
+A: Say each copy of the minor allele doubles the risk of a disease, from a baseline of five percent. Among the ten thousand, you'd get about six hundred cases. And among those cases, the minor allele has a frequency of about eighteen percent, compared with ten in the population.
+# slow
+A: The risk allele is enriched among cases. That enrichment is exactly what a GWAS detects.
+# normal
+# sting
+B: Phenotype types.
+A: Continuous phenotypes, like blood pressure or cholesterol, get linear regression. Binary ones, heart attack yes or no, get logistic regression. In both, you compare the phenotype across people with zero, one or two copies, with a quiet assumption that everything else, lifestyle and so on, is randomly distributed with respect to genotype. If it isn't, you have confounding. In the linear model, beta is the change in the phenotype per extra copy. If each copy raises LDL by zero point two millimoles per liter, beta is zero point two.
+B: We have a listener question about the log scale. It's from Olle, who says he has now calculated his way to the wrong answer three times in a row.
+E: Hello. A variant gives twenty percent more liver fat per copy. So two copies should give forty percent. My answer key says forty five. Is the key wrong? Please say the key is wrong.
+A: Sorry, Olle. The key is right. The variant is in a gene called PNPLA3, with beta zero point zero eight on the log ten scale. One copy, ten to the zero point zero eight, is about one point two. Twenty percent. Two copies square the factor. One point two squared is about one point four five.
+# slow
+A: On a log scale, effects multiply. Forty five, not forty.
+# normal
+B: Three times in a row, Olle. You'll never forget it now.
+A: The logistic model works the same way on the log odds scale. The odds ratio is e to the beta. Beta minus zero point one six gives an odds ratio of about zero point eight five per copy. Two copies, minus zero point three two, about zero point seven three.
+# sting
+B: The lecture calls this the additive model.
+A: Every extra copy adds the same amount, on the model's scale. For every SNP you get beta, its standard error and a p-value testing whether beta is zero. The standard error depends on three things.
+B: Sample size, allele frequency and how noisy the phenotype is.
+A: Correct. And two things worth noting. First, genetic effects are small. The spread within each genotype group is far bigger than the difference between the group means. Most of what makes your cholesterol high has nothing to do with this one SNP. Second, additive, dominant and recessive describe the genotype phenotype relationship, not the allele. The same allele can be dominant for one trait and recessive for another. GWAS uses additive because it's the simplest default that works reasonably across a million SNPs.
+B: Covariates. What goes in besides the genotype?
+A: Age, sex, sometimes BMI, technical variables like genotyping batch, and genetic principal components. The principal components handle population structure. And because of this, beta depends on what you adjusted for. Compare betas across studies only after checking that.
+# sting
+B: Then the full scan, and the output.
+A: A million regressions, one per SNP, in software like PLINK or regenie. The output is summary statistics. One row per SNP.
+B: Let me name a column, you tell me what it is.
+# fast
+B: E A?
+A: Effect allele. The one beta refers to.
+B: Beta?
+A: Effect per copy of it.
+B: S E?
+A: Its standard error.
+B: P?
+A: The p-value.
+B: N?
+A: Sample size.
+# normal
+B: Why are summary statistics shared so freely?
+A: No individual level data. Only aggregates. But before you use them, know the effect allele, whether you have an odds ratio or a log odds ratio, the scale of the phenotype, and the genome build.
+B: And a second listener question, about exactly that. It's from Ahmed.
+G: Hi. I merged two summary statistics files and half my effects changed direction. Did I discover something, or did I break something?
+B: Ahmed, I think we all know the answer.
+A: You broke something, Ahmed. Flip the effect allele and every estimate flips sign. If the effect allele is T and beta is minus zero point zero five, each T lowers LDL by zero point zero five standard deviations. Relative to the other allele, it's the opposite. Get that wrong and you'll confidently report the exact reverse of the truth.
+# sting
+B: Multiple testing.
+A: A million SNPs at p below zero point zero five would give fifty thousand false positives by chance. So the field uses five times ten to the minus eight, roughly zero point zero five divided by a million. Bonferroni style.
+B: Here's my guess for the big idea of the course. Five times ten to the minus eight.
+A: No.
+B: It's everywhere, though.
+A: So is coffee. Not the idea.
+B: Then the Manhattan plot.
+A: Position along the x axis, chromosome by chromosome. Minus log ten of the p-value on the y axis, so stronger associations are taller. Real signals look like skyscrapers.
+B: So the tallest skyscraper is the most important gene.
+A: No.
+B: It's the strongest signal. Surely that makes it the most important.
+A: The strongest evidence. Not the biggest effect.
+# pause
+A: Now you can have your answer about the SNP.
+B: Finally.
+A: A p-value measures how sure you are that an effect isn't zero. Not how big it is. With a million people, even a tiny effect can be measured very precisely. So it gets a tiny p-value, and a very tall skyscraper.
+B: So my theory, small p, big deal...
+A: Wrong. But it's the answer half the class will write.
+# slow
+A: Tall means certain. Not big, and not causal.
+# normal
+B: And the QQ plot?
+A: Observed p-values against what you'd expect if nothing were associated. Bending away from the diagonal can mean a problem, like population structure or batch effects. Or a highly polygenic trait, with many small effects everywhere. That's why LDL's QQ plot looks a bit off in the lecture. Not a bug. Biology.
+# sting
+B: Why do hits come in clusters?
+A: Linkage disequilibrium. One causal variant drags its correlated neighbors up with it. One signal, many SNPs, one peak. The lead SNP is the one with the smallest p-value, and it may just be a good proxy. Correlation is measured with r squared. Above zero point eight, a close proxy. Below zero point one, weak.
+B: Population structure, in more detail.
+A: Two populations. One has more of allele G and higher LDL. The other has less G and lower LDL. Pool them, and G looks associated with high LDL, whatever G actually does. The standard fixes are four. A homogeneous ancestry group. Adjusting for principal components. Mixed models for relatedness, like regenie. And checking the QQ plot and genomic inflation.
+A: Your turn. If you're worried about population structure, can you just use a stricter p-value threshold?
+B: Stricter means fewer false positives. So yes.
+A: And?
+B: And that's why you're looking at me like that.
+A: Population structure is confounding. A bias, not noise. A stricter threshold makes a biased result rarer, but just as wrong.
+B: Trap number three.
+A: Three.
+# sting
+B: Last section. From a hit to biology.
+A: A SNP is one variant. A locus is a region with associated variants, often one peak. And here's the mirror image of the SNP we started with. A variant that lowers LDL by half a millimole per liter per copy. A huge effect. But only one and a half percent of alleles carry it. About three percent of people are heterozygotes, and two in ten thousand carry two copies.
+B: So it matters a lot for the few.
+A: And explains almost nothing of the variation in the population. A big effect can barely matter. A tiny effect can be extremely significant. Effect size, significance and population relevance are three different things.
+B: And QTLs?
+A: A quantitative trait locus is a region associated with a quantitative trait, including molecular traits like expression or protein level. A protein QTL near the protein's own gene is cis. Far away is trans. Lecture eight.
+# sting
+B: Three things to take away.
+# fast
+A: One. One regression per SNP. Beta per copy of the effect allele. Odds ratio is e to the beta, and two copies square it.
+B: Two?
+A: Five times ten to the minus eight. Tall means certain, not big, not causal.
+B: Three?
+A: Know your effect allele, adjust for population structure, and the lead SNP may just stand next to the cause.
+# normal
+B: Next episode, lecture five. GWAS in practice.
+A: Next time, two SNPs that live right next to each other. And have almost nothing in common.
+B: That sounds like my neighbors.
+A: Thanks for listening.

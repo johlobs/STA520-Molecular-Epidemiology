@@ -1,0 +1,112 @@
+# title: Lecture 5 — GWAS in practice
+# Hosts: A = Maya (explains), B = Sam (asks), C-H = listener voices (see VOICES in build_podcast.py).
+# Directives: "# fast" / "# slow" ... "# normal" = pace, "# sting" = chime between segments, "# pause" = extra silence.
+# Concepts only, no computer exercise answers.
+B: Two SNPs, sitting right next to each other on the same chromosome.
+A: Neighbors.
+B: So they must be strongly correlated.
+A: Calculate it. The r squared is almost zero.
+# pause
+B: How is that even possible?
+A: Distance isn't destiny.
+# sting
+B: Welcome back to the STA five twenty study podcast. I'm Sam.
+A: And I'm Maya. Episode five. This session was mostly a hands on computer exercise, framed by a short lecture. We'll stick to the lecture's ideas, not the exercise.
+B: What's the big idea this time?
+A: What to do after you've found a peak in the Manhattan plot. A peak contains many correlated SNPs. Which one is causal? And how do you reduce each peak to one SNP you can actually use?
+# sting
+B: Let's start with the data. What does individual level GWAS data look like?
+A: One row per person. An ID, the phenotype, for example systolic blood pressure, or diabetes yes or no. The SNP dosage, zero, one or two. And covariates, like age and treatment.
+B: And the model?
+A: For a continuous phenotype, a linear model with dosage as X and the phenotype as Y. For a binary one, logistic. Adjusted for three kinds of things. Technical variables like batch or machine. Biological covariates like age, age squared and sex. And population structure, for example the first ten principal components.
+B: That's the model from lecture four.
+A: Exactly the same, now framed as what you actually run in software.
+# sting
+B: Walk me through the whole pipeline.
+A: Study participants come to visits, blood is drawn and DNA is extracted. You end up with three kinds of data, all linked by subject ID. Phenotype data and covariate data, usually as text files. And genotype data, a big binary file with millions of SNPs per person. Those three go into PLINK, together with quality control and principal components computed beforehand.
+B: And what comes out?
+A: GWAS summary data. One row per SNP instead of one row per person. Then you apply the genome wide threshold, make Manhattan and QQ plots, group significant SNPs into loci, and pick a lead SNP for each.
+B: Why do neighboring SNPs show up together?
+A: Two reasons, and the exam could phrase it either way. One is biology. A causal SNP really changes gene expression or protein function, and that changes the phenotype. The other is purely statistical. SNPs are inherited together, so all the neighbors of the causal SNP look associated, just because they're correlated with it.
+B: So most of the SNPs in a peak are just along for the ride.
+A: My unpopular opinion for today. A Manhattan peak is a crowd photo. The culprit is in there somewhere, but most of the faces are innocent bystanders who happened to stand close.
+B: And the lead SNP is the one in front?
+A: The lead SNP has the smallest p-value. That makes it the clearest face in the photo, not the guilty one. It's not necessarily causal. The locus is the whole region, the cluster of correlated SNPs around and including the lead SNP.
+B: Could the causal SNP be missing completely?
+A: Yes. Arrays only genotype a pre chosen set of known SNPs. If the causal variant isn't on the array, you can only infer it indirectly, through LD with measured SNPs or through imputation, which is lecture six.
+# sting
+B: So how do you find the causal SNP? The lecture has a list.
+A: A menu of approaches. Good to know as a list. First, a credible set, a set of candidate SNPs based on association strength and LD structure. Second, conditional analysis.
+B: We have a listener question here. It's from Sofia, who says her supervisor keeps saying "just condition on it" as if that explains everything.
+H: Hi. What does conditional analysis actually do? My supervisor says "just condition on it" and then leaves the room.
+B: Classic supervisor move.
+A: Here's what they meant, Sofia. You add the lead SNP as a covariate and retest the others. If an association survives, it's independent of the lead SNP. If it vanishes, it was only tagging the lead SNP through LD.
+B: So if most of them lose their signal?
+# slow
+A: They were mainly shadows of the lead SNP.
+# normal
+B: What else is on the menu?
+A: Functional annotation. Where does the SNP sit? In a promoter, in the protein coding sequence, does it cause a missense change? Then protein folding models, which predict whether the variant changes the protein's structure. Then protein QTL evidence, does a variant near a gene change that protein's level in the blood? That's lecture eight. And finally experiments, like knock in mouse models, that test the candidate mutation directly.
+# sting
+B: Now r squared again. The lecture has a little table.
+A: A lead SNP and four neighbors. One neighbor has r squared zero point zero five, weak. Another zero point eight five, very strong. Another zero point zero one, essentially independent. And one with zero point six four, moderate to strong.
+A: Your turn. The lead SNP is missing in another dataset. Which neighbor do you use instead?
+B: The independent one. Zero point zero one. So it doesn't double count.
+A: That's the trap. You want a stand in, not an independent witness.
+B: Oh. A proxy should carry the same signal.
+A: So the highest correlation. Zero point eight five. Proxies come back in lecture six.
+B: And when do we call two SNPs independent?
+A: A common practical threshold is r squared below zero point zero one.
+B: Is LD just about distance? Close SNPs are correlated, far ones aren't?
+A: That's the intuitive version, and it's wrong often enough to matter. LD is usually strongest locally, but it differs between populations, because of different recombination histories and genetic drift. It depends on both SNPs' allele frequencies. And two SNPs can sit right next to each other and still have low r squared.
+B: So you can't eyeball it.
+A: You have to calculate it.
+# sting
+B: Then LD clumping.
+A: The automated procedure that reduces each locus's correlated SNPs to one representative, approximately independent lead variant. Standard practice, and used specifically before Mendelian randomization.
+B: Why does Mendelian randomization need that?
+A: Because it combines several SNPs as if each carried independent information. Correlated SNPs would count the same signal several times and make you look more certain than you are.
+B: But if a SNP survives clumping, it stands alone. That makes it the causal one.
+A: I disagree. Surviving clumping means no other SNP explains it. It doesn't mean it does anything biologically.
+B: It's the last one standing, though.
+A: The last one standing in a statistical sense. The real causal variant might not even be measured, and this SNP is just its best available proxy.
+# slow
+A: Independent is a statistical property. Causal is a biological one.
+# normal
+B: Point taken.
+# sting
+B: How do you compute LD if you only have summary statistics?
+A: You can't, from the summary statistics alone. LD is a correlation between genotypes within individuals, and summary statistics have no individuals. So you need an external reference dataset, like the thousand genomes project.
+B: Why not just put everything in one big public file?
+A: Because individual level genotype data is sensitive, restricted and tied to specific projects. So you use a separate reference panel with the right permissions.
+B: Anything to watch out for with the reference panel?
+A: Its ancestry must match the GWAS population. LD patterns differ between populations, so the wrong panel gives you the wrong correlations.
+# sting
+B: The lecture ends with practical pitfalls when combining datasets. Four checks. I'll ask, you answer.
+# fast
+B: Same SNPs in both?
+A: Genomic coverage.
+B: Same physical effect allele?
+A: Allele compatibility.
+B: Same reference genome?
+A: Genome build.
+B: Easiest way to avoid mismatches?
+A: Use rs numbers.
+# normal
+B: What's the classic symptom of a flipped allele?
+A: Betas change sign. If half your effects point the opposite way compared with a published analysis, check the effect allele before you write a paper about a surprising discovery.
+B: The computer exercises also mention strands and palindromic SNPs.
+A: DNA has two strands, and studies don't always report alleles on the same one. So an [A](/ˈeɪ/) slash G SNP in one file can appear as T slash C in another, the complement. Usually that's easy to detect.
+B: And palindromic?
+A: [A](/ˈeɪ/) slash T and C slash G SNPs. The complement is the same pair of letters, so you can't see a strand flip from the letters at all. You resolve them with allele frequencies if the frequency is clearly different from one half. Otherwise you drop them.
+B: And what's the point of all this cleaning?
+A: To get valid genetic instruments for Mendelian randomization. Genome wide significant, clumped, independent SNPs, with aligned alleles. That's the bridge to lecture six.
+# sting
+B: Let's wrap up. Three things to take away?
+A: One. The pipeline. Phenotype, covariates and genotypes linked by subject ID go into PLINK. Summary statistics come out, one row per SNP.
+B: Two?
+A: The lead SNP is not necessarily causal. To narrow it down you have credible sets, conditional analysis, functional annotation, protein folding models, protein QTLs and experiments.
+B: And three?
+A: LD clumping gives one independent SNP per locus, for Mendelian randomization. LD from summary statistics needs a reference panel with matching ancestry. And always check coverage, alleles, genome build and identifiers before you combine data.
+B: Next episode, lecture six. Mendelian randomization. Thanks for listening.
+A: See you there.

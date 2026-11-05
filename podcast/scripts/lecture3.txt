@@ -1,0 +1,161 @@
+# title: Lecture 3 — Recap, mutations and genetics
+# Hosts: A = Maya (explains), B = Sam (asks), C-H = listener voices (see VOICES in build_podcast.py).
+# Directives: "# fast" / "# slow" ... "# normal" = pace, "# sting" = chime between segments, "# pause" = extra silence.
+# Series: trap counter starts at 2 (trap 1 = UGA in lecture 2). Series secret introduced here, revealed in lecture 9.
+A: Some of the luckiest people alive are walking around with a broken gene.
+B: Broken how?
+A: One of their genes barely works. And because of that, their cholesterol is low, and their hearts are better protected than yours or mine.
+B: Which gene?
+A: Not yet.
+# pause
+B: You can't just leave it there.
+A: I can.
+# sting
+B: Welcome back to the STA five twenty study podcast. I'm Sam.
+A: And I'm Maya. Episode three. How variation in genes is described, measured and inherited.
+B: Before we start, I have a theory about the lucky people.
+A: Go on.
+B: It's the LDL receptor gene. Break it, and something about cholesterol changes. Done.
+A: Hold on to that theory.
+B: That's not a yes.
+A: No, it isn't.
+B: One practical note. The genetics half of this lecture was actually taught at the start of the lecture four session. So if an exam question says lecture four and it's about Mendel or Hardy Weinberg, it's this material.
+A: And one more thing, Sam. There's a single idea that ties this whole course together. Everything we do points to it.
+B: What is it?
+A: I'll tell you in the last episode.
+B: You're doing this on purpose.
+A: Yes.
+# sting
+B: Small RNAs first. Last time we had messenger, ribosomal and transfer RNA. What's new?
+A: Non coding RNA genes. They're transcribed into RNA but never translated. The RNA itself is the product. Small nuclear RNA handles splicing, cutting non coding pieces out of a pre messenger RNA. And microRNA regulates gene expression. Then there's small interfering RNA, and microRNA versus small interfering RNA is a classic comparison. Both are about twenty two nucleotides long. MicroRNA is encoded in your own genome. Small interfering RNA comes from double stranded RNA. But the key difference is how they bind. MicroRNA binds its targets imperfectly, so one microRNA can regulate many genes at once, by blocking translation or speeding up degradation. Small interfering RNA binds almost perfectly, to one target, and has it cut and destroyed.
+B: We have a listener question about exactly this. It's from Mikael, who admits he has made flashcards for both and still can't tell them apart.
+C: Hi. If both of them silence genes, why do drug companies only use small interfering RNA? Isn't a molecule that hits hundreds of genes more powerful?
+A: More powerful, Mikael, and far less polite. If you want to silence exactly one gene, you want the sniper, not the shotgun. MicroRNA is the shotgun. Small interfering RNA is the sniper.
+B: Burn the flashcards, Mikael. Sniper and shotgun.
+A: And the shotgun is why microRNA shows up everywhere in cancer. Lecture seven.
+# sting
+B: The lecture uses this for the PCSK9 story. Two drugs, one pathway.
+A: Remember the chain from lecture one. PCSK9 breaks down LDL receptors on liver cells. Fewer receptors, slower clearance, higher LDL cholesterol. Now, there are two ways to attack PCSK9. The first is Leqvio, inclisiran, a small interfering RNA drug. It targets the PCSK9 messenger RNA in liver cells and gets it destroyed. To find the liver, it's attached to a sugar called GalNAc, which binds receptors that sit mainly on liver cells. The sugar is an address label. The drug gets mailed to the liver instead of the whole body. The second approach is the antibodies, Repatha and Praluent. They don't touch the messenger RNA at all. They grab free PCSK9 protein in the blood and stop it from binding the receptors. One drug stops PCSK9 being made. The other blocks what it does. Same end result, lower LDL cholesterol.
+B: So one pathway can have more than one point to attack.
+A: That's the take away. And the lecturer said not to memorize the medicines. Learn the idea.
+B: Next, gain and loss of function.
+A: A mutation can make a protein work better, gain of function, or worse, loss of function. Both terms are on the professor's list.
+B: And the PCSK9 variant from last time, D three seventy four Y?
+A: Gain of function. PCSK9 binds the receptor much more strongly. More receptors destroyed, LDL up, cardiovascular risk up.
+B: Then what would a loss of function variant in PCSK9 do?
+A: Walk the pathway.
+B: Less working PCSK9. Fewer receptors destroyed. More receptors on the liver. More LDL cleared. Lower LDL.
+A: And lower cardiovascular risk.
+B: Wait.
+# pause
+B: That's them. The lucky people.
+A: That's them. People with loss of function in PCSK9. They got the drug for free, from birth.
+B: So my theory, the LDL receptor...
+A: Wrong. Break the receptor and LDL goes up, not down. That's the heart attack family from lecture one. But it's the answer half the class would write.
+B: I was so close.
+A: You were on the right street. Wrong house.
+# slow
+A: The drugs copy what nature already did. Natural loss of function first, medicine second. Remember that pattern. It comes back in Mendelian randomization.
+# normal
+# sting
+B: Now notation. This always looks like line noise to me.
+A: It's called HGVS nomenclature, the international standard. A complete description always says two things. Which reference sequence, and what change at what position. Take the PCSK9 variant. N M underscore one seven four nine three six point four, colon, c dot eleven twenty G to T. N M means a curated messenger RNA transcript. The number identifies the transcript. Point four is the version. C dot means coding DNA coordinates. And eleven twenty G to T means at position eleven twenty, G is replaced by T.
+B: Why does the version matter?
+A: Reference sequences get revised. Use the wrong version and your coordinates shift.
+# slow
+A: Then you're describing the wrong letter with great confidence.
+# normal
+B: Other prefixes. Fast.
+# fast
+B: N C?
+A: Genomic. A whole chromosome.
+B: N P?
+A: Protein.
+B: g dot?
+A: Genomic coordinates.
+B: p dot?
+A: Protein coordinates. p dot Asp three seventy four Tyr.
+B: Deletions?
+A: A range with an underscore, and the word del.
+# normal
+B: Then rs numbers and genome builds.
+A: dbSNP is a database that gives every variant a stable identifier, the rs number. Positions, on the other hand, are counted against a reference genome. GRCh thirty seven or GRCh thirty eight. The same variant gets different positions in the two builds, but keeps its rs number. And hg nineteen is essentially the same assembly as GRCh thirty seven, so don't get thrown when you see both names.
+B: Any guesses about the big idea yet?
+A: Go on.
+B: The big idea of the course is PCSK9.
+A: No. PCSK9 is the example, not the idea.
+# sting
+B: Germline versus somatic. A typical definition question.
+A: Germline mutations are in egg or sperm cells. So they're in every cell of the body, they can be passed on to children, and you find them with a routine blood or saliva test. They cause inherited disorders and hereditary cancer syndromes. Somatic mutations are acquired during life, in non reproductive cells. They're confined to the affected tissue or tumor, they cannot be passed on, and you need a sample of the diseased tissue to find them. So if a mutation is in a tumor biopsy but not in the patient's blood, it's somatic. A germline mutation would be everywhere, including blood. The lecture's worked example is acute myeloid leukemia. Not a solid tumor, but it follows the somatic pattern. The diagnostics work in four steps. Find mutations specific to the leukemic cells. Design PCR primers around a candidate. Sequence that small region across many cells, which gives very high read depth. And ask, is the mutation there, and at what variant allele frequency?
+B: And another listener question, right on time. From Anna.
+H: Hello. I'm a nurse, so I know my way around a blood sample, but genetics papers keep losing me. Is variant allele frequency the same as allele frequency in the population? They have the same words in them.
+A: Same words, Anna, and a completely different meaning. Variant allele frequency is the fraction of reads within one patient's sample that carry the mutation. It tracks tumor burden. Population allele frequency is how common an allele is across people.
+# slow
+A: Same words, different denominator. One patient versus many people.
+# normal
+B: Sequencing versus genotyping, briefly.
+A: Sanger sequencing is the original. Very accurate, low throughput, longer reads. Next generation sequencing runs many reactions in parallel. Fast and cheap, but short reads, about fifty to three hundred nucleotides. Genotyping is different. It only asks which alleles a person carries at positions we already know. TaqMan does one known SNP at a time. SNP arrays do millions.
+# sting
+B: Second half. Mendel. Vocabulary first.
+# fast
+B: A specific position on a chromosome?
+A: Locus.
+B: The two copies, one from each parent?
+A: Homologous chromosomes.
+B: An alternative version at a locus?
+A: Allele.
+B: Which alleles you carry?
+A: Genotype.
+B: What you can observe?
+A: Phenotype.
+B: Works with one copy?
+A: Dominant.
+B: Needs two?
+A: Recessive.
+B: Two identical alleles?
+A: Homozygous. Two different, heterozygous.
+# normal
+B: Mendel's three laws.
+A: One, dominance. In a heterozygote, the dominant allele decides the phenotype. Two, segregation. You carry two alleles per gene, but each gamete gets only one. Three, independent assortment. Alleles of different genes are inherited independently. Except when the genes sit close together on the same chromosome. My unpopular opinion for today. Mendel was lucky with his peas. Most of his traits happened to behave. Biology is rarely that polite.
+B: That's linkage.
+A: During meiosis, homologous chromosomes swap segments. That's recombination. Genes close together are rarely separated, because a crossover rarely lands in the short stretch between them. The recombination frequency goes from zero, complete linkage, to fifty percent, which means unlinked. It stops at fifty because fifty percent is what pure chance gives you. Recombination can push linked genes towards independence, never past it.
+B: Then linkage disequilibrium. Honestly, isn't that just linkage with a longer name?
+A: No, and I'll die on this hill.
+B: Here we go.
+A: Linkage is about families. Genes close together travel together from parent to child. Linkage disequilibrium is about populations. It's the non random association of alleles at different loci, across people.
+B: Alleles traveling together. Same thing.
+A: Same spirit, different level. Family versus population. And you measure it differently. Compare the observed frequency of a haplotype with what you'd expect if the loci were independent. Allele [A](/ˈeɪ/) has frequency zero point five, allele B zero point four. Independent means the [A B](/ˈeɪ bˈiː/) haplotype should have frequency zero point two. If you observe zero point three, they're in linkage disequilibrium, and the difference, zero point one, is the coefficient D.
+B: Fine. Family versus population. Hill defended.
+# sting
+B: A first look at GWAS.
+A: A genome wide association study scans millions of SNPs and asks, for each one, is one allele more common among people with the trait? And here's the uncomfortable truth. The top hit is often innocent. It's standing next to the guilty one. Nearby variants are inherited together, so a significant SNP may just tag the real causal variant. The association is borrowed. The causal variant might not even be on the array.
+B: And the arrays work how?
+A: Short DNA probes, each recognizing one allele. Fragment the person's DNA, let it bind, read the fluorescence. If both the [A](/ˈeɪ/) signal and the G signal light up, the person is a heterozygote.
+# sting
+B: Last topic. Hardy Weinberg.
+A: Expected genotype frequencies when allele frequencies stay constant. Idealized assumptions. No selection, no new mutations, no migration, random mating, an infinite population. Two alleles with frequencies p and q, adding up to one. The genotypes are p squared, two p q, and q squared. Two p q because there are two ways to be a heterozygote. First allele from the mother, or first allele from the father.
+A: Your turn. If q is zero point two, what share are heterozygotes?
+B: p is zero point eight. Times zero point two. Zero point one six.
+A: And?
+B: And that's it.
+A: You forgot the two.
+B: Two times zero point eight times zero point two. Zero point three two. I literally just heard you say two ways.
+A: You did.
+B: That's trap number two. Number one was the stop codon.
+A: I'm keeping count too.
+B: And in practice?
+A: Quality control. Observed genotype counts far from Hardy Weinberg, especially too few heterozygotes, usually means bad genotyping or population structure. The SNP gets flagged.
+# sting
+B: Let's wrap up. Three things.
+# fast
+A: One. MicroRNA is the shotgun, small interfering RNA the sniper. A pathway can have more than one druggable point.
+B: Two?
+A: Gain versus loss of function. Germline versus somatic. And read HGVS as reference, version, coordinate type, position, change.
+B: Three?
+A: Linkage disequilibrium is observed versus expected haplotypes. Hardy Weinberg is p squared, two p q, q squared. Don't forget the two.
+# normal
+B: Next episode, lecture four. From SNP to GWAS. Anything I should know?
+A: Next time, a result so significant it's almost impossible to be chance. And it barely matters.
+B: How can that be?
+A: Thanks for listening.
+B: She does this every time.

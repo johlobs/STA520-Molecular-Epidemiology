@@ -30,28 +30,94 @@ KOKORO_DIR = Path(os.environ.get("KOKORO_DIR", "C:/Users/nepet/tools/kokoro"))
 VOICES = {
     "A": ("af_nicole", "en-us", 1.0),     # Maya, explains
     "B": ("bf_isabella", "en-gb", 0.92),  # Sam, asks (older woman)
+    "C": ("am_michael", "en-us", 1.0),    # listener question, voice 1
+    "D": ("bm_george", "en-gb", 1.0),     # listener question, voice 2
+    "E": ("bm_lewis", "en-gb", 1.0),      # listener voices 3-6
+    "F": ("am_eric", "en-us", 1.0),
+    "G": ("am_adam", "en-us", 1.0),
+    "H": ("bf_emma", "en-gb", 1.0),
 }
+# Script directives (own line):
+#   "# fast"   quicker turn-taking until "# normal"
+#   "# slow"   slightly slower, for key points, until "# normal"
+#   "# sting"  short two-note chime between segments
+#   "# pause"  extra silence before a key point
+PACES = {"normal": (1.0, 0.35), "fast": (1.15, 0.08), "slow": (0.90, 0.6)}
+LONG_PAUSE = 0.9
 # Inline forced pronunciation in scripts: [text](/phonemes/)
 PHONEME_MARK = re.compile(r"\[([^\]]+)\]\(/([^/]+)/\)")
+
+# Words Kokoro misreads, applied automatically as phoneme marks (whole words only).
+LETTERS = {"A": "ˈeɪ", "C": "sˈiː", "G": "dʒˈiː", "T": "tˈiː", "U": "jˈuː"}
+LEXICON = {
+    "MR": "ˌɛmˈɑːɹ",
+    "IVW": "ˌaɪvˌiːdˈʌbəljuː",
+    "OR": "ˌoʊˈɑːɹ",
+    "AML": "ˌeɪˌɛmˈɛl",
+    "MAF": "ˌɛmˌeɪˈɛf",
+    "IV": "ˌaɪˈviː",
+    "GWAS": "dʒˈiːwɑːs",
+    "SNPs": "ˌɛsˌɛnpˈiːz",
+    "QTLs": "kjˌuːtˌiːˈɛlz",
+    "pQTLs": "pˈiː kjˌuːtˌiːˈɛlz",
+    "Olink": "ˈoʊlɪŋk",
+    "proinsulin": "pɹˌoʊˈɪnsjʊlɪn",
+    "FWER": "ˌɛfdˌʌbəljuːˌiːˈɑːɹ",
+    "Hochberg": "hˈoʊkbɜːɡ",
+    "APOB": "ˌeɪpˌiːˌoʊbˈiː",
+    "APOE": "ˌeɪpˌiːˌoʊˈiː",
+    "PNPLA3": "pˌiːˌɛnpˌiːˌɛlˈeɪ θɹˈiː",
+}
+CODON = re.compile(r"(?<![\w\[])[ACGTU]{3,4}(?![\w\]])")
+
+
+def apply_lexicon(text):
+    for word, ph in LEXICON.items():
+        text = re.sub(rf"(?<![\[\w]){word}(?![\w\]])", f"[{word}](/{ph}/)", text)
+    return CODON.sub(lambda m: f"[{m.group(0)}](/{' '.join(LETTERS[c] for c in m.group(0))}/)", text)
 SPEED = 1.0
 PAUSE_SECONDS = 0.35
 BITRATE = 64
 
 
 def parse(path):
+    """Return (speaker, text, pace) per turn; speaker "STING"/"PAUSE" for effects."""
     turns = []
+    pace = "normal"
     for line in path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
+        if line[2:] in PACES and line.startswith("# "):
+            pace = line[2:]
+            continue
+        if line in ("# sting", "# pause"):
+            turns.append((line[2:].upper(), "", pace))
+            continue
         if not line or line.startswith("#"):
             continue
         speaker, text = line.split(":", 1)
-        turns.append((speaker.strip(), text.strip()))
+        turns.append((speaker.strip(), text.strip(), pace))
     return turns
 
 
-def speak(kokoro, text, speaker):
+def sting(sample_rate, seconds=1.4):
+    """Warm chord swell (C major, own synthesis, no samples) between segments."""
+    t = np.arange(int(sample_rate * seconds)) / sample_rate
+    env = np.sin(np.pi * t / seconds) ** 2
+    pad = sum(np.sin(2 * np.pi * f * t) + 0.2 * np.sin(4 * np.pi * f * t) for f in (261.63, 329.63, 392.0)) * env
+    out = pad.copy()
+    for delay, gain in ((0.043, 0.5), (0.071, 0.35), (0.113, 0.25), (0.167, 0.15)):
+        k = int(sample_rate * delay)
+        out[k:] += gain * 0.8 * pad[:-k]
+    out = out / np.max(np.abs(out)) * 0.22
+    fade = np.linspace(1, 0, int(sample_rate * 0.1))
+    out[-len(fade):] *= fade
+    return out.astype(np.float32)
+
+
+def speak(kokoro, text, speaker, speed=SPEED):
     voice, lang, pitch = VOICES[speaker]
     factor = 1 / pitch
+    text = apply_lexicon(text)
     if PHONEME_MARK.search(text):
         parts, pos = [], 0
         for m in PHONEME_MARK.finditer(text):
@@ -61,9 +127,9 @@ def speak(kokoro, text, speaker):
             pos = m.end()
         if text[pos:].strip():
             parts.append(kokoro.tokenizer.phonemize(text[pos:], lang))
-        audio, sr = kokoro.create(" ".join(parts), voice=voice, speed=SPEED * factor, lang=lang, is_phonemes=True)
+        audio, sr = kokoro.create(" ".join(parts), voice=voice, speed=speed * factor, lang=lang, is_phonemes=True)
     else:
-        audio, sr = kokoro.create(text, voice=voice, speed=SPEED * factor, lang=lang)
+        audio, sr = kokoro.create(text, voice=voice, speed=speed * factor, lang=lang)
     if factor != 1.0:
         n = int(len(audio) * factor)
         audio = np.interp(np.linspace(0, len(audio) - 1, n), np.arange(len(audio)), audio).astype(np.float32)
@@ -79,10 +145,17 @@ def build(name, kokoro, force=False):
     start = time.time()
     pieces = []
     sample_rate = 24000
-    for speaker, text in parse(script):
-        audio, sample_rate = speak(kokoro, text, speaker)
-        pieces.append(audio)
-        pieces.append(np.zeros(int(sample_rate * PAUSE_SECONDS), dtype=audio.dtype))
+    for speaker, text, pace in parse(script):
+        speed, pause = PACES[pace]
+        if speaker == "STING":
+            pieces += [np.zeros(int(sample_rate * 0.3), np.float32), sting(sample_rate), np.zeros(int(sample_rate * 0.5), np.float32)]
+            continue
+        if speaker == "PAUSE":
+            pieces.append(np.zeros(int(sample_rate * LONG_PAUSE), np.float32))
+            continue
+        audio, sample_rate = speak(kokoro, text, speaker, SPEED * speed)
+        pieces.append(audio.astype(np.float32))
+        pieces.append(np.zeros(int(sample_rate * pause), np.float32))
     audio = np.concatenate(pieces)
     pcm = (np.clip(audio, -1, 1) * 32767).astype(np.int16).tobytes()
 
