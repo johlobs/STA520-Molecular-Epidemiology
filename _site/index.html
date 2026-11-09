@@ -4156,6 +4156,151 @@ window.STA520_TOPICS = [
 
 </script>
 
+<style>
+.essay { margin: .6rem 0 1rem; }
+.essay label { display: block; font-weight: 600; font-size: .92rem; margin-bottom: .25rem; }
+.essay textarea { width: 100%; min-height: 7.5rem; padding: .6rem .7rem; font: inherit; font-size: .95rem; line-height: 1.5;
+  border: 1px solid #c8d1db; border-radius: 6px; background: #fff; resize: vertical; }
+.essay textarea:focus { outline: 2px solid #2c7be5; border-color: #2c7be5; }
+.essay .essay-meta { font-size: .8rem; color: #6c7a89; margin-top: .2rem; }
+.essay-bar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; padding: .7rem .9rem; margin: 1rem 0;
+  background: #f1f5fa; border: 1px solid #d5dfea; border-radius: 8px; }
+.essay-bar button { border: 1px solid #2c3e50; background: #2c3e50; color: #fff; border-radius: 6px; padding: .35rem .8rem; font-size: .9rem; cursor: pointer; }
+.essay-bar button.secondary { background: #fff; color: #2c3e50; }
+.essay-bar .essay-status { font-size: .85rem; color: #4a5866; margin-left: .3rem; }
+</style>
+<script>
+(function () {
+  var boxes = document.querySelectorAll('.essay');
+  if (!boxes.length) return;
+  var KEY = 'sta520_essays';
+
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } }
+  function save(d) { try { localStorage.setItem(KEY, JSON.stringify(d)); return true; } catch (e) { return false; } }
+  function words(t) { var m = (t || '').trim().match(/\S+/g); return m ? m.length : 0; }
+
+  var data = load();
+
+  boxes.forEach(function (box) {
+    var id = box.getAttribute('data-id');
+    var lab = document.createElement('label');
+    lab.textContent = 'Your answer ' + (box.getAttribute('data-label') || '');
+    var ta = document.createElement('textarea');
+    ta.id = 'essay-' + id;
+    lab.setAttribute('for', ta.id);
+    ta.placeholder = 'Write your answer here. It is saved automatically in this browser.';
+    ta.value = data[id] || '';
+    var meta = document.createElement('div');
+    meta.className = 'essay-meta';
+    function upd() { meta.textContent = words(ta.value) + ' words'; }
+    upd();
+    ta.addEventListener('input', function () {
+      data[id] = ta.value;
+      save(data);
+      upd();
+      status();
+    });
+    box.appendChild(lab); box.appendChild(ta); box.appendChild(meta);
+  });
+
+  /* Plain-text version of a question section, without model answers or answer boxes */
+  function nodeText(el) {
+    if (el.tagName === 'TABLE') {
+      var rows = Array.prototype.map.call(el.querySelectorAll('tr'), function (tr) {
+        return '| ' + Array.prototype.map.call(tr.children, function (c) { return c.innerText.trim(); }).join(' | ') + ' |';
+      });
+      var ncol = el.querySelector('tr') ? el.querySelector('tr').children.length : 1;
+      rows.splice(1, 0, '|' + new Array(ncol + 1).join('---|'));
+      return rows.join('\n');
+    }
+    if (el.tagName === 'OL' || el.tagName === 'UL') {
+      var type = (el.getAttribute('type') || '1');
+      var start = parseInt(el.getAttribute('start') || '1', 10);
+      return Array.prototype.map.call(el.children, function (li, i) {
+        var n = start + i, mark;
+        if (el.tagName === 'UL') mark = '-';
+        else if (type === 'a') mark = '(' + String.fromCharCode(96 + n) + ')';
+        else if (type === 'A') mark = '(' + String.fromCharCode(64 + n) + ')';
+        else mark = n + '.';
+        return mark + ' ' + li.innerText.trim();
+      }).join('\n');
+    }
+    if (el.tagName === 'PRE' || el.querySelector && el.querySelector('pre')) return '```\n' + el.innerText.trim() + '\n```';
+    return el.innerText.trim();
+  }
+
+  function buildMarkdown() {
+    var d = load();
+    var out = ['# STA520 exam-format set: my answers', '', 'Downloaded ' + new Date().toISOString().slice(0, 16).replace('T', ' '), ''];
+    var sections = [];
+    boxes.forEach(function (b) {
+      var s = b.closest('section');
+      if (s && sections.indexOf(s) < 0) sections.push(s);
+    });
+    sections.forEach(function (s) {
+      var h = s.querySelector('h2');
+      out.push('## ' + (h ? h.innerText.trim() : s.id), '');
+      out.push('**Question**', '');
+      Array.prototype.forEach.call(s.children, function (el) {
+        if (el.tagName === 'H2' || el.classList.contains('essay') || el.classList.contains('callout') ||
+            el.classList.contains('essay-bar') || el.classList.contains('quiz-box')) return;
+        var t = nodeText(el);
+        if (t) out.push(t, '');
+      });
+      s.querySelectorAll('.essay').forEach(function (b) {
+        var id = b.getAttribute('data-id');
+        var ans = (d[id] || '').trim();
+        out.push('**My answer ' + (b.getAttribute('data-label') || '') + '**', '', ans ? ans : '_(no answer)_', '');
+      });
+    });
+    return out.join('\n');
+  }
+
+  function answeredCount() {
+    var d = load(), n = 0;
+    boxes.forEach(function (b) { if ((d[b.getAttribute('data-id')] || '').trim()) n++; });
+    return n;
+  }
+
+  var bars = document.querySelectorAll('.essay-bar');
+  var statusEls = [];
+  function status() {
+    var txt = answeredCount() + ' of ' + boxes.length + ' answer boxes filled';
+    statusEls.forEach(function (e) { e.textContent = txt; });
+  }
+
+  bars.forEach(function (bar) {
+    bar.innerHTML =
+      '<button type="button" class="dl">Download my answers (.md)</button>' +
+      '<button type="button" class="secondary cp">Copy to clipboard</button>' +
+      '<button type="button" class="secondary clr">Clear all answers</button>' +
+      '<span class="essay-status"></span>';
+    statusEls.push(bar.querySelector('.essay-status'));
+    bar.querySelector('.dl').addEventListener('click', function () {
+      var blob = new Blob([buildMarkdown()], { type: 'text/markdown;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'sta520-answers-' + new Date().toISOString().slice(0, 10) + '.md';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    });
+    bar.querySelector('.cp').addEventListener('click', function () {
+      var btn = this, md = buildMarkdown();
+      function done(ok) { btn.textContent = ok ? 'Copied ✓' : 'Copy failed'; setTimeout(function () { btn.textContent = 'Copy to clipboard'; }, 1800); }
+      if (navigator.clipboard) navigator.clipboard.writeText(md).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+    bar.querySelector('.clr').addEventListener('click', function () {
+      if (!confirm('Delete all your written answers in this browser? Download them first if you want to keep them.')) return;
+      data = {};
+      save(data);
+      document.querySelectorAll('.essay textarea').forEach(function (t) { t.value = ''; t.dispatchEvent(new Event('input')); });
+      status();
+    });
+  });
+  status();
+})();
+</script>
 <script>window.STA520_EPISODES = [{"id": "lecture1", "title": "Lecture 1 — The biological language of molecular epidemiology", "minutes": 18}, {"id": "lecture2", "title": "Lecture 2 — DNA, RNA and protein", "minutes": 17}, {"id": "lecture3", "title": "Lecture 3 — Recap, mutations and genetics", "minutes": 20}, {"id": "lecture4", "title": "Lecture 4 — From SNP to GWAS", "minutes": 21}, {"id": "lecture5", "title": "Lecture 5 — GWAS in practice", "minutes": 15}, {"id": "lecture6", "title": "Lecture 6 — From GWAS to Mendelian randomization", "minutes": 18}, {"id": "lecture7", "title": "Lecture 7 — High-dimensional molecular data", "minutes": 22}, {"id": "lecture8", "title": "Lecture 8 — Proteomics", "minutes": 20}, {"id": "lecture9", "title": "Lecture 9 — Two-sample MR and polygenic risk scores", "minutes": 19}];</script>
 
 <script>

@@ -37,6 +37,12 @@ The written exam mixes **multiple choice, true/false, a transcription task, a mu
 7. **Define precisely.** cis-pQTL: near the gene that **encodes** the protein (within about 1 Mb), not merely "same chromosome". FWER and FDR have one-line formal definitions; learn them word for word.
 :::
 
+## Writing your answers
+
+For parts B–I you can **write your answers in the boxes** under each question. They are saved automatically in this browser (nothing is sent anywhere). When you are done, **download them as a Markdown file** with the questions included, and send the file to whoever gives you feedback, for example your teacher or an AI assistant. Write before you open the model answers.
+
+<div class="essay-bar"></div>
+
 ## A. Quick questions
 
 :::: {.quiz}
@@ -126,6 +132,10 @@ A substitution that keeps the same amino acid is silent (synonymous). Missense c
 
 (a) Transcribe the gene into mRNA (1p). (b) Translate the mRNA into a protein (2p).
 
+<div class="essay" data-id="B-a" data-label="(a) mRNA"></div>
+
+<div class="essay" data-id="B-b" data-label="(b) protein"></div>
+
 ::: {.callout-tip collapse="true" icon="false"}
 ## Model answer
 **(a)** Transcription runs away from the promoter, so the polymerase reads the **top strand 3′→5′** (the template) and builds the mRNA 5′→3′. The mRNA is complementary to the template, which makes it identical to the bottom (coding) strand with U instead of T:
@@ -154,6 +164,14 @@ Five hundred plasma metabolites were tested for association with a disease. The 
 (c) Calculate the **Bonferroni-adjusted p-value** and the **BH-adjusted p-value** for test 4. Is it a positive finding in the FWER and the FDR context, respectively? Assume no test further down the list has a lower BH-adjusted value than test 4 (2.5p).
 (d) Why can FDR control be suitable for an exploratory screen, and how should its hits be interpreted? (1p)
 
+<div class="essay" data-id="C-a" data-label="(a)"></div>
+
+<div class="essay" data-id="C-b" data-label="(b)"></div>
+
+<div class="essay" data-id="C-c" data-label="(c)"></div>
+
+<div class="essay" data-id="C-d" data-label="(d)"></div>
+
 ::: {.callout-tip collapse="true" icon="false"}
 ## Model answer
 **m = 500**, the total number of tests, even though only ten p-values are printed.
@@ -180,6 +198,14 @@ Among the ten listed: Bonferroni keeps ranks 1–3 (p < 0.0001). BH keeps ranks 
 
 Describe: (a) cis-pQTL, (b) trans-pQTL, (c) lead SNP, (d) an independent signal in a GWAS.
 
+<div class="essay" data-id="D-a" data-label="(a) cis-pQTL"></div>
+
+<div class="essay" data-id="D-b" data-label="(b) trans-pQTL"></div>
+
+<div class="essay" data-id="D-c" data-label="(c) lead SNP"></div>
+
+<div class="essay" data-id="D-d" data-label="(d) independent signal"></div>
+
 ::: {.callout-tip collapse="true" icon="false"}
 ## Model answer
 **(a) cis-pQTL:** a genetic variant associated with the plasma level of a protein that lies **near the gene encoding that protein**, commonly within about 1 Mb. It probably acts directly on that protein's own transcription, splicing, stability or secretion.
@@ -197,6 +223,10 @@ A colleague studies the enzyme **Z** and asks whether genetic variants in or aro
 
 (a) How would you look for such variants? (2p)
 (b) You find nothing. What can you conclude? (2p)
+
+<div class="essay" data-id="E-a" data-label="(a)"></div>
+
+<div class="essay" data-id="E-b" data-label="(b)"></div>
 
 ::: {.callout-tip collapse="true" icon="false"}
 ## Model answer
@@ -233,6 +263,10 @@ An MR analysis of LDL-cholesterol-raising variants (exposure) on stroke (outcome
 (a) Plot β outcome against β exposure in your head. Describe what such a plot shows and compute the Wald ratio for each SNP (3p).
 (b) Suggest reasons why SNP5 behaves differently from the others (2p).
 
+<div class="essay" data-id="F-a" data-label="(a)"></div>
+
+<div class="essay" data-id="F-b" data-label="(b)"></div>
+
 ::: {.callout-tip collapse="true" icon="false"}
 ## Model answer
 **(a)** Each point is one SNP: its effect on the exposure (x) against its effect on the outcome (y), with error bars for the SEs. If the exposure causes the outcome, the points lie on a **line through the origin**, and its slope is the causal effect. The **Wald ratio** for each SNP is β outcome / β exposure:
@@ -261,6 +295,8 @@ Follow-up: a heterogeneity test (Cochran's Q), leave-one-out analysis, and robus
 
 You have summary statistics for two GWAS. GWAS 1: **body mass index** (BMI). GWAS 2: plasma level of **protein Y**. Explain why you might select SNPs differently for GWAS 2 than for GWAS 1, and how this reflects the pathway from SNP to exposure.
 
+<div class="essay" data-id="G" data-label=""></div>
+
 ::: {.callout-tip collapse="true" icon="false"}
 ## Model answer
 **GWAS 1 (BMI):** BMI is highly polygenic and affected by many biological pathways. The usual approach: take **genome-wide significant SNPs from across the whole genome** (p < 5 × 10⁻⁸), LD-clump them into independent signals and use them all as instruments. Their mechanisms are mostly unknown, so horizontal pleiotropy is likely, and robust methods (weighted median, MR-Egger) are important.
@@ -277,6 +313,12 @@ A cohort of 30,000 people measures 1,500 plasma proteins and follows them for in
 (a) Give two biological or methodological reasons why the protein Y–diabetes association does not by itself show that protein Y causes diabetes (4p).
 (b) The variant is a strong cis-pQTL for protein Y. Explain how it can be used as an instrumental variable in MR, and state the three core MR assumptions in this context (6p).
 (c) The protein Y pQTL and the diabetes GWAS both have a signal in the same region, but it is unclear whether one causal variant drives both. Explain why colocalization would be useful (2p).
+
+<div class="essay" data-id="H-a" data-label="(a)"></div>
+
+<div class="essay" data-id="H-b" data-label="(b)"></div>
+
+<div class="essay" data-id="H-c" data-label="(c)"></div>
 
 ::: {.callout-tip collapse="true" icon="false"}
 ## Model answer
@@ -302,6 +344,8 @@ The question is about the **protein–disease association**, so the answer shoul
 
 Describe the procedure of LD clumping.
 
+<div class="essay" data-id="I" data-label=""></div>
+
 ::: {.callout-tip collapse="true" icon="false"}
 ## Model answer
 **Input:** GWAS **summary statistics** (SNP, p-value) and an **LD reference panel** of the same ancestry (for example 1000 Genomes), which gives r² between SNPs.
@@ -317,6 +361,8 @@ Describe the procedure of LD clumping.
 
 **Output:** a set of approximately **independent** lead SNPs, one per signal. They are used as MR instruments or in a PRS so that one signal is not counted several times. Clumping does not show which SNP is causal; the lead SNP is a tag for its region. Harmonisation of alleles between exposure and outcome is a **separate later step**, not part of clumping. [→ K.10](key-concepts.qmd#k-10) · [→ 5.4b](lecture5.qmd#t5-4b)
 :::
+
+<div class="essay-bar"></div>
 
 # 🎯 Instructor's example questions: Lecture 7
 
