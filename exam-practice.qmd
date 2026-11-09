@@ -1,9 +1,9 @@
 ---
 title: "Exam practice"
-subtitle: "The instructor's Lecture 7 exam questions, then drills and written questions sorted into written exam, exam status unclear, and seminar topics"
+subtitle: "An exam-format question set, the instructor's Lecture 7 exam questions, then drills and written questions sorted into written exam, exam status unclear, and seminar topics"
 ---
 
-This page collects everything you can **practise** rather than read. It starts with **the instructor's own example exam questions** for Lecture 7. The rest is sorted by what the lecturer said about the exam (lecture notes, 29 September):
+This page collects everything you can **practise** rather than read. It starts with an **exam-format set** that copies the question types of the written exam, followed by **the instructor's own example exam questions** for Lecture 7. The rest is sorted by what the lecturer said about the exam (lecture notes, 29 September):
 
 - **Part 1: ✍️ Written exam**: Lecture 7 (🎯 EXAM slides), the words and concepts on the professor's list for Lectures 1–3 (🎓), and other likely exam topics (📌).
 - **Part 2: ❔ Exam status unclear**: GWAS/MR theory that is not part of the computer exercises, polygenic risk scores and protein MR.
@@ -15,9 +15,307 @@ Drills draw new numbers each time you press **New problem ↻**: work on paper, 
 
 ::: {.callout-note collapse="true"}
 ## Where the questions come from
-**Instructor's questions:** the 11 questions in the first section are from **"Lecture 7 - questions.pdf"**, described on Canvas as "examples (but not an exhaustive list) of exercises and possible exam questions". The questions are the instructor's; the **model answers are written for this app** and are not an official answer key.
+**Exam-format set:** written for this app. The question *types* follow the written exam of October 2026 (multiple choice, true/false, a transcription task, a multiple-testing calculation, short definitions and long GWAS/MR scenarios), but every question uses its own made-up context and numbers. The model answers are not an official answer key.
+
+**Instructor's questions:** the 11 questions in the Lecture 7 section are from **"Lecture 7 - questions.pdf"**, described on Canvas as "examples (but not an exhaustive list) of exercises and possible exam questions". The questions are the instructor's; the **model answers are written for this app** and are not an official answer key.
 
 **Drills and written questions:** the drills cover every numerical worked example in the course. The written questions are written for this app. Their grouping follows the lecturer's guidance: 🎯 topics the instructor tagged EXAM in Lecture 7, 🎓 the professor's word and concept list, 🗣️ seminar content (computer exercises 1–2), ❔ unclear, 📌 AI-inferred. Q17 (a running-example question) was removed, and Q19 now uses a made-up variant; the other numbers are unchanged.
+:::
+
+# 📝 Exam-format set
+
+The written exam mixes **multiple choice, true/false, a transcription task, a multiple-testing calculation, short definitions and long scenario questions** on GWAS, Mendelian randomization (MR) and protein MR. The long scenario questions carry most of the points. This set copies those formats with new contexts and numbers. Do it **timed, about one minute per point** (the exam is 4 hours for 50 points), on paper, before you open any model answer.
+
+::: {.callout-important collapse="true"}
+## Checklist for written answers
+1. **Answer every sub-question by its own label** (a, b, c). A blank part scores zero; two sentences score something.
+2. **Do exactly the calculation asked for.** "Calculate the adjusted p-value" means p × m, not a comparison with α/m. Show the formula, the numbers and the conclusion.
+3. **m is the total number of tests** stated in the question, not the number of p-values printed.
+4. **Copy numbers carefully** from the question to your answer, and check each codon against the table.
+5. **Name the concept, then apply it to the case.** "Confounding: for example smoking raises both protein Y and diabetes risk" beats a correct definition with no link to the scenario.
+6. **For MR, always write the three assumptions by name**: relevance, independence, exclusion restriction.
+7. **Define precisely.** cis-pQTL: near the gene that **encodes** the protein (within about 1 Mb), not merely "same chromosome". FWER and FDR have one-line formal definitions; learn them word for word.
+:::
+
+## A. Quick questions
+
+:::: {.quiz}
+A variant is written NM_004000.3(GENEZ):c.512A>G. What does the prefix "c." tell you?
+
+- Positions are counted on the genomic reference sequence
+- **Positions are counted on the coding DNA sequence**
+- The amino acid change is described at protein level
+- The variant has been classified as clinically relevant
+
+::: {.exp}
+The prefixes: g. = genomic, c. = coding DNA (counted from the A of the ATG start codon), p. = protein, r. = RNA. The prefix says nothing about whether the variant is harmful.
+:::
+::::
+
+:::: {.quiz}
+In NP_000999.2(GENEZ):p.Gly171Ser, what does "p." indicate?
+
+- **The change is described at the protein level**
+- Positions refer to the coding DNA sequence
+- The variant is predicted to be pathogenic
+- Positions refer to the genomic reference build
+
+::: {.exp}
+Here p. means protein: glycine at amino acid position 171 is replaced by serine. Note also the NP_ accession (a protein reference sequence) rather than NM_ (an mRNA reference).
+:::
+::::
+
+:::: {.quiz}
+True or false: "A polygenic risk score (PRS) tells you a person's probability of developing the disease."
+
+- True, because the SNP weights come from a case-control GWAS
+- True, as long as the PRS includes all genome-wide significant SNPs
+- **False: it is a weighted sum of alleles, a relative ranking**
+- False, because a PRS only applies to continuous phenotypes
+
+::: {.exp}
+A PRS = Σ βⱼ × dosageⱼ. It has no unit and is not a probability. It ranks people relative to each other; turning it into an absolute risk needs a separate model with baseline risk, age, sex and so on. [→ 9.10](lecture9.qmd#t9-10) · [→ 9.13](lecture9.qmd#t9-13)
+:::
+::::
+
+:::: {.quiz}
+True or false: "A trans-pQTL must lie on a different chromosome from the gene that encodes the protein."
+
+- True, since trans means the variant acts across chromosomes
+- **False: far away on the same chromosome also counts as trans**
+- True, because a pQTL on the same chromosome is always cis
+- False, because trans-pQTLs lie inside the protein's own gene
+
+::: {.exp}
+cis = near the protein's own gene (commonly within 500 kb to 1 Mb). trans = everything else: far away on the same chromosome, or on another chromosome. [→ K.18](key-concepts.qmd#k-18)
+:::
+::::
+
+:::: {.quiz}
+Which definition of the false discovery rate (FDR) is correct?
+
+- The probability of at least one false positive among all tests
+- The probability that a single significant test is a false positive
+- **The expected share of false positives among the significant tests**
+- The share of true null hypotheses among all the tests performed
+
+::: {.exp}
+FDR = E[V/R]: of everything you call significant, the expected proportion that are false. FWER = P(V ≥ 1): the probability of at least one false positive among all tests. Neither requires the tests to be independent. [→ 7.11](lecture7.qmd#t7-11)
+:::
+::::
+
+:::: {.quiz}
+A mutation changes the codon GAA to GAG. Both code for glutamate. This is a:
+
+- Missense mutation, since one base was substituted
+- Nonsense mutation, since the codon was changed
+- **Silent mutation, since the amino acid is unchanged**
+- Frameshift mutation, since the reading frame moved
+
+::: {.exp}
+A substitution that keeps the same amino acid is silent (synonymous). Missense changes the amino acid; nonsense creates a stop codon; a frameshift needs an insertion or deletion that is not a multiple of 3. [→ 2.4](lecture2.qmd#t2-4)
+:::
+::::
+
+## B. Transcription and translation (3p)
+
+```
+3′ – [Promoter] CGTACCGAACCTTTGCGACTAAG – 5′
+5′ – [Promoter] GCATGGCTTGGAAACGCTGATTC – 3′
+```
+
+(a) Transcribe the gene into mRNA (1p). (b) Translate the mRNA into a protein (2p).
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**(a)** Transcription runs away from the promoter, so the polymerase reads the **top strand 3′→5′** (the template) and builds the mRNA 5′→3′. The mRNA is complementary to the template, which makes it identical to the bottom (coding) strand with U instead of T:
+
+**5′ GCAUGGCUUGGAAACGCUGAUUC 3′**
+
+**(b)** Translation starts at the first AUG and runs in triplets to the first stop codon:
+
+| Codon | AUG | GCU | UGG | AAA | CGC | UGA |
+|---|---|---|---|---|---|---|
+| Amino acid | Met | Ala | Trp | Lys | Arg | stop |
+
+Protein: **Met–Ala–Trp–Lys–Arg**. The stop codon ends translation; it is **not** an amino acid, so it is not written as part of the protein. The bases before AUG (GC) and after the stop (UUC) are untranslated.
+
+Common slips: reading the codon table from the wrong column (check every codon twice), and starting translation at the first base instead of at AUG. [→ 2.2b](lecture2.qmd#t2-2b) · [→ 2.3](lecture2.qmd#t2-3)
+:::
+
+## C. Multiple testing with many tests (6p)
+
+Five hundred plasma metabolites were tested for association with a disease. The ten smallest p-values, in increasing order, are:
+
+0.000002, 0.00004, 0.00009, 0.00016, 0.00030, 0.00045, 0.00060, 0.00095, 0.0013, 0.0020
+
+(a) Define the family-wise error rate (FWER) and give the Bonferroni-lowered threshold with α = 0.05 (1.5p).
+(b) Define the false discovery rate (FDR) (1p).
+(c) Calculate the **Bonferroni-adjusted p-value** and the **BH-adjusted p-value** for test 4. Is it a positive finding in the FWER and the FDR context, respectively? Assume no test further down the list has a lower BH-adjusted value than test 4 (2.5p).
+(d) Why can FDR control be suitable for an exploratory screen, and how should its hits be interpreted? (1p)
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**m = 500**, the total number of tests, even though only ten p-values are printed.
+
+**(a)** FWER = P(V ≥ 1): the probability of **at least one** false positive among all m tests. Bonferroni threshold: α/m = 0.05/500 = **0.0001**.
+
+**(b)** FDR = E[V/R]: the **expected proportion of false positives among the tests called significant**.
+
+**(c)** Test 4 has p = **0.00016** and rank i = 4.
+
+| | Formula | Value | Compare with 0.05 | Positive? |
+|---|---|---|---|---|
+| Bonferroni-adjusted p | p × m = 0.00016 × 500 | **0.08** | 0.08 > 0.05 | **No** (FWER) |
+| BH-adjusted p | p × m / i = 0.00016 × 500/4 | **0.02** | 0.02 < 0.05 | **Yes** (FDR) |
+
+Equivalent check with lowered thresholds: 0.00016 > 0.0001 (Bonferroni fails); 0.00016 ≤ (4/500) × 0.05 = 0.0004 (BH passes). The question asked for **adjusted p-values**, so give p × m and p × m/i; the threshold comparison is only a check.
+
+Among the ten listed: Bonferroni keeps ranks 1–3 (p < 0.0001). BH keeps ranks 1–7, since rank 7 gives 0.0006 × 500/7 = 0.043 and rank 8 gives 0.059.
+
+**(d)** In a screen the goal is a shortlist of candidates for follow-up. Bonferroni with m = 500 is so strict that many true effects are missed. FDR control accepts that a known **proportion** of the hits (here at most about 5 % on average) are false, in return for more power. The hits should be read as **candidates to validate** in an independent sample or with another method, not as confirmed findings. [→ 7.12](lecture7.qmd#t7-12) · [→ 7.13b](lecture7.qmd#t7-13b) · [→ 7.14](lecture7.qmd#t7-14)
+:::
+
+## D. Definitions (4p)
+
+Describe: (a) cis-pQTL, (b) trans-pQTL, (c) lead SNP, (d) an independent signal in a GWAS.
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**(a) cis-pQTL:** a genetic variant associated with the plasma level of a protein that lies **near the gene encoding that protein**, commonly within about 1 Mb. It probably acts directly on that protein's own transcription, splicing, stability or secretion.
+
+**(b) trans-pQTL:** a variant associated with the protein level that lies **outside the cis window** (more than about 500 kb to 1 Mb from the protein's gene, or on another chromosome). It acts indirectly, for example through a transcription factor or another pathway, so it carries a higher risk of pleiotropy.
+
+**(c) Lead SNP:** the SNP with the **smallest p-value in a locus**, kept as the index SNP after clumping. It represents the signal but is **not necessarily causal**: it may only be in LD with the causal variant.
+
+**(d) Independent signal:** what remains after LD clumping: lead SNPs that are not correlated with each other (r² below the threshold), so each represents a separate association rather than the same one counted twice. [→ K.9](key-concepts.qmd#k-9) · [→ K.18](key-concepts.qmd#k-18)
+:::
+
+## E. Looking up a gene in a disease GWAS (4p)
+
+A colleague studies the enzyme **Z** and asks whether genetic variants in or around the gene for Z affect the risk of asthma. You have the summary statistics of a large asthma GWAS.
+
+(a) How would you look for such variants? (2p)
+(b) You find nothing. What can you conclude? (2p)
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**(a)**
+
+1. Find the position of the gene for Z **in the same genome build** as the GWAS file (GRCh37 or GRCh38).
+2. Define a region around it, for example the gene ± 500 kb to 1 Mb, and **extract all SNPs in that region** from the summary statistics.
+3. Look at their β, SE and p. Use genome-wide significance (5 × 10⁻⁸), or, since you are testing one pre-specified region, a **regional threshold** such as 0.05 divided by the number of SNPs (or independent LD blocks) in the region.
+4. Draw a **regional association plot** (−log₁₀ p against position, coloured by LD with the top SNP) to see whether there is a peak and where it is.
+5. If something is found: check whether the top SNP is a **cis-pQTL or eQTL for Z**, and use **colocalization** to test whether the same variant drives Z and asthma.
+
+**(b)** No signal is **absence of evidence, not evidence of absence**. Possible reasons:
+
+- **Power:** the effect may be too small for the sample size.
+- **Coverage:** rare variants, or variants poorly genotyped or imputed, are not tested.
+- **Population:** the GWAS may be in a population where the relevant variants are rare.
+- **Biology:** common variants near the gene may not change Z enough to matter, even if Z itself affects asthma.
+
+You can conclude only that there is no detectable common-variant association in this GWAS. Next steps would be a larger GWAS, a meta-analysis or a pQTL-based MR for Z. [→ 4.10](lecture4.qmd#t4-10) · [→ K.11](key-concepts.qmd#k-11)
+:::
+
+## F. Reading an MR result (5p)
+
+An MR analysis of LDL-cholesterol-raising variants (exposure) on stroke (outcome) gives:
+
+| SNP | β exposure | β outcome |
+|---|---|---|
+| SNP1 | 0.10 | 0.020 |
+| SNP2 | 0.15 | 0.031 |
+| SNP3 | 0.20 | 0.039 |
+| SNP4 | 0.25 | 0.051 |
+| SNP5 | 0.12 | 0.090 |
+
+(a) Plot β outcome against β exposure in your head. Describe what such a plot shows and compute the Wald ratio for each SNP (3p).
+(b) Suggest reasons why SNP5 behaves differently from the others (2p).
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**(a)** Each point is one SNP: its effect on the exposure (x) against its effect on the outcome (y), with error bars for the SEs. If the exposure causes the outcome, the points lie on a **line through the origin**, and its slope is the causal effect. The **Wald ratio** for each SNP is β outcome / β exposure:
+
+| SNP | Wald ratio |
+|---|---|
+| SNP1 | 0.020/0.10 = 0.20 |
+| SNP2 | 0.031/0.15 = 0.21 |
+| SNP3 | 0.039/0.20 = 0.20 |
+| SNP4 | 0.051/0.25 = 0.20 |
+| SNP5 | 0.090/0.12 = **0.75** |
+
+SNP1–4 agree on about 0.20 per unit of exposure, so the **IVW** estimate (a weighted average of the Wald ratios, with weights from the outcome SEs) would be close to 0.2 if SNP5 were set aside. A positive slope means genetically higher LDL is associated with higher stroke risk.
+
+**(b)** SNP5 has a much larger outcome effect than its exposure effect predicts. Possible reasons:
+
+- **Horizontal pleiotropy:** SNP5 also affects stroke through another pathway (for example blood pressure), which violates the exclusion restriction.
+- **LD with another causal variant** that affects stroke directly.
+- **Harmonisation error:** wrong effect allele or a palindromic SNP aligned to the wrong strand.
+- **Chance:** a large SE on β outcome.
+
+Follow-up: a heterogeneity test (Cochran's Q), leave-one-out analysis, and robust methods (weighted median, MR-Egger). [→ 6.7](lecture6.qmd#t6-7) · [→ 6.8](lecture6.qmd#t6-8) · [→ K.15](key-concepts.qmd#k-15)
+:::
+
+## G. Choosing instruments for a protein vs a complex trait (4p)
+
+You have summary statistics for two GWAS. GWAS 1: **body mass index** (BMI). GWAS 2: plasma level of **protein Y**. Explain why you might select SNPs differently for GWAS 2 than for GWAS 1, and how this reflects the pathway from SNP to exposure.
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**GWAS 1 (BMI):** BMI is highly polygenic and affected by many biological pathways. The usual approach: take **genome-wide significant SNPs from across the whole genome** (p < 5 × 10⁻⁸), LD-clump them into independent signals and use them all as instruments. Their mechanisms are mostly unknown, so horizontal pleiotropy is likely, and robust methods (weighted median, MR-Egger) are important.
+
+**GWAS 2 (protein Y):** a protein has its own gene, so you can select **cis-pQTLs**: SNPs near the gene encoding Y (within about 1 Mb). The pathway is then short and well defined: **SNP → transcription, splicing or secretion of Y → level of Y → outcome**. That makes the exclusion restriction much more plausible (vertical pleiotropy only), and it mimics the effect of a drug targeting Y. **trans-pQTLs** are usually left out, because they act through other genes and pathways and are more likely to be pleiotropic.
+
+Consequences: you often have only one or a few cis instruments, so a Wald ratio or an IVW that accounts for correlated SNPs is used, and **colocalization** checks that the same variant drives Y and the outcome. A coding cis variant may also change how an assay binds Y, so the "pQTL" can be a measurement artefact. [→ 8.10](lecture8.qmd#t8-10) · [→ 8.11](lecture8.qmd#t8-11)
+:::
+
+## H. From protein association to causation (12p)
+
+A cohort of 30,000 people measures 1,500 plasma proteins and follows them for incident type 2 diabetes. **Protein Y** is strongly associated with diabetes after adjustment for age and sex. A genetic variant near the gene for protein Y is associated with its plasma level.
+
+(a) Give two biological or methodological reasons why the protein Y–diabetes association does not by itself show that protein Y causes diabetes (4p).
+(b) The variant is a strong cis-pQTL for protein Y. Explain how it can be used as an instrumental variable in MR, and state the three core MR assumptions in this context (6p).
+(c) The protein Y pQTL and the diabetes GWAS both have a signal in the same region, but it is unclear whether one causal variant drives both. Explain why colocalization would be useful (2p).
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**(a)** Any two, each linked to the case:
+
+- **Confounding:** obesity, physical inactivity or low-grade inflammation can raise protein Y **and** diabetes risk. Adjusting for age and sex does not remove them, and unmeasured confounders can never be fully adjusted for.
+- **Reverse causation:** early, undiagnosed insulin resistance may already change protein Y years before diagnosis, so the protein can be a **marker** of the disease process rather than a cause.
+- **Multiple testing / chance:** with 1,500 proteins, some associations are false positives unless the analysis controls the FDR or FWER.
+- **Measurement issues:** batch effects, sample handling or an assay that binds something other than protein Y.
+
+The question is about the **protein–disease association**, so the answer should be about observational confounding and reverse causation, not about LD between SNPs.
+
+**(b)** Genotypes are assigned at conception, before disease, and are roughly randomly distributed with respect to lifestyle. People with the level-raising allele therefore have lifelong higher protein Y, much like a randomized trial of "high vs low protein Y". The MR estimate is the effect of the variant on diabetes divided by its effect on protein Y (the **Wald ratio**). The three assumptions:
+
+1. **Relevance:** the variant is strongly associated with protein Y (check the F-statistic; here a strong cis-pQTL).
+2. **Independence:** the variant is not associated with confounders of the protein Y–diabetes relation, for example ancestry (handled by principal components and an ancestry-matched sample).
+3. **Exclusion restriction:** the variant affects diabetes **only through protein Y**, with no other pathway (no horizontal pleiotropy). A cis variant makes this more plausible, since it acts directly on the protein's own gene.
+
+**(c)** Two different causal variants can sit close together in LD: one changing protein Y and one changing diabetes risk through another mechanism. MR with the pQTL would then show a "protein Y → diabetes" effect that is only **LD confounding**. Colocalization tests whether the two association patterns in the region are driven by the **same causal variant** (in the formal method, high posterior probability for one shared variant). If they colocalize, the MR result is more credible; if not, it is probably confounded by LD. [→ 8.8](lecture8.qmd#t8-8) · [→ K.14](key-concepts.qmd#k-14) · [→ K.19](key-concepts.qmd#k-19)
+:::
+
+## I. LD clumping (4p)
+
+Describe the procedure of LD clumping.
+
+::: {.callout-tip collapse="true" icon="false"}
+## Model answer
+**Input:** GWAS **summary statistics** (SNP, p-value) and an **LD reference panel** of the same ancestry (for example 1000 Genomes), which gives r² between SNPs.
+
+**Parameters:** a p-value threshold (for example 5 × 10⁻⁸ for MR instruments), an r² threshold (for example 0.001–0.01) and a window (for example 1,000–10,000 kb).
+
+**Steps:**
+
+1. Keep the SNPs below the p-value threshold and **sort them by p**, smallest first.
+2. Take the most significant SNP as the **index (lead) SNP**.
+3. **Remove** all SNPs within the window that have r² above the threshold with the index SNP; they carry the same signal.
+4. Take the next most significant remaining SNP as a new index SNP and repeat until no SNPs remain.
+
+**Output:** a set of approximately **independent** lead SNPs, one per signal. They are used as MR instruments or in a PRS so that one signal is not counted several times. Clumping does not show which SNP is causal; the lead SNP is a tag for its region. Harmonisation of alleles between exposure and outcome is a **separate later step**, not part of clumping. [→ K.10](key-concepts.qmd#k-10) · [→ 5.4b](lecture5.qmd#t5-4b)
 :::
 
 # 🎯 Instructor's example questions: Lecture 7
